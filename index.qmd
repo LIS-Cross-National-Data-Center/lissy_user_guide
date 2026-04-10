@@ -1,0 +1,17 @@
+
+<center>
+
+<h1>Welcome to LISSY !</h1>
+
+</center>
+
+<br>
+
+Welcome to Lissy, this will be the landing page of the new interactivfe website to Guide the users on LISSY, and have some examples on both R and Stata, as well as section og Getting Started and on FAQs,
+
+**News and Upcoming Events:**
+
+-   As usual no Data on Portugal
+-   Thousands of Datasets are still there nevertheless.
+
+Project announcements: [LIS](https://www.lisdatacenter.org/) • Please connect with via email, and check our Newsletter.

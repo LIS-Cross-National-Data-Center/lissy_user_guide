@@ -1,0 +1,17 @@
+---
+title: "R Users"
+---
+
+# R Users
+
+Welcome R people 👋
+
+## What you'll find here
+
+- Importing data
+- Cleaning data
+- Exploring data
+
+## Vibes
+
+R is friendly until it isn't.

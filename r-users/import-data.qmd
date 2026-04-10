@@ -1,0 +1,240 @@
+---
+title: "Import Data"
+---
+
+```{=html}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll(".foldable").forEach(function(block) {
+
+    // hide initially
+    block.style.display = "none";
+
+    const toggle = document.createElement("button");
+    toggle.textContent = "Show Output";
+
+    block.parentNode.insertBefore(toggle, block);
+
+    toggle.addEventListener("click", function() {
+      const isHidden = block.style.display === "none";
+      if (isHidden) {
+        block.style.display = "block";
+        toggle.textContent = "Hide Output";
+      } else {
+        block.style.display = "none";
+        toggle.textContent = "Show Output";
+      }
+    });
+  });
+});
+</script>
+```
+
+## Importing data in LISSY
+
+LIS and LWS datasets are split by country, year, and level (household and individual). To load data in LISSY, we can use the following two methods.
+
+### Method 1: `lissyuse`
+
+Using the `lissyuse()` function from our in-house [lissyrtools](https://lis-cross-national-data-center.github.io/lissyrtools/) package has three main advantages:
+
+1.  Imports all datasets available, given specific ISO2 country codes by default;
+
+2.  Automatically selects the correct data level based on the variables requested;
+
+3.  If both household-level and person-level variables are selected, the corresponding files are automatically merged for each country–year.
+
+```{r, echo=TRUE , message=FALSE, warning=FALSE}
+library(lissyrtools)
+```
+
+#### Advantage 1
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold' }
+
+#' We can load all the datasets available in LIS 
+#'  for Mexico and the USA, simply by inputting their ISO2 codes.
+
+lis_data <- lissyrtools::lissyuse(
+  data = c("mx", "us"), 
+  vars = "dhi",
+)
+
+# The output of `lissyrtools::lissyuse()` will always be a list of data frames. 
+class(lis_data)
+names(lis_data)
+```
+
+
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold' }
+
+#' For a shorter time span, 
+#'  the user can also define the `from` and `to` arguments.
+
+lis_data <- lissyrtools::lissyuse(
+  data = c("mx", "us"), 
+  vars = "dhi",
+  from = 2014,
+  to = 2016
+)
+```
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold' }
+
+# Specific datasets can also be selected by specifying its `ccyy` code
+
+lis_data <- lissyrtools::lissyuse(
+  data = c("it16", "mx", "us"), 
+  vars = "dhi",
+  from = 2014,
+  to = 2016
+)
+
+```
+
+#### Advantage 2
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold'}
+
+#' Based on the variables defined in the `vars` argument, 
+#'  `lissyuse()` will select the level of the datasets in accordance.  
+
+h_level_data <- lissyrtools::lissyuse(
+  data = "lu18", 
+  vars = c("dhi", "region_c", "typehh") # only h-level 
+)
+
+# Names of the data frames in the list will have an `h` suffix.
+```
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: hold
+
+p_level_data <- lissyrtools::lissyuse(
+  data = "lu18", 
+  vars = c("age", "sex", "relation", "emp", "pi11") # only p-level 
+)
+
+# Names of the data frames in the list will have a `p` suffix.
+```
+
+#### Advantage 3
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold'}
+
+#' If both h-level and p-level variables are selected
+#'  then `lissyuse()` will automatically merge both files in one single data frame. 
+
+merged_hhd_ind_data <- lissyrtools::lissyuse(
+  data = "lu18", 
+  vars = c("dhi", "region_c", "typehh", "age", "sex", "relation", "emp", "pi11")
+)
+
+# Names of the data frames will not have a suffix.
+
+#' NOTE: some variables are always imported by default, 
+#'  with no need to be defined explicitly. 
+names(merged_hhd_ind_data[[1]])
+```
+
+#### Importing LWS data
+
+To import LWS data, one would need to change the selection in the `Project` drop-down menu, and add the `lws` a logical argument.
+
+![](/images/project_lws.png){fig-align="center"}
+
+```{r, eval=TRUE, echo=TRUE}
+us_lws_data = lissyrtools::lissyuse(
+  data = c("us"), 
+  vars = c("dnw"),  # disposable net wealth - LWS specific variable. 
+  from = 2015, 
+  lws = TRUE        # `lws` logical argument  
+)
+
+names(us_lws_data[[1]])
+```
+
+#### Auxilliary Functions
+
+In `lissyrtools` there are other auxiliary functions concerning the selection of the correct ISO2 codes and the LIS / LWS variables.
+
+```{r, eval=TRUE, echo=TRUE,  results = 'hold', class.output = "foldable"}
+lissyrtools::get_countries_lis()
+lissyrtools::get_countries_lws()
+```
+
+```{r, eval=TRUE, echo=TRUE, class.output = "foldable"}
+lissyrtools::get_years_lis(c("es", "de", "it", "fr", "cz", "pl")) 
+```
+
+```{r, eval=TRUE, echo=TRUE,  results = 'hold', class.output = "foldable"}
+# To check the labels of the variables imported
+lissyrtools::variable_labels(vars = merged_hhd_ind_data) 
+lissyrtools::variable_labels(vars = us_lws_data)
+```
+
+### Method 2: `read.LIS()`
+
+Alternatively, we have a less automated version, used for longer, imports all the ccyy, by (level) separarteyl, and appends them in a single `data.frame` and not in a `list`.
+
+
+```{r, eval=TRUE, echo=FALSE, include=FALSE}
+source("../src/read.LIS.R")
+```
+
+```{r, eval=TRUE, echo=FALSE, include=FALSE}
+# put here the code of read.LIS, then on a hidden file, such that is doesn't go to the github. 
+source("../src/read.LIS.R") 
+```
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold'}
+data_h <- read.LIS(c("de18h", "es18h")) # Import h-level data for Lux. 2010 
+data_p <- read.LIS(c("de18p", "es18p")) # Import p-level data for Lux. 2010 
+
+full_data <- merge(data_p, data_h, by = c("dname", "hid"))  
+class(full_data) 
+```
+
+#### Importing LWS data
+
+To import LWS data, the syntax remains exactly the same, but again the Project must be changed in the drop-down menu.
+
+![](/images/project_lws.png){fig-align="center"}
+
+
+```{r, eval=TRUE, echo=FALSE, include=FALSE}
+# put here the code of read.LIS, then on a hidden file, such that is doesn't go to the github. 
+source("../src/read.LIS_for_lws.R") 
+```
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold'}
+varh <- c('hid', 'dname', 'own', 'dnw', 'inum')
+varp <- c('hid', 'dname', 'inum', 'ppopwgt', 'age', 'sex', 'relation', 'emp', 'ptime1')
+
+
+data_h <- read.LIS(c("de17h", "es17h"), vars = varh)
+data_p <- read.LIS(c("de17p", "es17p"), vars = varp)
+
+full_data <- merge(data_h, data_p, by = c("dname", "hid")) 
+df <- merge(data_p , data_h , by = c("dname", "hid", "inum"))
+
+names(df)
+```
+
+#### Importing LWS files on replicate weights
+
+At the moment, this is the only method that allows users to import the files with replicate weights for LWS.
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold', class.output = "foldable"}
+
+varh <- c('hid', 'dname', 'own', 'dnw', 'inum')
+
+data_h <- read.LIS("us19h", vars = varh)
+file_r <- read.LIS("us19r")
+
+df <- merge(data_h, file_r, by = "hid")
+names(df)
+```

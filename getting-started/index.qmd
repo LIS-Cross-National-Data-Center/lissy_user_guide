@@ -1,0 +1,21 @@
+---
+title: "Getting Started"
+---
+
+# Getting Started
+
+Welcome to the getting started section.
+
+## Step 1
+
+Do something vague.
+
+## Step 2
+
+Do something even more vague.
+
+## Notes
+
+- Item one
+- Item two
+- Item potato

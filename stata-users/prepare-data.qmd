@@ -1,0 +1,77 @@
+---
+title: "Stata Users - Prepare"
+---
+
+# Preparing Data
+
+
+This page is dedidcated to show LISSY users, routine data preparations LIS data 
+
+
+## Prepare the Data
+
+```{r, include=FALSE}
+source("../src/stata_machine.R")
+library(Statamarkdown)
+stataexe <- get_stata_machine_path()
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+```
+
+```{stata, echo = FALSE, results = "hide", collectcode = TRUE}
+do "../src/lissyuse.do"
+```
+
+
+```{stata, eval = FALSE, echo = TRUE}
+
+*==========================================
+* Identify and loop over selected datasets
+*=========================================
+	 
+levelsof dname, local(levels)
+foreach ccyy of local levels {
+		
+	**
+	preserve
+	**
+	di "`ccyy'"
+	keep if dname == "`ccyy'"
+
+
+		// 2) Data preparation 
+
+	*===================================
+	* Filter out missing observations 
+	*===================================
+	 
+	drop if missing(dhi)
+	 
+	*===================================
+	* Create person weight (data is at household-level)
+	*===================================
+	 
+	generate double pwt = hwgt * nhhmem 
+	 
+	*===================================
+	* Bottom and top coding / outlier detection
+	*===================================
+
+	generate double dhi_log = log(dhi) 
+	replace dhi_log = 0 if dhi_log == . & dhi != . // keep negatives and 0 
+
+	sort dhi_log hwgt
+	qui percentils dhi_log [aw = hwgt], p(25 75)
+	local p75 = e(Perc_75)
+	local p25 = e(Perc_25) 
+	gen double iqr = `p75' - `p25'  // interquartile range
+	gen double upper_bound = `p75'  + (iqr * 3)  // upper bound for extreme values
+	gen double lower_bound = `p25'  - (iqr * 3)  // lower bound for extreme values
+	replace dhi=exp(upper_bound) if dhi>exp(upper_bound)  // top code income at upper bound for extreme values
+	replace dhi=exp(lower_bound) if dhi<exp(lower_bound)  // bottom code income at lower bound for extreme values
+
+	*===================================
+	* Equivalise income (square root)
+	*===================================
+	generate double ey = ( dhi / (nhhmem^0.5) )
+
+```

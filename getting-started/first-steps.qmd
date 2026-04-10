@@ -1,0 +1,23 @@
+
+---
+
+# 🧪 `getting-started/first-steps.qmd`
+
+```markdown
+---
+title: "First Steps"
+---
+
+# First Steps
+
+## Try this
+
+Write some code. Break it. Fix it.
+
+## Thoughts
+
+Everything is working perfectly (this is a lie).
+
+## More text
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.

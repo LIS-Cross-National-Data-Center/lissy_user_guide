@@ -1,0 +1,43 @@
+---
+title: "Stata Users - Import"
+description: |
+  In this page we teach how to access LIS data in LISSY using Stata programming language.
+---
+
+```{r, include=FALSE}
+source("../src/stata_machine.R")
+library(Statamarkdown)
+stataexe <- get_stata_machine_path()
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+```
+
+```{stata, echo = FALSE, results = "hide", collectcode = TRUE}
+do "../src/lissyuse.do"
+```
+
+## Importing data in LISSY
+
+LIS and LWS datasets are split by country, year, and level (household and individual). To load data in LISSY, we can use the following two methods.
+
+### Method 1: `lissyuse`
+
+Created by the LIS team, the `lissyuse` command was designed to load LIS and LWS data in LISSY in the most efficient way possible.
+
+```{stata, eval =TRUE, echo=TRUE}
+qui lissyuse, iso2(it) hvars(hid region_c dname dhi year) from(2014)
+tab dname
+sum 
+```
+
+<br>
+
+Alternatively, the \`lws\` option must be added, when importing LWS datasets, toghether with a change in the <b>Project</b> dropdown menu. 
+
+<br>
+
+![](/images/project_lws.png){fig-align="center"}
+
+```{stata, eval =TRUE, echo=TRUE}
+qui lissyuse, iso2(it) hvars(hid region_c dname year dnw) lws
+sum dnw
+```

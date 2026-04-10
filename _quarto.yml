@@ -1,0 +1,103 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "LISSY User Guide"
+  favicon: images/main.jpg
+  bread-crumbs: false
+  page-navigation: true
+
+  page-footer:
+    left: |
+      &copy; Luxembourg Income Study
+    right: |
+      This site is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.  
+      Inspired by R4DS and NASA Openscapes.
+
+  # ✅ TOP NAVBAR
+  navbar:
+    left:
+      - text: "Getting Started"
+        href: getting-started/index.qmd
+      - text: "R Users"
+        href: r-users/index.qmd
+      - text: "Stata Users"
+        href: stata-users/index.qmd
+      - text: "FAQs"
+        href: faqs/index.qmd
+
+  # ✅ SIDEBAR (contextual, appears on pages)
+  sidebar:
+
+    # -------------------------
+    # Getting Started Sidebar
+    # -------------------------
+    - id: getting-started
+      title: "Getting Started"
+      contents:
+        - text: "Overview"
+          href: getting-started/index.qmd
+        - text: "Installation"
+          href: getting-started/installation.qmd
+        - text: "First Steps"
+          href: getting-started/first-steps.qmd
+
+    # -------------------------
+    # R Users Sidebar
+    # -------------------------
+    - id: r-users
+      title: "R Users"
+      contents:
+        - text: "Overview"
+          href: r-users/index.qmd
+        - section: "Data Handling"
+          contents:
+            - text: "Import Data"
+              href: r-users/import-data.qmd
+            - text: "Prepare Data"
+              href: r-users/prepare-data.qmd
+            - text: "Explore Data"
+              href: r-users/explore-data.qmd
+
+    # -------------------------
+    # Stata Users Sidebar
+    # -------------------------
+    - id: stata-users
+      title: "Stata Users"
+      contents:
+        - text: "Overview"
+          href: stata-users/index.qmd
+        - section: "Data Handling"
+          contents: 
+            - text: "Import Data"
+              href: stata-users/import-data.qmd
+            - text: "Prepare Data"
+              href: stata-users/prepare-data.qmd
+            - text: "Explore Data"
+              href: stata-users/explore-data.qmd  
+
+    # -------------------------
+    # FAQs Sidebar
+    # -------------------------
+    - id: faqs
+      title: "FAQs"
+      contents:
+        - text: "Common Questions"
+          href: faqs/index.qmd
+
+
+format:
+  html:
+    theme: [cosmo, custom.scss]
+    css: styles.css
+
+    toc: true
+    toc-title: "On this page"
+    toc-location: right
+
+    code-link: true
+    callout-appearance: simple
+
+editor: source
+

@@ -1,0 +1,22 @@
+---
+title: "Installation"
+---
+
+# Installation
+
+## Requirements
+
+- A computer
+- Some patience
+- Maybe coffee
+
+## Steps
+
+1. Click things
+2. Install stuff
+3. Hope it works
+
+## Code example
+
+```r
+print("Hello Lissy")

@@ -1,0 +1,21 @@
+
+---
+
+# 📉 `stata-users/index.qmd`
+
+```markdown
+---
+title: "Stata Users"
+---
+
+# Stata Users
+
+Welcome Stata people.
+
+## Coming soon
+
+Content will exist here eventually.
+
+## For now
+
+Just pretend there is useful stuff.

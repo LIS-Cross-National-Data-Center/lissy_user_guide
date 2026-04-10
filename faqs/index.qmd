@@ -1,0 +1,17 @@
+---
+title: "FAQs"
+---
+
+# FAQs
+
+## Q: Does this work?
+
+A: Hopefully yes.
+
+## Q: Why is this here?
+
+A: Testing purposes.
+
+## Q: Is this serious?
+
+A: Absolutely not.
