@@ -98,6 +98,9 @@ format:
 
     code-link: true
     callout-appearance: simple
+    include-after-body:
+      - text: |
+          <script src="/assets/foldable.js"></script>
 
 editor: source
 

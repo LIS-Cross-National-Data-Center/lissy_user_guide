@@ -2,33 +2,6 @@
 title: "Import Data"
 ---
 
-```{=html}
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  document.querySelectorAll(".foldable").forEach(function(block) {
-
-    // hide initially
-    block.style.display = "none";
-
-    const toggle = document.createElement("button");
-    toggle.textContent = "Show Output";
-
-    block.parentNode.insertBefore(toggle, block);
-
-    toggle.addEventListener("click", function() {
-      const isHidden = block.style.display === "none";
-      if (isHidden) {
-        block.style.display = "block";
-        toggle.textContent = "Hide Output";
-      } else {
-        block.style.display = "none";
-        toggle.textContent = "Show Output";
-      }
-    });
-  });
-});
-</script>
-```
 
 ## Importing data in LISSY
 
@@ -50,7 +23,7 @@ library(lissyrtools)
 
 #### Advantage 1
 
-```{r, eval=TRUE, echo=TRUE, results = 'hold' }
+```{r, eval=TRUE, echo=TRUE, results = 'hold'}
 
 #' We can load all the datasets available in LIS 
 #'  for Mexico and the USA, simply by inputting their ISO2 codes.
@@ -70,7 +43,7 @@ names(lis_data)
 ```{r, eval=TRUE, echo=TRUE, results = 'hold' }
 
 #' For a shorter time span, 
-#'  the user can also define the `from` and `to` arguments.
+#'  the user can also specify the `from` and `to` arguments.
 
 lis_data <- lissyrtools::lissyuse(
   data = c("mx", "us"), 
@@ -108,10 +81,7 @@ h_level_data <- lissyrtools::lissyuse(
 # Names of the data frames in the list will have an `h` suffix.
 ```
 
-```{r}
-#| eval: true
-#| echo: true
-#| output: hold
+```{r, eval=TRUE, echo=TRUE, results = 'hold' }
 
 p_level_data <- lissyrtools::lissyuse(
   data = "lu18", 
