@@ -1,0 +1,109 @@
+---
+title: "Import Data"
+---
+
+## Lists in R
+
+As discussed earlier, the remainder of this guide focuses on **Method 1**, which imports LIS data as a **list**. In this structure, each element corresponds to a dataset for a specific country–year combination, at either the household or person level.
+
+This approach reflects the way LIS data are organized and makes it possible to work with multiple datasets in a consistent and transparent manner.
+
+#### **Why not convert the list into a unique data.frame ?**
+
+While the choice ultimately depends on user preference and the specific task at hand, there are several reasons why keeping the data in a list structure may be more appropriate.
+
+<br>
+
+### 1. Taking full advantage of `lissyrtools`
+
+Given the way `lissyrtools` is designed, it is often more effective to retain the original **list structure** returned by `lissyuse()`. In general, many functions in the package are built around list-based workflows and functional programming principles, which are used consistently throughout this guide.
+
+Working with a list of data frames removes the need to explicitly loop over each country–year (`ccyy`) dataset when applying common transformations. For example, operations such as top- or bottom-coding based on distributional criteria can be applied seamlessly across all elements of the list.
+
+Similarly, there is no need to manually merge auxiliary data such as deflators or PPP conversion factors. Functions like `apply_ppp_adjustment()` handle these operations directly, applying the appropriate transformation to each country–year dataset within the list.
+
+In addition, `lissyrtools` provides a range of functions to compute **survey-weighted** indicators of inequality and poverty. These functions automatically return results aggregated by **country** and **year**, and, when relevant, by **categories**, with the option to further disaggregate by additional subgroups. This reduces the need for explicit grouping operations using functions such as `group_by()`.
+
+Overall, this approach supports a workflow that is more efficient, more readable, more reproducible, and less prone to error.
+
+### 2. The [`purrr`](https://purrr.tidyverse.org/) package
+
+**What if** `lissyrtools` **does not porvide a specific functionality required for the analysis?** This is where the **`purrr`** package, part of the tidyverse, becomes particularly useful.
+
+As comprehensive as it is, `lissyrtools` cannot account for all possible adjustments or indicators that a user may wish to implement. In such cases, it may be necessary to rely on more flexible tools such as those provided by `purrr`.
+
+One of the most intuitive ways to work with lists is to first define a data-processing pipeline for a single data frame, and then generalize that pipeline to all elements of the list using functions like `purrr::map()`. This approach, commonly referred to as **functional programming (FP)**, allows for clear and readable code, while ensuring that the same transformations (functions) are applied consistently across all datasets.
+
+One of the most intuitive ways to work with lists is to **design a data-processing pipeline for a single data frame** and then generalize that pipeline/function to all elements of the list using functions from the `purrr` package. This approach, called functionalbe progrraming (FP) allows us to write clear, readable code while ensuring that the same transformations are applied consistently across datasets.
+
+The examples below illustrate actions coded inside `purrr` functions such as:
+
+-  recoding a categorical variable,
+
+-  filtering out missing values, and
+
+-  applying transformations only to a subset of data frames.
+
+```{r, message = FALSE, results='hold', warning = FALSE, eval  = FALSE}
+lissyrtools::lissyuse(c('es16', 'it16'), vars = c('dhi', 'sex')) %>%
+  purrr::map(
+    ~ .x %>% # '.x' represents an element of the list. A data frame in this case
+      dplyr::mutate(
+        sex_lis_variable = sex,
+        sex = dplyr::case_when(
+          sex == 1 ~ 0,
+          sex == 2 ~ 1,
+          is.na(sex) ~ TRUE
+        )
+      ) %>%
+      filter(!is.na(dhi))
+  )
+
+
+lissyrtools::lissyuse(c("es16", "it16"), vars = c("dhi", "sex", 'iso3')) %>%
+  purrr::imap(
+    ~ if (stringr::str_starts(.y, 'es')) { # '.y' represents the name of an element on the list.
+      .x %>% dplyr::mutate(iso2 = 'sp')
+    } else {
+      .x
+    }
+  )
+```
+
+In this guide, three key functions from this package will be addressed. These are: **`purrr::map()`**, **`purrr::imap()`** and **`purrr::map2()`**.
+
+### 3. Country-specific varaibles
+
+Another key reason to avoid immediately combining datasets is the presence of **country-specific variables**.
+
+These variables, identified by the `_c` suffix (e.g. `region_c`, `ethnic_c`), are not directly comparable across countries. This is due either to:
+
+-  the nature of the concepts they capture (such as geography or education systems)
+
+-  differences in the classifications used by national data providers (e.g. labor market occupation or economic activity classifications), which may not follow a common international standard.
+
+As a result, although these variables share the same name across datasets, their **underlying numeric codes and associated labels can differ across countries**, and in some cases even **across years within the same country**.
+
+The image below illustrates a case where an Italian and a German region share the same numeric code:
+
+![](/images/country_specific_issue_counts.png){fig-align="center"}
+
+Binding these datasets together immediately, can therefore lead to **label conflicts**, as illustrated in the example below.
+
+```{r, message = FALSE, warning =(2:3), results='hold'}
+library(lissyrtools)
+library(dplyr)
+
+x <- lissyuse(
+  data = c("it16", "de16"), 
+  vars = "region_c"
+  )
+
+x_binded <- dplyr::bind_rows(x)
+```
+
+Keeping datasets in a list helps preserve these differences and avoids unintended inconsistencies. Lists in R therefore provide a flexible way to organize LIS data while still allowing us to apply the same operations to each dataset.
+
+------------------------------------------------------------------------
+
+Throught this initial section on importing the data, we covered all aspects the user user need to be knowledgeable ahead of start workign with LIS data. Dataset structure, country codes, finding the variables names and asses their availability and notes. AS also the essential and benefits or working with list, and a way to overcome the limitations from [`lissyrtools`]{.underline}. In the next part, we will shift our focus on how can the user get quickly acquainted and assessed the data he or she imported.

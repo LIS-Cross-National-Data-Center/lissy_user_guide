@@ -1,0 +1,61 @@
+---
+title: "Import Data"
+---
+
+
+## Method 2 - `read.LIS()`
+
+The second method, the `read.LIS()` function has a less automated approach on importing the data, and was more commonly used in the past. 
+
+This method requires handling each country-year file separately by level. The imported datasets are then appended into a single data.frame, rather than being stored as a list.
+
+Despite being superseded in most workflows, this function is still useful in specific cases—particularly for importing less frequently used files, such as those containing replicate weights in LWS.
+ 
+
+
+```{r, eval=TRUE, echo=FALSE, include=FALSE}
+source("../src/read.LIS.R")
+```
+
+```{r, eval=TRUE, echo=FALSE, include=FALSE}
+# put here the code of read.LIS, then on a hidden file, such that is doesn't go to the github. 
+source("../src/read.LIS.R") 
+```
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold'}
+data_h <- read.LIS(c("de18h", "es18h")) # Import h-level data for Lux. 2010 
+data_p <- read.LIS(c("de18p", "es18p")) # Import p-level data for Lux. 2010 
+
+full_data <- merge(data_p, data_h, by = c("dname", "hid"))  
+class(full_data) 
+```
+
+<br>
+
+#### Importing LWS data
+
+To import LWS data, the syntax remains exactly the same, but again the <b>Project</b> must be changed in the drop-down menu.
+
+![](/images/project_lws.png){fig-align="center"}
+
+
+```{r, eval=TRUE, echo=FALSE, include=FALSE}
+# put here the code of read.LIS, then on a hidden file, such that is doesn't go to the github. 
+source("../src/read.LIS_for_lws.R") 
+```
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold'}
+varh <- c('hid', 'dname', 'own', 'dnw', 'inum')
+varp <- c('hid', 'dname', 'inum', 'ppopwgt', 'age', 'sex', 'relation', 'emp', 'ptime1')
+
+
+data_h <- read.LIS(c("de17h", "es17h"), vars = varh)
+data_p <- read.LIS(c("de17p", "es17p"), vars = varp)
+
+full_data <- merge(data_h, data_p, by = c("dname", "hid")) 
+df <- merge(data_p , data_h , by = c("dname", "hid", "inum"))
+
+names(df)
+```
+
+

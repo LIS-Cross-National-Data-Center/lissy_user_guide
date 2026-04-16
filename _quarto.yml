@@ -35,6 +35,7 @@ website:
     # -------------------------
     - id: getting-started
       title: "Getting Started"
+      collapse-level: 1
       contents:
         - text: "Overview"
           href: getting-started/index.qmd
@@ -51,14 +52,46 @@ website:
       contents:
         - text: "Overview"
           href: r-users/index.qmd
+        - section: "Import Data"
+          collapsed: true          # 👈 add this
+          contents: 
+            - text: "Method 1: lissyuse"
+              href: r-users/method1.qmd 
+            - text: "Method 2: read.LIS()"
+              href: r-users/method2.qmd
+            - text: "Country Codes and Variables"
+              href: r-users/ccyy_vars.qmd 
+            - text: "Bonus: lists over data.frames ?"
+              href: r-users/lists_over_df.qmd
+        - section: "Describing Data"
+          contents: 
+            - text: "Categorical Variables"
+              href: r-users/dd_catg_vars.qmd 
+            - text: "Continuous Variables"
+              href: r-users/dd_cont_vars.qmd
         - section: "Data Handling"
-          contents:
-            - text: "Import Data"
-              href: r-users/import-data.qmd
-            - text: "Prepare Data"
-              href: r-users/prepare-data.qmd
-            - text: "Explore Data"
-              href: r-users/explore-data.qmd
+          contents: 
+            - text: "Categorical Variables"
+              href: r-users/dh_catg_vars.qmd 
+            - text: "Continuous Variables"
+              href: r-users/dh_cont_vars.qmd  
+        - section: "Aggregate Figures"
+          contents: 
+            - text: "run_weighted functions"
+              href: r-users/rwf.qmd 
+            - text: "Tidy up results"
+              href: r-users/tidy_structure_to_plot.qmd
+            - text: "Export to csv"
+              href: r-users/exp_to_csv.qmd 
+            - text: "Plots in LISSY"
+              href: r-users/plots.qmd
+        - section: "Best Practises"
+          contents: 
+            - text: "Best Practises"
+              href: r-users/bp.qmd                           
+
+
+              
 
     # -------------------------
     # Stata Users Sidebar

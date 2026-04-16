@@ -1,0 +1,133 @@
+---
+title: "Import Data"
+---
+
+## Country Codes
+
+LIS uses ISO-2 country codes to identify the country associated with each dataset. To support this, the `get_countries_*()` functions allow users to quickly retrieve and verify the necessary country codes before loading data. 
+
+```{r, eval=TRUE, echo=TRUE,  results = 'hold', class.output = "foldable"}
+lissyrtools::get_countries_lis()
+lissyrtools::get_countries_lws()
+```
+
+To obtain an overview of the years available for each country in the LIS and LWS databases, the auxiliary functions `get_years_*()` can be used like in the example below.
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold', class.output = "foldable"}
+
+lissyrtools::get_years_lis(c("es", "de", "it", "fr", "cz", "pl")) 
+lissyrtools::get_years_lws(c("no", "za"))
+```
+
+Finally, with the `get_surveys_*()` functions provide a snapshot on which surveys were used across the series of a given country.
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold', class.output = "foldable"}
+
+lissyrtools::get_surveys_lis(c("es", "de", "cz")) 
+lissyrtools::get_surveys_lws(c("no", "za"))
+
+```
+
+<div style="height: 30px;"></div>
+
+Survey changes across different periodsmay introduce breaks in consistency, potentially affecting the availability, content, or coverage of certain variables.
+
+<br>
+
+## Variables
+
+All datasets at a given level share the same set of variables. In practice, this means that even if a variable is not available in the original data provided to LIS, it will still appear in the dataset structure, filled entirely with missing values. 
+
+In addition to [METIS](https://www.lisdatacenter.org/frontend#/home), LIS provides two separate variable lists, one for [LIS](https://www.lisdatacenter.org/wp-content/uploads/files/data-lis-variables.pdf), and another for [LWS](https://www.lisdatacenter.org/wp-content/uploads/files/data-lws-variables.pdf).
+
+<br>
+
+[![](/images/lis_variable_list.png){fig-align="center"}](https://www.lisdatacenter.org/wp-content/uploads/files/data-lis-variables.pdf)
+
+
+### Finding variable names
+
+Each variable is defined by both: 
+
+<ul>
+  <li>its <b>name</b> in the dataset</li>
+  <li>its <b>label</b>, a short description indicating what the variable represents</li>
+</ul>
+
+To efficiently explore relevant variables and ensure you do not overlook any related to your topic of interest, you can search for patterns within variable labels. The `variable_labels()` function allows you to do this by specifying a string pattern:
+
+```{r, eval=TRUE, echo=TRUE}
+lissyrtools::variable_labels(pattern = 'occupation')  
+```
+
+For example, a researcher interested in housing topics could search using a different keyword: 
+
+```{r, eval=TRUE, echo=TRUE}
+lissyrtools::variable_labels(pattern = 'resid')  
+```
+
+### Availabilty
+
+Before starting an analysis, it is often useful to assess whether the necessary variables are sufficiently available across countries and time.
+
+This can be done using the `variable_exists()` function:
+
+```{r, eval=TRUE, echo=TRUE}
+lissyrtools::variable_exists(variable = "ethnic_c", iso2 = c('uk', 'ie'), lws = FALSE)
+```
+
+In addition to enabling cross-country searches for a given variable, this function also reports the share of datasets in which the variable contains non-missing values within each country series. 
+
+```{r, eval=TRUE, echo=TRUE}
+lissyrtools::variable_exists(variable = "basb", iso2 = c("fr", "de", "us", "uk"), lws = TRUE, share = TRUE)
+```
+
+
+
+
+### Notes
+
+Some variables are accompanied by notes. These may reflect:
+
+<ul>
+<li> changes in definition across years,
+<li> limitations in coverage,
+<li> the use of alternative weighting variables, or
+<li> other dataset-specific considerations highlighted by LIS.
+</ul>
+
+A convenient way to inspect all notes at once is to switch to the <b>Stata Package</b> in LISSY. 
+
+![](/images/project_stata_notes.png){fig-align="center"}
+
+```{r, include=FALSE}
+source("../src/stata_machine.R")
+library(Statamarkdown)
+stataexe <- get_stata_machine_path()
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+```
+
+```{stata, echo = FALSE, results = "hide", collectcode = TRUE}
+do "../src/lissyuse.do"
+```
+
+Once this setup is complete, all notes for a given country series can be retrieved as follows:
+
+```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
+qui lissyuse, iso2(se) from(2018)
+notes
+```
+
+<div style="height: 30px;"></div>
+
+
+If inconsistencies appear in a variable over time, or if verification is needed, the `variable_has_note()` function can be used to determine whether the variable is accompanied by any notes. 
+
+```{r, eval=TRUE, echo=TRUE}
+lissyrtools::variable_has_note(variable = "basb", iso2 = c("fr", "de", "us", "uk"), lws = TRUE)
+```
+
+Care should be taken to specify the `lws` argument correctly, in order to query the intended database (LIS or LWS).
+
+ 
+
