@@ -1,0 +1,148 @@
+---
+title: "Describing Data"
+---
+
+
+## Continuous Variables
+
+consumption, and wealth recorded in the respective variables.
+
+Standard summary statistics provide a useful first overview of the distribution of these variables. However, in many cases, it is helpful to go beyond these basic measures and construct additional indicators that better capture data availability and relevance.
+
+In this guide, the emphasis is not so much on the mechanics of computing descriptive statistics, but rather on demonstrating reproducible workflows that allow users to generate consistent cross-country descriptives over time with minimal effort. 
+
+
+### Quick Summary
+
+A natural starting point is to combine the base function `summary()` with the already familiar `map()` function to obtain an initial overview of a variable’s scale and distribution.
+
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
+library(lissyrtools)
+library(dplyr)
+library(purrr)
+
+it_data = lissyuse(data = 'it', vars = 'dhi', from = 2005)
+
+it_data %>% purrr::map(~ summary(.x$dhi)) # Disposable Household Income
+
+# Always make sure that the data is at the suited level of the variable you are analysing. 
+```
+
+<div style="height: 30px;"></div>
+
+
+**Disclaimer 1:** While `summary` provides a convenient initial overview, the computation of its distributional measures like the median, p25 and p75, do not follow the methodology used by LIS in its official figures. This is discussed in more detail [later in this section](/r-users/dd_cont_vars.html#pm).
+
+
+### Mapping helper function 
+
+In this section, we introduce the idea of building simple helper functions that extract a specific descriptive statistic from each dataset.
+
+The main objective is not the statistic itself, but rather to demonstrate how users can define reusable functions and apply them systematically across multiple datasets. By combining user-defined functions with mapping tools, it becomes straightforward to apply the same logic across all available data.
+
+As an illustration, one might compute the share of observations that are both non-missing and non-zero for a given variable across all datasets. This type of measure is especially useful for assessing data coverage, for example, determining whether a given income component is consistently observed across countries and years.
+
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE, class.output = "foldable"}
+it_data = lissyuse(data = 'it', vars = c('dhi', 'hicapital'), from = 2005)
+
+share_non_missing_non_zero <- function(df, variable_of_interest) {
+
+    denominator = nrow(df)
+    numerator   = sum( (!is.na(df[variable_of_interest])) & (df[variable_of_interest] !=0) )
+    numerator_zero = sum((df[variable_of_interest] == 0)) 
+
+    share_to_out = ( (numerator) / denominator ) * 100
+    return(share_to_out)
+}
+
+purrr::map(it_data, ~ share_non_missing_non_zero(.x, 'hicapital'))
+
+```
+
+<div style="height: 30px;"></div>
+
+### Subgroup descriptives 
+
+As seen in the previous section on two-way tabulations, it is often informative to compute descriptive statistics by subgroup.
+
+For continuous variables, this enables comparisons across categories of another variable. For instance, users may wish to examine how income varies across different tenure statuses or demographic groups. Such subgroup analysis provides a more nuanced understanding of the data and can reveal important patterns that are not visible in aggregate statistics.  
+
+
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE, class.output = "foldable"}
+it_data = lissyuse(data = c('fr', 'it', 'es', 'de'), , vars = c('dhi', 'own'), from = 2021)
+
+    # Understand how many observation we have for each group first. 
+run_weighted_count(it_data, var_name = 'own', percent = FALSE, na.rm = TRUE)
+    
+    # Compute the unweighted average, across household with different tenure status on their main residence. 
+run_weighted_mean(it_data, var_name = 'dhi', wgt_name = NULL,  by = 'own')
+
+```
+
+<div style="height: 30px;"></div>
+
+Like `run_weighted_count()` in the previous section, `run_weighted_mean()` make it straightforward to compute these subgroup descriptives in a consistent and efficient way across multiple datasets via its `by` arugment.
+
+
+For further processing, users may wish to **transform these outputs into a tidy tabular format suitable for export or visualization**. We therefore recommend again consulting this [section](/r-users/exp_to_csv.html#export-csv) for guidance on structuring and exporting results.
+
+   
+   
+    add perhaps something here on `inum` and LWS !!!!!!! 
+
+
+
+### Percentiles methodology {#pm}
+
+We conclude with a brief note on percentile estimation.
+
+Although percentile-based measures do not introduce fundamentally new techniques beyond those discussed above, it is important to clarify the methodology used by LIS, as this directly affects the comparability and reproducibility of results.
+
+LIS adopts Definition 4 from Hyndman and Fan (1996) for the computation of [key figures and all percentile-based estimates](https://www.lisdatacenter.org/news-and-events/note-on-percentile-methodology-used-in-lis-key-figures/), including medians, percentile ratios, poverty lines, and decile shares. 
+
+The function `run_weighted_percentiles()` follows this methodology by default. As a result, users can rely on it to produce estimates that are fully consistent with LIS standards, without needing to manually specify the underlying method.
+
+
+<!--While this level of detail may go beyond the needs of an initial data exploration, being aware of the underlying methodology is important. Using a consistent and well-defined approach to percentile estimation helps avoid discrepancies that can arise when combining results from different functions or packages.-->
+
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
+spain_data <- lissyuse(data = "es", vars = "dhi", from = 2020)
+
+run_weighted_percentiles(spain_data, var_name = 'dhi', probs = 0.5)
+```
+
+<div style="height: 30px;"></div>
+
+The flexibility of this functions is ultimatly defined by the `probs` argument that allows for many values betweeen 0 and 1, according to the needs of the user. 
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
+spain_data <- lissyuse(data = "es", vars = "dhi", from = 2020)
+
+run_weighted_percentiles(spain_data, var_name = 'dhi', probs = seq(0.1, 0.9, 0.1))
+```
+
+<div style="height: 30px;"></div>
+
+ Other than the addition of survey weights, this function also allows the user to compute distributional shares
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
+spain22_data <- lissyuse(data = "es", vars = "dhi", from = 2020)
+
+run_weighted_percentiles(spain_data, var_name = 'dhi', probs = seq(0, 1, 0.1), share = TRUE)
+```
+
+<div style="height: 30px;"></div>
+
+ ....  and the average within each group in the distribution 
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
+spain22_data <- lissyuse(data = "es", vars = "dhi", from = 2020)
+
+run_weighted_percentiles(spain_data, var_name = 'dhi', probs = seq(0, 1, 0.1), average = TRUE) 
+```
+
+
