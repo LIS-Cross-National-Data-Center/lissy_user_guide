@@ -1,0 +1,101 @@
+---
+title: "Structuring Results for Analysis"
+---
+
+## Structuring results for Analysis
+
+So far, most of our outputs have been returned as lists. This is intentional, as **direct printing of data frames is not possible in LISSY** for security reasons.
+
+Nevertheless, structuring results in a tabular format (rows × columns) ensures compatibility with standard data workflows, making it straightforward to integrate the results into downstream tasks such as visualization, or modelling.
+
+In addition, a tabular structure makes the data easier to export, allowing users to continue further analysis, as well as to reuse and inspect the data more effectively.
+
+### `structure_to_plot()`
+
+The function `structure_to_plot()` was designed to convert complex outputs into a format suitable for analysis and visualization. Specifically, it transforms the results produced by the `lissyrtools::run_weighted_*()` family of functions, from nested lists, **into tidy tabular data frames in long format**.
+
+To illustrate this, and to provide a visual representation of the resulting output, we present examples **using `lissyrtools` locally** with some of its embedded [sample datasets](https://lis-cross-national-data-center.github.io/lissyrtools/reference/index.html#sample-datasets). This approach reflects how a user would interact with `lissyrtools` outside of LISSY, working on their local machine, which is made possible through the inclusion of these embedded datasets.
+
+<!-- This part is for users to run in LISSY not to be eval .....  -->
+
+```{r, eval=FALSE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
+library(lissyrtools)
+library(dplyr)
+library(purrr)
+
+available_sample_datasets = c(
+    'it14', 'it16', 'it20',
+    'mx14', 'mx16', 'mx18',
+    'us14', 'us16', 'us18'
+)
+datasets_final <- lissyuse(
+  data = available_sample_datasets, 
+  vars = c('educ', 'pilabour', 'age', 'emp', 'sex'), 
+  from = 2014, 
+  to = 2018  
+  ) 
+```
+
+<!--  .... but .....  here we run sample datasets ....  -->
+
+<!--  .... then we stored them in an object called 'datasets_final'   -->
+
+```{r, eval=TRUE, echo=FALSE, message = FALSE, warning = FALSE, include = FALSE}
+source('../src/mimic_sample_datasets.R')
+```
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
+output_as_list <- datasets_final %>% 
+  purrr::map(~ .x %>% 
+    filter(age>23 & age <56) %>% 
+    filter(emp ==1)
+  ) %>%
+  apply_ppp_adjustment(var_name = 'pilabour', database = 'lis', transformation = 'lisppp', base_year_ppp = 2021) %>%
+  run_weighted_mean('pilabour')
+
+print(output_as_list)  
+```
+
+Now that we have the aggregate figures in a familiar format, we simply need to pass this object to the `structure_to_plot()` function to seamlessly restructure it into a tidy data frame, as depicted below:
+
+```{r, eval=FALSE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
+lissyrtools::structure_to_plot(output_as_list)   
+```
+
+![](/images/stp_1.png){fig-align="center"}
+
+
+If the user performs a more disaggregated analysis that goes beyond a simple figure by country and year, by instead adding a subgroup layer through the `by` argument in some of the `run_weighted_*()` functions, `structure_to_plot()` also accommodates those cases automatically.
+
+```{r, eval=FALSE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
+datasets_final %>% 
+  map(~ .x %>% filter(age>23 & age <56) %>% filter(emp ==1)) %>%
+  apply_ppp_adjustment(var_name = 'pilabour', database = 'lis', transformation = 'lisppp', base_year_ppp = 2021) %>% 
+  run_weighted_mean('pilabour', by = 'educ') %>% 
+  structure_to_plot()
+```
+
+![](/images/stp_2.png){fig-align="center"}
+
+
+Finally, it also goes a step further by accommodating figures for the indicator of interest across the distribution within a given subgroup for each country and year, making the process really user-friendly
+
+<!--  .... cumbersome I know   -->
+
+```{r, eval=FALSE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
+datasets_final %>% 
+  map(~ .x %>% filter(age>23 & age <56) %>% filter(emp ==1)) %>%
+  apply_ppp_adjustment(var_name = 'pilabour', database = 'lis', transformation = 'lisppp', base_year_ppp = 2021) %>% 
+  run_weighted_percentiles('pilabour', by = 'educ', average = TRUE) %>% 
+  structure_to_plot()
+```
+
+![](/images/stp_3.png){fig-align="center"}
+
+::: callout-caution
+Reminder that these examples are run locally using sample datasets, which are a subset of datasets available in LIS, specifically from countries where access to the microdata is publicly accessible.
+:::
+
+With the data properly restructured into a tabular format, next we will show how to export it directly from the LISSY console into a CSV file, as well as how to plot it within LISSY.
+
+

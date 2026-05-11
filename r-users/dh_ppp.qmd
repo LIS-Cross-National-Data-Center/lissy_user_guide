@@ -1,0 +1,109 @@
+---
+title: "Data Handling"
+---
+
+## Currency and Price Level Adjustments
+
+Income, wealth, and consumption data provided by LIS are expressed in national currencies at current prices for the income reference year. While this preserves the data in a form close to its original source, it also creates clear comparability issues across countries.
+
+For clarity, the snippet below retrieves the unweighted average of disposable household income (`dhi`) for both the United States and Sweden in 2018.
+
+```{r, message = 5, results = 'hold', warning = FALSE }
+library(lissyrtools)
+library(dplyr)
+
+lissyuse(data = c('us18', 'se18'), vars  = 'dhi') %>% 
+    run_weighted_mean('dhi')
+```
+
+::: {style="height: 30px;"}
+:::
+
+The figures reported above are not directly comparable. The large difference in magnitude, wtih Sweden appearing to have values more than five times higher than those of the United States, does not reflect real differences in income levels, but rather the fact that the **data are expressed in different national currencies**, implying the need for additional transformation steps.
+
+To address this issue, LIS provides both [CPI and PPP deflators for each country and year](https://www.lisdatacenter.org/resources/ppp-deflators). These allow users to convert values into a common, comparable scale. In practice, this process is simplified through the `lissyrtools::apply_ppp_adjustment()` function, which automatically applies the necessary transformations and enables meaningful comparisons across countries and over time.
+
+![](/images/deflators.png){fig-align="center"}
+
+As shown in the example above, we have 3 columns with conversion factors that the user can make use of. These are:
+
+- **Consummer Price Index**: needed to compare real amounts over time within countries;
+
+- **Purchasing Power Parity**: needed to compare real amounts across countries;
+
+- **LISPPP**: which combine CPI and PPP deflators and can be used to compare real amounts across countries and over time.
+
+Once equipped with these tools and resources we can now redo the exercise above by making use of the PPP conversion factors, by specifying it, in the form of a character, in the `transformation` argument.
+
+```{r, message = 2}
+lissyuse(data = c('us18', 'se18'), vars  = 'dhi') %>% 
+    apply_ppp_adjustment(
+        var_name = 'dhi', 
+        database = 'lis', 
+        transformation = 'ppp', 
+        base_year_ppp = 2021
+        ) %>% 
+    run_weighted_mean('dhi')
+```
+
+::: {style="height: 30px;"}
+:::
+
+The Swedish figure is now much closer to American one, as both are expressed in **international US dollars at 2021 prices**. This adjustment makes the values directly comparable and better reflects real income levels.
+
+::: callout-warning
+In some LWS datasets, wealth amounts and income amounts might differ in their reference year. The year odf the dataset always corresponds to the wealth amounts reference year, but income amounts might have been expresssed as the ones in the year before. LWS data users, do not need to worry with this as long as they mannualy sprecify `database = 'lws'`, which immediately adjust the reference year depending on `var_name` is a wealth (`dnw`) or income variable (`dhi`).
+:::
+
+To conclude this section on adjusting data for differences in currency and price levels, we present two additional examples illustrating how **CPI** and **LISPPP** deflators can be used in practice.
+
+We begin with a case where the analysis focuses on a single country. In such situations, users may wish to keep results expressed in the country’s national currency while adjusting for inflation over time. Applying the CPI deflator allows values to be converted into constant prices, ensuring that changes reflect real variation rather than shifts in the price level.
+
+```{r, message = FALSE,  results = 'hold',  class.output = "foldable"}
+lissyuse(data = 'it', vars  = 'dhi', from = 2010) %>%  
+    run_weighted_mean('dhi')
+```
+
+::: {style="height: 30px;"}
+:::
+
+```{r, message = 2,   results = 'hold', class.output = "foldable"}
+lissyuse(data = 'it', vars  = 'dhi', from = 2010) %>%  
+    apply_ppp_adjustment(
+        var_name = 'dhi', 
+        database = 'lis', 
+        transformation = 'cpi',  
+        base_year_ppp = 2021
+        ) %>% 
+    run_weighted_mean('dhi')
+```
+
+::: {style="height: 30px;"}
+:::
+
+<!-- Interpert the results here  ?  -->
+
+Alternatively, users may be interested in making comparisons across countries and over time. In this context, relying solely on CPI adjustments is not sufficient, as values would still be expressed in different national currencies. This is where the **LISPPP** deflator becomes particularly useful. By **combining both CPI and PPP adjustments**, it converts values into a international US dollars at a given base year, thereby enabling meaningful cross-country comparisons in real terms.
+
+```{r, message = 2,   results = 'hold', class.output = "foldable"}
+lissyuse(data = c('it', 'se'), vars = 'dhi', from = 2010) %>%
+    run_weighted_mean('dhi')
+```
+
+::: {style="height: 30px;"}
+:::
+
+```{r, message = 2,  results = 'hold', class.output = "foldable"}
+lissyuse(data = c('it', 'se'), vars  = 'dhi', from = 2010) %>%  
+    apply_ppp_adjustment(
+        var_name = 'dhi', 
+        database = 'lis', 
+        transformation = 'lisppp',
+        base_year_ppp = 2021) %>% 
+    run_weighted_mean('dhi') 
+```
+
+::: {style="height: 30px;"}
+:::
+
+Together, these approaches highlight the importance of selecting the appropriate deflator depending on the analytical objective, whether the focus is on within-country trends or cross-country comparability.

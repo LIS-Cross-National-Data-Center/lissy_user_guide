@@ -1,5 +1,0 @@
----
-title: "Aggregate Figures"
----
-
-## Export to CSV {#export-csv}

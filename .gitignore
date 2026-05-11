@@ -3,6 +3,7 @@
 _site/
 src
 index_files
+dump_img
 
 
 **/*.quarto_ipynb

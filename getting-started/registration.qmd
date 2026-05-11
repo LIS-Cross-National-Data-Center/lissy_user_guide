@@ -1,8 +1,7 @@
 ---
-title: "Installation"
+title: "Registration"
 ---
 
-# Installation
 
 ## Requirements
 

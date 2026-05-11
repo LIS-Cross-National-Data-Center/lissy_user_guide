@@ -1,17 +1,44 @@
-
 <center>
 
-<h1>Welcome to LISSY !</h1>
+::: {style="text-align: center !important; width: 100%;"}
+<h1 style="text-align: center !important;">
+
+Welcome to LISSY !
+
+</h1>
+:::
 
 </center>
 
-<br>
+![](/images/intro_console.png){fig-align="center"}
 
-Welcome to Lissy, this will be the landing page of the new interactivfe website to Guide the users on LISSY, and have some examples on both R and Stata, as well as section og Getting Started and on FAQs,
+A remote-execution system that allows [Luxembourg Income Study (LIS)](https://www.lisdatacenter.org/) users to access LIS and LWS microdata from anywhere, using four different statistical software packages (**Stata**, **SAS**, **SPSS**, and **R**)
+
+::: {style="text-align: center; margin-top: 20px;"}
+<a href="https://webui.lisdatacenter.org/userinterface/" 
+     style="
+       display: inline-block;
+       padding: 12px 28px;
+       background-color: #325d88;
+       color: white;
+       text-decoration: none;
+       border-radius: 25px;
+       font-size: 16px;
+       font-weight: 500;
+     "> Login to LISSY </a>
+:::
+
+This user guide is organized into three main sections to support users depending on their level of experience and preferred working environment.
+
+For new users, head to the **Getting Started** section, where you will find all the essential information on how to [register for LISSY](/getting-started/registration.html) and how to [submit your first jobs](/getting-started/submit_first_job.html) using the LISSY interface.
+
+For users already familiar with the platform, or looking to deepen their understanding of LIS data workflows and follow best practices, you can directly explore the dedicated sections for **[R Users](/r-users/index.html)** and **[Stata Users](/stata-users/index.html)**, depending on the statistical software you use.
+
+
+In case of any doubts, please reach us via our [User Support](/faqs/index.qmd#contact-support) service.
 
 **News and Upcoming Events:**
 
--   As usual no Data on Portugal
--   Thousands of Datasets are still there nevertheless.
-
-Project announcements: [LIS](https://www.lisdatacenter.org/) • Please connect with via email, and check our Newsletter.
+- Most recent activity at [LIS](https://www.lisdatacenter.org/news-and-events/)
+- For the latest [Data News](https://www.lisdatacenter.org/news-and-events/highlights/)
+- Check here the latest releases of our quarterly [newsletter](https://www.lisdatacenter.org/newsletter/)

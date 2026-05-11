@@ -1,0 +1,37 @@
+---
+title: "SAS and SPSS"
+---
+
+
+Dedicated to show some commands for these two pacakges .... 
+
+
+## SAS
+
+```{r, eval =FALSE, echo=TRUE}
+PROC MEANS DATA=&lu10h;
+```
+
+
+```{r, eval =FALSE, echo=TRUE}
+FILENAME output "&mypdf/graphtestsas.png";
+GOPTIONS RESET=ALL DEVICE=PNG GSFNAME=output GSFMODE=REPLACE;
+PROC GCHART data=&lu10p;
+VBAR age / TYPE=percent;
+RUN;
+```
+
+
+
+## SPSS 
+
+```{r, eval =FALSE, echo=TRUE}
+get file = lu10h
+```
+
+
+```{r, eval =FALSE, echo=TRUE}
+GET FILE = lu10p
+GRAPH /BAR(SIMPLE)=relation BY edyrs.
+OUTPUT EXPORT /JPG DOCUMENTFILE="mypdf\graphtestspss.jpg
+```

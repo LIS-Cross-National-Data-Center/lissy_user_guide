@@ -1,21 +1,19 @@
-
----
-
-# 📉 `stata-users/index.qmd`
-
-```markdown
 ---
 title: "Stata Users"
 ---
 
-# Stata Users
+Welcome Stata people 👋
 
-Welcome Stata people.
+## What you'll find here  
 
-## Coming soon
+Welcome! This guide walks you step by step through working with LIS data in Stata — from getting started to building a solid, reproducible workflow.  
 
-Content will exist here eventually.
+You’ll learn how to navigate the structure and specific features of LIS datasets, while developing practical skills you can apply directly to your own projects. We cover each stage of the workflow, highlight common operations, and share tips to help you work more efficiently.   
 
-## For now
+Whether you're new to LIS or looking to improve your workflow, this guide aims to provide a clear and hands-on learning experience.  
 
-Just pretend there is useful stuff.
+If you have any questions or feedback, feel free to contact the LIS team.
+
+## Additional Resources  
+
+- [Self-Teaching Resources](https://www.lisdatacenter.org/resources/self-teaching/)

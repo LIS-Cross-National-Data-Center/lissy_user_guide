@@ -1,0 +1,22 @@
+---
+title: "Other Resources"
+---
+
+
+## Aggregate Figures 
+
+ - DART 
+ - IKF
+ - Our World in Data
+
+
+## Teaching Materials 
+
+ - Sample Files
+ - Self-Teaching Exercieses
+ - [Online Tutorial Series](https://www.lisdatacenter.org/resources/online-tutorial-series/)
+
+
+ We could then add the necessary links and whatnot 
+
+

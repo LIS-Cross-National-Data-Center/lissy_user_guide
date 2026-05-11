@@ -2,20 +2,32 @@
 title: "Getting Started"
 ---
 
-# Getting Started
+Welcome once more ! 
 
-Welcome to the getting started section.
+If you are a new user here are a couple of things that will make aimmediatly familiar with what LISSY IS and what is it used for ! 
 
-## Step 1
+The next section will informa you if you are allows to register and if so the stpes to follow ! 
 
-Do something vague.
+Once registered, the following section will teach you how to submit your first job and the functionalities of the interface ! 
 
-## Step 2
 
-Do something even more vague.
 
-## Notes
+## Quick Access 
 
-- Item one
-- Item two
-- Item potato
+Here we need to state that in LISSY you will be able to Quick Acess: (a bit to mimic the job submission)
+
+- Load thousands of harmonized datasets for more than 50 countries worldwide. R | Stata
+
+
+
+- Using **CPI and PPP deflators** to adjust values expressed in national currencies. [R](/r-users/dh_cont_vars.html#ppp_in_r) | [Stata] ()
+
+- **Data Visualization** in LISSY. [R](/r-users/tidy_plots.html#plots_in_R) | [Stata] ()
+
+- Countries and Years 
+
+- [LIS variables](https://www.lisdatacenter.org/wp-content/uploads/files/data-lis-variables.pdf) and [LWS variables](https://www.lisdatacenter.org/wp-content/uploads/files/data-lws-variables.pdf) 
+
+- [Metadata (METIS)](https://www.lisdatacenter.org/frontend#/home)
+
+- Best Practises in LISSY?

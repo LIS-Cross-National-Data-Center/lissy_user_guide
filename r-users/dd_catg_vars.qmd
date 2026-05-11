@@ -4,7 +4,7 @@ title: "Describing Data"
 
 Being able to describe the data just imported is a particularly important step, especially in an environment where users cannot freely view or browse the underlying microdata.
 
-This section introduces routine coding tasks to **maximize descriptive insight on a variable with minimal code**. Such practices will enable users to identify patterns and inconsistencies across datasets: for example, breaks in a series, changes in the level of detail (more or less disaggregation), or the availability of positive values for a given income variable across countries and years.
+This section introduces routine coding tasks to **maximize descriptive insight on a variable with minimal code**. Such practices will enable users to identify patterns and inconsistencies across datasets: for example, breaks in a series, changes in the level of detail (more or less disaggregation), or the availability of non-zero and non-missing values for income variables across countries and years.
 
 In [METIS](https://www.lisdatacenter.org/frontend#/home) a substantial amount of descriptive information is already provided for each variable in a dataset, as illustrated in the figure below:
 
@@ -135,17 +135,17 @@ lissyrtools::run_weighted_count(imported_list, 'educlev', by = 'educ')
 Do always the more dissagreted variable in `var_name` and the more aggregated in the `by` argument ! 
 Also, do a bit of the interpretation of that tabulation aboce saying tha category A and B and C corresponde so category 1, and that the D and E corresponde to category 2.  
 
-Do some more cumbersome exmample in terms of the printed output and then, link it up for the dataset tabular way in the [chapter](/r-users/exp_to_csv.html#export-csv) where we teach the csv tricks.
+Do some more cumbersome exmample in terms of the printed output and then, link it up for the dataset tabular way in the [chapter](/r-users/tidy_exp_to_csv.html#export-csv) where we teach the csv tricks.
 
 
 ![](/images/csv_teaser_dd.png){fig-align="center"}
 
 
-#### Nested coding 
+#### Nested coding  {#nested-coding}
 
 Earlier in this section we mentioned that the categories of the standardized categorical variables are the same across all datasets. However, in order to preserve as much detail as originally provided to LIS, we settled a nested coding method to these variables, with sub-categoires inside broader categories. 
 
-In practice, this could create breaks in series, that we will dexemplify how to deal with this thporugh highest level recoding on the following section (Data Handling ADD LINK HERE LATER ON) section. 
+In practice, this could create breaks in series, that we will dexemplify how to deal with this thporugh highest level recoding on the [following section](/r-users/dh_catg_vars.html#dh_cat_vars) section. 
 
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}

@@ -10,7 +10,7 @@ website:
 
   page-footer:
     left: |
-      &copy; Luxembourg Income Study
+      &copy; Luxembourg Income Study, 2026
     right: |
       This site is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.  
       Inspired by R4DS and NASA Openscapes.
@@ -24,8 +24,11 @@ website:
         href: r-users/index.qmd
       - text: "Stata Users"
         href: stata-users/index.qmd
+      - text: "Other Resources"
+        href: other-resources/index.qmd
       - text: "FAQs"
         href: faqs/index.qmd
+
 
   # ✅ SIDEBAR (contextual, appears on pages)
   sidebar:
@@ -39,10 +42,13 @@ website:
       contents:
         - text: "Overview"
           href: getting-started/index.qmd
-        - text: "Installation"
-          href: getting-started/installation.qmd
-        - text: "First Steps"
-          href: getting-started/first-steps.qmd
+        - text: "Registration"
+          href: getting-started/registration.qmd
+        - text: "Submit First Job"
+          href: getting-started/submit_first_job.qmd
+        - text: "SAS and SPSS"
+          href: getting-started/sas_spss.qmd
+
 
     # -------------------------
     # R Users Sidebar
@@ -71,24 +77,22 @@ website:
               href: r-users/dd_cont_vars.qmd
         - section: "Data Handling"
           contents: 
-            - text: "Categorical Variables"
+            - text: "Recoding Categories"
               href: r-users/dh_catg_vars.qmd 
-            - text: "Continuous Variables"
-              href: r-users/dh_cont_vars.qmd  
-        - section: "Aggregate Figures"
+            - text: "Preparing Income Variables"
+              href: r-users/dh_inc_prep.qmd  
+            - text: "Currency and Price Level Adjustments"
+              href: r-users/dh_ppp.qmd              
+        - section: "Structuring Results for Analysis"
           contents: 
-            - text: "run_weighted functions"
-              href: r-users/rwf.qmd 
-            - text: "Tidy up results"
+            - text: "structure_to_plot()"
               href: r-users/tidy_structure_to_plot.qmd
-            - text: "Export to csv"
-              href: r-users/exp_to_csv.qmd 
-            - text: "Plots in LISSY"
-              href: r-users/plots.qmd
-        - section: "Best Practises"
-          contents: 
-            - text: "Best Practises"
-              href: r-users/bp.qmd                           
+            - text: "Export to CSV"
+              href: r-users/tidy_exp_to_csv.qmd 
+            - text: "Plotting in LISSY"
+              href: r-users/tidy_plots.qmd
+        - text: "Best Practises"
+          href: r-users/bp.qmd                        
 
 
               
@@ -101,14 +105,52 @@ website:
       contents:
         - text: "Overview"
           href: stata-users/index.qmd
-        - section: "Data Handling"
+        - section: "Import Data"
+          collapsed: true          # 👈 add this
           contents: 
-            - text: "Import Data"
-              href: stata-users/import-data.qmd
-            - text: "Prepare Data"
-              href: stata-users/prepare-data.qmd
-            - text: "Explore Data"
-              href: stata-users/explore-data.qmd  
+            - text: "Method 1: lissyuse"
+              href: stata-users/method1.qmd
+            - text: "Method 2: use"
+              href: stata-users/method2.qmd
+            - text: "Datasets and Variables"
+              href: stata-users/datasets_and_vars.qmd
+
+        - section: "Describing Data"
+          contents:
+            - text: "Categorical Variables"
+              href: stata-users/dd_catg_vars.qmd
+            - text: "Continuous Variables"
+              href: stata-users/dd_cont_vars.qmd
+
+        - section: "Data Handling"
+          contents:
+            - text: "Recoding Categories"
+              href: stata-users/dh_catg_vars.qmd
+            - text: "Preparing Income Variables"
+              href: stata-users/dh_inc_prep.qmd
+            - text: "Currency and Price Level Adjustments"
+              href: stata-users/dh_ppp.qmd
+
+        - section: "Structuring Results for Analysis"
+          contents:
+          - text: "Prepare for Graphing"
+            href: stata-users/tidy_structure_to_plot.qmd
+          - text: "Export to CSV"
+            href: stata-users/tidy_exp_to_csv.qmd
+          - text: "Plotting in Stata"
+            href: stata-users/tidy_plots.qmd   
+
+        - text: "Best Practises"
+          href: stata-users/bp.qmd        
+
+    # -------------------------
+    # Other Resources
+    # -------------------------
+    - id: other-resources
+      title: "Other Resources"
+      contents:
+          href: other-resources/index.qmd
+
 
     # -------------------------
     # FAQs Sidebar
@@ -116,7 +158,6 @@ website:
     - id: faqs
       title: "FAQs"
       contents:
-        - text: "Common Questions"
           href: faqs/index.qmd
 
 
@@ -130,7 +171,7 @@ format:
     toc-location: right
 
     code-link: true
-    callout-appearance: simple
+    callout-appearance: default
     include-after-body:
       - text: |
           <script src="/assets/foldable.js"></script>

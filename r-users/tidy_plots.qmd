@@ -1,0 +1,95 @@
+---
+title: "Structuring Results for Analysis"
+---
+
+In this section, we build on this tabular structure to produce visualizations. Having the data in a clean and well-organized format will make it straightforward to generate plots and explore the results more effectively.
+
+
+We will fcosu particularly on the trends, as this are also a way to provide the user with the templates to quickly asses the data at hand and visualize in LISSY, the consitency of the data at-hands (breaks in the series most of all)
+
+
+### Basic ggplot() {#plots_in_R}
+
+
+
+
+
+
+
+```{r, message = FALSE, results = 'hold', warning = FALSE }
+library(lissyrtools)
+library(tidyverse) # library(dplyr)
+library(ggplot2)
+
+lis_data <- lissyuse(
+    data = c("se", "de"), 
+    vars = c("age", "sex", "pi11", "emp"), 
+    from = 2002
+  )
+
+# png(file = paste0(USR_PDF, "/non-adj.png"), width = 1280, height = 720, res = 150)
+
+lis_data %>% 
+  map(~ .x %>% 
+        filter(age > 24 & age < 56) %>% 
+        filter(emp == 1), 
+      filter(!is.na(pi11))
+  ) %>% 
+  run_weighted_mean("pi11", "ppopwgt", by = "sex") %>% 
+  structure_to_plot() %>%  
+  ggplot(aes(x = year, y = value, group = category, color = category)) + 
+  geom_line() + 
+  geom_point(size = 2.5) +
+  labs(x = "", y = "", title ="Working-age average wage", color = "Gender") +
+  scale_color_brewer(palette = "Set1") +
+  theme_minimal() + 
+  facet_wrap("cname")
+
+
+# png(file = paste0(USR_PDF, "/ppp-adj.png"), width = 1280, height = 720, res = 150)
+
+lis_data %>% 
+    map(~ .x %>% 
+          filter(age > 24 & age < 56) %>% 
+          filter(emp == 1), 
+        filter(!is.na(pi11))
+    ) %>% 
+    apply_ppp_adjustment("pi11", database = "lis", transformation = "lisppp") %>% 
+    run_weighted_mean("pi11", "ppopwgt", by = "sex") %>% 
+    structure_to_plot() %>% 
+    ggplot(
+      aes(x= year, y = value, group = category, color = category)
+    ) + 
+    geom_line() + 
+    geom_point(size = 2.5) +
+    labs(
+      x = "", y = "", title ="Working-age average wage", color = "Gender") +
+    scale_color_brewer(palette = "Set1") +
+    theme_minimal() + 
+    facet_wrap("cname")  
+         
+```
+
+
+
+## The use of `facet_wrap()` 
+
+add panel breakdowns on countries or breakdowns or whatever we which to put side by side dont crucially care. 
+
+
+## Multiple indicators in the same chart 
+
+In this part we are going to demostrate such, plotting on the same chart tewo different percentiles ratios created with a function dedicated to it. 
+
+
+## PNG command 
+
+It allows the user not only to customize the resolution of the chart but also to name it. This last features is very important because if the user wwant to produce several chart in the same session in LISSY it need to give them different names but perhaps add this on a callout to notice more. 
+
+
+
+We thuis conclude I guess the user guide on the R section ! 
+
+
+
+<!-- S:\workshops\2025-summer-workshop\6. content\Day 2\Session-exercise 2.2 -->
