@@ -6,31 +6,20 @@ Once data has been successfully imported and explored, the next step is preparat
 
 Developing familiarity with these operations is essential, as they allow researchers to adapt datasets to their analytical goals while maintaining clarity and consistency. A structured approach to data manipulation also enhances workflow efficiency and reduces the risk of errors or misinterpretation during analysis.
 
-
-As in the previous section, this part of the guide is organized by variable type, distinguishing between categorical and continuous data. By the end of this section, users will be equipped with a set of practical tools and techniques that add an additional layer of flexibility to their work with LIS data, ultimately expanding the range and depth of analyses they can perform. 
-
+As in the previous section, this part of the guide is organised by variable type, distinguishing between categorical and continuous data. By the end of this section, users will be equipped with a set of practical tools and techniques that add an additional layer of flexibility to their work with LIS data, ultimately expanding the range and depth of analyses they can perform.
 
 ## Recoding Categories {#dh_cat_vars}
 
-The most common operation that users do with categorical variables, usally is, once familiar with the numric codes and their respective labels, to re-harmmonizing them
-further in order to align them with the preferd breakdown for their multiplicity of reasson users could have, whtever whwterver. 
+The most common operation users perform on categorical variables is, once familiar with the numeric codes and their respective labels, to recode them into broader or alternative groupings. This is typically done to align the variable with a preferred breakdown for comparability purposes, to collapse rarely populated categories, or to harmonise the coding scheme across country-years that do not share the same level of disaggregation.
 
+As mentioned in the data description section, the [nested coding](/r-users/dd_catg_vars.html#nested-coding) structure of LIS categorical variables delivers the richest possible information, but it can also introduce unexpected breaks in longitudinal series. The charts from the previous section illustrate this in practice: from 2004 onwards, LIS received more disaggregated data for the Spanish tenure variable `own`, introducing finer subcategories that were not present in earlier waves.
 
-
-
-
-There is however, as mentioned earlier, the [nested coding](/r-users/dd_catg_vars.html#nested-coding) feature mentioned earlier on, that despite delivering the most about of infprmatin possible to user, it coudl also create unnexpected breaks in the series. In the charts below we see this in practice, as of 2004 onwards, LIS was delivered richer, more disaggregated data, to fill in the 'own' variables for the Spanish series. 
-
-
-###  Highest-Level Recoding
-
-
-![](/images/ES00_data_handling.png){fig-align="center"}
+![](/images/ES00_data_handling.png){fig-align="center"} 
 ![](/images/ES04_data_handling.png){fig-align="center"}
 
+### Highest-Level Recoding
 
-
-For us to increase the comparability throught the entire series then we need to recode  the variables in the years we have more information, to the broader categories we inititially had the from the begining of the series. 
+To restore comparability across the full Spanish series, the more disaggregated categories available from 2004 onwards need to be collapsed back to the broader codes present at the start of the series, a process known as highest-level recoding.
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
 library(lissyrtools)
@@ -44,8 +33,8 @@ recoded_data = lissyuse('es', 'own', from =  2000, to = 2004, lws = FALSE) %>%
       own_copy_old  = own, # create a copy of the original variable 'own' 
       own = case_when( # do the transformations on the variable with the original name from LIS
         own >= 100 & own < 199 ~ 100, 
-        own >= 210 & own >=210 & own < 219 ~ 210, 
-        own >= 220 & own >=220 & own < 229 ~ 220, 
+        own >= 210 & own < 219 ~ 210, 
+        own >= 220 & own < 229 ~ 220, 
       ),
       own = haven::labelled(own, labels = labelled::val_labels(own_copy_old))
     ) 
@@ -54,22 +43,13 @@ recoded_data = lissyuse('es', 'own', from =  2000, to = 2004, lws = FALSE) %>%
 lissyrtools::run_weighted_count(data = recoded_data, var_name = 'own', na.rm = TRUE)
 ```
 
-
-::: {.callout-important}
-Functions in `lissyrtools` generally only accept columns named after original LIS or LWS variable name. No need to go in details why, but its because of the way LISSY is configured, and to avoid that some jobs go into the review queue by mistake and whtever .... Therefore, variables named like 'orig_new', or 'own_recoded would not have been accepted'. Needs to be 'orig', 'educ' 'educlev' etc ...
+::: {#orig_vars_placeholder .callout-important}
+Functions in `lissyrtools`, only accept columns named after the original LIS or LWS variable names. Always perform recoding on the original variable directly, preserving a copy beforehand if needed. Variable names such as `own_recoded` or `own_new` will not be accepted — the variable must retain its original name (`own`, `educ`, `educlev`, and so on).
 :::
- 
 
 
+![Spain — tenure variable `own` before recoding](/images/ES_ts_no_recoding.png){width=100% fig-alt="Before recoding"}
 
+![Spain — tenure variable `own` after recoding](/images/ES_ts_recoding.png){width=100% fig-alt="After recoding"}
 
-![](/images/ES_ts_no_recoding.png){width=100%}
-
-![](/images/ES_ts_recoding.png){width=100%}
-
-
-
-
-
-
-
+The two charts above illustrate the practical consequence of the nested coding structure and the value of the recoding step. In the first chart, the series breaks sharply around 2004, with the broad ownership category effectively disappearing as it splinters into finer subcategories introduced in later waves. A user working with the raw codes would face an artificial discontinuity that makes any longitudinal comparison across the full Spanish series unreliable. The second chart shows the result after recoding: by collapsing the more disaggregated categories back to the three broad codes present at the start of the series, the distribution becomes consistent across all waves and the series can be read and compared as intended.

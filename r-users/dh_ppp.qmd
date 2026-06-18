@@ -52,7 +52,7 @@ lissyuse(data = c('us18', 'se18'), vars  = 'dhi') %>%
 The Swedish figure is now much closer to American one, as both are expressed in **international US dollars at 2021 prices**. This adjustment makes the values directly comparable and better reflects real income levels.
 
 ::: callout-warning
-In some LWS datasets, wealth amounts and income amounts might differ in their reference year. The year odf the dataset always corresponds to the wealth amounts reference year, but income amounts might have been expresssed as the ones in the year before. LWS data users, do not need to worry with this as long as they mannualy sprecify `database = 'lws'`, which immediately adjust the reference year depending on `var_name` is a wealth (`dnw`) or income variable (`dhi`).
+In some LWS datasets, wealth amounts and income amounts might differ in their reference year. The year of the dataset always corresponds to the wealth amounts reference year, but income amounts might have been expresssed as the ones in the year before. LWS data users, do not need to worry with this as long as they mannualy sprecify `database = 'lws'`, which immediately adjust the reference year depending on `var_name` is a wealth (`dnw`) or income variable (`dhi`).
 :::
 
 To conclude this section on adjusting data for differences in currency and price levels, we present two additional examples illustrating how **CPI** and **LISPPP** deflators can be used in practice.

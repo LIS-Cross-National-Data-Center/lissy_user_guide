@@ -1,0 +1,68 @@
+---
+title: "Import Data"
+---
+
+```{r, include=FALSE}
+source("../src/stata_machine.R")
+library(Statamarkdown)
+stataexe <- get_stata_machine_path()
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+```
+
+```{stata, echo = FALSE, results = "hide", collectcode = TRUE}
+do "../src/lissyuse.do"
+```
+
+## Method 2 - `use` command.
+
+As with any other `.dta` file stored locally in Stata, LIS microdata files can also be accessed directly using Stata’s native `use` command.
+
+The main drawback of this approach is that the user must manually manage the entire import process. This includes:
+
+- specifying each `ccyy` dataset individually
+
+- identifying the correct available years
+
+- importing household-level (`h`) and person-level (`p`) files separately
+
+- merging both data levels manually
+
+- appending all datasets together
+
+- managing temporary files throughout the workflow
+
+The example below illustrates a typical workflow using Stata’s native commands. For each country–year dataset, the person-level file is first loaded, household-level variables are then merged using the household identifier (`hid`), and the resulting datasets are progressively appended into a single combined file.
+
+```{stata, eval =FALSE, echo=TRUE}
+global varshh "hid own"
+* Person-level variables
+global varspp "hid dname pwgt ppopwgt relation partner ageyoch age sex immigr educ emp status1 ptime1 hwage1"
+* Country-year datasets
+global datasets "us04 be04 gr04"
+* Temporary file to store appended results
+tempfile master
+save `master', emptyok replace
+foreach ccyy in $datasets {
+    * Load person-level file
+    use $varspp using $`ccyy'p, clear
+    * Merge household-level variables
+    merge m:1 hid using $`ccyy'h, ///
+        keepusing($varshh) nogen
+    * Append to master dataset
+    append using `master'
+    * Save updated combined dataset
+    save `master', replace
+}
+* Load final combined dataset
+use `master', clear
+tab dname 
+* Example summary statistics
+tabstat sex, by(dname)
+tabstat own, by(dname)
+```
+
+Although this method remains fully valid and may provide more granular control for advanced users, `lissyuse` considerably simplifies the workflow by automating dataset selection, merging, appending, and data-level management procedures.
+
+::: callout-tip
+When loading LIS datasets with Stata’s `use` command, always prefix the dataset name with **\$** and specify the corresponding data level suffix: **h** for household-level files and **p** for person-level files.
+:::

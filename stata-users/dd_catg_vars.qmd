@@ -1,0 +1,227 @@
+---
+title: "Describing Data"
+---
+
+```{r, include=FALSE}
+source("../src/stata_machine.R")
+library(Statamarkdown)
+stataexe <- get_stata_machine_path()
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+```
+
+```{stata, echo = FALSE, results = "hide", collectcode = TRUE}
+do "../src/lissyuse.do"
+do "../src/lissy_user_guide_percentils.do"
+global myincl "../src"
+```
+
+Being able to describe newly imported data is a critical step, particularly in an environment where users cannot freely browse the underlying microdata.
+
+This section introduces routine coding tasks designed to **maximize descriptive insight on a variable with minimal code**. These practices help users identify patterns and inconsistencies across datasets such as: breaks in a series, shifts in the level of disaggregation, the availability of non-zero and non-missing values for income variables across countries and years, etc...
+
+In [METIS](https://www.lisdatacenter.org/frontend#/home), a substantial amount of descriptive information is already provided for each variable in a dataset, as illustrated in the figure below:
+
+![](/images/lissy_codebooks.png){fig-align="center"}
+
+However, this information is currently displayed for one dataset (`ccyy`) at a time. To complement it, this section takes a different approach: **describing a single variable across countries series simultaneously**, leveraging the fact that the data are stored in a single dataset comprising microdata for multiple country-year pairs.
+
+To retrieve an aggregate figure for a given value of the column **dname** (dataset name) without looping across country-year pairs, two approaches are available:
+
+- Using the `by` command ahead of other built-in commands like `tabulate` or `sum`.
+- Using the `collapse` command with the \*\*by option\* to produce an aggregated dataset that can be printed to the console.
+
+While the first approach is simpler to write, essentially a single line of code, its output can become lengthy and hard to read when many datasets are in use. The `collapse` approach, though more code-intensive, structures the data in a way that is well-suited for producing plots or exporting results to a spreadsheet in CSV format. Both uses are covered in the section on [Structuring Results for Analysis](/stata-users/tidy_exp_to_csv.html).
+
+## Categorical Variables
+
+Categorical variables are composed of numeric codes, each uniquely associated with a label. In both LIS and LWS, two types of categorical variables are available:
+
+- **Standardized**: their categories are identical across all datasets in LIS or LWS, enabling direct cross-country and cross-time comparisons.
+
+- **Country-specific**: these provide categorized information on topics that are inherently non-comparable across countries — either by nature (e.g., `region_c`) or because they do not follow a standard international classification (e.g., `health_c`). Such variables may also lack comparability across time within a given country.
+
+### Standardized variables
+
+Because standardized variables follow a fixed category structure across all countries and years, users can import and tabulate them with confidence. This makes it straightforward to assess the composition of a variable and get a first look at how the sample is distributed across groups for any given country-year. The examples below focus on **one-way tabulations**, which display both absolute and relative frequencies directly in LISSY. Two approaches are demonstrated throughout: the `by` command and the `collapse` command.
+
+#### One-way tabulation - `by` command
+
+The `by` command offers a quick and readable way to produce one-way tabulations across multiple datasets in a single call. The examples below illustrate how to obtain both absolute frequencies, and non-weighted and weighted frequency distributions of a standardized categorical variable.
+
+```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
+qui lissyuse, iso2(mx es) from(2020) pvars(own pwgt) hvars(hid dname)
+by dname: tabulate sex
+```
+
+The non-weighted tabulation counts raw observations within each category, while the weighted version uses the personal weight (`pwgt`) to produce population-representative frequency distributions.
+
+```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
+qui lissyuse, iso2(mx es) from(2020) pvars(own pwgt) hvars(hid dname)
+by dname: tabulate sex [aw = pwgt]
+```
+
+#### One-way tabulation - `collapse` command
+
+The `collapse` command provides a more structured alternative for obtaining frequency distributions. Rather than displaying figures directly in the console, `collapse` restructures the data into an aggregated dataset. This transformation, from microdata to aggregated data, is particularly well suited for producing visualizations or for printing the dataset to the console as a delimited string, which can then be copied and pasted into a spreadsheet for further inspection.
+
+::: {.callout-tip}
+See also the [chapter on exporting results to excel](/stata-users/tidy_exp_to_csv.html), to learn how to export delimited outputs into excel spreadsheets like the one in the picture below.
+:::
+
+
+![](/images/csv_teaser_dd_stata.png){fig-align="center" width="65%"}
+
+
+
+**Relative frequencies, non-weighted**
+
+```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
+qui lissyuse, iso2(mx es) from(2020) pvars(pid sex ppopwgt) hvars(hid dname cname year)
+
+preserve
+
+	gen n = 1
+	collapse (sum) n, by(sex cname year dname)
+	bysort dname: egen total = total(n)
+	gen percent = n / total *100
+	decode sex, gen(gender) 
+
+	forvalues i = 1/`=_N' {
+		if `i' == 1 {
+		di "cname,year,gender,percent"
+		} 
+		di cname[`i'] ","  year[`i'] "," gender[`i'] "," percent[`i']	
+	}
+
+restore
+```
+
+::: callout-tip
+Using `preserve` and `restore` is not needed in the example above, but allows you to print the intended aggregated dataset, while allowing you to continue to reuse the microdata in a single job submission.
+:::
+
+A few implementation details are worth noting. First, an auxiliary variable `n` is created and set to 1 for every observation before collapsing. This is a common and convenient technique: since `collapse` aggregates by summing, each row contributes exactly one unit to the count, so the sum of `n` within a group directly gives the number of observations in that group. Second, a dataset-level total is computed using `bysort dname: egen total = total(n)`, which allows the within-group percentages to be calculated relative to the correct denominator for each country-year pair. Finally, `decode sex` is used to convert the numeric codes of the `sex` variable into their corresponding string labels, storing them in a new variable `gender`. Without this step, the output would display numeric codes only, making it harder to read at a glance, particularly when sharing results or preparing them for a plot or export.
+
+**Relative frequencies, weighted**
+
+```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
+qui lissyuse, iso2(mx es) from(2020) pvars(pid sex ppopwgt) hvars(hid cname year dname)
+preserve
+collapse (sum) ppopwgt, by(dname sex cname year)
+bysort dname: egen total = total(ppopwgt)
+gen percent = ppopwgt / total *100
+decode sex, gen(gender) 
+forvalues i = 1/`=_N' {
+	if `i' == 1 {
+	 di "cname,year,gender,percent"
+	} 
+	di cname[`i'] ","  year[`i'] "," gender[`i'] "," percent[`i']	
+}
+restore
+```
+
+The weighted version follows the same logic, but replaces the auxiliary count variable `n` with `ppopwgt`, the personal population weight. Rather than summing observations, `collapse` now sums the weights within each group, so that the resulting percentages reflect the share of the **population** — rather than the sample — falling into each category. This is generally the preferred approach for substantive analysis, as it accounts for differences in sampling design across countries and years. The `preserve`/`restore` wrapper, the `bysort`-based denominator, and the `decode` step all carry over unchanged from the non-weighted example.
+
+::: callout-important
+**Note to myself:** Confirm this on the weights later on !
+:::
+
+#### Two-way tabulation
+
+One-way tabulations describe how a sample is distributed across the categories of a single variable. LIS and LWS datasets sometimes contain pairs of categorical variables where one is a finer disaggregation of the other. The variables `educ` and `educlev` are a prime example, where `educlev` breaks down each broad education category into more granular sub-groups. In such cases, a two-way tabulation serves a dual purpose: it describes the joint distribution of both variables simultaneously, and it allows the user to verify which categories of one variable correspond to which categories of the other, confirming that no unexpected combinations appear across countries or years.
+
+The example below cross-tabulates `educ` and `educlev` for Mexico and Spain, computing the share of each `educlev` sub-category within its parent `educ` group.
+
+```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
+qui lissyuse, iso2(mx es) from(2018) to(2018) pvars(pid educ educlev ppopwgt) hvars(cname year dname)
+preserve
+drop if (missing(educ) | missing(educlev))
+gen n = 1
+collapse (sum) n, by(dname cname year educ educlev)
+bysort dname educ: egen total = total(n)
+gen percent = n / total * 100
+decode educ, gen(education) 
+decode educlev, gen(education_level) 
+forvalues i = 1/`=_N' {
+    if `i' == 1 {
+        di "cname@year@education@education_level@percent"
+    } 
+    di cname[`i'] "@" year[`i'] "@" education[`i'] "@" education_level[`i'] "@" percent[`i']   
+}
+restore
+```
+
+::: callout-tip
+In this example we switched the chosen separator from a comma to `@`. This prevents further conflicts in cases where category labels themselves contain commas. To learn how to split numeric codes from the labels refer to [the note in the following section](/stata-users/dd_cont_vars.html#subgroup_stata).
+:::
+
+
+#### Nested coding {#nested-coding}
+
+While standardized variables share a fixed category template across all datasets in LIS and LWS, this does not always guarantee straightforward comparability in practice. The level of detail available for a given variable can vary considerably across years within the same country series, reflecting differences in the underlying survey instrument. The variable `own` in the Spanish series illustrates this well.
+
+```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
+qui lissyuse, iso2(es) from(1999) to(2005) hvars(cname year dname)
+
+by dname: tabulate own, missing
+```
+
+In `es00`, housing tenure is recorded in three broad categories only, with all ownership grouped under a single code `[100]`.
+
+![](/images/ES00_data_handling.png)
+
+By `es04`, the same variable is captured with considerably more granularity, distinguishing for instance between outright ownership `[110]` and ownership with a mortgage `[120]`, and similarly splitting the rental category into market `[211]` and sub-market `[212]` rentals.
+
+![](/images/ES04_data_handling.png)
+
+This finer disaggregation in later years is not incidental: it reflects the hierarchical coding structure deliberately built into LIS and LWS standardized variables, where higher-level codes such as `[100]` or `[200]` represent aggregate categories, and lower-level codes such as `[110]`, `[120]`, or `[211]` represent their constituent sub-groups. Users should therefore always inspect the distribution of standardized categorical variables across the full country series before drawing comparisons, as apparent changes over time may reflect a shift in granularity rather than a genuine change in the underlying phenomenon.
+
+### Country-specific variables
+
+Country-specific variables require special attention in LISSY. Unlike standardized variables, designed to be comparable across countries and over time, country-specific variables reflect the original national classifications and coding schemes used in each survey. As a result, **they should always be handled on a dataset-by-dataset basis**.
+
+
+The `lissyuse` command appends all selected *ccyy* datasets into a single large dataset. While this is convenient for harmonised variables, it creates technical issues for country-specific variables. The same numerical codes may carry entirely different meanings depending on the country and year, and when datasets are stacked together, Stata attempts to reconcile conflicting **value labels** — often **silently overwriting** some with others.
+
+To illustrate this, consider loading Italian, Spanish, and German data together and including `region_c` among the selected variables:
+
+```{stata, eval =TRUE, echo=TRUE}
+qui lissyuse , iso2(it de es) from(2016) to(2016) hvars(hid hwgt region_c dhi dname year)
+tab region_c  
+des
+tabstat dhi if dname  ==  "it20",  by(region_c)
+```
+
+
+::: {.callout-important}
+To work safely with country-specific variables, **always load one country at a time**. This guarantees that value labels are unambiguous and that the categories you see correspond exactly to the national classification used in that survey year.
+:::
+
+
+The loop below shows this recommended pattern, each iteration loads a single country, applies any country-specific logic, and produces output before moving on to the next:
+
+
+```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
+local ds de16 es16 it16 
+foreach x of local ds {
+	qui lissyuse, cc(`x') hvars(hid hwgt dhi region_c) 
+	tabstat dhi,  by(region_c)
+}
+```
+
+Running this loop produces separate, clean tabulations for Germany, Spain, and Italy, with region labels that correctly reflect each country's classification. Attempting the same analysis on the merged dataset would produce unreliable results without any error from Stata.
+
+In the R pacakge `lissyrtools`, there is a dedicated function named `variable_country_specific_categories` to assess beforehand the number of diferent categories across a given series to auxiliatte the user on the identifcation of breaks in the series, as well as to print them directly in a console across the different yearass avaiable in a given series. If curious check the section (/r-users/dd_catg_vars.html#ct_spec_vars_R)
+
+
+-------------------------------------------------
+
+
+#### Extra tools in R
+
+An additional complication arises when working across multiple waves of the same country: classifications themselves may change from one year to the next, making longitudinal comparisons unreliable without prior investigation.
+
+For R users, the `lissyrtools` package provides a dedicated function, `variable_country_specific_categories()`, which helps assess the number of distinct categories a country-specific variable takes across waves of a given series. This allows you to identify classification breaks before attempting any trend analysis. For details, see the [corresponding R section](../r-users/dd_catg_vars.html#ct_spec_vars_R).
+
+
+

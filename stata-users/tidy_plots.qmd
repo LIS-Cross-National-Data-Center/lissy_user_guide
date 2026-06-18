@@ -1,0 +1,107 @@
+---
+title: "Structuring Results for Analysis"
+---
+
+```{r, include=FALSE}
+source("../src/stata_machine.R")
+library(Statamarkdown)
+stataexe <- get_stata_machine_path()
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+```
+
+```{stata, echo = FALSE, results = "hide", collectcode = TRUE}
+adopath + "R:\general\ado\" // important because of commands percentils and pshare
+adopath + "S:\upload\_ado\" // important because of commands percentils and pshare
+do "../src/lissyuse.do"
+*do "../src/lissy_user_guide_percentils.do"
+global myincl "../src"
+```
+
+
+
+In this final section, we introduce example of charts that are posssible to d oin LISSY. They are temlate, meaninfg that we just need to chagen the countries when we what to change the inherent data to visualzie other treds or to asses how the frquencies on a given categorical variales are across countries and time . Terrible writing I really have no talent to write such things. 
+
+
+
+
+
+
+
+
+## Plotting in Stata {#plots_in_stata}
+
+
+```{stata, eval = FALSE, echo=TRUE}
+lissyuse, iso2(fr lu se us uk) hvars(hid cname year dhi nhhmem hwgt dname) from(2010) to(2024)
+qui merge m:1 cname year  using "$myincl/ppp_2021.dta" ,  keep(match)
+*===================================
+* Loop over each dataset
+*===================================
+tempfile final
+save `final', replace emptyok
+qui levelsof dname, local(levels)
+foreach ccyy of local levels {
+    preserve
+    keep if dname == "`ccyy'"
+    drop if missing(dhi)
+    * Person weight
+    generate double pwt = hwgt * nhhmem
+    * IQR capping (done per ccyy)
+    generate double dhi_log = log(dhi)
+    replace dhi_log = 0 if dhi_log == . & dhi != .
+    sort dhi_log hwgt
+    qui percentils dhi_log [aw = hwgt], p(25 75)
+    local p75 = e(Perc_75)
+    local p25 = e(Perc_25)
+    gen double iqr     = `p75' - `p25'
+    gen double upper_bound = `p75' + (iqr * 3)
+    gen double lower_bound = `p25' - (iqr * 3)
+    replace dhi = exp(upper_bound) if dhi > exp(upper_bound)
+    replace dhi = exp(lower_bound) if dhi < exp(lower_bound)
+    * Equivalisation
+    generate double ey = dhi / (nhhmem^0.5)
+    * PPP adjustment
+    generate double ey_adj = ey / lisppp
+    * Median
+    sort ey_adj hwgt
+    qui percentils ey_adj [aw = pwt], p(50)
+    gen median = e(Perc_50)
+    collapse median, by(cname year dname)
+    * Append to final file
+    append using `final'
+    save `final', replace
+    restore
+}
+use `final', clear
+drop if missing(median)
+keep cname year dname median
+* Build twoway command dynamically
+qui levelsof cname, local(countries)
+local twoway_cmd ""
+local i 1
+foreach c of local countries {
+    local twoway_cmd `"`twoway_cmd' (connected median year if cname == "`c'", msize(small))"'
+    local labels `"`labels' lab(`i' "`c'")"'
+    local i = `i' + 1
+}
+twoway `twoway_cmd', ///
+    ytitle("") xtitle("") ///
+    ylabel(0(10000)60000, angle(horizontal) labsize(vsmall) format(%8.0gc)) ///
+    xlabel(, labsize(vsmall)) ///
+	title("Median Disposable Household Income in US int.$ 2021", size(small)) ///
+    caption("LIS - Luxembourg Income Study", size(tiny) position(5)) ///
+    graphr(color(white)) ///
+    legend(pos(3) col(1) size(vsmall) `labels')
+graph export "$mypdf/ex22.png", replace width(871) height(522)
+```
+
+
+
+### Basic ggplot() {#plots_in_R}
+
+
+## The use of `facet_wrap()`
+
+
+
+## Multiple indicators in the same chart 

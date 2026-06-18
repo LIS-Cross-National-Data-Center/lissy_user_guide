@@ -46,7 +46,9 @@ website:
           href: getting-started/registration.qmd
         - text: "Submit First Job"
           href: getting-started/submit_first_job.qmd
-        - text: "SAS and SPSS"
+        - text: "Best Practises"
+          href: getting-started/bp.qmd
+        - text: "Notes for SAS and SPSS Users"
           href: getting-started/sas_spss.qmd
 
 
@@ -90,9 +92,7 @@ website:
             - text: "Export to CSV"
               href: r-users/tidy_exp_to_csv.qmd 
             - text: "Plotting in LISSY"
-              href: r-users/tidy_plots.qmd
-        - text: "Best Practises"
-          href: r-users/bp.qmd                        
+              href: r-users/tidy_plots.qmd                     
 
 
               
@@ -133,15 +133,10 @@ website:
 
         - section: "Structuring Results for Analysis"
           contents:
-          - text: "Prepare for Graphing"
-            href: stata-users/tidy_structure_to_plot.qmd
           - text: "Export to CSV"
             href: stata-users/tidy_exp_to_csv.qmd
           - text: "Plotting in Stata"
-            href: stata-users/tidy_plots.qmd   
-
-        - text: "Best Practises"
-          href: stata-users/bp.qmd        
+            href: stata-users/tidy_plots.qmd      
 
     # -------------------------
     # Other Resources

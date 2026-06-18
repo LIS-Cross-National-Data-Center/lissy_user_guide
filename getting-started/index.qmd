@@ -2,32 +2,28 @@
 title: "Getting Started"
 ---
 
-Welcome once more ! 
+Welcome! If you are a new user, this page will get you up to speed with what LISSY is and what it is used for.
 
-If you are a new user here are a couple of things that will make aimmediatly familiar with what LISSY IS and what is it used for ! 
+The next section will help you determine whether you are eligible to register and, if so, walk you through the steps to do so.
 
-The next section will informa you if you are allows to register and if so the stpes to follow ! 
+Once registered, you will find guidance on how to submit your first job and make the most of the interface.
 
-Once registered, the following section will teach you how to submit your first job and the functionalities of the interface ! 
+## Quick Access
 
+LISSY is designed to replicate the experience of working with data on your own machine. Through the interface, you can:
 
+- **Load harmonized datasets** for more than 50 countries worldwide. [R](/r-users/method1.html#import_data_r) | [Stata](/stata-users/method1.html#import_data_stata)
 
-## Quick Access 
+- **Analyse and process data** just as you would locally, with additional access to CPI and PPP deflators provided by LIS. [R](/r-users/dh_cont_vars.html#ppp_in_r) | [Stata](/stata-users/dh_ppp.html#ppp_in_stata)
 
-Here we need to state that in LISSY you will be able to Quick Acess: (a bit to mimic the job submission)
+- **Visualize your results** directly within LISSY. [R](/r-users/tidy_plots.html#plots_in_R) | [Stata](/stata-users/tidy_plots.html#plots_in_stata)
 
-- Load thousands of harmonized datasets for more than 50 countries worldwide. R | Stata
+- **Archive your work** and retrieve the outputs of all your past job submissions.
 
+---
 
+For more information on the data available, see:
 
-- Using **CPI and PPP deflators** to adjust values expressed in national currencies. [R](/r-users/dh_cont_vars.html#ppp_in_r) | [Stata] ()
-
-- **Data Visualization** in LISSY. [R](/r-users/tidy_plots.html#plots_in_R) | [Stata] ()
-
-- Countries and Years 
-
-- [LIS variables](https://www.lisdatacenter.org/wp-content/uploads/files/data-lis-variables.pdf) and [LWS variables](https://www.lisdatacenter.org/wp-content/uploads/files/data-lws-variables.pdf) 
-
-- [Metadata (METIS)](https://www.lisdatacenter.org/frontend#/home)
-
-- Best Practises in LISSY?
+- **Countries and years** covered by the [LIS Database](https://www.lisdatacenter.org/our-data/lis-database/) and the [LWS Database](https://www.lisdatacenter.org/our-data/lws-database/), also available in [dataset format](https://www.lisdatacenter.org/wp-content/uploads/files/resources_datasets.txt).
+- **Variables** — [LIS variables](https://www.lisdatacenter.org/wp-content/uploads/files/data-lis-variables.pdf) and [LWS variables](https://www.lisdatacenter.org/wp-content/uploads/files/data-lws-variables.pdf).
+- **Metadata tools** — [METIS](https://www.lisdatacenter.org/frontend#/home) and [Compare.it](https://comparability.lisdatacenter.org/shiny/comparability/).

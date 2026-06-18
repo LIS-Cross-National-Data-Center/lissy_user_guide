@@ -1,0 +1,260 @@
+---
+title: "Data Handling"
+---
+
+```{r, include=FALSE}
+source("../src/stata_machine.R")
+library(Statamarkdown)
+stataexe <- get_stata_machine_path()
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+```
+
+```{stata, echo = FALSE, results = "hide", collectcode = TRUE}
+do "../src/adopaths.do"
+do "../src/lissyuse.do"
+*do "../src/lissy_user_guide_percentils.do"
+global myincl "../src"
+```
+
+## Processing Income Variables
+
+Due to the wide range of research questions that can be explored using data from LIS, it is often necessary to perform multiple and distinct types of data preparation after the initial import. For this reason, this section is divided into two parts, each dedicated to a different analytical goal.
+
+In the first part, we demonstrate how to compute a Children Poverty Rate among Single-Mother Families. This particular indicator requires several steps, making it a comprehensive example of the types of Stata functions users can rely on, as well as highlighting important considerations when working with LIS and LWS data.
+
+In the second part, we focus on how to apply the deflators provided by LIS, an essential step for cross-country and cross-time comparisons, and discuss the specific nuances involved in that process.
+
+### Children Poverty Rates - Single-Mother Families
+
+The sections that follow illustrate a more comprehensive workflow, combining several preparation steps to construct a policy-relevant indicator from microdata.
+
+The aim will be to compute the poverty rate among children in single-mother households in several countries. Constructing this indicator requires combining information available at both the household level (`dhi`, `nhhmem17`, `hpartner`), and the individual level (`sex`).
+
+::: callout-important
+Recall from the earlier sections of this guidebook when we introduced the `lissyuse` command, that when both household and individual variables are specified, both files for a given `ccyy` are loaded and merged automatically. As a result, the data loaded at the individua
+:::
+
+```{stata, eval =FALSE, echo=TRUE, class.output = "foldable"}
+qui lissyuse, iso2(us de uk fr) from(2018) to(2024) hvars(hid cname dname year dhi nhhmem nhhmem17 hpartner hwgt) pvars(pid sex relation)
+```
+
+### Filtering and Variable Construction
+
+At this stage, we prepare the dataset so that it is **aligned with the unit of analysis required for our indicator**: the household. Although we imported both household- and person-level variables, the poverty measure is computed at the household level and then attributed to individuals (in this case, children).
+
+Since in the importing stage we retrieve microdata for several waves appended into a single dataset, the transformations described below must be applied to each `ccyy` separately. At the end of this section we present the complete routine, which uses a loop together with the `preserve`/`restore` technique. For now, we walk through each transformation step individually.
+
+```{stata, eval = FALSE, echo=TRUE, class.output = "foldable"}
+*===================================
+* Keep only household heads
+*===================================	
+
+drop if relation != 1000 // (data is now at household-level)	
+
+*===================================
+* Filter out missing observations 
+*===================================
+	 
+drop if missing(dhi)
+	 
+*===================================
+* Create person\children weights (data is at household-level)
+*===================================
+	 
+generate double pwt = hwgt * nhhmem 
+generate double cwt = hwgt * nhhmem17 
+```
+
+We begin by retaining only records corresponding to the household reference person (`relation == 1000`). This step ensures that each household appears exactly once in the dataset, avoiding the duplication that would arise from keeping all person-level records. We then drop observations with missing disposable household income (`dhi`), as these cannot contribute to the poverty calculation.
+
+Next, we construct two adjusted weights. For population-level indicators, we use a person-level weight derived from the household weight multiplied by household size (`hwgt * nhhmem`). For child-specific indicators, we construct a child weight by multiplying the household weight by the number of children in the household (`hwgt * nhhmem17`). These weights ensure that estimates correctly reflect the underlying population structure.
+
+### Bottom and Top Coding
+
+Before proceeding with inequality and poverty calculations, we address the presence of extreme income values. While the underlying microdata do not impose bounds on income, very high or very low values can disproportionately influence distributional measures.
+
+To mitigate this, we apply bottom- and top-coding to disposable household income (`dhi`). For methodological consistency with the rest of the workflow, we use the `percentils` command introduced in the previous sections to estimate the relevant percentiles.
+
+<!-- Definition 4 as proposed by Hyndman and Fan (1996) -->
+
+```{stata, eval = FALSE, echo=TRUE, class.output = "foldable"}
+*===================================
+* Bottom and top coding / outlier detection
+*===================================
+
+generate double dhi_log = log(dhi) 
+replace dhi_log = 0 if dhi_log == . & dhi != .        // keep negatives and 0 
+
+sort dhi_log hwgt
+qui percentils dhi_log [aw = hwgt], p(25 75)
+local p75 = e(Perc_75)
+local p25 = e(Perc_25) 
+gen double iqr = `p75' - `p25'                        // interquartile range
+gen double upper_bound = `p75'  + (iqr * 3)           // upper bound for extreme values
+gen double lower_bound = `p25'  - (iqr * 3)           // lower bound for extreme values
+replace dhi=exp(upper_bound) if dhi>exp(upper_bound)  // top code income at upper bound for extreme values
+replace dhi=exp(lower_bound) if dhi<exp(lower_bound)  // bottom code income at lower bound for extreme values
+```
+
+::: callout-note
+The `sort` step helps maintain consistency when assessing the position of observations that share the same income value. Using `double` precision throughout helps preserve numerical accuracy and avoids rounding errors that can accumulate in distributional calculations.
+:::
+
+This adjustment is carried out on the logarithmic scale. An interquartile range (IQR) rule is applied: values above the upper threshold (Q3 + 3×IQR) are capped, and values below the lower threshold (Q1 − 3×IQR) are raised. Working on the log scale has the advantage of making the IQR rule less sensitive to the heavy right-skew that is typical of income distributions. The back-transformation via `exp()` then brings the bounds back to the original income scale. This approach ensures that extreme observations do not disproportionately affect results, while preserving the overall shape and structure of the income distribution.
+
+::: callout-note
+To ensure consistency with the methodology applied by LIS across all disseminated aggregate figures, this step must be performed prior to equivalisation. In addition, the quartiles used to define the IQR thresholds should be estimated following Definition 4 as proposed by Hyndman and Fan (1996).
+:::
+
+### Equivalence Scales
+
+Households differ in size and composition, which affects their economic needs. To enable meaningful comparisons across households, we equivalize disposable household income.
+
+We apply the square root equivalence scale, dividing household income by the square root of the total number of household members. This transformation accounts for economies of scale in consumption: larger households require more resources, but not proportionally more per additional member.
+
+As a result, all individuals within a household are assigned the same equivalised income, regardless of their age or role within the household.
+
+```{stata, eval = FALSE, echo=TRUE, class.output = "foldable"}
+*===================================
+* Equivalise income (square root)
+*===================================
+generate double ey = ( dhi / (nhhmem^0.5) )
+```
+
+### Poverty Line
+
+Having adjusted the income variable and reduced the dataset to the household level, we are now ready to compute the poverty line. We define it as **50% of the weighted median of equivalised income**,
+
+Because `percentils` stores results in scalars using the naming convention `e(Perc_XX)`, the median can be retrieved directly as `e(Perc_50)` and then halved to obtain the threshold. Note that the median is estimated on the `ey` variable using the person-level weight `pwt`, which ensures it represents the distribution across individuals rather than households.
+
+```{stata, eval = FALSE, echo=TRUE, class.output = "foldable"}
+*===================================
+* Compute Poverty Line
+*===================================
+sort ey pwt	
+qui percentils ey [aw= pwt], p(50) // median	
+qui gen double poverty_line_50  = e(Perc_50) * 0.5
+```
+
+It is important to note that the poverty line is always calculated based on the **full population**. This same threshold is then applied when evaluating poverty rates for specific subgroups, such as children in single-mother households. 
+
+### Weighted Aggregation
+
+In the final step, we restrict the sample to the population of interest: children living in single-mother households. This is defined as households where the reference person is female (`sex == 2`), has no partner present (`hpartner == 0`), and where at least one child is present (`nhhmem17 > 0`).
+
+We first generate the binary poverty indicator, then compute its weighted mean using the child-specific weight (`cwt`). This produces the poverty rate among children in single-mother households, expressed as a percentage.
+
+```{stata, eval = FALSE, echo=TRUE, class.output = "foldable"}
+*===================================
+* Children Poverty Rates - Single Mother Family (50%)
+*===================================	
+qui sum pov50 [w=cwt] if hpartner == 0 & /// 
+							  sex == 2 & ///
+							  nhhmem17 > 0
+							 
+display "Children Poverty Rates - Single-Mother Families (50%) = " r(mean) 
+```
+
+### Multiple Countries and Waves
+
+The code below extends the single-country workflow to multiple countries and waves. It follows the same logical steps as before, but wraps them in a loop that iterates over each dataset (`ccyy`) identified in the pooled data loaded by `lissyuse`.
+
+```{stata, eval = TRUE, echo=TRUE, class.output = "foldable"}
+	// 1) Load data 
+
+qui lissyuse, iso2(us de uk fr) ///
+              from(2018) to(2024) /// 
+              hvars(hid cname dname year dhi nhhmem nhhmem17 hpartner hwgt) /// 
+              pvars(pid sex relation) // (data is at person-level)
+
+*==========================================
+* Identify and loop over selected datasets
+*=========================================
+
+levelsof dname, local(levels)
+foreach ccyy of local levels {
+		
+	**
+	preserve
+	**
+    qui {
+	keep if dname == "`ccyy'"
+
+
+		// 2) Data preparation 
+
+	*===================================
+	* Keep only household heads
+	*===================================	
+
+	drop if relation != 1000 // (data is at household-level)	
+
+	*===================================
+	* Filter out missing observations 
+	*===================================
+	 
+	drop if missing(dhi)
+	 
+	*===================================
+	* Create person\children\elderly weights (data is at household-level)
+	*===================================
+	 
+	generate double pwt = hwgt * nhhmem 
+	generate double cwt = hwgt * nhhmem17 
+	 
+	*===================================
+	* Bottom and top coding / outlier detection
+	*===================================
+
+	generate double dhi_log = log(dhi) 
+	replace dhi_log = 0 if dhi_log == . & dhi != . // keep negatives and 0 
+
+	sort dhi_log hwgt
+	qui percentils dhi_log [aw = hwgt], p(25 75)
+	local p75 = e(Perc_75)
+	local p25 = e(Perc_25) 
+	gen double iqr = `p75' - `p25'  // interquartile range
+	gen double upper_bound = `p75'  + (iqr * 3)  // upper bound for extreme values
+	gen double lower_bound = `p25'  - (iqr * 3)  // lower bound for extreme values
+	replace dhi=exp(upper_bound) if dhi>exp(upper_bound)  // top code income at upper bound for extreme values
+	replace dhi=exp(lower_bound) if dhi<exp(lower_bound)  // bottom code income at lower bound for extreme values
+
+	*===================================
+	* Equivalise income (square root)
+	*===================================
+	generate double ey = ( dhi / (nhhmem^0.5) )
+
+
+		// 3) Compute Key Figures 
+		
+	sort ey pwt	
+	qui percentils ey [aw= pwt], p(50) // median	
+	qui gen double poverty_line_50  = e(Perc_50) * 0.5
+
+
+	qui gen double pov50 = 0 if !missing(ey)
+	replace pov50 = 100 if ey < poverty_line_50 
+
+	*===================================
+	* Children Poverty Rates - Single Mother Family (50%)
+	*===================================	
+	qui sum pov50 [w=cwt] if hpartner == 0 & /// 
+							 sex == 2 & ///
+							 nhhmem17 > 0
+    }						 
+	display "`ccyy'" "," "Children Poverty Rates - Single-Mother Families (50%)" "," r(mean) 	
+		
+	**
+	restore
+	**
+
+}
+```
+
+Several features of this routine are worth noting.
+
+1.  **`levelsof` and the loop.** After loading the pooled dataset, `levelsof dname` extracts the full list of unique dataset identifiers — one per country-wave combination (e.g., `us19`, `de20`) — and stores them in the local macro `levels`. The `foreach` loop then iterates over this list, processing each dataset in turn. This avoids hardcoding country-year combinations and makes the routine straightforward to extend to additional countries or time periods simply by adjusting the arguments passed to `lissyuse`.
+
+2.  **`preserve` and `restore`.** Because all waves and countries are held in memory simultaneously as a single pooled dataset, any modification made inside the loop — such as dropping observations or generating new variables — would otherwise permanently alter the data for all subsequent iterations. The `preserve` command saves a snapshot of the full dataset in memory at the start of each iteration, and `restore` reinstates it at the end, ensuring that each pass through the loop starts from the same complete pooled dataset.
+
+3.  **Comma-separated output.** The `display` statement at the end of each iteration prints the dataset identifier, the indicator label, and the estimated poverty rate as a comma-separated line. This format is deliberately chosen for its portability: the output can be copied directly into a spreadsheet or text file and parsed without any further reformatting.

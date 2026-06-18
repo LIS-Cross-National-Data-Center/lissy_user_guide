@@ -31,7 +31,7 @@ lissyrtools::get_surveys_lws(c("no", "za"))
 ::: {style="height: 30px;"}
 :::
 
-Survey changes across different periodsmay introduce breaks in consistency, potentially affecting the availability, content, or coverage of certain variables.
+Survey changes across different periods may introduce breaks in consistency, potentially affecting the availability, content, or coverage of certain variables.
 
 <br>
 

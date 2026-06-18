@@ -1,0 +1,19 @@
+---
+title: "Best Practises"
+---
+
+- **Before submitting a job to LISSY**, we recommend using the **sample files** to prototype and debug in advance the jobs locally.
+
+- **Send each job only once.** If it is not returned, do not send it again. Moreover, **wait for each job to be returned** before submitting your next one.
+
+- Try **breaking statistical queries into several smaller jobs** since queries that generate very large outputs can cause system congestion. Always select only the variables needed for the analysis, and when working with many country-year datasets, split the workload into multiple jobs whenever possible. 
+
+- **Do not attempt to view, examine, or print individual records at either the person or household level.** In addition, certain program syntax and commands will trigger system security alerts and may interrupt traffic. 
+
+- **Do not use commands that violate our security measures**. More on this in the [FAQs](/faqs/index.html#forbidden-words).
+
+- Do not request frequencies on continuous variables because this violates our security measures. If you are and **R user** When using some of the functions from `lissyrtools` such as: `run_weighted_count()`, or `run_weighted_mean()` , always use the original names of LIS variables (eg. var_name = 'own', instead of var_name = 'my_version_of_own'). See more on [this section](/r-users/dh_catg_vars.html#orig_vars_placeholder).
+
+- If you wish to come up with multiple charts being created in a single job. You need to name them differently. More on this [**here for Stata**]{style="color: #991d14;"} and [**here for R**]{style="color: #991d14;"}.
+
+- R packages and Stata ado files can only be installed by the LIS Staff into the LISSY system. Please contact [User Support](faqs/index.html#contact-support) if you wish to do so. 

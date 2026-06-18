@@ -2,23 +2,29 @@
 title: "Structuring Results for Analysis"
 ---
 
-In this section, we build on this tabular structure to produce visualizations. Having the data in a clean and well-organized format will make it straightforward to generate plots and explore the results more effectively.
+In this final section, we build on the tabular structure introduced above to produce visualizations. Having the data in a clean, well-organized format makes it straightforward to generate plots and explore results more effectively inside of LISSY.
 
+We focus particularly on trends, as these also serve as a way to give users ready-made templates to quickly assess the data at hand and evaluate the consistency of the series directly within LISSY, with special attention to structural breaks.
 
-We will fcosu particularly on the trends, as this are also a way to provide the user with the templates to quickly asses the data at hand and visualize in LISSY, the consitency of the data at-hands (breaks in the series most of all)
+We then introduce a code template using `ggplot2::facet_wrap()`, which generates multiple subplots useful for comparing the same series across countries side by side. Following that, we assemble code to visualize multiple indicators within the same plot, using percentile ratios for the United Kingdom as an example.
 
+We conclude by explaining the role of the `png()` function in LISSY, which serves two purposes:
 
-### Basic ggplot() {#plots_in_R}
+1.  **adjusting plot dimensions** to the desired size, and
 
+2.  defining distinct file names when **producing multiple figures within a single job submission**.
 
+### Plotting Series {#plots_in_R}
 
+### Subplots
 
+### Multiple Indicators 
 
+### `png()` function
 
-
-```{r, message = FALSE, results = 'hold', warning = FALSE }
+```{r, eval = FALSE, message = FALSE, results = 'hold', warning = FALSE }
 library(lissyrtools)
-library(tidyverse) # library(dplyr)
+library(tidyverse) 
 library(ggplot2)
 
 lis_data <- lissyuse(
@@ -27,7 +33,7 @@ lis_data <- lissyuse(
     from = 2002
   )
 
-# png(file = paste0(USR_PDF, "/non-adj.png"), width = 1280, height = 720, res = 150)
+png(file = paste0(USR_PDF, "/non-adj.png"), width = 1280, height = 720, res = 150)
 
 lis_data %>% 
   map(~ .x %>% 
@@ -46,7 +52,7 @@ lis_data %>%
   facet_wrap("cname")
 
 
-# png(file = paste0(USR_PDF, "/ppp-adj.png"), width = 1280, height = 720, res = 150)
+png(file = paste0(USR_PDF, "/ppp-adj.png"), width = 1280, height = 720, res = 150)
 
 lis_data %>% 
     map(~ .x %>% 
@@ -70,26 +76,18 @@ lis_data %>%
          
 ```
 
+## The use of `facet_wrap()`
 
+add panel breakdowns on countries or breakdowns or whatever we which to put side by side don't crucially care.
 
-## The use of `facet_wrap()` 
+## Multiple indicators in the same chart
 
-add panel breakdowns on countries or breakdowns or whatever we which to put side by side dont crucially care. 
+In this part we are going to demostrate such, plotting on the same chart tewo different percentiles ratios created with a function dedicated to it.
 
+## PNG command
 
-## Multiple indicators in the same chart 
+It allows the user not only to customize the resolution of the chart but also to name it. This last features is very important because if the user wwant to produce several chart in the same session in LISSY it need to give them different names but perhaps add this on a callout to notice more.
 
-In this part we are going to demostrate such, plotting on the same chart tewo different percentiles ratios created with a function dedicated to it. 
-
-
-## PNG command 
-
-It allows the user not only to customize the resolution of the chart but also to name it. This last features is very important because if the user wwant to produce several chart in the same session in LISSY it need to give them different names but perhaps add this on a callout to notice more. 
-
-
-
-We thuis conclude I guess the user guide on the R section ! 
-
-
+We thuis conclude I guess the user guide on the R section !
 
 <!-- S:\workshops\2025-summer-workshop\6. content\Day 2\Session-exercise 2.2 -->

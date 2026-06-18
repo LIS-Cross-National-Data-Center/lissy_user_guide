@@ -1,22 +1,22 @@
 ---
 title: "Data Handling"
 ---
-## Preparing Income Variables
+## Processing Income Variables
 
 Due to the wide range of research questions that can be explored using data from LIS, it is often necessary to perform multiple and distinct types of data preparation after the initial import. For this reason, this section is divided into two parts, each dedicated to a different analytical goal.
 
-In the first part, we demonstrate how to compute a Children Poverty Rate among Single-Mother Families. This particular indicator requires several steps, making it a comprehensive example of the types of R functions users can rely on, as well as highlighting important considerations when working with LIS and LWS data.
+In the first part, we demonstrate how to compute a Children Poverty Rate among Single-Mother Families. This particular indicator requires several steps, making it a comprehensive example of the types of functions users can rely on, as well as highlighting important considerations when working with LIS and LWS data.
 
-Secondly, to work effectively on cross-country projects with LIS data, users must have a solid understanding of how to apply the deflators provided. Therefore, the second part will therefore focus on this process and its specific nuances.
+In the second part, we focus on how to apply the deflators provided by LIS, an essential step for cross-country and cross-time comparisons, and discuss the specific nuances involved in that process.
 
 ### Children Poverty Rates - Single-Mother Families
 
-The sections that follow illustrates a more comprehensive workflow, combining several preparation steps to construct a policy-relevant indicator from microdata.
+The sections that follow illustrate a more comprehensive workflow, combining several preparation steps to construct a policy-relevant indicator from microdata.
 
-The aim will be to compute the poverty rate among children in single-mother households in the United States. Constructing this indicator requires combining information available at both the household level (`dhi`, `nhhmem17`, `hpartner`), and the individual level (`sex`).
+The aim will be to compute the poverty rate among children in single-mother households in several countries. Constructing this indicator requires combining information available at both the household level (`dhi`, `nhhmem17`, `hpartner`), and the individual level (`sex`).
 
 ::: callout-important
-Recall from the early sections of this guidebook when we introduced `lissyuse()`, that when both household and individual levels are specified in `vars`, both files for a given `ccyy` are loaded are merged automatically. Therefore we end up with the data loaded at the individual level.
+Recall from the earlier sections of this guidebook when we introduced `lissyuse()`, that when both household and individual level variables  are specified in `vars`, both files for a given `ccyy` are loaded and merged automatically. As a result, the data is loaded at the individual level.
 :::
 
 ```{r, warning = FALSE, message = 5}
@@ -24,8 +24,8 @@ library(lissyrtools)
 library(dplyr)
 library(purrr)
 
-us_data <- lissyuse(
-  data = "us",  
+data <- lissyuse(
+  data = c("us", "de", "uk", "fr"),  
   vars = c("dhi", "nhhmem17", "sex", "hpartner"), # 3 'h-level' + 1 'p-level'
   from = 2018, 
   to = 2024   
@@ -35,7 +35,7 @@ us_data <- lissyuse(
 
 
 ```{r, warning = FALSE, message = FALSE, class.output = "foldable"}  
-columns = names(us_data[[1]]) 
+columns = names(data[[1]]) 
 lissyrtools::variable_labels(vars = columns)
 ```
 
@@ -49,11 +49,18 @@ Variables `relation` and `nhhmem` are part of the group of variables that are al
 
 At this stage, we prepare the dataset so that it is **aligned with the unit of analysis required for our indicator**: the household. Although we imported both household- and person-level variables, the poverty measure is computed at the household level and then attributed to individuals (in this case, children).
 
+We define a pipeline inside `purrr::map()` to apply the same sequence of transformations
+to each dataset. We begin by retaining only records corresponding to the household
+reference person (`relation == 1000`), ensuring that each household appears exactly once
+in the dataset and avoiding the duplication that would arise from keeping all person-level
+records. We then filter out observations with missing disposable household income (`dhi`),
+as these cannot contribute to the poverty calculation.
+
 ```{r}
-data_prep <- us_data %>%
+data_prep <- data %>%
   purrr::map(~ .x %>% 
-        filter(!is.na(dhi)) %>% 
         filter(relation == 1000) %>% 
+        filter(!is.na(dhi)) %>% 
         mutate(
           new_wgt = hwgt * nhhmem,
           new_chld_wgt = hwgt * nhhmem17,
@@ -61,7 +68,6 @@ data_prep <- us_data %>%
   )
 ```
 
-Like in previous examples, we will define a pipeline inside the `purrr::map()` function to apply the same processes for each dataset. We begin by filtering out observations with missing disposable household income (`dhi`). Next, we retain only records corresponding to the household reference person (`relation == 1000`). This step ensures that each household appears only once in the dataset, avoiding duplication that would arise from person-level records.
 
 We then construct adjusted weights. For population-level indicators, we use a person-level weight derived from the household weight multiplied by household size (`hwgt * nhhmem`). For child-specific indicators, we instead construct a child weight by multiplying the household weight by the number of children in the household (`hwgt * nhhmem17`). These weights ensure that estimates correctly reflect the underlying population structure.
 
@@ -69,7 +75,7 @@ We then construct adjusted weights. For population-level indicators, we use a pe
 
 Before proceeding with inequality and poverty calculations, we address the presence of extreme income values. While the underlying microdata do not impose bounds on income, very high or very low values can disproportionately influence distributional measures.
 
-To mitigate this, we apply bottom- and top-coding to disposable household income (dhi), with the help of another auxilliary function named `apply_iqr_top_bottom_coding()` tailored specifically for such stage.
+To mitigate this, we apply bottom- and top-coding to disposable household income (dhi), with the help of an auxilliary function named `apply_iqr_top_bottom_coding()` tailored specifically for this step.
 
 ```{r}
 data_tb_coded <- data_prep %>%
@@ -82,10 +88,10 @@ data_tb_coded <- data_prep %>%
         )
 ```
 
-In more detail, this adjustment is carried out on the logarithmic scale using an interquartile range (IQR) rule: values above the upper threshold (Q3 + 3×IQR) are capped, and values below the lower threshold (Q1 − 3×IQR) are raised. This method ensures that extreme observations do not disproportionately affect the results, while preserving the overall shape and structure of the income distribution.
+This adjustment is carried out on the logarithmic scale using an interquartile range (IQR) rule: values above the upper threshold (Q3 + 3×IQR) are capped, and values below the lower threshold (Q1 − 3×IQR) are raised. This method ensures that extreme observations do not disproportionately affect the results, while preserving the overall shape and structure of the income distribution.
 
 ::: callout-note
-To ensure consistency with the latest methodology applied by LIS across all disseminated aggregate figures, this step must be performed prior to equivalisation. In addition, the quartiles used to define the IQR thresholds should be estimated following Definition 4 as proposed by Hyndman and Fan (1996).
+To ensure consistency with the methodology applied by LIS across all disseminated aggregate figures, this step must be performed prior to equivalisation. In addition, the quartiles used to define the IQR thresholds should be estimated following Definition 4 as proposed by Hyndman and Fan (1996), which corresponds to the `type = "type_4"` argument above
 :::
 
 <!-- DART still uses old percentile estimation method in its IQR preparation... -->
@@ -107,9 +113,9 @@ data_eqv <- data_tb_coded %>%
 
 ### Poverty Line
 
-At this point, we have done all the adjustments to original `dhi` variable, and reduced the dataset to the household-level. We are now settled to compute a poverty line that we will establish to be 50% of the weighted median of equivalised income
+Having adjusted the income variable and reduced the dataset to the household level, we are now ready to compute the poverty line. We define it as **50% of the weighted median of equivalised income**, which is the standard relative poverty threshold used in cross-national research.
 
-We can use the already familiar `run_weighted_percentiles()` that by default will compute the Minimum the Maximum and the 25th, 50th and 75th percentiles, and output themn in a named vector inside a list.
+We can use the already familiar `run_weighted_percentiles()`, which by default computes the minimum, maximum, and the 25th, 50th, and 75th percentiles, returning them as a named vector inside a list. The call below previews the output structure for the first dataset.
 
 ```{r,  class.output = "foldable"}
 lissyrtools::run_weighted_percentiles(
@@ -119,7 +125,7 @@ lissyrtools::run_weighted_percentiles(
     )
 ```
 
-Therefore, we can use the `map()` function and retreive only the elemet corresponding to the Median, named "50%", and then multiply it by 0.5 to establish the poverty line. This relative definition ensures that poverty is assessed in relation to the living standards prevailing within each dataset, and thus there is no need to adjust for inflation or for diffferent currencies.
+We then use `purrr::map()` to apply this function across all datasets, retrieve the element corresponding to the median (named `"50%"`), and multiply it by 0.5 to establish the poverty line. This relative definition ensures that poverty is assessed in relation to the living standards prevailing within each dataset, so there is no need to adjust for inflation or different currencies.
 
 ```{r}
 medians <- purrr::map(
@@ -129,18 +135,18 @@ medians <- purrr::map(
         wgt_name = "new_wgt"
     ), "50%"
 )
-poverty_lines <- purrr::map(medians  , ~ .x  * 0.5) # Half of the Median
+poverty_lines <- purrr::map(medians  , ~ .x  * 0.5)
 
 print(poverty_lines)
 ```
 
-It is important to note that poverty lines are always calculated based on the full population. These same thresholds are subsequently used when evaluating poverty rates for specific subgroups, such as children or the elderly.
+It is important to note that the poverty line is always calculated based on the **full population**. This same threshold is subsequently applied when evaluating poverty rates for specific subgroups, such as children in single-mother households.
 
 ### Conditional Variable Construction
 
 With the poverty line established, we create an indicator identifying whether each household falls below this threshold. For each observation, we compare equivalised income (`dhi`) to the poverty line.
 
-Households with income below the threshold are classified as poor and assigned a value of 100, while all others are assigned 0. This binary indicator forms the basis for computing poverty rates.
+Households with income below the threshold are classified as poor and assigned a value of 100, all others are assigned 0.
 
 ```{r}
 data_with_pov_line <- purrr::map2(
@@ -155,18 +161,18 @@ data_with_pov_line <- purrr::map2(
 ```
 
 ::: callout-tip
-When using `purrr::map()2`, '.x' refers to the first element of the first list `data_eqv`, whilst '.y' to the first element of the second list `povery_lines`.
+When using `purrr::map2()`, `.x` refers to the current element of the first list (`data_eqv`), while `.y` refers to the corresponding element of the second list (`poverty_lines`). This allows both lists to be iterated over in lockstep.
 :::
 
-By expressing the indicator as 0/100 rather than 0/1, the resulting weighted mean directly corresponds to a percentage.
 
 ### Weighted Aggregation
 
 In the final step, we restrict the sample to the population of interest: children living in single-mother households. This is defined as households where the reference person is female (`sex == 2`), has no partner present (`hpartner == 0`), and where at least one child is present (`nhhmem17 > 0`).
 
-We then compute the weighted mean of the poverty indicator using the child-specific weight (`hwgt * nhhmem17`). This produces the poverty rate among children in single-mother households.
+We then compute the weighted mean of the poverty indicator using the child-specific weight (`hwgt * nhhmem17 = new_chld_wgt`). This produces the poverty rate among children in single-mother households, expressed as a percentage.
 
-Throughout this process, the poverty line remains fixed—having been calculated for the total population—while the weighting scheme ensures that the estimate accurately reflects the distribution of children across households.
+Throughout this process, the poverty line remains fixed, having been calculated for the total population, while the weighting scheme ensures that the estimate accurately reflects the distribution of children across households.
+
 
 ```{r}
 data_with_pov_line %>% 
@@ -175,3 +181,8 @@ data_with_pov_line %>%
   ) %>% 
   run_weighted_mean("poor", "new_chld_wgt")
 ```
+
+
+
+
+

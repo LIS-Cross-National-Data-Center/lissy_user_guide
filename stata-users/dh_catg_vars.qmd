@@ -1,0 +1,60 @@
+---
+title: "Data Handling"
+---
+
+```{r, include=FALSE}
+source("../src/stata_machine.R")
+library(Statamarkdown)
+stataexe <- get_stata_machine_path()
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+```
+
+```{stata, echo = FALSE, results = "hide", collectcode = TRUE}
+do "../src/adopaths.do"
+do "../src/lissyuse.do"
+*do "../src/lissy_user_guide_percentils.do"
+global myincl "../src"
+```
+
+
+
+Once data has been successfully imported and explored, the next step is preparation for analysis. This stage bridges raw information and meaningful results by aligning the dataset with the specific requirements of the research design. Although the exact procedures depend on the research question, countries involved, subpopulations of interest, and empirical methods, common tasks typically include transforming variables to improve comparability, subsetting data to focus on relevant groups, and constructing new variables from existing ones.
+
+Developing familiarity with these operations is essential, as they allow researchers to adapt datasets to their analytical goals while maintaining clarity and consistency. A structured approach to data manipulation also enhances workflow efficiency and reduces the risk of errors or misinterpretation during analysis.
+
+As in the previous section, this part of the guide is organised by variable type, distinguishing between categorical and continuous data. By the end of this section, users will be equipped with a set of practical tools and techniques that add an additional layer of flexibility to their work with LIS data, ultimately expanding the range and depth of analyses they can perform.
+
+
+## Recoding Categories {#dh_cat_vars_stata}
+
+The most common operation users perform on categorical variables is, once familiar with the numeric codes and their respective labels, to recode them into broader or alternative groupings. This is typically done to align the variable with a preferred breakdown for comparability purposes, to collapse rarely populated categories, or to harmonise the coding scheme across country-years that do not share the same level of disaggregation.
+
+As mentioned in the data description section, the [nested coding](/stata-users/dd_catg_vars.html#nested-coding) structure of LIS categorical variables delivers the richest possible information, but it can also introduce unexpected breaks in longitudinal series. The charts below illustrate this in practice: from 2004 onwards, LIS received more disaggregated data for the Spanish tenure variable `own`, introducing finer subcategories that were not present in earlier waves.
+
+![](/images/ES00_data_handling.png){fig-align="center"} 
+![](/images/ES04_data_handling.png){fig-align="center"}
+
+
+### Highest-Level Recoding
+
+
+
+To restore comparability across the full Spanish series, the more disaggregated categories available from 2004 onwards need to be collapsed back to the broader codes present at the start of the series. In Stata, this is handled directly with the `recode` command, which maps ranges of existing values to a new target code in a single readable line:
+
+```{stata, eval=TRUE, echo=TRUE, class.output="foldable", collectcode=TRUE}
+qui lissyuse, iso2(es) hvars(hid hpopwgt own cname year dname) from(2020)
+recode own (100/199 = 100) (210/219 = 210) (220/229 = 220)
+by dname: tab own
+```
+
+<div style="height: 30px;"></div>
+
+The ranges used here directly reflect the nested coding structure, where subcategories always fall within a predictable numeric interval below the parent code — making the recoding rules both intuitive and easy to verify against the codebook.
+
+
+![Spain — tenure variable `own` before recoding](/images/ES_ts_no_recoding.png){width=100%}
+
+![Spain — tenure variable `own` after recoding](/images/ES_ts_recoding.png){width=100%}
+
+
+The two charts above illustrate the practical consequence of the nested coding structure and the value of the recoding step. In the first chart, the series breaks sharply around 2004, with the broad ownership category effectively disappearing as it splinters into finer subcategories introduced in later waves. A user working with the raw codes would face an artificial discontinuity that makes any longitudinal comparison across the full Spanish series unreliable. The second chart shows the result after recoding: by collapsing the more disaggregated categories back to the three broad codes present at the start of the series, the distribution becomes consistent across all waves and the series can be read and compared as intended.

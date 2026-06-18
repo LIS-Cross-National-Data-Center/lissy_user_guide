@@ -1,0 +1,142 @@
+---
+title: "Structuring Results for Analysis"
+---
+
+```{r, include=FALSE}
+source("../src/stata_machine.R")
+library(Statamarkdown)
+stataexe <- get_stata_machine_path()
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+```
+
+```{stata, echo = FALSE, results = "hide", collectcode = TRUE}
+do "../src/lissyuse.do"
+do "../src/lissy_user_guide_percentils.do"
+global myincl "../src"
+```
+
+
+Throughout the previous chapters, we have highlighted the usefulness of `collapse` for transforming microdata into aggregated datasets by country-year and selected subpopulations. This is particularly valuable in an environment like LISSY, where direct inspection of the microdata is not possible, and users must rely on techniques that produce structured, exportable summaries. 
+
+With this in mind, this chapter closes the guidebook with two practical sections: the first walks through exporting aggregated results in a delimited format compatible with CSV, and the second introduces how to produce visualizations directly within the LISSY environment.
+
+
+## Export to CSV {#stata_export_csv}
+
+To illustrate this process step by step, we start by coding country-level inequality figures for Mexico and Peru, covering the workflow stages addressed in previous chapters: importing, processing, and aggregating microdata.
+
+Finally, we display the results using a comma-separated format, with columns for country name, year, and the inequality figure of interest. 
+
+
+```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
+	// 1) Load data 
+
+qui lissyuse, iso2(mx pe) from(2010) to(2020) ///
+		  hvars(hid hwgt nhhmem dhi dname cname year) // (data is at household-level)
+
+
+*==========================================
+* Identify and loop over selected datasets
+*=========================================
+	 
+qui levelsof dname, local(levels)
+local x : word 1 of `levels'
+
+foreach ccyy of local levels {
+		
+	**
+	preserve
+	**
+	qui {
+	keep if dname == "`ccyy'"
+
+
+		// 2) Data preparation 
+
+	*===================================
+	* Filter out missing observations 
+	*===================================
+	 
+	drop if missing(dhi)
+	 
+	*===================================
+	* Create person weight (data is at household-level)
+	*===================================
+	 
+	generate double pwt = hwgt * nhhmem 
+	 
+	*===================================
+	* Bottom and top coding / outlier detection
+	*===================================
+
+	generate double dhi_log = log(dhi) 
+	replace dhi_log = 0 if dhi_log == . & dhi != . 
+
+	sort dhi_log hwgt
+	qui percentils dhi_log [aw = hwgt], p(25 75)
+	local p75 = e(Perc_75)
+	local p25 = e(Perc_25) 
+	gen double iqr = `p75' - `p25' 
+	gen double upper_bound = `p75'  + (iqr * 3)  
+	gen double lower_bound = `p25'  - (iqr * 3)  
+	replace dhi=exp(upper_bound) if dhi>exp(upper_bound)  
+	replace dhi=exp(lower_bound) if dhi<exp(lower_bound)  
+
+	*===================================
+	* Equivalise income (square root)
+	*===================================
+
+	generate double ey = ( dhi / (nhhmem^0.5) )
+
+
+		// 3) Compute Key Figures 
+
+	*===================================
+	* Gini Coefficient
+	*===================================
+
+	quietly sum ey [w = pwt] , de
+	local cumsum_w = r(sum_w)
+	local mean_ey = r(mean) 
+	sort ey
+	egen double gini = sum( (2 * sum(pwt) + 1 - pwt)  * pwt * (ey - `mean_ey') / (`cumsum_w'^2 * `mean_ey') )
+    }
+
+
+        if dname[1] == "`x'" {
+		di "     "
+        di "cname,year,indicator,value"
+        } 
+        dis cname[1], "," year[1], "," "Gini Coefficient" "," gini[1]
+    
+
+    **
+	restore
+    **
+}
+```
+
+
+![](/images/copy_from_lissy_to_csv_stata.png){fig-align="center"}
+
+Once the output appears in the console, you can transfer it into a spreadsheet as follows:
+
+- Use your mouse to select the entire output displayed in the LISSY console
+
+- Copy it using **Ctrl + C** (on Windows/Linux) or Cmd + C (on macOS)
+
+- Open a new spreadsheet in Excel (or similar software)
+
+- Paste the content into cell A1
+
+![](/images/paste_to_csv.png){fig-align="center"}
+
+If the data does not automatically split into columns, use the “Text to Columns” (or equivalent) feature and specify a **comma** as the delimiter. This will correctly separate the values into columns.
+
+![](/images/final_to_csv.png){fig-align="center"}
+
+This approach provides a simple and effective way to export *aggregate* results from LISSY, where user are not allowed to directly download files to a local storage folder. Instead, LISSY allows the download of job-related outputs such as the submitted code, the corresponding listings, and any generated visualizations (typically in image format).
+
+Even in cases where personal storage is available, all outputs are subject to a disclosure control process: results must be reviewed and approved by LIS staff before they can be released to the user.
+
+Within this context, exporting data via the console offers a practical workaround. By formatting aggregate results as CSV and copying them into a spreadsheet, users can quickly transfer structured data into external tools for further analysis, formatting, or presentation, without bypassing the platform’s safeguards.

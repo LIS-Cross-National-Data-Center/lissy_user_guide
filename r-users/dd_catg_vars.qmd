@@ -2,17 +2,15 @@
 title: "Describing Data"
 ---
 
-Being able to describe the data just imported is a particularly important step, especially in an environment where users cannot freely view or browse the underlying microdata.
+Being able to describe newly imported data is a critical step, particularly in an environment where users cannot freely browse the underlying microdata.
 
-This section introduces routine coding tasks to **maximize descriptive insight on a variable with minimal code**. Such practices will enable users to identify patterns and inconsistencies across datasets: for example, breaks in a series, changes in the level of detail (more or less disaggregation), or the availability of non-zero and non-missing values for income variables across countries and years.
+This section introduces routine coding tasks designed to **maximize descriptive insight on a variable with minimal code**. These practices help users identify patterns and inconsistencies across datasets such as: breaks in a series, shifts in the level of disaggregation, the availability of non-zero and non-missing values for income variables across countries and years, etc...
 
-In [METIS](https://www.lisdatacenter.org/frontend#/home) a substantial amount of descriptive information is already provided for each variable in a dataset, as illustrated in the figure below:
+In [METIS](https://www.lisdatacenter.org/frontend#/home), a substantial amount of descriptive information is already provided for each variable in a dataset, as illustrated in the figure below:
 
 ![](/images/lissy_codebooks.png){fig-align="center"}
 
-However, this information is currently displayed for one dataset (`ccyy`) at a time.
-
-To complement this, we will take a different approach: **describing a single variable across entire countries series simultaneously**, already taking advantage of the fact that the data are stored as a single list of multiple `ccyy` data frames.
+However, this information is currently displayed for one dataset (`ccyy`) at a time. To complement this, we will take a different approach: **describing a single variable across countries series simultaneously**, already taking advantage of the fact that the data are stored as a list of multiple `ccyy` data frames.
 
 Using `purrr::map()` together with appropriate helper functions, it becomes straightforward to apply the same descriptive routine across multiple datasets, while ensuring that the output is already structured by country-year.
 
@@ -24,9 +22,8 @@ In support of this workflow, `lissyrtools` provides three useful functions:
 
 - [`run_weighted_percentiles()`](https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_percentiles.html)
 
-However, in this section will provide template codes that automatically output you the necessary desciprtuive variable by variable., but collapse per country and year withou worry to loop over them... Full disclosure across country series.
 
-We begin by focusing on *categorical* variables and how to make exploratory and frequency analysis on them. We then move on to continuous variables. In addition to standard summary statistics such as the mean and percentiles (e.g. 0, 25, 50, 75, 100), we will also demonstrate how to define custom functions, for instance, to compute the share of non-missing observations.
+We begin with *categorical* variables and how to perform exploratory and frequency analysis on them, before moving on to continuous variables. In addition to standard summary statistics such as the mean and percentiles, we will also demonstrate how to define custom functions, for instance, to compute the share of non-missing observations.
 
 ## Categorical Variables
 
@@ -34,13 +31,13 @@ Categorical Varaibles are composed by numeric codes, each uniquely associated wi
 
 - **Standardized**: their categories are the same across all datasets in LIS or LWS.
 
-- **Country-specific**: provide categorized information on topics that by nature (region_c) or the lack of following an standard international classification (health_c) are not comparable across countries. Such variables might also not be directly comparable across time within a given country.
+- **Country-specific**: these provide categorized information on topics that are inherently non-comparable across countries — either by nature (e.g., `region_c`) or because they do not follow a standard international classification (e.g., `health_c`). Such variables may also lack comparability across time within a given country.
 
 ### Standardized variables
 
-#### One-tabulations 
+#### One-way tabulation
 
-To quickly start hands-on analysing these variables, we perfomr a straigtforward **one-way tabulation** that will deliver us the absolute frequencies by each one of the varaible's categories
+To quickly get a first look at a variable's categories and how the sample is distributed across them, we can perform a straightforward **one-way tabulation** returning absolute frequencies for each category:
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
 library(lissyrtools)
@@ -52,8 +49,6 @@ imported_list <- lissyuse(
   from = 2020
   )
 
-# Absolute Frequencies
-
 lissyrtools::run_weighted_count(
     data = imported_list, 
     var_name = 'sex', 
@@ -65,26 +60,15 @@ lissyrtools::run_weighted_count(
 
 <div style="height: 30px;"></div>
 
-We have now used a new function named `run_weighted_count()`, that takes a list of LIS and LWS datasets, as its input in argument `data`, and outputting the tabulation of the LIS variable specified in `var_name`.
+The function `run_weighted_count()` takes a list of LIS or LWS datasets as its `data` argument and returns a tabulation of the variable specified in `var_name`. 
 
-Since the output is still a list, not only it get printed in LISSY, but we can also pipe it (??) into `purrr::map()` for further actions (???), namely to get the total observation in each dataset
 
-```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE, class.output = "foldable"}
-library(purrr)
+::: {.callout-tip}
+Because the **output is itself a list**: one element per country-year, it can be piped directly into `purrr::map()` for further operations for each *ccyy*.
+:::
 
-lissyrtools::run_weighted_count(
-    data = imported_list, 
-    var_name = 'sex', 
-    wgt_name = NULL, 
-    percent = FALSE, 
-    na.rm = FALSE
-    ) %>%
-    map(~ sum(.x))     
-```
 
-<div style="height: 30px;"></div>
-
-Now do me here a sentence that continues in the same tone and explicative terms that now that we know how to deal with the absolute percentages we can go and check the relative percentage 
+Now that we have a clear picture of the absolute counts, it is straightforward to switch to **relative frequencies** by setting `percent = TRUE`:
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
 lissyrtools::run_weighted_count(
@@ -98,15 +82,15 @@ lissyrtools::run_weighted_count(
 
 <div style="height: 30px;"></div>
 
-To get population-weighted shares, recall here that data is being imported at person-level since gender is reported at person-level, we can defined   
+The unweighted shares above reflect the sample composition. To obtain **population-representative** shares, we can pass a weight variable via `wgt_name`.
+
+::: {.callout-note}
+Weight variables are always imported by default. There is no need to include them explicitly in `lissyuse`. To check the names of the columsn in the data frames run: 
+`print(names(imported_list[[1]]))`
+:::
+
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE, class.output = "foldable"}
-
-# Weight variables are always imported by default, no need to specify them in `vars`
-
-print(names(imported_list[[1]]))
-
-
 lissyrtools::run_weighted_count(
     data = imported_list, 
     var_name = 'sex', 
@@ -118,13 +102,15 @@ lissyrtools::run_weighted_count(
 
 <div style="height: 30px;"></div>
 
-To get better outputs in tabular way we now refer to Chapter 5 in exporting to a csv or stuff, and also to quickly plot trends for visual inspection ! 
-
 
 #### Two-way tabulation 
 
-```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
+LIS and LWS datasets sometimes contain pairs of categorical variables where one is a finer disaggregation of the other. The variables `educ` and `educlev` are a prime example: `educlev` breaks each 
+broad education category into more granular sub-groups. In such cases, a two-way tabulation serves a dual purpose. It describes the joint distribution of both variables simultaneously, and allows the user to verify which sub-categories of `educlev` correspond to which parent categories of `educ`.
 
+`run_weighted_count()` supports this directly via the `by` argument. Always place the more disaggregated variable in `var_name` and the broader grouping variable in `by`:
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
 imported_list <- lissyrtools::lissyuse(c('es18', 'mx18'), vars = c('educ', 'educlev'))
 
 lissyrtools::run_weighted_count(imported_list, 'educlev', by = 'educ')  
@@ -132,20 +118,17 @@ lissyrtools::run_weighted_count(imported_list, 'educlev', by = 'educ')
 
 <div style="height: 30px;"></div>
 
-Do always the more dissagreted variable in `var_name` and the more aggregated in the `by` argument ! 
-Also, do a bit of the interpretation of that tabulation aboce saying tha category A and B and C corresponde so category 1, and that the D and E corresponde to category 2.  
 
-Do some more cumbersome exmample in terms of the printed output and then, link it up for the dataset tabular way in the [chapter](/r-users/tidy_exp_to_csv.html#export-csv) where we teach the csv tricks.
-
+::: {.callout-tip}
+For better-structured tabular output, or to quickly produce trend plots for visual inspection, see the [chapter on exporting results](/r-users/tidy_exp_to_csv.html#export-csv).
+:::
 
 ![](/images/csv_teaser_dd.png){fig-align="center"}
 
 
 #### Nested coding  {#nested-coding}
 
-Earlier in this section we mentioned that the categories of the standardized categorical variables are the same across all datasets. However, in order to preserve as much detail as originally provided to LIS, we settled a nested coding method to these variables, with sub-categoires inside broader categories. 
-
-In practice, this could create breaks in series, that we will dexemplify how to deal with this thporugh highest level recoding on the [following section](/r-users/dh_catg_vars.html#dh_cat_vars) section. 
+While standardized variables share a fixed category template across all datasets in LIS and LWS, this does not always guarantee straightforward comparability in practice. The level of detail available for a given variable can vary considerably across years within the same country series, reflecting differences in the underlying survey instrument. The variable `own` in the Spanish series illustrates this well.
 
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
@@ -159,16 +142,23 @@ lissyrtools::lissyuse(
 
 <div style="height: 30px;"></div>
 
+In `es00`, housing tenure is recorded in three broad categories only, with all ownership grouped under a single code `[100]`.
+
+![](/images/ES00_data_handling.png)
+
+By `es04`, the same variable is captured with considerably more granularity, distinguishing for instance between outright ownership `[110]` and ownership with a mortgage `[120]`, and similarly splitting the rental category into market `[211]` and sub-market `[212]` rentals.
+
+![](/images/ES04_data_handling.png)
+
+This finer disaggregation in later years is not incidental: it reflects the hierarchical coding structure deliberately built into LIS and LWS standardized variables, where higher-level codes such as `[100]` or `[200]` represent aggregate categories, and lower-level codes such as `[110]`, `[120]`, or `[211]` represent their constituent sub-groups. Users should therefore always inspect the distribution of standardized categorical variables across the full country series before drawing comparisons, as apparent changes over time may reflect a shift in granularity rather than a genuine change in the underlying phenomenon.
 
 
+### Country-specific variables {#ct_spec_vars_R}
 
-### Country-specific variables
+As the name suggests, country-specific variables are not designed to be comparable across countries. What is less immediately obvious is that they can also be unreliable for within-country comparisons over time: the categories used to capture a given concept may change from one wave to the next, either because the underlying survey instrument was revised or because the national classification itself evolved. 
 
-We have the ethnic_c thing in the UK, to raise awareness for how tricky the series of such variables turn out to be in practise.
+The variable `ethnic_c` in the United Kingdom series is a good illustration of how complex such variables can be in practice. The number of distinct ethnicity categories recorded has changed across waves, making any naive time-series comparison misleading without first understanding where those breaks occur.
 
-Ja mencionamos antes que sao mt tricky e tal e coiseeeee, mas pronto toma la esta function
-
-To auxilliate further the user, we made avaialbe the `lissyrtools::variable_country_specific_categories()` function that prints out the categories of one country-specific variables across time for a given country. Alternatively, we can also settle the logical argument `n_categories = TRUE` for check the number of distinct categories as well, which could immediatly indicate where are the breaks are likely to be occuring.
 
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE, class.output = "foldable"}
@@ -180,6 +170,9 @@ lissyrtools::lissyuse(
 ) %>% lissyrtools::run_weighted_count( var_name = 'own', wgt_name = NULL, percent = FALSE, na.rm = FALSE)  
 ```
 
+To assist with this, `lissyrtools` provides the `variable_country_specific_categories()` function, which prints the categories of a country-specific variable across all available waves for a given country. Setting the argument `n_categories = TRUE` returns only the count of distinct categories per wave rather than the full listing — a quick way to spot where breaks are likely occurring before committing to a deeper investigation,
+
+
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold'}
 lissyrtools::variable_country_specific_categories(
@@ -188,3 +181,10 @@ lissyrtools::variable_country_specific_categories(
   n_categories = TRUE
 )
 ```
+
+
+::: callout-important
+For any substantive analysis involving country-specific variables, always load and inspect one country at a time. The same numerical code may carry an entirely different meaning depending on the country and wave, and mixing datasets without accounting for this will produce results that are difficult or impossible to interpret correctly.
+:::
+
+

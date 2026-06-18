@@ -5,7 +5,7 @@ title: "Import Data"
 
 ## Method 2 - `read.LIS()`
 
-The second method, the `read.LIS()` function has a less automated approach on importing the data, and was more commonly used in the past. 
+The second method, the `read.LIS()` function has a less automated yet robust approach on importing the data.
 
 This method requires handling each country-year file separately by level. The imported datasets are then appended into a single data.frame, rather than being stored as a list.
 

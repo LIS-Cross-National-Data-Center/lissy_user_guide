@@ -13,46 +13,57 @@ knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 do "../src/lissyuse.do"
 ```
 
-LIS and LWS datasets are organized by country, year, and level (household and individual). As a result, every dataset follows a naming format, ***ccyyl***, that allows them to be identified by such characteriticcs individually.
+More than a thousand LIS and LWS datasets are available for use and analysis within LISSY. Learning how to import these datasets is one of the first essential steps in the user workflow, as it requires becoming familiar with the built-in tools specifically designed for this purpose.
 
-- ***cc***: standing for a given country's **iso2** code e.g.,: us for the United States, es for Spain or za for South Africa.
+Before getting started, there are a few important concepts to keep in mind:
 
-- ***yy***: refering to the last 2 digits of the **year** in question
+- LIS and LWS datasets cannot be accessed simultaneously (remember to select the appropriate **Project** from the dropdown menu in the user interface).
+- Datasets are organized by country and year, following the `ccyy` naming convention (e.g., `de18`, `de19`).
+- In addition, each `ccyy` dataset is divided by level:
+  - household-level data
+  - individual-level data
 
-- ***l***: whether the dataset is at household level or at the individual level.
+Stata users have two different methods available to import data into LISSY:
 
-To load data in LISSY, you can recur to two main approaches: the more recent `lissyuse` command or the traditional Stata `use` command. In this section, we will go through the sintaxes of these two methods, for the user to be able to maintain full control of what is being imported, knwowldge of its end-structure and to improive the efficieny of their jobs.
+1.  The newer `lissyuse` command\
+2.  The traditional Stata `use` command, which imports one dataset at a time, separately for household- (`h`) and person-level (`p`) data
 
-## Method 1: `lissyuse`
+In this guide, we focus primarily on **Method 1**, based on the `lissyuse` command. This method imports the selected LIS datasets into a single appended dataset while simplifying dataset selection and file management.
 
-The [`lissyuse`](https://www.lisdatacenter.org/wp-content/uploads/files/Job%20Submission-lissyuse.pdf) command, developed in-house and pre-installed in LISSY, offers two significant advantages designed to simplify and automatize the importing process for the LIS users:
+## Method 1: `lissyuse` {#import_data_stata}
 
-1.  Country series can be loaded automatically by specifying a country's iso2 and a time range;
+The [`lissyuse`](https://www.lisdatacenter.org/wp-content/uploads/files/Job%20Submission-lissyuse.pdf) command, developed in-house and pre-installed in LISSY, provides several features designed to simplify and automate the data-import process for LIS users.
 
-2.  Automatically merges household- and person-level files according to the levels of the variables selected;
+Its two main advantages are:
+
+1.  Country series can be loaded automatically by specifying a country's iso2 and a time range.
+
+2.  Automatically merges household- and person-level files according to the levels of the variables selected.
 
 <br>
 
-### Advantage 1: Importing country series
+### Advantage 1: Importing Entire Country Series
 
-As stated above, LIS data is stored separately for each country-year pair (ignoring the level), identified by a ***ccyy*** code.
+As noted above, LIS data is stored separately for each country–year combination, identified by a `ccyy` code.
 
-At the time we are writting this guide, LIS contains 28 datasets on Austria and 22 on Switzerland. This mean that is the user wanted to import all years it would have needed to manually specify 50 distinct datasets. On top of it, it still had to know and confirm the exact specific years that we have data for each one of the countries.
+At the time of writing, LIS contains 28 datasets for Austria and 22 for Switzerland. Importing all available years manually would therefore require specifying 50 individual datasets. In addition, the user would need to know exactly which years are available for each country.
 
 ```{stata, eval =FALSE, echo=TRUE}
 * at23 at22 at21 at20 at19 ...
 * ch22 ch21 ch20 ch19 ch18 ...
 ```
 
-To bypass this problem, `lissyuse` allows the user to both specify only the countries he/she wishes to work with via its code, toghether with a way to filter out by the desired year range, as exemplified below:
+To simplify this process, `lissyuse` allows users to specify only the countries they wish to work with through their ISO2 country codes, together with a desired time range using the `from()` and `to()` options:
 
 ```{stata, eval =TRUE, echo=TRUE}
 lissyuse, iso2(at ch) from(2019) to(2022)
 ```
 
-<br> Once we defined `lissyuse`, we just had to specify the list of countries we wish to import inside the `iso2()` argument, and trim the desried time period by add the a combination of the `from()` and `to()` arguments.
+<br>
 
-As the output shows, all the relevant datasets were **automatically selected**, **loaded** and **appended to eachother** in a single dataset. We can confirm how many entries we have for each dataset by tabulating the variable named *dname*:
+In this example, we specify the countries inside the `iso2()` option and restrict the selected period using the `from()` and `to()` options.
+
+As the output shows, all relevant datasets are automatically identified, loaded, and appended into a single dataset. We can verify which datasets were imported by tabulating the variable `dname`:
 
 ```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
 quietly lissyuse, iso2(at ch) from(2019) to(2022)
@@ -62,40 +73,34 @@ tabulate dname
 <br>
 
 ::: callout-tip
-When visualizaing the output of a given command is not essential, add `quitely` before as it helps to keep outputs uncluttered and logs cleaner.
+When the output of a command is not essential, consider adding `quietly` (or `qui`) before the command. This helps keep the console output and logs cleaner.
 :::
 
-We can see however, that we have that warning up there saying that all variables were imported.... this occured because we havent specified none, and as such it imported all LIS variables existent, and regardles oof the level h-level or p-level.
+You may notice a warning indicating that all variables were imported. This occurs because no variables were explicitly specified. In such cases, `lissyuse` imports all available LIS variables from both household- and person-level files.
 
-This is not efficient !
-
-Plus as we can already guess, the command merged automatically both levels for each of the country-year pairs imported !
+In practice, this is usually inefficient. Therefore, users are strongly encouraged to specify variables explicitly using the `hvars()` and `pvars()` options.
 
 <br>
 
-### Advantage 2: p-level variable... p-level data !
+### Advantage 2: Automatic Data-Level Selection
 
-The second benefit of using `lissyuse()` is that it automatically imports datasets at the level determined by the variables selected. If the users selects only household-level varaibles in the `vars` argument such as: disposable household income (<b>dhi</b>), geographic region (<b>region_c</b>) or capital income (<b>hicapital</b>), the data will be loadad at the household level. As soon as the user includes an individual-level variable, such as gender (<b>sex</b>) or labour force status (<b>lfs</b>), the dataset level adjusts accordingly.
+The second advantage of `lissyuse` is that it automatically determines the appropriate data level based on the variables selected.
 
-
-
-See how only h-fles are imported, and only the selected variables and dname  ..... 
+If the user specifies only household-level variables in `hvars()`, such as disposable household income (\<b\>dhi\</b\>), household size (\<b\>nhhmem\</b\>), or geographic region (\<b\>region_c\</b\>), only household-level files are imported.
 
 ```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
-lissyuse, iso2(at ch) from(2019) to(2022) hvars(hid dhi nhhmem region_c hwgt) 
+lissyuse, iso2(at ch) from(2019) to(2022) hvars(hid dname dhi nhhmem region_c hwgt) 
 codebook, compact
 ```
 
-A bit of an irrealistic but show that it onlt imports p-level files in such cases. 
-
-
+In the example below, only person-level variables are specified. As a result, only person-level files are imported
 
 ```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
 quietly lissyuse, iso2(at ch) from(2019) to(2022) pvars(pid age sex relation pi11 lfs) 
 codebook, compact
 ```
 
-And finally to show how it merges both files automatically and seamlessly. 
+Finally, when both household-level and person-level variables are requested, `lissyuse` **automatically merges both files into a single dataset**.
 
 ```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
 quietly lissyuse, iso2(at ch) from(2019) to(2022) pvars(pid age sex relation pi11 lfs) 
@@ -106,7 +111,7 @@ codebook, compact
 
 ### Importing LWS data
 
-To import LWS data, one would need to change the selection in the <b>Project</b> drop-down menu, and set the `lws` logical argument equal to `TRUE`.
+To import LWS data, one would need to change the selection in the <b>Project</b> drop-down menu, and add the `lws` option as exemplified in the snippet below.
 
 ![](/images/project_lws.png){fig-align="center"}
 
@@ -115,7 +120,6 @@ quietly lissyuse, iso2(at) from(2017) to(2021) lws
 codebook, compact
 ```
 
-
 ::: callout-caution
-Always remeber to change the Project dropdown and to add the `lws` argument ! 
+Always remeber to change the Project dropdown and to add the `lws` argument !
 :::

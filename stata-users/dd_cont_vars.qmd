@@ -1,0 +1,191 @@
+---
+title: "Describing Data"
+---
+
+```{r, include=FALSE}
+source("../src/stata_machine.R")
+library(Statamarkdown)
+stataexe <- get_stata_machine_path()
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+```
+
+```{stata, echo = FALSE, results = "hide", collectcode = TRUE}
+do "../src/adopaths.do"
+do "../src/lissyuse.do"
+*do "../src/lissy_user_guide_percentils.do"
+global myincl "../src"
+```
+
+## Continuous Variables
+
+In LIS and LWS datasets, continuous variables are distinct from the socioeconomic categorical variables discussed in the previous section. Rather than grouping households or individuals into discrete classes, they capture actual flows and stocks — income, consumption, and wealth, along with their subcomponents and aggregates. Examples include disposable household income (`dhi`), capital income (`hicapital`), and net worth (`dnw`). These variables tend to be right-skewed, can span several orders of magnitude, and vary considerably in coverage across country-years — a variable that is well-populated in one dataset may be sparse or entirely absent in another. Getting a quick distributional snapshot before any substantive analysis is therefore good practice. The emphasis in this section is not so much on the mechanics of any single statistic, but on building reproducible workflows that apply consistently across countries and waves with minimal extra effort.
+
+### Quick Summary
+
+A natural starting point is to use the `summarize` command to obtain an initial overview of a variable's scale and distribution, iterating across datasets via `by dname:`.
+
+::: callout-tip
+Always make sure the data is at the appropriate level for the variable being analysed. Disposable household income (`dhi`), for instance, is defined at the household level. Running summary statistics on it from an individual-level dataset will silently duplicate observations, inflating counts and distorting distributional measures.
+:::
+
+```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
+qui lissyuse, iso2(it) from(2005) hvars(hid dname dhi)
+bysort dname: summarize dhi, detail 
+```
+
+::: callout-warning
+While `summarize, detail` provides a convenient initial overview, its distributional measures (e.g., the median, p25, and p75) **do not follow the methodology used by LIS** in its official figures. This is discussed in more detail [later in this section](/stata-users/dd_cont_vars.html#pm_stata).
+:::
+
+### Descriptive Routines
+
+Beyond summary statistics, it is often useful to compute a specific diagnostic and apply it systematically across all available datasets. This keeps the workflow transparent and easy to replicate.
+
+As a practical illustration, consider measuring data coverage: for a given income component, what share of observations are both non-missing and non-zero? This is especially relevant for variables like capital income (`hicapital`), which may be consistently recorded in some country-years but sparse or absent in others.
+
+```{stata, eval = TRUE, echo=TRUE, class.output = "foldable"}
+qui lissyuse, iso2(it) from(2005) hvars(hid cname year dname dhi hicapital)
+
+gen byte has_inc   = (!missing(hicapital) & hicapital != 0)   
+gen byte obs_count = 1 
+
+egen total_obs    = total(obs_count), by(dname)
+egen nonmiss_obs  = total(has_inc)  , by(dname)
+
+gen pct_nonmiss = (nonmiss_obs / total_obs) * 100
+bysort dname: keep if _n == 1 // keeping one row per dname (mimics collapse)
+
+keep cname year total_obs nonmiss_obs pct_nonmiss
+forvalues i = 1/`=_N' {
+   if `i' == 1 {
+     di "cname,year,total_obs,nonmiss_obs,pct_nonmiss"
+		} 
+     di cname[`i'] ","  year[`i'] "," total_obs[`i'] "," nonmiss_obs[`i'] "," pct_nonmiss[`i']
+}
+```
+
+The result immediately reveals whether a given income component is consistently observed across the selected waves, or whether its coverage varies substantially over time, making it a useful diagnostic before including the variable in any analysis.
+
+### Subgroup descriptives {#subgroup_stata}
+
+Aggregate statistics can conceal important variation across groups. For continuous variables, computing descriptives by subgroup makes it possible to compare, for instance, how disposable income differs across tenure statuses or demographic categories.
+
+As seen in the section on categorical variables, [`collapse`](/src/dcollapse.pdf){target="_blank"} is a natural tool for this in Stata. Here the same logic applies, with `(mean)` as the descriptive measure of interest, though this can be replaced by any other statistic supported by the command, such as `(median)`, `(sd)`, or `(p25)` and `(p75)`. The `by()` option ensures the computation is carried out separately for each combination of dataset and tenure group:
+
+```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
+
+qui lissyuse, iso2(fr it es de) from(2021) hvars(hid dhi hwgt dname cname year own)
+collapse (mean) avg_dhi = dhi, by(dname own cname year)
+    
+    decode own, gen(own_label)
+    qui gen code = real(regexs(1)) if regexm(own_label, "\[([^\]]+)\]")
+    qui gen label = substr(own_label, strpos(own_label, "]") + 1, .)
+
+
+forvalues i = 1/`=_N' {
+   if `i' == 1 {
+     di "cname,year,code,label,avg_dhi"
+		} 
+     di cname[`i'] "," year[`i'] "," code[`i'] "," label[`i'] "," avg_dhi[`i'] 
+}
+```
+
+
+
+::: callout-note
+The two `gen` lines above handle a recurrent situation in LIS data. The variable `own` is originally numeric with value labels — category 110 is stored as the number `110` and displayed as `owned outright`. After `decode`, it becomes the plain string `[110]owned outright`. While readable, this single string is harder to filter or sort programmatically. The two lines split it back into its two components: `code` recovers the numeric part (`110`) by extracting the content inside the brackets, and `label` recovers the clean text (`owned outright`) by taking everything after the closing bracket. This gives you a tidy, analysis-ready output where the category code and its description live in separate variables.
+:::
+
+### Percentiles methodology {#pm_stata}
+
+We close with an important note on how percentiles are estimated, as the choice of method directly affects the comparability of results with LIS official figures.
+
+LIS adopts Definition 4 from Hyndman and Fan (1996) for the computation of all percentile-based estimates, including medians, percentile ratios, poverty lines, and decile shares. Full details are available in the [LIS methodological note](https://www.lisdatacenter.org/news-and-events/note-on-percentile-methodology-used-in-lis-key-figures/).
+
+
+Although percentile-based measures do not introduce fundamentally new techniques beyond those discussed above, it is important to clarify the methodology used by LIS, as this directly affects the comparability and reproducibility of results.
+
+LIS adopts Definition 4 from Hyndman and Fan (1996) for the computation of [key figures and all percentile-based estimates](https://www.lisdatacenter.org/news-and-events/note-on-percentile-methodology-used-in-lis-key-figures/), including medians, percentile ratios, poverty lines, and decile shares. The command [`percentils`](/src/percentils_help_file.pdf){target="_blank"} is a custom command that follows this methodology by default, so users can rely on it to produce estimates fully consistent with LIS standards without needing to configure anything manually.
+
+
+```{stata, eval =TRUE, echo=TRUE, class.output = "foldable" , collectcode=TRUE}
+qui lissyuse, iso2(es it) hvars(hid hpopwgt dhi cname year dname) from(2020)
+
+* `statsby` mimics `collapse` using the stored results from the selected command  
+
+statsby ///
+	p_50 = e(Perc_50), ///
+	by(year cname) clear: 	///
+	percentils dhi [aw = hpopwgt], p(50) nose 	
+sort cname year
+
+forvalues i = 1/`=_N' {
+   if `i' == 1 {
+     di "year,cname,p_50"
+        } 
+     di year[`i'] "," cname[`i'] "," p_50[`i']
+}
+```
+
+The `p()` option accepts any value or vector of values between 0 and 100, making it straightforward to retrieve the full set of percentiles in a single call:
+
+```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
+qui lissyuse, iso2(es it) hvars(hid hpopwgt dhi cname year dname) from(2020)
+
+statsby ///
+	p_10 = e(Perc_10) ///
+	p_25 = e(Perc_25) ///
+	p_50 = e(Perc_50) ///
+	p_75 = e(Perc_75) ///
+	p_90 = e(Perc_90), ///
+	by(year cname) clear: 	///
+	percentils dhi [aw = hpopwgt], p(10 25 50 75 90) nose 	
+sort cname year 
+
+
+forvalues i = 1/`=_N' {
+   if `i' == 1 {
+     di "year,cname,p_10,p_25,p_50,p_75,p_90"
+        } 
+     di year[`i'] "," cname[`i'] "," p_10[`i'] "," p_25[`i'] "," p_50[`i'] "," p_75[`i'] "," p_90[`i'] 
+}
+```
+
+::: {.callout-tip}
+See also the [chapter on exporting results to excel](/stata-users/tidy_exp_to_csv.html), to learn how to export delimited outputs into excel spreadsheets like the one in the picture below.
+:::
+
+
+Beyond point estimates, [`pshare`](/src/pshare_help_file.pdf){target="_blank"}, another custom command, supports the computation of distributional shares, that is, the share of total income held by each segment of the distribution:
+
+
+```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
+qui lissyuse, iso2(es it) hvars(hid hpopwgt dhi cname year dname) from(2020)
+
+qui levelsof dname, local(levels)
+foreach ccyy of local levels {
+	
+ di "`ccyy'"
+ pshare estimate dhi if dname == "`ccyy'", p(10(10)90) percent
+	
+} 
+```
+
+
+And the average income within each group:
+
+
+```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
+qui lissyuse, iso2(es it) hvars(hid hpopwgt dhi cname year dname) from(2020)
+
+qui levelsof dname, local(levels)
+foreach ccyy of local levels {
+	
+ di "`ccyy'"
+ pshare estimate dhi if dname == "`ccyy'", p(10(10)90) average
+	
+}
+```
+
+
+

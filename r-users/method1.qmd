@@ -2,12 +2,24 @@
 title: "Import Data"
 ---
 
-LIS and LWS datasets are split by country, year, and level (household and individual). To load data in LISSY, we can use the following two methods. The most recently developed `lissyuse` function, or the previous in-use method `read.LIS()` that it still being used to import files less often used like the ones for the replicate weights in LWS. 
+More than a thousand LIS and LWS datasets are available for use and analysis within LISSY. Learning how to import these datasets is one of the first key steps in the user workflow, as it requires becoming familiar with the built-in tools specifically designed for this purpose.
 
-For the remainder of this guide, we will focus on Method 1, which imports the selected LIS data into a list, where each element corresponds to a dataset for a specific country–year combination.
+Before getting started, there are a few important concepts to keep in mind:
 
+- LIS and LWS datasets cannot be accessed simultaneously (remember to select the appropriate **Project** from the dropdown menu in the user interface).
+- Datasets are organized by country and year, following the `ccyy` naming convention (e.g., `de18`, `de19`).
+- In addition, each `ccyy` dataset is divided by level:
+  - household-level data
+  - individual-level data
 
-## Method 1: `lissyuse`
+R users have two different methods available to import data into LISSY:
+
+1.  The newer `lissyrtools::lissyuse()` function\
+2.  The `read.LIS()` method, which is still used in some cases, particularly for less frequently used files such as LWS replicate weights
+
+For the remainder of this guide, we will focus on **Method 1**, which imports the selected LIS datasets into a list, where each element corresponds to a specific country–year dataset.
+
+## Method 1: `lissyuse()`  {#import_data_r}
 
 Using the `lissyuse()` function from our in-house [lissyrtools](https://lis-cross-national-data-center.github.io/lissyrtools/) package has two main advantages:
 
@@ -23,32 +35,32 @@ library(lissyrtools)
 
 ### Advantage 1: Import entire country series
 
+At the time we are writting this guide, LIS contains 26 datasets on Italy. This means that if the user wanted to import all years it would have needed to manually specify 26 distinct datasets. On top of it, it still had to know and confirm the exact specific years that we have data for each one of the countries.
 
-
-LIS data is stored separately for each country and year, identified by a <b>ccyy</b> country-year code. This function allows users to import an entire country series by specifying its ISO-2 country code, with optional year range parameters to filter for a specific time frame. 
-
-```{r, eval=TRUE, echo=TRUE, results = 'hold'}
-
-#' We can load all the datasets available in LIS 
-#'  for Mexico and the USA, simply by inputting their ISO-2 codes.
-
-lis_data <- lissyrtools::lissyuse(
-  data = c("mx", "us"), 
-  vars = "dhi",
-)
-
-# The output of `lissyrtools::lissyuse()` will always be a list of data frames. 
-class(lis_data)
-names(lis_data)
+```{stata, eval =FALSE, echo=TRUE}
+* it22 it20 it16 it14 it12 ...
 ```
 
+To bypass this problem, `lissyuse()` allows users to import LIS data by specifying the countries they wish to work with via their ISO-2 country codes, as well as optionally filtering by a desired year range.
 
+```{r, eval=TRUE, echo=TRUE, results = 'hold'}
+lis_data <- lissyrtools::lissyuse(
+  data = c('it'), 
+  vars = "dhi"
+)
+ 
+class(lis_data)
+names(lis_data)
+class(lis_data[[1]])
+```
+
+::: callout-important
+The output of `lissyrtools::lissyuse()` will always be a **list** of data frames. Each `ccyy` is a different data frame.
+:::
+
+To filter the datasets to a shorter time span, the user can also specify the `from` and `to` arguments.
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold' }
-
-#' For a shorter time span, 
-#'  the user can also specify the `from` and `to` arguments.
-
 lis_data <- lissyrtools::lissyuse(
   data = c("mx", "us"), 
   vars = "dhi",
@@ -57,75 +69,59 @@ lis_data <- lissyrtools::lissyuse(
 )
 ```
 
+Specific datasets can also be selected by specifying its `ccyy` code
+
 ```{r, eval=TRUE, echo=TRUE, results = 'hold' }
-
-# Specific datasets can also be selected by specifying its `ccyy` code
-
 lis_data <- lissyrtools::lissyuse(
   data = c("it16", "mx", "us"), 
   vars = "dhi",
   from = 2014,
   to = 2016
 )
-
 ```
 
 <br>
 
-### Advantage 2: p-level variable... p-level data ! 
-
-
+### Advantage 2: Automatic Data-Level Selection
 
 The second benefit of using `lissyuse()` is that it automatically imports datasets at the level determined by the variables selected. If the users selects only household-level varaibles in the `vars` argument such as: disposable household income (<b>dhi</b>), geographic region (<b>region_c</b>) or capital income (<b>hicapital</b>), the data will be loadad at the household level. As soon as the user includes an individual-level variable, such as gender (<b>sex</b>) or labour force status (<b>lfs</b>), the dataset level adjusts accordingly.
 
+To help users identify the imported data level, a message is printed each time `lissyuse()` is executed. In addition, the names of the datasets include an `h` suffix when household-level data is loaded.
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold'}
-
-#' Based on the variables defined in the `vars` argument, `lissyuse()` will 
-#'  select the level of the datasets in accordance.  
-
-#' Names of the data frames in the list will have an `h` suffix.
-
 h_level_data <- lissyrtools::lissyuse(
   data = "lu18", 
   vars = c("dhi", "region_c", "typehh") # only h-level 
 )
-
-
 ```
+
+In the example below, only individual-level variables are specified. In such cases, in addition to the printed message indicating the data level, the names of the data frames will contain a `p` suffix.
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold' }
-
-# Names of the data frames in the list will have a `p` suffix. 
-
 p_level_data <- lissyrtools::lissyuse(
   data = "lu18", 
-  vars = c("age", "sex", "relation", "emp", "pi11") # only p-level 
+  vars = c("age", "sex", "relation", "emp", "pi11")
 )
-
-
 ```
 
+If both household-level and individual-level variables are specified in `vars`, no suffix is added to the name of the data frame.
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold'}
-
-#' If both h-level and p-level variables are selected, then `lissyuse()` will
-#'   automatically merge both files in one single data frame. 
-
-#' Names of the data frames will NOT have a suffix.
-
 merged_hhd_ind_data <- lissyrtools::lissyuse(
   data = "lu18", 
   vars = c("dhi", "region_c", "typehh", "age", "sex", "relation", "emp", "pi11")
 )
 
-
-
-#' NOTE: some variables are always imported by default, 
-#'  with no need to be defined explicitly. 
 names(merged_hhd_ind_data[[1]])
 ```
 
+::: callout-important
+**Recap:** As soon as a indiviudal-level variable is selected in the argument `vars`, the data will be loaded at individual level as well. If only household-level variables are selected, then data will be loaded at inidividual level. If none are selected, then all variables are considered and consequently data will be at the individual-level.
+:::
+
+::: callout-tip
+Note as well that **some variables were imported by default**. Variables such as IDs, weights, and others do not need to be defined explicitly, as they are automatically included.
+:::
 
 <br>
 
@@ -138,10 +134,14 @@ To import LWS data, one would need to change the selection in the <b>Project</b>
 ```{r, eval=TRUE, echo=TRUE}
 us_lws_data = lissyrtools::lissyuse(
   data = c("us"), 
-  vars = c("dnw"),  # disposable net wealth - LWS specific variable. 
+  vars = c("dnw"), # disposable net wealth - LWS specific variable. 
   from = 2015, 
-  lws = TRUE        # `lws` logical argument  
+  lws = TRUE  # `lws` logical argument        
 )
 
 names(us_lws_data[[1]])
 ```
+
+
+
+

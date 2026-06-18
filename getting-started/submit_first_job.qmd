@@ -1,32 +1,145 @@
-
 ---
-title: "First Steps"
+title: "Submit your First Job"
 ---
 
-# Show up the interface 
+![](/images/recent_jobs_listing.png){fig-align="center"}
 
-Lorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi o Lorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi o
- 
- <br>
-  <br> <br>
-   <br>
+## The interface
 
+Upon first logging into LISSY, users have access to an intuitive interface where they can write and run unlimited ***jobs*** using LIS data in their preferred coding language. The interface allows users to:
 
+- Write and run jobs in a dedicated code editor;
 
-## Run the first job 
+- View the printed output of their jobs, as in Stata, RStudio, or VSCode;
 
-Lorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi o Lorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi o
+- Produce visualizations if desired;
 
+- Download all outputs to their local machine;
 
- <br>
-  <br>
-   <br>
-    <br> <br>
-     <br>
+- Access their full archive of past jobs.
 
-     
-## Export Stuff 
+### Job Session Pane
 
+The first stage of using LISSY begins in the **Edit Job** pane, where users must configure two drop-down menus at the top of the editor:
 
-Lorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi o Lorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi oLorem ipsum dkakdldn   pdak llfns ck xmczjdofpisd oawdaboda ahiduhaoswdi o
+- **Project** - the database to work with (e.g. LIS, LWS, ERFLIS);
+
+- **Package** - the coding language for the job (R, Stata, SAS, or SPSS).
+
+Users must also provide a **Subject** — a short title identifying the job.
+
+Once all fields are defined, users can write or paste their script in the job editor below. When ready, the job can be submitted by pressing the green button with the white arrow in the top-left corner of the editor, as shown in the illustration below:
+
+![](/images/edit_job.png){fig-align="center"}
+
+::: callout-tip
+For a smoother experience, we strongly recommend using our **Sample Files** to prototype your jobs in the editor (Stata, RStudio, etc...) you are most comfortable with. Once your code is ready and locally tested with the sample data, you can simply copy and paste it into the platform and adjust it for the real LIS microdata.
+
+Stata users can find and download the sample files [here](https://www.lisdatacenter.org/resources/self-teaching/), while R users can directly install the [lissyrtools](https://lis-cross-national-data-center.github.io/lissyrtools/) package, which already includes them. This package will be introduced in more detail in the section dedicated to R users.
+:::
+
+Once the job has been submitted, switch to the **Recent Jobs** pane, where the output of ypur submitted job will soon become available.
+
+![](/images/ampersand_stop_signs.png){fig-align="center"}
+
+Here you can see that the interface is divided into a left-hand and a right-hand side. On the left-hand side, you will find the menu listing your jobs. At the top of this list, the most recent job appears with an ampersand icon, indicating that it is still being executed. On the right-hand side, you can view the code of the job currently selected from the menu on the left.
+
+If needed, for example, if you notice a typo in the code or if the execution is taking too long, you can also abort the running job by pressing the red button indicated in the image above.
+
+Once the job has completed successfully, the ampersand icon will be replaced by a green check mark. This will be accompanied by the appearance of the **listing** pane, highlighted in blue. Clicking on it will display the printed output as well as any charts produced by the job (see the first image at the top of this page).
+
+![](/images/listing.png){fig-align="center"}
+
+Finally, to download all generated materials directly to your local machine, simply click the **disk icon**, which gathers everything into a zipped folder and downloads it to your computer.
+
+### Job Archive Pane
+
+In the top menu, between the Job Session pane and the logout button, you will find the **Job Archive** pane.
+
+All jobs submitted through LISSY are archived and can be accessed here. You can search for previous jobs using several filters to refine your query according to different criteria. The system will then display all jobs matching your selected requirements in the menu on the left-hand side. You can open any archived job to review its code and outputs, as well as download all related materials directly to your local machine.
+
+![](/images/job_archive.png){fig-align="center"}
+
+<br>
+
+## Run the first job
+
+Here and throughout the rest of this user guide, we provide code snippets that can be directly copied and pasted into LISSY, allowing for a hands-on approach to learning the topics covered in the following sections.
+
+For Stata users, you can use the snippet below to begin exploring the interface on your own.
+
+```{stata, eval=FALSE, echo=TRUE}
+** Importing LIS microdata
+lissyuse, iso2(se es) from(2018) to(2019) hvars(hid dhi dname iso2 year)
+
+** Normal output
+levelsof dname, local(levels)
+foreach ccyy of local levels {
+  di "`ccyy'"	
+  sum dhi if dname == "`ccyy'"
+}
+
+** Comma-separated output
+levelsof dname, local(levels)
+local n = 0
+foreach ccyy of local levels {
+  local ++n
+  qui sum dhi if dname == "`ccyy'"
+  local mean_dhi : di %9.1f r(mean)
+  if `n' == 1 {
+          di "Dataset, Mean disposable income"
+        }
+        di "`ccyy', `mean_dhi'"
+}
+```
+
+For R users, an equivalent example is provided below so that you can explore the interface using your preferred working environment.
+
+```{r, eval=FALSE, echo=TRUE, message = FALSE, warning = FALSE}
+library(lissyrtools)
+library(dplyr)
+data_list =  lissyrtools::lissyuse(
+  data = c('es', 'se'), 
+  vars = 'dhi', 
+  from = 2018, 
+  to = 2019, 
+  lws = FALSE
+)  
+
+results = lissyrtools::run_weighted_mean(
+  data = data_list,
+  var_name = 'dhi'
+)
+
+print(results) 
+
+# Tidying up into a tabular structure
+lissyrtools::structure_to_plot( 
+  results 
+) %>% write.csv()
+```
+
+You may already notice a few distinctive features in the snippets above, particularly the Stata commands and R packages specifically designed for use within LISSY.
+
+Apart from these LISSY-specific elements which will naturally be adressed later in in this guide, working in LISSY is very similar to using Stata or R in your usual workflow and working environment.
+
+## Export Output
+
+One especially important aspect of working in LISSY is learning how to structure and export your output properly, so that your results can be easily retrieved and reused afterward.
+
+LISSY provides several ways to access and download your outputs:
+
+- All job outputs are automatically sent to your registered email address.
+
+- Outputs can also be downloaded directly from the interface by clicking the **Disk icon**.
+
+- Results are additionally available in PDF format for convenient viewing and sharing.
+
+- If your output is intended for tabular analysis, it is strongly recommended to export it in **comma-separated values (CSV)** format. This makes it easy to open the results directly in spreadsheet software or copy them into other applications for further analysis.
+
+More detailed examples of exporting outputs in both Stata and R will be provided throughout the remainder of this user guide.
+
+## Using External files with the LIS databases
+
+If you wish to merge your own poersonall dataset toghether with the microdata in LISSY, send your request, along with the attached file, to usersupport\@lisdatacenter.org.
 
