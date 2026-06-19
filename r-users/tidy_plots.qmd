@@ -2,92 +2,510 @@
 title: "Structuring Results for Analysis"
 ---
 
-In this final section, we build on the tabular structure introduced above to produce visualizations. Having the data in a clean, well-organized format makes it straightforward to generate plots and explore results more effectively inside of LISSY.
 
-We focus particularly on trends, as these also serve as a way to give users ready-made templates to quickly assess the data at hand and evaluate the consistency of the series directly within LISSY, with special attention to structural breaks.
+## Plotting in R {#plots_in_R}
 
-We then introduce a code template using `ggplot2::facet_wrap()`, which generates multiple subplots useful for comparing the same series across countries side by side. Following that, we assemble code to visualize multiple indicators within the same plot, using percentile ratios for the United Kingdom as an example.
 
-We conclude by explaining the role of the `png()` function in LISSY, which serves two purposes:
+In this final section, we build on the tabular structure introduced in the last section to produce visualizations in LISSY using R. We highlight a few particularities that users should be aware of when working in the LISSY environment, things that wouldn't arise when coding locally. Our focus is exclusively on trends (line charts), organized around six templates that users can adapt to their own countries and variables of interest.
 
-1.  **adjusting plot dimensions** to the desired size, and
+Working from templates matters more here than it would in a local session. LISSY operates on a job-submission system rather than an interactive one: there is no way to inspect intermediate output or tweak a chart on the fly, and every change requires a new submission. Starting from a tested example that already matches your use case significantly reduces the number of iterations needed.
 
-2.  defining distinct file names when **producing multiple figures within a single job submission**.
+Each template addresses a different combination of practical dimensions: the number of countries, the type of variable being plotted (a flow variable or a categorical one), the level of disaggregation, and the number of indicators shown simultaneously. Together they cover most situations a user is likely to encounter.
 
-### Plotting Series {#plots_in_R}
+The six examples are organized as follows:
 
-### Subplots
 
-### Multiple Indicators 
+- **Examples 1–2** — single variable, one country or multiple countries (flow variable; categorical variable)
+- **Examples 3–4** — categorical variable across multiple countries, with increasing disaggregation (standardized variable; country-specific variable)
+- **Example 5** — standardized disaggregation by a person-level variable, multiple countries side by side
+- **Example 6** — multiple derived indicators in a single plot, single country
 
-### `png()` function
 
-```{r, eval = FALSE, message = FALSE, results = 'hold', warning = FALSE }
+::: {.callout-important}
+Unlike a local R session where plots render to screen, LISSY has no display — all output must be written to file. The `png()` function must be called before each plot. Without this, no chart is returned. When producing multiple figures in a single job, each `png()` call must use a **unique filename** — reusing a name will silently overwrite the earlier file and only the last chart will be recoverable. This is covered in detail in the [`png()` section](#png_function) at the end.
+:::
+
+
+### Example 1: Flow Variable Trend, Multiple Countries {#r_ex1}
+
+This first template computes median equivalised disposable household income (`dhi`) over time for several countries simultaneously, expressed in PPP-adjusted 2021 US dollars. It illustrates the most common pattern: a flow variable aggregated to a single statistic per country-year, plotted as connected lines.
+
+The `lissyrtools` pipeline handles the main transformations sequentially: IQR top and bottom coding to address extreme values, square-root equivalisation, PPP adjustment, and finally weighted percentile estimation. The result is passed directly to `ggplot2` via `lissyrtools::structure_to_plot()` the functions resposible to restructure our data into a tidy data frame. 
+
+
+```{r, eval = FALSE, message = FALSE, warning = FALSE}
 library(lissyrtools)
-library(tidyverse) 
+library(tidyverse)
+library(scales)
+library(labelled)
+
+
+data_for_plot = lissyuse(
+    data = c('fr', 'us', 'uk', 'lu', 'se'),
+    'dhi',
+    from = 2000,
+    to = 2024,
+    lws = FALSE
+) %>%
+    map(
+        ~ .x %>% filter(!is.na(dhi)) %>% mutate(new_wgt = hwgt * nhhmem)
+    ) %>%
+    apply_iqr_top_bottom_coding('dhi', 'hwgt') %>%
+    apply_sqrt_equivalisation('dhi') %>%
+    apply_ppp_adjustment(
+        'dhi',
+        database = 'lis',
+        transformation = 'lisppp',
+        base_year_ppp = 2021
+    ) %>%
+    run_weighted_percentiles('dhi', 'new_wgt', probs = 0.5) %>%
+    structure_to_plot()
+
+
+ # Plot 
+
+png(file = paste0(USR_PDF, "/ex.1.png"), width = 1280, height = 720, res = 150)
+
+ggplot(data_for_plot, aes(x = year, y = value, group = cname, color = cname)) +
+    geom_line() +
+    geom_point(size = 2.5) +
+    labs(
+        x = "",
+        y = "",
+        title = "Median Disposable Household Income in US int.$ 2021",
+        caption = "Source: Luxembourg Income Study"
+    ) +
+    scale_color_brewer(palette = "Set1") +
+    scale_y_continuous(
+        labels = comma,
+        limits = c(0, NA),
+        breaks = seq(0, 55000, by = 5000)
+    ) +
+    theme_minimal() +
+    theme(
+        panel.grid.major.y = element_line(linewidth = 0.3, color = "grey85"),
+        panel.grid.minor.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        legend.title = element_blank(),
+        plot.caption = element_text(hjust = 0, size = 8, color = "grey50"),
+        plot.title = element_text(face = "bold", size = 12)
+    )
+```
+
+
+![](/images/r_viz_1.png){width=100%}
+
+
+### Example 2: Categorical Variable Trend, Single Country {#r_ex2}
+
+This template shifts from a flow variable to a categorical one. It plots the share of employment by industry sector (`indb1`) in Germany over time, using relative frequencies rather than a monetary aggregate. The data preparation is straightforward: `lissyrtools::run_weighted_count()` with `percent = TRUE` computes within-wave shares directly, and `lissyrtools::structure_to_plot()` reshapes the result for plotting.
+
+This is a useful template for any LIS variable that takes a small number of discrete values and for which tracking compositional change over time is of interest (employment type, household structure, education level, and so on).
+
+::: {.callout-note}
+**Variable availability:** Industry of employment is not available for all country-waves in LIS. Before running this template on a new country, check coverage in the LIS variable documentation, or using the methods described in the earlier chapters of this guide.
+:::
+
+
+```{r, eval = FALSE, message = FALSE, warning = FALSE}
+library(lissyrtools)
+library(tidyverse)
+library(ggplot2)
+
+data_for_plot = lissyuse(
+    data = c('de'),
+    'indb1',
+    from = 2000,
+    to = 2024,
+    lws = FALSE
+) %>%
+    map(~ .x %>% filter(!is.na(indb1)))
+
+
+png(
+    file = paste0(USR_PDF, "/ex.2.png"),
+    width = 1280,
+    height = 720,
+    res = 150
+)
+
+run_weighted_count(
+    data_for_plot,
+    var_name = "indb1",
+    wgt_name = "ppopwgt",
+    percent = TRUE
+) %>%
+    structure_to_plot() %>%
+    ggplot(aes(x = year, y = value, group = category, color = category)) +
+    geom_line() +
+    geom_point(size = 2.5) +
+    labs(
+        x = "",
+        y = "",
+        title = "Employment by Industry Sector in Germany (2000–2024)",
+        caption = "Source: Luxembourg Income Study"
+    ) +
+    scale_color_brewer(
+        palette = "Paired",
+        labels = \(x) str_wrap(x, width = 25)
+    ) +
+    theme_minimal() +
+    theme(
+        legend.position = "right",
+        legend.title = element_blank(),
+        legend.text = element_text(size = 8),
+        legend.key.height = unit(1.5, "cm"),
+        plot.caption = element_text(hjust = 0, size = 8, color = "grey50"),
+        plot.title = element_text(face = "bold", size = 12)
+    )
+```
+
+
+![](/images/r_viz_2.png){width=100%}
+
+
+### Example 3: Categorical Variable Trend, Multiple Countries {#r_ex3}
+
+
+This template extends Example 2 to multiple countries, using occupation group (`occa1`) rather than industry. Rather than producing one plot per country and combining them manually, `facet_wrap(~cname)` handles the multi-country layout natively within a single `ggplot2` call, producing side-by-side subplots with a shared legend.
+
+```{r, eval = FALSE, message = FALSE, warning = FALSE}
+library(lissyrtools)
+library(tidyverse)
+library(ggplot2)
+
+data_for_plot <- lissyuse(
+    data = c('pe', 'lu'),
+    'occa1',
+    from = 2000,
+    to = 2024,
+    lws = FALSE
+) %>%
+    map(~ .x %>% filter(!is.na(occa1)))
+
+
+png(file = paste0(USR_PDF, "/ex3.png"), width = 1280, height = 720, res = 150)
+
+run_weighted_count(
+    data_for_plot,
+    var_name = "occa1",
+    wgt_name = "ppopwgt",
+    percent = TRUE
+) %>%
+    structure_to_plot() %>%
+    ggplot(aes(x = year, y = value, group = category, color = category)) +
+    geom_line() +
+    geom_point(size = 2.5) +
+    facet_wrap(~cname, ncol = 2) +
+    labs(
+        x = "",
+        y = "",
+        title = "Employment by Occupation Group (3 Categories)",
+        caption = "Source: Luxembourg Income Study"
+    ) +
+    scale_color_brewer(
+        palette = "Paired",
+        labels = \(x) str_wrap(x, width = 20)
+    ) +
+    scale_y_continuous(
+        breaks = scales::breaks_width(10)
+    ) +
+    theme_minimal() +
+    theme(
+        legend.position = "bottom",
+        legend.title = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        plot.caption = element_text(hjust = 0, size = 8, color = "grey50"),
+        plot.title = element_text(face = "bold", size = 12),
+        strip.text = element_text(face = "bold", size = 10),
+        panel.grid.major = element_line(color = "grey85", linewidth = 0.5),
+        panel.grid.minor = element_line(color = "grey85", linewidth = 0.3),
+        panel.spacing = unit(1.5, "lines")
+    )
+```
+
+![](/images/r_viz_3.png){width=100%}
+
+
+### Example 4: Country-Specific Disaggregation, Multiple Countries {#stata_ex4}
+
+The previous examples all used standardized LIS variables. This template instead uses `region_c`, a country-specific variable that is not harmonized across countries. The region filtering is applied after `lissyrtools::structure_to_plot()` using `str_detect()` on the category labels, selecting a meaningful subset of regions per country to keep the chart readable. The specific regions chosen here are illustrative.
+
+
+
+```{r, eval = FALSE, message = FALSE, warning = FALSE}
+library(lissyrtools)
+library(tidyverse)
+library(ggplot2)
+
+
+data_for_plot <- lissyuse(
+    data = c('de', 'it'),
+    c('dhi', 'region_c'),
+    from = 2000,
+    to = 2024,
+    lws = FALSE
+) %>%
+    map(~ .x %>% filter(!is.na(dhi)) %>% mutate(new_wgt = nhhmem * hwgt)) %>%
+    apply_iqr_top_bottom_coding('dhi', 'hwgt') %>%
+    apply_sqrt_equivalisation('dhi') %>%
+    apply_ppp_adjustment('dhi', database = 'lis', transformation = 'lisppp') %>%
+    run_weighted_mean('dhi', 'new_wgt', by = 'region_c') %>%
+    structure_to_plot() %>%
+    filter(
+        str_detect(
+            category,
+            paste(
+                c(
+                    'Lazio',
+                    'Lombardia',
+                    'Campania',
+                    'Sicilia',
+                    'Bavaria',
+                    'Westphalia',
+                    'Baden-Wuerttemberg',
+                    'Mecklenburg-Western Pomerania'
+                ),
+                collapse = "|"
+            )
+        )
+    )
+
+png(file = paste0(USR_PDF, "/ex4.png"), width = 1280, height = 720, res = 150)
+
+ggplot(
+    data_for_plot,
+    aes(x = year, y = value, group = category, color = category)
+) +
+    geom_line() +
+    geom_point(size = 2.5) +
+    facet_wrap(~cname, ncol = 2) +
+    labs(
+        x = "",
+        y = "",
+        title = "Mean Equivalised Disposable Income by Region",
+        subtitle = "Germany and Italy, selected regions (CPI-adjusted, PPP)",
+        caption = "Source: Luxembourg Income Study"
+    ) +
+    scale_color_brewer(
+        palette = "Paired",
+        labels = \(x) str_wrap(x, width = 20)
+    ) +
+    scale_y_continuous(
+        labels = comma,
+        ,
+        limits = c(0, NA),
+        breaks = seq(0, 50000, by = 5000)
+    ) +
+    theme_minimal() +
+    theme(
+        legend.position = "right",
+        legend.title = element_blank(),
+        legend.text = element_text(size = 8),
+        legend.key.height = unit(1.5, "cm"),
+        plot.caption = element_text(hjust = 0, size = 8, color = "grey50"),
+        plot.title = element_text(face = "bold", size = 12),
+        plot.subtitle = element_text(size = 10, color = "grey40"),
+        strip.text = element_text(face = "bold", size = 10)
+    )
+```
+
+![](/images/r_viz_4.png){width=100%}
+
+
+### Example 5: Standardized Disaggregation, Multiple Countries {#stata_ex5}
+
+
+This template uses `sex` to disaggregate median labour income (`pi11`) for working-age employed individuals in Sweden and Germany. The sample is restricted to respondents aged 25–55 who are employed, a standard restriction for labour income analysis. `facet_wrap("cname")` handles the multi-country layout with a shared legend, and PPP adjustment is applied to express wages in comparable units across countries.
+
+
+```{r, eval = FALSE, message = FALSE, warning = FALSE}
+library(lissyrtools)
+library(tidyverse)
 library(ggplot2)
 
 lis_data <- lissyuse(
-    data = c("se", "de"), 
-    vars = c("age", "sex", "pi11", "emp"), 
+    data = c("se", "de"),
+    vars = c("age", "sex", "pi11", "emp"),
     from = 2002
-  )
-
-png(file = paste0(USR_PDF, "/non-adj.png"), width = 1280, height = 720, res = 150)
-
-lis_data %>% 
-  map(~ .x %>% 
-        filter(age > 24 & age < 56) %>% 
-        filter(emp == 1), 
-      filter(!is.na(pi11))
-  ) %>% 
-  run_weighted_mean("pi11", "ppopwgt", by = "sex") %>% 
-  structure_to_plot() %>%  
-  ggplot(aes(x = year, y = value, group = category, color = category)) + 
-  geom_line() + 
-  geom_point(size = 2.5) +
-  labs(x = "", y = "", title ="Working-age average wage", color = "Gender") +
-  scale_color_brewer(palette = "Set1") +
-  theme_minimal() + 
-  facet_wrap("cname")
+)
 
 
-png(file = paste0(USR_PDF, "/ppp-adj.png"), width = 1280, height = 720, res = 150)
+png(file = paste0(USR_PDF, "ex5.png"), width = 1280, height = 720, res = 150)
 
-lis_data %>% 
-    map(~ .x %>% 
-          filter(age > 24 & age < 56) %>% 
-          filter(emp == 1), 
+lis_data %>%
+    map(
+        ~ .x %>%
+            filter(age > 24 & age < 56) %>%
+            filter(emp == 1),
         filter(!is.na(pi11))
-    ) %>% 
-    apply_ppp_adjustment("pi11", database = "lis", transformation = "lisppp") %>% 
-    run_weighted_mean("pi11", "ppopwgt", by = "sex") %>% 
-    structure_to_plot() %>% 
+    ) %>%
+    apply_ppp_adjustment(
+        "pi11",
+        database = "lis",
+        transformation = "lisppp"
+    ) %>%
+    run_weighted_mean("pi11", "ppopwgt", by = "sex") %>%
+    structure_to_plot() %>%
     ggplot(
-      aes(x= year, y = value, group = category, color = category)
-    ) + 
-    geom_line() + 
+        aes(x = year, y = value, group = category, color = category)
+    ) +
+    geom_line() +
     geom_point(size = 2.5) +
     labs(
-      x = "", y = "", title ="Working-age average wage", color = "Gender") +
+        x = "",
+        y = "",
+        title = "Working-Age Average Wage",
+        caption = "Source: Luxembourg Income Study",
+        color = "Gender"
+    ) +
+    scale_y_continuous(
+        labels = comma,
+        limits = c(0, NA),
+        breaks = seq(0, 60000, by = 5000)
+    ) +
     scale_color_brewer(palette = "Set1") +
-    theme_minimal() + 
-    facet_wrap("cname")  
-         
+    theme_minimal() +
+    theme(
+        legend.title = element_blank(),
+        legend.position = "bottom",
+        plot.caption = element_text(hjust = 0, size = 8, color = "grey50"),
+        plot.title = element_text(face = "bold", size = 12),
+        strip.text = element_text(face = "bold", size = 10)
+    ) +
+    facet_wrap("cname")
 ```
 
-## The use of `facet_wrap()`
 
-add panel breakdowns on countries or breakdowns or whatever we which to put side by side don't crucially care.
+![](/images/r_viz_5.png){width=100%}
 
-## Multiple indicators in the same chart
 
-In this part we are going to demostrate such, plotting on the same chart tewo different percentiles ratios created with a function dedicated to it.
+### Example 6: Multiple Indicators, Multiple Countries {#stata_ex6}
 
-## PNG command
 
-It allows the user not only to customize the resolution of the chart but also to name it. This last features is very important because if the user wwant to produce several chart in the same session in LISSY it need to give them different names but perhaps add this on a callout to notice more.
+The final template plots multiple derived indicators on the same axes and extends this to more than one country by producing one chart per country within the same job. Using the United Kingdom and Germany as examples, it computes three percentile ratios (90/10, 90/50, 50/10) of equivalised disposable income and plots them as a time series for each country in separate images.
 
-We thuis conclude I guess the user guide on the R section !
+The three ratios are computed separately using `lissyrtools::run_weighted_ratios()` and bound into a single data frame with a country and indicator identifier. An auxiliary function `get_country_graph()` then handles both the plot construction and the `png()` call for each country, keeping the final loop concise.
 
-<!-- S:\workshops\2025-summer-workshop\6. content\Day 2\Session-exercise 2.2 -->
+::: {.callout-important}
+**Dynamic export naming:** Because this template produces one chart per country within the same job submission, each `png()` call must use a unique filename. Here this is achieved inside `get_country_graph()` by embedding the country name directly in the path: `paste0(USR_PDF, "/ratios_", country, ".png")`. Without this, each iteration would overwrite the previous file and only the last country's chart would be recoverable from LISSY output.
+:::
+
+
+
+```{r, eval = FALSE, message = FALSE, warning = FALSE}
+library(lissyrtools)
+library(tidyverse)
+library(ggpubr)
+library(scales)
+
+
+lis_datasets <- lissyuse(
+    data = c("uk", "de"),
+    vars = c("dhi"),
+    from = 1970
+)
+
+
+ready_data <- lis_datasets %>%
+    map(~ .x %>% filter(!is.na(dhi))) %>%
+    apply_sqrt_equivalisation("dhi")
+
+
+ratios <- bind_rows(
+    # Ratio 90/10
+    run_weighted_ratios(
+        ready_data,
+        var_name = "dhi",
+        wgt_name = "hwgt",
+        upper_percentile = 0.9,
+        lower_percentile = 0.1
+    ) %>%
+        structure_to_plot() %>%
+        mutate(indicator = "p_90_10"),
+    # Ratio 90/50
+    run_weighted_ratios(
+        ready_data,
+        var_name = "dhi",
+        wgt_name = "hwgt",
+        upper_percentile = 0.9,
+        lower_percentile = 0.5
+    ) %>%
+        structure_to_plot() %>%
+        mutate(indicator = "p_90_50"),
+    # Ratio 50/10
+    run_weighted_ratios(
+        ready_data,
+        var_name = "dhi",
+        wgt_name = "hwgt",
+        upper_percentile = 0.5,
+        lower_percentile = 0.1
+    ) %>%
+        structure_to_plot() %>%
+        mutate(indicator = "p_50_10")
+)
+
+# Auxilliary Printing Function
+get_country_graph <- function(country) {
+    p <- ggplot(
+        ratios %>% filter(cname == country),
+        aes(x = year, y = value, group = indicator, color = indicator)
+    ) +
+        geom_line() +
+        geom_point(size = 2.5) +
+        labs(
+            x = "",
+            y = "Ratio",
+            title = paste0(country, " — Inequality Ratios"),
+            caption = "Source: Luxembourg Income Study"
+        ) +
+        scale_y_continuous(
+            labels = comma,
+            limits = c(0, 5.5),
+            breaks = seq(0, 6, by = 1)
+        ) +
+        scale_color_brewer(palette = "Set1") +
+        theme_minimal() +
+        theme(
+            legend.position = "right",
+            legend.title = element_blank(),
+            plot.caption = element_text(hjust = 0, size = 8, color = "grey50"),
+            plot.title = element_text(face = "bold", size = 12)
+        )
+
+    fileName <- paste0(USR_PDF, "/ratios_", country, ".png")
+
+    print(png(file = fileName, width = 1280, height = 720, res = 150))
+    print(p)
+}
+
+
+# Final Loop per Country
+countries <- unique(ratios$cname)
+for (country in countries) {
+    get_country_graph(country)
+}
+```
+
+
+![](/images/r_viz_6.png){width=100%}
+
+
+
+
+
+### The `png()` Function in LISSY {#png_function}
+
+In a standard R session, plots render directly to screen. In LISSY, there is no display — all output must be written to file. The `png()` function serves this purpose, and its correct use is essential for any visualization job.
+
+It controls two things:
+
+- **Output filename:** The `file` argument defines where the chart is saved. Always write to `USR_PDF`, the LISSY-provided path for user output files.
+- **Plot dimensions and resolution:** The `width`, `height`, and `res` arguments control the pixel dimensions and dots-per-inch of the exported image. The values used throughout these examples (`width = 1280`, `height = 720`, `res = 150`) produce a 1280×720px image at 150 DPI, which renders clearly in most contexts.
+
+
+::: {.callout-important}
+**Unique filenames are mandatory when producing multiple plots in one job.** Each `png()` call opens a new graphics device writing to the specified path. If two calls share the same filename, the second will overwrite the first, and only the last chart will be recoverable from LISSY output. Use descriptive, numbered, or otherwise distinct names — as done throughout these examples — whenever a single job produces more than one figure.
+:::

@@ -137,7 +137,7 @@ LISSY provides several ways to access and download your outputs:
 
 - If your output is intended for tabular analysis, it is strongly recommended to export it in **comma-separated values (CSV)** format. This makes it easy to open the results directly in spreadsheet software or copy them into other applications for further analysis.
 
-More detailed examples of exporting outputs in both Stata and R will be provided throughout the remainder of this user guide.
+More detailed examples of exporting outputs in both [R](/r-users/tidy_exp_to_csv.html) and [Stata](/stata-users/tidy_exp_to_csv.html) will be provided throughout the remainder of this user guide.
 
 ## Using External files with the LIS databases
 

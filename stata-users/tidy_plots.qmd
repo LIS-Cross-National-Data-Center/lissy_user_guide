@@ -2,6 +2,7 @@
 title: "Structuring Results for Analysis"
 ---
 
+
 ```{r, include=FALSE}
 source("../src/stata_machine.R")
 library(Statamarkdown)
@@ -10,8 +11,7 @@ knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 ```
 
 ```{stata, echo = FALSE, results = "hide", collectcode = TRUE}
-adopath + "R:\general\ado\" // important because of commands percentils and pshare
-adopath + "S:\upload\_ado\" // important because of commands percentils and pshare
+do "../src/adopaths.do"
 do "../src/lissyuse.do"
 *do "../src/lissy_user_guide_percentils.do"
 global myincl "../src"
@@ -19,24 +19,43 @@ global myincl "../src"
 
 
 
-In this final section, we introduce example of charts that are posssible to d oin LISSY. They are temlate, meaninfg that we just need to chagen the countries when we what to change the inherent data to visualzie other treds or to asses how the frquencies on a given categorical variales are across countries and time . Terrible writing I really have no talent to write such things. 
-
-
-
-
-
-
-
-
 ## Plotting in Stata {#plots_in_stata}
+
+This section of the user guide focuses on data visualization in LISSY using Stata. Beyond general plotting practices, we highlight a few particularities that users should be aware of when working in the LISSY environment, things that wouldn't arise when coding locally. Our focus is exclusively on trends (line charts), organized around six templates that users can adapt to their own countries and variables of interest.
+
+Working from templates matters more here than it would in a local session. LISSY operates on a job-submission system rather than an interactive one: there is no way to inspect intermediate output or tweak a chart on the fly, and every change requires a new submission. Starting from a tested example that already matches your use case significantly reduces the number of iterations needed.
+
+Each template addresses a different combination of practical dimensions: the number of countries, the type of variable being plotted (a flow variable or a categorical one), the level of disaggregation, and the number of indicators shown simultaneously. Together they cover most situations a user is likely to encounter.
+
+The six examples are organized as follows:
+
+
+- **Examples 1–2** — single variable, one country or multiple countries (flow variable; categorical variable)
+- **Examples 3–4** — categorical variable across multiple countries, with increasing disaggregation (standardized variable; country-specific variable)
+- **Example 5** — standardized disaggregation by a person-level variable, multiple countries side by side
+- **Example 6** — multiple derived indicators in a single plot, single country
+
+::: {.callout-important}
+All examples use `graph export` to save the chart as a `.png` file. This is not optional in LISSY: without an export command, no chart is returned. When submitting multiple figures in a single job, each must be given a **unique filename** — reusing the same name will silently overwrite earlier outputs and only the last chart will be retrievable.
+:::
+
+
+### Example 1: Flow Variable Trend, Multiple Countries 
+
+This first template computes median equivalised disposable household income (`dhi`) over time for several countries simultaneously, expressed in PPP-adjusted 2021 US dollars. It illustrates the most common pattern: a flow variable, aggregated to a single statistic per country-year, plotted as connected lines.
+
+A few aspects of the code are worth noting. The loop over `dname` processes each country-wave separately before appending results to a temporary file — this is the standard LISSY pattern for cross-wave computations that need to be done at the dataset level (here, IQR capping and percentile estimation). The `twoway` command is then built dynamically by looping over countries, so the code scales to any number of countries without manual adjustment.
 
 
 ```{stata, eval = FALSE, echo=TRUE}
+    // Import data 
+
 lissyuse, iso2(fr lu se us uk) hvars(hid cname year dhi nhhmem hwgt dname) from(2010) to(2024)
 qui merge m:1 cname year  using "$myincl/ppp_2021.dta" ,  keep(match)
-*===================================
-* Loop over each dataset
-*===================================
+
+
+    // Loop over each dataset
+
 tempfile final
 save `final', replace emptyok
 qui levelsof dname, local(levels)
@@ -84,6 +103,9 @@ foreach c of local countries {
     local labels `"`labels' lab(`i' "`c'")"'
     local i = `i' + 1
 }
+
+    // Plotting 
+
 twoway `twoway_cmd', ///
     ytitle("") xtitle("") ///
     ylabel(0(10000)60000, angle(horizontal) labsize(vsmall) format(%8.0gc)) ///
@@ -92,16 +114,356 @@ twoway `twoway_cmd', ///
     caption("LIS - Luxembourg Income Study", size(tiny) position(5)) ///
     graphr(color(white)) ///
     legend(pos(3) col(1) size(vsmall) `labels')
-graph export "$mypdf/ex22.png", replace width(871) height(522)
+
+graph export "$mypdf/ex1.png", replace width(871) height(522)
 ```
 
 
 
-### Basic ggplot() {#plots_in_R}
+![](/images/stata_viz_1.png){width=100%}
 
 
-## The use of `facet_wrap()`
+### Example 2: Categorical Variable Trend, Single Country {#stata_ex2}
+
+This template shifts from a flow variable to a categorical one. It plots the share of employment by industry sector (`indb1`) in Germany over time, using relative frequencies rather than a monetary aggregate. The structure is similar to Example 1 — a dynamic `twoway` loop over categories — but the data preparation is simpler: a `collapse` on weighted counts followed by a within-wave normalization is sufficient.
+
+This is a useful template for any LIS variable that takes a small number of discrete values and for which tracking compositional change over time is of interest (employment type, household structure, education level, etc.).
+
+::: {.callout-note}
+**Variable availability:** Industry of employment is not available for all country-waves in LIS. Before running this template on a new country, check coverage in the LIS variable documentation, or using the methods decribed in the early chapters of this guide.  
+:::
 
 
 
-## Multiple indicators in the same chart 
+```{stata, eval = FALSE, echo=TRUE}
+lissyuse, iso2(de) hvars(hid cname year nhhmem dname) pvars(pid indb1 ppopwgt) from(2010) to(2024) 
+
+
+drop if missing(indb1)  
+
+collapse (sum) ppopwgt, by(dname indb1 cname year) 
+    bysort dname: egen total = total(ppopwgt) 
+    gen percent = ppopwgt / total * 100 
+
+
+gen short_label = "" 
+    replace short_label = "Agriculture"    if indb1 == 1 
+    replace short_label = "Manufacturing"  if indb1 == 2 
+    replace short_label = "Construction"   if indb1 == 3 
+    replace short_label = "Trade"          if indb1 == 4 
+    replace short_label = "Transport"      if indb1 == 5 
+    replace short_label = "Finance"        if indb1 == 6 
+    replace short_label = "Real estate"    if indb1 == 7 
+    replace short_label = "Public admin"   if indb1 == 8 
+    replace short_label = "Other services" if indb1 == 9 
+
+qui levelsof indb1, local(codes) 
+local twoway_cmd "" 
+local labels "" 
+local i 1 
+foreach c of local codes { 
+    qui levelsof short_label if indb1 == `c', local(lbl) clean 
+    local twoway_cmd `"`twoway_cmd' (connected percent year if indb1 == `c', msize(small) lwidth(medthick))"' 
+    local labels `"`labels' lab(`i' "`lbl'")"' 
+    local i = `i' + 1 
+} 
+
+
+twoway `twoway_cmd', /// 
+    ytitle("") xtitle("") /// 
+    ylabel(, angle(horizontal) labsize(vsmall) format(%5.1f)) /// 
+    xlabel(, labsize(vsmall)) /// 
+    title("Employment by Industry Sector, Germany", size(small)) /// 
+    caption("LIS - Luxembourg Income Study", size(tiny) position(5)) /// 
+    graphr(color(white)) /// 
+    legend(pos(3) col(1) size(vsmall) `labels')  
+
+graph export "$mypdf/ex2.png", replace width(871) height(522)
+```
+
+![](/images/stata_viz_2.png){width=100%}
+
+
+::: {.callout-tip}
+The short labels assigned manually via `replace short_label = ...` are necessary because `indb1` is stored as a numeric code. An alternative is to use `decode indb1, gen(indb1_label)` and then strip the numeric prefix from the value label. This is the approach  used in Example 3.
+:::
+
+
+
+### Example 3: Relative Frequencies Trend, Multi-Country
+
+This template extends Example 2 to multiple countries, using occupation group (`occa1`) rather than industry. Because a single `twoway` plot with all countries and categories at once would be illegible, each country gets its own subplot, which are then assembled side by side using `graph combine`.
+
+The label extraction here uses `decode` followed by regex parsing to separate the numeric code from the value label text — a cleaner approach than manual reassignment when the number of categories is large.
+
+::: {.callout-note}
+**`graph combine` as a faceting tool:** we generate one named graph per country with `name(g_`i', replace)` and then we combine them side by side via the option `cols()` which controls the grid layout.
+:::
+
+
+```{stata, eval = FALSE, echo=TRUE}
+lissyuse, iso2(pe lu) pvars(pid occa1 ppopwgt) hvars(hid cname year dname) from(2000) to(2024)
+
+drop if missing(occa1)
+collapse (sum) ppopwgt, by(dname occa1 cname year)
+    bysort dname: egen total = total(ppopwgt)
+    gen percent = ppopwgt / total * 100
+
+decode occa1, gen(occa1_label)
+    qui gen code        = real(regexs(1)) if regexm(occa1_label, "\[([^\]]+)\]")
+    qui gen short_label = strtrim(substr(occa1_label, strpos(occa1_label, "]") + 1, .))
+
+    // One graph per country, then combine
+
+levelsof cname, local(countries)
+local graphs ""
+local i 1
+foreach country of local countries {
+    qui levelsof code if cname == "`country'", local(codes)
+    local twoway_cmd ""
+    local labels ""
+	local j 1 
+    foreach c of local codes {
+        qui levelsof short_label if code == `c' & cname == "`country'", local(lbl) clean
+        local twoway_cmd `"`twoway_cmd' (connected percent year if code == `c' & cname == "`country'", msize(small) lwidth(medthick))"'
+        local labels `"`labels' lab(`j' "`lbl'")"'
+        local j = `j' + 1
+    }
+    twoway `twoway_cmd', ///
+        ytitle("") xtitle("") ///
+        ylabel(0(10)100, angle(horizontal) labsize(vsmall) format(%5.1f)) ///
+        xlabel(, labsize(vsmall)) ///
+        title("`country'", size(small) color(black)) ///
+        graphr(color(white)) plotregion(color(white)) ///
+        legend(pos(6) row(2) size(vsmall) `labels') ///
+        name(g_`i', replace)
+    local graphs "`graphs' g_`i'"
+	local i = `i' + 1
+}
+
+    // Combine side by side
+
+graph combine `graphs', ///
+    cols(2) ///
+    graphr(color(white)) ///
+    title("Employment by Occupation Group", size(small) color(black)) ///
+    caption("LIS - Luxembourg Income Study", size(tiny) position(5))
+
+graph export "$mypdf/ex3.png", replace width(871) height(522)
+```
+
+![](/images/stata_viz_3.png){width=100%}
+
+
+### Example 4: Country-Specific Disaggregation, Multiple Countries {#stata_ex4}
+
+The previous examples all used standardized LIS variables. This template instead uses `region_c`, a country-specific variable that is not harmonized across time and countries. 
+
+
+The code manually selects a subset of regions per country using `strpos` on the decoded label. This is intentional: `region_c` often contains many categories, and selecting a meaningful subset makes the chart readable. The specific regions chosen here are illustrative.
+
+
+::: {.callout-note}
+Manual dataset loop: Unlike the previous examples, which use lissyuse with iso2() to load multiple countries at once, this template loops manually over ccyy codes. This is necessary here because the country-specific filtering on region_c must be applied per dataset before appending results, but it is also a valid general pattern that users can adopt in any of the earlier examples.
+::: 
+
+
+```{stata, eval = FALSE, echo=TRUE}
+clear
+tempfile final
+save `final', replace emptyok
+	
+    // Country-specific variables require working with one dataset at a time. 
+
+foreach ccyy in de00 de01 de02 de03 de04 de05 de06 de07 de08 de09 de10 ///
+                de11 de12 de13 de14 de15 de16 de17 de18 de19 de20 de21 de22  ///
+                it00  it02  it04  it06  it08  it10 ///
+                it12  it14  it16    it20  it22   {
+
+    lissyuse, cc(`ccyy') hvars(hid cname year dname dhi nhhmem hwgt region_c)
+	qui merge m:1 cname year  using "$myincl/ppp_2021.dta" ,  keep(match)
+    drop if missing(dhi)
+    generate double new_wgt = nhhmem * hwgt
+	
+	  *--- IQR capping per dataset ---*
+    generate double dhi_log = log(dhi)
+    replace dhi_log = 0 if dhi_log == . & dhi != .
+    sort dhi_log hwgt
+    qui percentils dhi_log [aw = hwgt], p(25 75)
+    local p75 = e(Perc_75)
+    local p25 = e(Perc_25)
+    gen double iqr         = `p75' - `p25'
+    gen double upper_bound = `p75' + (iqr * 3)
+    gen double lower_bound = `p25' - (iqr * 3)
+    replace dhi = exp(upper_bound) if dhi > exp(upper_bound)
+    replace dhi = exp(lower_bound) if dhi < exp(lower_bound)
+    *--- Equivalisation ---*
+    replace dhi = dhi / (nhhmem^0.5)
+    *--- PPP adjustment ---*
+    replace dhi = dhi / lisppp
+    *--- Weighted mean by region ---*
+    collapse (mean) dhi [aw = new_wgt], by(cname year dname region_c)
+ 
+	
+    *--- Decode region and filter selected regions ---*
+    decode region_c, gen(region_label)
+    keep if strpos(region_label, "Lazio")      | ///
+            strpos(region_label, "Lombardia")  | ///
+            strpos(region_label, "Campania")   | ///
+            strpos(region_label, "Sicilia")    | ///
+            strpos(region_label, "Bavaria")    | ///
+            strpos(region_label, "Westphalia") | ///
+            strpos(region_label, "Baden")      | ///
+            strpos(region_label, "Mecklenburg")
+	
+    append using `final'
+    save `final', replace
+}
+use `final', clear
+
+
+
+    // Build twoway dynamically, for each country
+
+qui levelsof cname, local(countries)
+local graphs ""
+local g = 1
+foreach country of local countries {
+    qui levelsof region_label if cname == "`country'", local(regions)
+    local twoway_cmd ""
+    local labels ""
+    local i 1
+    foreach r of local regions {
+        local twoway_cmd `"`twoway_cmd' (connected dhi year if region_label == "`r'" & cname == "`country'", msize(small) lwidth(medthick))"'
+        local labels `"`labels' lab(`i' "`r'")"'
+        local i = `i' + 1
+    }
+    twoway `twoway_cmd', ///
+        ytitle("") xtitle("") ///
+        ylabel(15000(5000)50000, angle(horizontal) labsize(vsmall) format(%8.0gc)) ///
+        xlabel(, labsize(vsmall)) ///
+        title("`country'", size(small) color(black)) ///
+        graphr(color(white)) plotregion(color(white)) ///
+        legend(pos(6) col(4) size(tiny) `labels') ///
+        name(graph`g', replace)
+    local graphs "`graphs' graph`g'"
+    local g = `g' + 1
+}
+
+
+    // Combine side by side
+
+graph combine `graphs', ///
+    cols(2) ///
+    graphr(color(white)) ///
+    title("Mean Equivalised Disposable Income by Region", size(small) color(black)) ///
+    subtitle("Germany and Italy, selected regions (CPI-adjusted, PPP)", size(vsmall) color(gs8)) ///
+    caption("LIS - Luxembourg Income Study", size(tiny) position(5))
+
+graph export "$mypdf/ex4.png", replace width(871) height(522)
+```
+
+
+![](/images/stata_viz_4.png){width=100%}
+
+
+### Example 5: Standardized Disaggregation, Multiple Countries {#stata_ex5}
+
+This template returns to a standardized LIS variable, and uses it to disaggregate median labour income (`pi11`) for working-age employed individuals in Sweden and Germany. Unlike the previous examples, which used `collapse` or `percentils` inside a loop, this template uses `statsby` to compute percentiles across all country-sex combinations in a single pass, producing a clean collapsed dataset ready for plotting.
+
+The countries are displayed as facets using `by(cname)` within `twoway`, which is a simpler alternative to the `graph combine` approach when the same set of series (here, male and female) applies to all subplots and a **shared legend is desirable.**
+
+
+```{stata, eval = FALSE, echo=TRUE}
+lissyuse, iso2(se de) pvars(age sex pi11 emp ppopwgt dname cname currency year) from(2002)
+
+drop if ppopwgt == 0 // Such particular cases can be found in DE data for some years (person-level only). 
+keep if age > 24 & age < 56 
+keep if emp == 1 
+keep if !missing(pi11) & !missing(sex)	
+
+    // Deflators
+merge m:1 cname year  using "$myincl/ppp_2017.dta" ,  keep(match)      
+replace  pi11 =  pi11 / lisppp 
+
+
+    // Alternative to `collapse` 
+statsby ///
+	p_50 = e(Perc_50), ///
+	by(year cname sex) clear: 	///
+	percentils pi11 [aw = ppopwgt], p(50) nose 	
+	
+twoway  (connected p_50 year if sex == 1 ,  msize(small)) ///
+		(connected p_50 year if sex == 2,  msize(small)) ///
+         , by(cname, legend(pos(6)) note("") graphr(color(white)) caption("Wages expressed in US$ 2017 PPP", size(tiny) position(5)))   leg(col(2) size(vsmall) lab(1 "Male") lab(2 "Female")) ///
+          ytitle("Median Wage", size(vsmall)) xtitle("")  ylabel(,  angle(horizontal) labsize(vsmall) format(%8.0fc))  xlabel(2002(6)2020 ,labsize(vsmall)) subtitle(, bcolor(white)  lcolor(white))
+													
+graph export "$mypdf/ex5.png", replace width(871) height(522)
+```
+
+
+![](/images/stata_viz_5.png){width=100%}
+
+::: {.callout-tip}
+**`statsby` for multi-percentile estimation:** Unlike `collapse`, which aggregates data using its own built-in methods, `statsby` collapses the dataset by subgroups using the stored results of any estimation command. Here it calls `percentils` once per country-year group and retrieves the stored percentile values directly, allowing multiple percentiles to be computed in a single pass. The `nose` option suppresses standard errors.
+:::
+
+
+### Example 6: Multiple Indicators, Multiple Countries
+
+The final template plots multiple derived indicators on the same axes, and extends this to more than one country by wrapping the entire computation in a loop over country codes. Using the United Kingdom and Germany as examples, it computes three percentile ratios (90/10, 90/50, 50/10) of equivalised disposable income and plots them as a time series for each country in seperate images. 
+
+The key step is `reshape long`, which converts the three ratio variables into a single `ratio` variable with a string identifier, making it straightforward to loop over indicators in `twoway`. This pattern generalises to any situation where multiple computed statistics need to appear on the same plot.
+
+::: {.callout-important}
+**Dynamic export naming:** Because this template produces one chart per country within the same job submission, each `graph export` call must use a unique filename. Here this is achieved by embedding the country code `x` directly in the filename: `ex6_x.png`. Without this, each iteration would overwrite the previous file and only the last country's chart would be retrievable from LISSY output.
+:::
+
+
+```{stata, eval = FALSE, echo=TRUE}
+local cts uk de 
+
+foreach x of local cts {
+
+lissyuse, iso2(`x') hvars(dhi hwgt nhhmem nhhmem13 cname year dname) from(1970)
+
+levelsof cname, local(levels) 
+local ctitle : word 1 of `levels'
+
+drop if missing(dhi) 
+drop if missing(nhhmem13) | missing(nhhmem)
+replace dhi = dhi / (nhhmem^0.5)
+
+statsby ///
+	p_10 = e(Perc_10) ///
+	p_50 = e(Perc_50) ///
+	p_90 = e(Perc_90), ///
+	by(year cname) clear: 	///
+	percentils dhi [aw = hwgt], p(10 50 90) nose
+    	
+gen ratio90_10 = p_90 / p_10
+gen ratio90_50 = p_90 / p_50
+gen ratio50_10 = p_50 / p_10
+drop p_*	
+
+reshape long ratio, i(cname year) j(indicator) string
+
+twoway (connected ratio year if indicator == "90_10", msize(small)) ///
+       (connected ratio year if indicator == "90_50", msize(small))  ///
+	   (connected ratio year if indicator == "50_10", msize(small)), ///
+       graphr(color(white)) ///
+       xlabel(, labsize(vsmall)) ///
+       ylabel(0(0.5)5, angle(horizontal) labsize(vsmall)) /// 
+       subtitle(, bcolor(white) lcolor(white)) ///
+	   title("`ctitle' — Inequality Ratios", size(medsmall)) ///
+       ytitle("Ratio", size(vsmall)) xtitle("") ///
+       leg(col(3) pos(6) size(vsmall) lab(1 "90/10") lab(2 "90/50") lab(3 "50/10")) 
+
+graph export `"$mypdf/ex6_`x'.png"', replace width(871) height(522)       
+	   
+}
+```
+
+
+
+![](/images/stata_viz_6.png){width=100%}

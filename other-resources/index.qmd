@@ -5,15 +5,14 @@ title: "Other Resources"
 
 ## Aggregate Figures 
 
- - DART 
- - IKF
- - Our World in Data
+ - [DART](https://dart.lisdatacenter.org/)
+ - [IKF](https://www.lisdatacenter.org/lis-ikf-webapp/app/search-ikf-figures)
+ - [Our World in Data](https://www.lisdatacenter.org/data-access/lis-in-our-world-in-data-owid/)
 
 
 ## Teaching Materials 
 
- - Sample Files
- - Self-Teaching Exercieses
+ - [Sample Files and Self-Teaching Exercises](https://www.lisdatacenter.org/resources/self-teaching/)
  - [Online Tutorial Series](https://www.lisdatacenter.org/resources/online-tutorial-series/)
 
 
