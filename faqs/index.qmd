@@ -2,58 +2,55 @@
 title: "FAQs"
 ---
 
-
 ## Managing LISSY Jobs
 
-**Can I download the LIS/LWS data?**
+1. **Can I download the LIS/LWS data?**
 
-No. Due to data confidentiality measures, the LIS microdata cannot be downloaded.
+   No. Due to data confidentiality measures, the LIS microdata cannot be downloaded.
 
-**What statistical packages can I use with LISSY?**
+2. **What statistical packages can I use with LISSY?**
 
-R (4.4.2), SAS (9.4), SPSS (22), and Stata (19.0) all work with LISSY.
+   R (4.4.2), SAS (9.4), SPSS (22), and Stata (19.0) all work with LISSY.
 
-**May I use external files with the LIS databases?**
+3. **May I use external files with the LIS databases?**
 
-If you wish to use external files with the microdata, send your request along with the attached file to [usersupport@lisdatacenter.org](mailto:usersupport@lisdatacenter.org). Your request will be reviewed and, if it meets security standards, you will receive an email with instructions on how to access your file.
+   If you wish to use external files with the microdata, send your request along with the attached file to [usersupport@lisdatacenter.org](mailto:usersupport@lisdatacenter.org). Your request will be reviewed and, if it meets security standards, you will receive an email with instructions on how to access your file.
 
-<p id="forbidden-words">**What are the forbidden words?**</p> 
+4. <p id="forbidden-words">**What are the forbidden words?**</p>
+   The forbidden words depend on the statistical package used. LISSY automatically applies pre- and post-processing checks to ensure data confidentiality is never breached. Some syntax and commands may trigger security alerts — for example, syntax that displays frequencies on continuous variables or that would allow users to print individual records.
 
-The forbidden words depend on the statistical package used. LISSY automatically applies pre- and post-processing checks to ensure data confidentiality is never breached. Some syntax and commands may trigger security alerts — for example, syntax that displays frequencies on continuous variables or that would allow users to print individual records.
+   Do not include the following commands in your job:
 
-Do not include the following commands in your job:
+   - **SAS:** `print`, `NOXWAIT`, `NOXSYNC`
+   - **SPSS:** `print`
+   - **Stata:** `list`, `erase`, `rm`, `pwd`, `cd`, `rmdir`, `type`, `dir`, `ls`
 
-**SAS:** `print`, `NOXWAIT`, `NOXSYNC`
+5. **What does "set for review" mean, and how can I avoid this?**
 
-**SPSS:** `print`
+   When LISSY detects a potentially suspicious job, it moves it to a security area for manual review and returns the error message *set for review*. To avoid this, adjust your code to avoid any syntax that could allow printing variables, regardless of programming language. Note that manually reviewed jobs may take some time to process — avoid resubmitting the same job until it has been handled.
 
-**Stata:** `list`, `erase`, `rm`, `pwd`, `cd`, `rmdir`, `type`, `dir`, `ls`
+6. **What does "handling listing" or "job has been automatically killed" mean, and how can I avoid this?**
 
-**What does "set for review" mean, and how can I avoid this?**
+   The most common cause is an excessively long listing. To avoid this:
 
-When LISSY detects a potentially suspicious job, it moves it to a security area for manual review and returns the error message *set for review*. To avoid this, adjust your code to avoid any syntax that could allow printing variables, regardless of programming language. Note that manually reviewed jobs may take some time to process — avoid resubmitting the same job until it has been handled.
+   - Split your program code into smaller parts and send several shorter job submissions.
+   - Limit the number of datasets combined in a single run as much as possible.
+   - Include commands in your code to shorten outputs, such as:
+     - **SAS:** `OPTIONS nosource nonotes`
+     - **Stata:** `nolog`, `quietly`, or `noisily`
 
-**What does "handling listing" or "job has been automatically killed" mean, and how can I avoid this?**
+7. **I get an error message in my output. Is there a way to debug my program?**
 
-The most common cause is an excessively long listing. To avoid this:
+   Debugging can be helped by testing your code on your own computer using the LIS or LWS downloadable sample files before submitting to LISSY. Note that no conclusions should be drawn from these artificial samples — they are created for instructional and debugging purposes only.
 
-- Split your program code into smaller parts and send several shorter job submissions.
-- Limit the number of datasets combined in a single run as much as possible.
-- Include commands in your code to shorten outputs, such as:
-  - **SAS:** `OPTIONS nosource nonotes`
-  - **Stata:** `nolog`, `quietly`, or `noisily`
+8. **Can I receive non-ASCII output from LISSY (e.g. worksheets, HTML pages)?**
 
-**I get an error message in my output. Is there a way to debug my program?**
+   Not currently. LISSY only returns plain ASCII output/listings from SAS, SPSS, R, and Stata.
 
-Debugging can be helped by testing your code on your own computer using the LIS or LWS downloadable sample files before submitting to LISSY. Note that no conclusions should be drawn from these artificial samples — they are created for instructional and debugging purposes only.
+9. **Why do I receive the error "Could not connect to the server"?**
 
-**Can I receive non-ASCII output from LISSY (e.g. worksheets, HTML pages)?**
+   This occurs when LISSY is temporarily down. Feel free to contact [usersupport@lisdatacenter.org](mailto:usersupport@lisdatacenter.org) if you encounter this problem.
 
-Not currently. LISSY only returns plain ASCII output/listings from SAS, SPSS, R, and Stata.
-
-**Why do I receive the error "Could not connect to the server"?**
-
-This occurs when LISSY is temporarily down. Feel free to contact [usersupport@lisdatacenter.org](mailto:usersupport@lisdatacenter.org) if you encounter this problem.
 
 
 ## Replications with Revised Data
@@ -66,7 +63,7 @@ Following the 2019 LIS Template release, LIS introduced a data archiving system 
 
 ### How to request access to an earlier version of a revised dataset?
 
-Write to LIS user support at [usersupport@lisdatacenter.org](mailto:usersupport@lisdatacenter.org) specifying:
+Write to LIS user support at [usersupport\@lisdatacenter.org](mailto:usersupport@lisdatacenter.org) specifying:
 
 - The database (LIS or LWS)
 - The statistical package used (Stata, R, SAS, or SPSS)
@@ -76,16 +73,15 @@ You will then receive an email with instructions on how to access the pre-revise
 
 For users needing access to databases following the **2011 Template** (i.e. the last version of datasets on LISSY prior to May 2019 for LIS and mid-June 2019 for LWS), select the project `LISPRE` from LISSY for the LIS Database, and `LWSPRE` for the LWS Database.
 
-
 ## How to Contact User Support? {#contact-support}
 
-For any specific issue not addressed above, please contact [usersupport@lisdatacenter.org](mailto:usersupport@lisdatacenter.org).
+For any specific issue not addressed above, please contact [usersupport\@lisdatacenter.org](mailto:usersupport@lisdatacenter.org).
 
 When the issue is related to LISSY, please provide the following information wherever possible:
 
-1. The type of access used (web-based Job Submission Interface vs. email)
-2. The network and operating system from which you attempted to access LISSY (e.g. Princeton University on Windows 7 64-bit)
-3. A description of the exact stage at which the issue occurs — screenshots are welcome
-4. The error message received, if any
-5. The date and time when the problem occurred
-6. If the problem is related to a specific job, the job number
+1.  The type of access used (web-based Job Submission Interface vs. email)
+2.  The network and operating system from which you attempted to access LISSY (e.g. Princeton University on Windows 7 64-bit)
+3.  A description of the exact stage at which the issue occurs — screenshots are welcome
+4.  The error message received, if any
+5.  The date and time when the problem occurred
+6.  If the problem is related to a specific job, the job number

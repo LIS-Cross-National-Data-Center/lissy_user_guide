@@ -2,7 +2,7 @@
 title: "Structuring Results for Analysis"
 ---
 
-## Export to CSV {#export-csv}
+# Export to CSV {#export-csv}
 
 With the data now shaped into a clean tabular format, we can take the next step: exporting it for use outside LISSY. One convenient feature of the LISSY console is that it allows you to directly output your results in a format that can easily be transferred into spreadsheet software such as Excel.
 

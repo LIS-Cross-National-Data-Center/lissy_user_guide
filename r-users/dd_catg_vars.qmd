@@ -25,7 +25,9 @@ In support of this workflow, `lissyrtools` provides three useful functions:
 
 We begin with *categorical* variables and how to perform exploratory and frequency analysis on them, before moving on to continuous variables. In addition to standard summary statistics such as the mean and percentiles, we will also demonstrate how to define custom functions, for instance, to compute the share of non-missing observations.
 
-## Categorical Variables
+<br>
+
+# Categorical Variables
 
 Categorical Varaibles are composed by numeric codes, each uniquely associated with its own label. In both LIS and LWS, we have two types of categorical variables:
 
@@ -33,9 +35,11 @@ Categorical Varaibles are composed by numeric codes, each uniquely associated wi
 
 - **Country-specific**: these provide categorized information on topics that are inherently non-comparable across countries — either by nature (e.g., `region_c`) or because they do not follow a standard international classification (e.g., `health_c`). Such variables may also lack comparability across time within a given country.
 
-### Standardized variables
+<br>
 
-#### One-way tabulation
+## Standardized variables
+
+### One-way tabulation
 
 To quickly get a first look at a variable's categories and how the sample is distributed across them, we can perform a straightforward **one-way tabulation** returning absolute frequencies for each category:
 
@@ -103,7 +107,7 @@ lissyrtools::run_weighted_count(
 <div style="height: 30px;"></div>
 
 
-#### Two-way tabulation 
+### Two-way tabulation 
 
 LIS and LWS datasets sometimes contain pairs of categorical variables where one is a finer disaggregation of the other. The variables `educ` and `educlev` are a prime example: `educlev` breaks each 
 broad education category into more granular sub-groups. In such cases, a two-way tabulation serves a dual purpose. It describes the joint distribution of both variables simultaneously, and allows the user to verify which sub-categories of `educlev` correspond to which parent categories of `educ`.
@@ -126,7 +130,7 @@ For better-structured tabular output, or to quickly produce trend plots for visu
 ![](/images/csv_teaser_dd.png){fig-align="center"}
 
 
-#### Nested coding  {#nested-coding}
+### Nested coding  {#nested-coding}
 
 While standardized variables share a fixed category template across all datasets in LIS and LWS, this does not always guarantee straightforward comparability in practice. The level of detail available for a given variable can vary considerably across years within the same country series, reflecting differences in the underlying survey instrument. The variable `own` in the Spanish series illustrates this well.
 
@@ -153,7 +157,9 @@ By `es04`, the same variable is captured with considerably more granularity, dis
 This finer disaggregation in later years is not incidental: it reflects the hierarchical coding structure deliberately built into LIS and LWS standardized variables, where higher-level codes such as `[100]` or `[200]` represent aggregate categories, and lower-level codes such as `[110]`, `[120]`, or `[211]` represent their constituent sub-groups. Users should therefore always inspect the distribution of standardized categorical variables across the full country series before drawing comparisons, as apparent changes over time may reflect a shift in granularity rather than a genuine change in the underlying phenomenon.
 
 
-### Country-specific variables {#ct_spec_vars_R}
+<br>
+
+## Country-specific variables {#ct_spec_vars_R}
 
 As the name suggests, country-specific variables are not designed to be comparable across countries. What is less immediately obvious is that they can also be unreliable for within-country comparisons over time: the categories used to capture a given concept may change from one wave to the next, either because the underlying survey instrument was revised or because the national classification itself evolved. 
 

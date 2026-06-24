@@ -4,7 +4,7 @@ title: "Stata Users"
 
 Welcome Stata people 👋
 
-## What you'll find here  
+# What you'll find here  
 
 Welcome! This guide walks you step by step through working with LIS data in Stata — from getting started to building a solid, reproducible workflow.  
 
@@ -14,6 +14,6 @@ Whether you're new to LIS or looking to improve your workflow, this guide aims t
 
 If you have any questions or feedback, feel free to contact the LIS team.
 
-## Additional Resources  
+# Additional Resources  
 
 - [Self-Teaching Resources](https://www.lisdatacenter.org/resources/self-teaching/)

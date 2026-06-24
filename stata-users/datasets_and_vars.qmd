@@ -2,7 +2,7 @@
 title: "Import Data"
 ---
 
-## datasets.txt
+# datasets.txt
 
 LIS provides a [downloadable file](https://www.lisdatacenter.org/wp-content/uploads/files/resources_datasets.txt?) listing all available datasets in the LIS and LWS databases:
 
@@ -20,7 +20,9 @@ A convenient way to inspect metadata information however, is by using the auxili
 
 ![](/images/project_R_notes.png){fig-align="center"}
 
-## Country Codes
+<br>
+
+# Country Codes
 
 LIS uses ISO-2 country codes to identify the country associated with each dataset. To support this, the `get_countries_*()` functions allow users to quickly retrieve and verify the necessary country codes before loading data.
 
@@ -51,7 +53,7 @@ Survey changes across different periods may introduce breaks in consistency, pot
 
 <br>
 
-## Variables
+# Variables
 
 All datasets at a given level share the same set of variables. In practice, this means that even if a variable is not available in the original data provided to LIS, it will still appear in the dataset structure, filled entirely with missing values.
 
@@ -61,7 +63,9 @@ In addition to [METIS](https://www.lisdatacenter.org/frontend#/home), LIS provid
 
 [![](/images/lis_variable_list.png){fig-align="center"}](https://www.lisdatacenter.org/wp-content/uploads/files/data-lis-variables.pdf)
 
-### Finding variable names
+<br>
+
+## Finding variable names
 
 Each variable is defined by both:
 
@@ -85,7 +89,10 @@ For example, a researcher interested in housing topics could search using a diff
 lissyrtools::variable_labels(pattern = 'resid')  
 ```
 
-### Availabilty
+
+<br>
+
+## Availabilty
 
 Before starting an analysis, it is often useful to assess whether the necessary variables are sufficiently available across countries and time.
 
@@ -101,7 +108,10 @@ In addition to enabling cross-country searches for a given variable, this functi
 lissyrtools::variable_exists(variable = "basb", iso2 = c("fr", "de", "us", "uk"), lws = TRUE, share = TRUE)
 ```
 
-### Notes
+
+<br>
+
+## Notes
 
 Some variables are accompanied by notes. These may reflect:
 

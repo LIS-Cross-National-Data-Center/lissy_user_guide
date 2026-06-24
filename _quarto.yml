@@ -48,7 +48,7 @@ website:
           href: getting-started/submit_first_job.qmd
         - text: "Best Practises"
           href: getting-started/bp.qmd
-        - text: "Notes for SAS and SPSS Users"
+        - text: "SAS and SPSS Users"
           href: getting-started/sas_spss.qmd
 
 
@@ -164,6 +164,8 @@ format:
     toc: true
     toc-title: "On this page"
     toc-location: right
+    toc-depth: 3
+    toc-expand: true
 
     code-link: true
     callout-appearance: default

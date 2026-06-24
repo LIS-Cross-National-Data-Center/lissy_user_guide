@@ -1,7 +1,7 @@
 ---
 title: "Data Handling"
 ---
-## Processing Income Variables
+# Processing Income Variables
 
 Due to the wide range of research questions that can be explored using data from LIS, it is often necessary to perform multiple and distinct types of data preparation after the initial import. For this reason, this section is divided into two parts, each dedicated to a different analytical goal.
 
@@ -9,7 +9,9 @@ In the first part, we demonstrate how to compute a Children Poverty Rate among S
 
 In the second part, we focus on how to apply the deflators provided by LIS, an essential step for cross-country and cross-time comparisons, and discuss the specific nuances involved in that process.
 
-### Children Poverty Rates - Single-Mother Families
+<br>
+
+## Children Poverty Rates - Single-Mother Families
 
 The sections that follow illustrate a more comprehensive workflow, combining several preparation steps to construct a policy-relevant indicator from microdata.
 
@@ -44,8 +46,9 @@ lissyrtools::variable_labels(vars = columns)
 Variables `relation` and `nhhmem` are part of the group of variables that are always imported by default.
 :::
 
+<br> 
 
-### Filtering and Variable Construction
+## Filtering and Variable Construction
 
 At this stage, we prepare the dataset so that it is **aligned with the unit of analysis required for our indicator**: the household. Although we imported both household- and person-level variables, the poverty measure is computed at the household level and then attributed to individuals (in this case, children).
 
@@ -71,7 +74,9 @@ data_prep <- data %>%
 
 We then construct adjusted weights. For population-level indicators, we use a person-level weight derived from the household weight multiplied by household size (`hwgt * nhhmem`). For child-specific indicators, we instead construct a child weight by multiplying the household weight by the number of children in the household (`hwgt * nhhmem17`). These weights ensure that estimates correctly reflect the underlying population structure.
 
-### Bottom and Top Coding
+<br>
+
+## Bottom and Top Coding
 
 Before proceeding with inequality and poverty calculations, we address the presence of extreme income values. While the underlying microdata do not impose bounds on income, very high or very low values can disproportionately influence distributional measures.
 
@@ -96,7 +101,9 @@ To ensure consistency with the methodology applied by LIS across all disseminate
 
 <!-- DART still uses old percentile estimation method in its IQR preparation... -->
 
-### Equivalence Scales
+<br>
+
+## Equivalence Scales
 
 Households differ in size and composition, which affects their economic needs. To enable meaningful comparisons across households, we equivalize disposable household income.
 
@@ -111,7 +118,9 @@ data_eqv <- data_tb_coded %>%
         )
 ```
 
-### Poverty Line
+<br>
+
+## Poverty Line
 
 Having adjusted the income variable and reduced the dataset to the household level, we are now ready to compute the poverty line. We define it as **50% of the weighted median of equivalised income**, which is the standard relative poverty threshold used in cross-national research.
 
@@ -142,7 +151,9 @@ print(poverty_lines)
 
 It is important to note that the poverty line is always calculated based on the **full population**. This same threshold is subsequently applied when evaluating poverty rates for specific subgroups, such as children in single-mother households.
 
-### Conditional Variable Construction
+<br>
+
+## Conditional Variable Construction
 
 With the poverty line established, we create an indicator identifying whether each household falls below this threshold. For each observation, we compare equivalised income (`dhi`) to the poverty line.
 
@@ -164,8 +175,9 @@ data_with_pov_line <- purrr::map2(
 When using `purrr::map2()`, `.x` refers to the current element of the first list (`data_eqv`), while `.y` refers to the corresponding element of the second list (`poverty_lines`). This allows both lists to be iterated over in lockstep.
 :::
 
+<br>
 
-### Weighted Aggregation
+## Weighted Aggregation
 
 In the final step, we restrict the sample to the population of interest: children living in single-mother households. This is defined as households where the reference person is female (`sex == 2`), has no partner present (`hpartner == 0`), and where at least one child is present (`nhhmem17 > 0`).
 

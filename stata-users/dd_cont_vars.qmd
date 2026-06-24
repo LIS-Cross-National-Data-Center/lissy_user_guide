@@ -16,11 +16,14 @@ do "../src/lissyuse.do"
 global myincl "../src"
 ```
 
-## Continuous Variables
+# Continuous Variables
 
 In LIS and LWS datasets, continuous variables are distinct from the socioeconomic categorical variables discussed in the previous section. Rather than grouping households or individuals into discrete classes, they capture actual flows and stocks — income, consumption, and wealth, along with their subcomponents and aggregates. Examples include disposable household income (`dhi`), capital income (`hicapital`), and net worth (`dnw`). These variables tend to be right-skewed, can span several orders of magnitude, and vary considerably in coverage across country-years — a variable that is well-populated in one dataset may be sparse or entirely absent in another. Getting a quick distributional snapshot before any substantive analysis is therefore good practice. The emphasis in this section is not so much on the mechanics of any single statistic, but on building reproducible workflows that apply consistently across countries and waves with minimal extra effort.
 
-### Quick Summary
+
+<br>
+
+## Quick Summary
 
 A natural starting point is to use the `summarize` command to obtain an initial overview of a variable's scale and distribution, iterating across datasets via `by dname:`.
 
@@ -37,7 +40,7 @@ bysort dname: summarize dhi, detail
 While `summarize, detail` provides a convenient initial overview, its distributional measures (e.g., the median, p25, and p75) **do not follow the methodology used by LIS** in its official figures. This is discussed in more detail [later in this section](/stata-users/dd_cont_vars.html#pm_stata).
 :::
 
-### Descriptive Routines
+## Descriptive Routines
 
 Beyond summary statistics, it is often useful to compute a specific diagnostic and apply it systematically across all available datasets. This keeps the workflow transparent and easy to replicate.
 
@@ -66,7 +69,10 @@ forvalues i = 1/`=_N' {
 
 The result immediately reveals whether a given income component is consistently observed across the selected waves, or whether its coverage varies substantially over time, making it a useful diagnostic before including the variable in any analysis.
 
-### Subgroup descriptives {#subgroup_stata}
+
+<br>
+
+## Subgroup descriptives {#subgroup_stata}
 
 Aggregate statistics can conceal important variation across groups. For continuous variables, computing descriptives by subgroup makes it possible to compare, for instance, how disposable income differs across tenure statuses or demographic categories.
 
@@ -96,7 +102,9 @@ forvalues i = 1/`=_N' {
 The two `gen` lines above handle a recurrent situation in LIS data. The variable `own` is originally numeric with value labels — category 110 is stored as the number `110` and displayed as `owned outright`. After `decode`, it becomes the plain string `[110]owned outright`. While readable, this single string is harder to filter or sort programmatically. The two lines split it back into its two components: `code` recovers the numeric part (`110`) by extracting the content inside the brackets, and `label` recovers the clean text (`owned outright`) by taking everything after the closing bracket. This gives you a tidy, analysis-ready output where the category code and its description live in separate variables.
 :::
 
-### Percentiles methodology {#pm_stata}
+<br>
+
+## Percentiles methodology {#pm_stata}
 
 We close with an important note on how percentiles are estimated, as the choice of method directly affects the comparability of results with LIS official figures.
 

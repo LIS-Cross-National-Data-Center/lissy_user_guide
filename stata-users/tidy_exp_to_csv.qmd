@@ -21,7 +21,7 @@ Throughout the previous chapters, we have highlighted the usefulness of `collaps
 With this in mind, this chapter closes the guidebook with two practical sections: the first walks through exporting aggregated results in a delimited format compatible with CSV, and the second introduces how to produce visualizations directly within the LISSY environment.
 
 
-## Export to CSV {#stata_export_csv}
+# Export to CSV {#stata_export_csv}
 
 To illustrate this process step by step, we start by coding country-level inequality figures for Mexico and Peru, covering the workflow stages addressed in previous chapters: importing, processing, and aggregating microdata.
 

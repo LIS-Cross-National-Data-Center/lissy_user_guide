@@ -3,7 +3,7 @@ title: "Structuring Results for Analysis"
 ---
 
 
-## Plotting in R {#plots_in_R}
+# Plotting in R {#plots_in_R}
 
 
 In this final section, we build on the tabular structure introduced in the last section to produce visualizations in LISSY using R. We highlight a few particularities that users should be aware of when working in the LISSY environment, things that wouldn't arise when coding locally. Our focus is exclusively on trends (line charts), organized around six templates that users can adapt to their own countries and variables of interest.
@@ -25,8 +25,10 @@ The six examples are organized as follows:
 Unlike a local R session where plots render to screen, LISSY has no display — all output must be written to file. The `png()` function must be called before each plot. Without this, no chart is returned. When producing multiple figures in a single job, each `png()` call must use a **unique filename** — reusing a name will silently overwrite the earlier file and only the last chart will be recoverable. This is covered in detail in the [`png()` section](#png_function) at the end.
 :::
 
+<br>
 
-### Example 1: Flow Variable Trend, Multiple Countries {#r_ex1}
+
+## Example 1: Flow Variable Trend, Multiple Countries {#r_ex1}
 
 This first template computes median equivalised disposable household income (`dhi`) over time for several countries simultaneously, expressed in PPP-adjusted 2021 US dollars. It illustrates the most common pattern: a flow variable aggregated to a single statistic per country-year, plotted as connected lines.
 
@@ -96,8 +98,10 @@ ggplot(data_for_plot, aes(x = year, y = value, group = cname, color = cname)) +
 
 ![](/images/r_viz_1.png){width=100%}
 
+<br>
 
-### Example 2: Categorical Variable Trend, Single Country {#r_ex2}
+
+## Example 2: Categorical Variable Trend, Single Country {#r_ex2}
 
 This template shifts from a flow variable to a categorical one. It plots the share of employment by industry sector (`indb1`) in Germany over time, using relative frequencies rather than a monetary aggregate. The data preparation is straightforward: `lissyrtools::run_weighted_count()` with `percent = TRUE` computes within-wave shares directly, and `lissyrtools::structure_to_plot()` reshapes the result for plotting.
 
@@ -164,8 +168,10 @@ run_weighted_count(
 
 ![](/images/r_viz_2.png){width=100%}
 
+<br>
 
-### Example 3: Categorical Variable Trend, Multiple Countries {#r_ex3}
+
+## Example 3: Categorical Variable Trend, Multiple Countries {#r_ex3}
 
 
 This template extends Example 2 to multiple countries, using occupation group (`occa1`) rather than industry. Rather than producing one plot per country and combining them manually, `facet_wrap(~cname)` handles the multi-country layout natively within a single `ggplot2` call, producing side-by-side subplots with a shared legend.
@@ -228,8 +234,9 @@ run_weighted_count(
 
 ![](/images/r_viz_3.png){width=100%}
 
+<br>
 
-### Example 4: Country-Specific Disaggregation, Multiple Countries {#stata_ex4}
+## Example 4: Country-Specific Disaggregation, Multiple Countries {#stata_ex4}
 
 The previous examples all used standardized LIS variables. This template instead uses `region_c`, a country-specific variable that is not harmonized across countries. The region filtering is applied after `lissyrtools::structure_to_plot()` using `str_detect()` on the category labels, selecting a meaningful subset of regions per country to keep the chart readable. The specific regions chosen here are illustrative.
 
@@ -314,8 +321,9 @@ ggplot(
 
 ![](/images/r_viz_4.png){width=100%}
 
+<br>
 
-### Example 5: Standardized Disaggregation, Multiple Countries {#stata_ex5}
+## Example 5: Standardized Disaggregation, Multiple Countries {#stata_ex5}
 
 
 This template uses `sex` to disaggregate median labour income (`pi11`) for working-age employed individuals in Sweden and Germany. The sample is restricted to respondents aged 25–55 who are employed, a standard restriction for labour income analysis. `facet_wrap("cname")` handles the multi-country layout with a shared legend, and PPP adjustment is applied to express wages in comparable units across countries.
@@ -381,8 +389,9 @@ lis_data %>%
 
 ![](/images/r_viz_5.png){width=100%}
 
+<br>
 
-### Example 6: Multiple Indicators, Multiple Countries {#stata_ex6}
+## Example 6: Multiple Indicators, Multiple Countries {#stata_ex6}
 
 
 The final template plots multiple derived indicators on the same axes and extends this to more than one country by producing one chart per country within the same job. Using the United Kingdom and Germany as examples, it computes three percentile ratios (90/10, 90/50, 50/10) of equivalised disposable income and plots them as a time series for each country in separate images.
@@ -493,10 +502,9 @@ for (country in countries) {
 ![](/images/r_viz_6.png){width=100%}
 
 
+<br>
 
-
-
-### The `png()` Function in LISSY {#png_function}
+## The `png()` Function in LISSY {#png_function}
 
 In a standard R session, plots render directly to screen. In LISSY, there is no display — all output must be written to file. The `png()` function serves this purpose, and its correct use is essential for any visualization job.
 

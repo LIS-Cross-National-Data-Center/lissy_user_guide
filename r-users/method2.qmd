@@ -3,7 +3,7 @@ title: "Import Data"
 ---
 
 
-## Method 2 - `read.LIS()`
+# Method 2 - `read.LIS()`
 
 The second method, the `read.LIS()` function has a less automated yet robust approach on importing the data.
 
@@ -32,7 +32,7 @@ class(full_data)
 
 <br>
 
-#### Importing LWS data
+## Importing LWS data
 
 To import LWS data, the syntax remains exactly the same, but again the <b>Project</b> must be changed in the drop-down menu.
 

@@ -16,7 +16,7 @@ do "../src/lissyuse.do"
 global myincl "../src"
 ```
 
-## Processing Income Variables
+# Processing Income Variables
 
 Due to the wide range of research questions that can be explored using data from LIS, it is often necessary to perform multiple and distinct types of data preparation after the initial import. For this reason, this section is divided into two parts, each dedicated to a different analytical goal.
 
@@ -24,7 +24,10 @@ In the first part, we demonstrate how to compute a Children Poverty Rate among S
 
 In the second part, we focus on how to apply the deflators provided by LIS, an essential step for cross-country and cross-time comparisons, and discuss the specific nuances involved in that process.
 
-### Children Poverty Rates - Single-Mother Families
+
+<br>
+
+## Children Poverty Rates - Single-Mother Families
 
 The sections that follow illustrate a more comprehensive workflow, combining several preparation steps to construct a policy-relevant indicator from microdata.
 
@@ -38,7 +41,10 @@ Recall from the earlier sections of this guidebook when we introduced the `lissy
 qui lissyuse, iso2(us de uk fr) from(2018) to(2024) hvars(hid cname dname year dhi nhhmem nhhmem17 hpartner hwgt) pvars(pid sex relation)
 ```
 
-### Filtering and Variable Construction
+
+<br>
+
+## Filtering and Variable Construction
 
 At this stage, we prepare the dataset so that it is **aligned with the unit of analysis required for our indicator**: the household. Although we imported both household- and person-level variables, the poverty measure is computed at the household level and then attributed to individuals (in this case, children).
 
@@ -69,7 +75,10 @@ We begin by retaining only records corresponding to the household reference pers
 
 Next, we construct two adjusted weights. For population-level indicators, we use a person-level weight derived from the household weight multiplied by household size (`hwgt * nhhmem`). For child-specific indicators, we construct a child weight by multiplying the household weight by the number of children in the household (`hwgt * nhhmem17`). These weights ensure that estimates correctly reflect the underlying population structure.
 
-### Bottom and Top Coding
+
+<br>
+
+## Bottom and Top Coding
 
 Before proceeding with inequality and poverty calculations, we address the presence of extreme income values. While the underlying microdata do not impose bounds on income, very high or very low values can disproportionately influence distributional measures.
 
@@ -106,7 +115,9 @@ This adjustment is carried out on the logarithmic scale. An interquartile range 
 To ensure consistency with the methodology applied by LIS across all disseminated aggregate figures, this step must be performed prior to equivalisation. In addition, the quartiles used to define the IQR thresholds should be estimated following Definition 4 as proposed by Hyndman and Fan (1996).
 :::
 
-### Equivalence Scales
+<br>
+
+## Equivalence Scales
 
 Households differ in size and composition, which affects their economic needs. To enable meaningful comparisons across households, we equivalize disposable household income.
 
@@ -121,7 +132,10 @@ As a result, all individuals within a household are assigned the same equivalise
 generate double ey = ( dhi / (nhhmem^0.5) )
 ```
 
-### Poverty Line
+
+<br>
+
+## Poverty Line
 
 Having adjusted the income variable and reduced the dataset to the household level, we are now ready to compute the poverty line. We define it as **50% of the weighted median of equivalised income**,
 
@@ -138,7 +152,10 @@ qui gen double poverty_line_50  = e(Perc_50) * 0.5
 
 It is important to note that the poverty line is always calculated based on the **full population**. This same threshold is then applied when evaluating poverty rates for specific subgroups, such as children in single-mother households. 
 
-### Weighted Aggregation
+
+<br>
+
+## Weighted Aggregation
 
 In the final step, we restrict the sample to the population of interest: children living in single-mother households. This is defined as households where the reference person is female (`sex == 2`), has no partner present (`hpartner == 0`), and where at least one child is present (`nhhmem17 > 0`).
 
@@ -155,7 +172,10 @@ qui sum pov50 [w=cwt] if hpartner == 0 & ///
 display "Children Poverty Rates - Single-Mother Families (50%) = " r(mean) 
 ```
 
-### Multiple Countries and Waves
+
+<br>
+
+## Multiple Countries and Waves
 
 The code below extends the single-country workflow to multiple countries and waves. It follows the same logical steps as before, but wraps them in a loop that iterates over each dataset (`ccyy`) identified in the pooled data loaded by `lissyuse`.
 

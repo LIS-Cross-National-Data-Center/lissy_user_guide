@@ -24,8 +24,9 @@ Developing familiarity with these operations is essential, as they allow researc
 
 As in the previous section, this part of the guide is organised by variable type, distinguishing between categorical and continuous data. By the end of this section, users will be equipped with a set of practical tools and techniques that add an additional layer of flexibility to their work with LIS data, ultimately expanding the range and depth of analyses they can perform.
 
+<br>
 
-## Recoding Categories {#dh_cat_vars_stata}
+# Recoding Categories {#dh_cat_vars_stata}
 
 The most common operation users perform on categorical variables is, once familiar with the numeric codes and their respective labels, to recode them into broader or alternative groupings. This is typically done to align the variable with a preferred breakdown for comparability purposes, to collapse rarely populated categories, or to harmonise the coding scheme across country-years that do not share the same level of disaggregation.
 
@@ -35,7 +36,9 @@ As mentioned in the data description section, the [nested coding](/stata-users/d
 ![](/images/ES04_data_handling.png){fig-align="center"}
 
 
-### Highest-Level Recoding
+<br>
+
+## Highest-Level Recoding
 
 
 

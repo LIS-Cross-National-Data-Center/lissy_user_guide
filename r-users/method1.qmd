@@ -7,19 +7,25 @@ More than a thousand LIS and LWS datasets are available for use and analysis wit
 Before getting started, there are a few important concepts to keep in mind:
 
 - LIS and LWS datasets cannot be accessed simultaneously (remember to select the appropriate **Project** from the dropdown menu in the user interface).
+
 - Datasets are organized by country and year, following the `ccyy` naming convention (e.g., `de18`, `de19`).
+
 - In addition, each `ccyy` dataset is divided by level:
+
   - household-level data
   - individual-level data
 
 R users have two different methods available to import data into LISSY:
 
-1.  The newer `lissyrtools::lissyuse()` function\
+1.  The newer `lissyrtools::lissyuse()` function
+
 2.  The `read.LIS()` method, which is still used in some cases, particularly for less frequently used files such as LWS replicate weights
 
 For the remainder of this guide, we will focus on **Method 1**, which imports the selected LIS datasets into a list, where each element corresponds to a specific country–year dataset.
 
-## Method 1: `lissyuse()`  {#import_data_r}
+<br>
+
+# Method 1: `lissyuse()`  {#import_data_r}
 
 Using the `lissyuse()` function from our in-house [lissyrtools](https://lis-cross-national-data-center.github.io/lissyrtools/) package has two main advantages:
 
@@ -33,7 +39,7 @@ library(lissyrtools)
 
 <br>
 
-### Advantage 1: Import entire country series
+## Advantage 1: Import entire country series
 
 At the time we are writting this guide, LIS contains 26 datasets on Italy. This means that if the user wanted to import all years it would have needed to manually specify 26 distinct datasets. On top of it, it still had to know and confirm the exact specific years that we have data for each one of the countries.
 
@@ -82,7 +88,7 @@ lis_data <- lissyrtools::lissyuse(
 
 <br>
 
-### Advantage 2: Automatic Data-Level Selection
+## Advantage 2: Automatic Data-Level Selection
 
 The second benefit of using `lissyuse()` is that it automatically imports datasets at the level determined by the variables selected. If the users selects only household-level varaibles in the `vars` argument such as: disposable household income (<b>dhi</b>), geographic region (<b>region_c</b>) or capital income (<b>hicapital</b>), the data will be loadad at the household level. As soon as the user includes an individual-level variable, such as gender (<b>sex</b>) or labour force status (<b>lfs</b>), the dataset level adjusts accordingly.
 
@@ -125,7 +131,7 @@ Note as well that **some variables were imported by default**. Variables such as
 
 <br>
 
-### Importing LWS data
+## Importing LWS data
 
 To import LWS data, one would need to change the selection in the <b>Project</b> drop-down menu, and set the `lws` logical argument equal to `TRUE`.
 

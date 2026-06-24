@@ -19,7 +19,7 @@ global myincl "../src"
 
 
 
-## Plotting in Stata {#plots_in_stata}
+# Plotting in Stata {#plots_in_stata}
 
 This section of the user guide focuses on data visualization in LISSY using Stata. Beyond general plotting practices, we highlight a few particularities that users should be aware of when working in the LISSY environment, things that wouldn't arise when coding locally. Our focus is exclusively on trends (line charts), organized around six templates that users can adapt to their own countries and variables of interest.
 
@@ -39,8 +39,9 @@ The six examples are organized as follows:
 All examples use `graph export` to save the chart as a `.png` file. This is not optional in LISSY: without an export command, no chart is returned. When submitting multiple figures in a single job, each must be given a **unique filename** — reusing the same name will silently overwrite earlier outputs and only the last chart will be retrievable.
 :::
 
+<br>
 
-### Example 1: Flow Variable Trend, Multiple Countries 
+## Example 1: Flow Variable Trend, Multiple Countries 
 
 This first template computes median equivalised disposable household income (`dhi`) over time for several countries simultaneously, expressed in PPP-adjusted 2021 US dollars. It illustrates the most common pattern: a flow variable, aggregated to a single statistic per country-year, plotted as connected lines.
 
@@ -122,8 +123,10 @@ graph export "$mypdf/ex1.png", replace width(871) height(522)
 
 ![](/images/stata_viz_1.png){width=100%}
 
+<br>
 
-### Example 2: Categorical Variable Trend, Single Country {#stata_ex2}
+
+## Example 2: Categorical Variable Trend, Single Country {#stata_ex2}
 
 This template shifts from a flow variable to a categorical one. It plots the share of employment by industry sector (`indb1`) in Germany over time, using relative frequencies rather than a monetary aggregate. The structure is similar to Example 1 — a dynamic `twoway` loop over categories — but the data preparation is simpler: a `collapse` on weighted counts followed by a within-wave normalization is sufficient.
 
@@ -189,8 +192,10 @@ The short labels assigned manually via `replace short_label = ...` are necessary
 :::
 
 
+<br>
 
-### Example 3: Relative Frequencies Trend, Multi-Country
+
+## Example 3: Relative Frequencies Trend, Multi-Country
 
 This template extends Example 2 to multiple countries, using occupation group (`occa1`) rather than industry. Because a single `twoway` plot with all countries and categories at once would be illegible, each country gets its own subplot, which are then assembled side by side using `graph combine`.
 
@@ -254,8 +259,10 @@ graph export "$mypdf/ex3.png", replace width(871) height(522)
 
 ![](/images/stata_viz_3.png){width=100%}
 
+<br>
 
-### Example 4: Country-Specific Disaggregation, Multiple Countries {#stata_ex4}
+
+## Example 4: Country-Specific Disaggregation, Multiple Countries {#stata_ex4}
 
 The previous examples all used standardized LIS variables. This template instead uses `region_c`, a country-specific variable that is not harmonized across time and countries. 
 
@@ -366,8 +373,10 @@ graph export "$mypdf/ex4.png", replace width(871) height(522)
 
 ![](/images/stata_viz_4.png){width=100%}
 
+<br>
 
-### Example 5: Standardized Disaggregation, Multiple Countries {#stata_ex5}
+
+## Example 5: Standardized Disaggregation, Multiple Countries {#stata_ex5}
 
 This template returns to a standardized LIS variable, and uses it to disaggregate median labour income (`pi11`) for working-age employed individuals in Sweden and Germany. Unlike the previous examples, which used `collapse` or `percentils` inside a loop, this template uses `statsby` to compute percentiles across all country-sex combinations in a single pass, producing a clean collapsed dataset ready for plotting.
 
@@ -408,8 +417,10 @@ graph export "$mypdf/ex5.png", replace width(871) height(522)
 **`statsby` for multi-percentile estimation:** Unlike `collapse`, which aggregates data using its own built-in methods, `statsby` collapses the dataset by subgroups using the stored results of any estimation command. Here it calls `percentils` once per country-year group and retrieves the stored percentile values directly, allowing multiple percentiles to be computed in a single pass. The `nose` option suppresses standard errors.
 :::
 
+<br>
 
-### Example 6: Multiple Indicators, Multiple Countries
+
+## Example 6: Multiple Indicators, Multiple Countries
 
 The final template plots multiple derived indicators on the same axes, and extends this to more than one country by wrapping the entire computation in a loop over country codes. Using the United Kingdom and Germany as examples, it computes three percentile ratios (90/10, 90/50, 50/10) of equivalised disposable income and plots them as a time series for each country in seperate images. 
 

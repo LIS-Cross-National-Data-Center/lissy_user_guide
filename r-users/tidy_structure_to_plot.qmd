@@ -2,7 +2,7 @@
 title: "Structuring Results for Analysis"
 ---
 
-## Structuring results for Analysis
+# Structuring results for Analysis
 
 So far, most of our outputs have been returned as lists. This is intentional, as **direct printing of data frames is not possible in LISSY** for security reasons.
 
@@ -10,7 +10,10 @@ Nevertheless, structuring results in a tabular format (rows × columns) ensures 
 
 In addition, a tabular structure makes the data easier to export, allowing users to continue further analysis, as well as to reuse and inspect the data more effectively.
 
-### `structure_to_plot()`
+
+<br>
+
+## `structure_to_plot()`
 
 The function `structure_to_plot()` was designed to convert complex outputs into a format suitable for analysis and visualization. Specifically, it transforms the results produced by the `lissyrtools::run_weighted_*()` family of functions, from nested lists, **into tidy tabular data frames in long format**.
 

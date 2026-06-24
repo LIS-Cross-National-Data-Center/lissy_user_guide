@@ -3,13 +3,15 @@ title: "Describing Data"
 ---
 
 
-## Continuous Variables
+# Continuous Variables
 
 
 In LIS and LWS datasets, continuous variables are distinct from the socioeconomic categorical variables discussed in the previous section. Rather than grouping households or individuals into discrete classes, they capture actual flows and stocks — income, consumption, and wealth, along with their subcomponents and aggregates. Examples include disposable household income (`dhi`), capital income (`hicapital`), and net worth (`dnw`). These variables tend to be right-skewed, can span several orders of magnitude, and vary considerably in coverage across country-years — a variable that is well-populated in one dataset may be sparse or entirely absent in another. Getting a quick distributional snapshot before any substantive analysis is therefore good practice. The emphasis in this section is not so much on the mechanics of any single statistic, but on building reproducible workflows that apply consistently across countries and waves with minimal extra effort.
 
 
-### Quick Summary
+<br>
+
+## Quick Summary
 
 A natural starting point is to combine the base function `summary()` with the familiar `purrr::map()` function to get an initial sense of a variable's scale and distribution.
 
@@ -37,8 +39,9 @@ While `summary()` provides a convenient first look, its distributional measures 
 
 
 
+<br>
 
-### Mapping a Descriptive Function
+## Mapping a Descriptive Function
 
 Beyond summary statistics, it is often useful to build small helper functions that capture a specific aspect of a variable and then apply them systematically across all available datasets. This approach keeps the workflow modular and easy to extend.
 
@@ -66,7 +69,9 @@ purrr::map(it_data, ~ share_non_missing_non_zero(.x, 'hicapital'))
 
 The result immediately reveals whether a given income component is consistently observed across the selected waves, or whether its coverage varies substantially over time, making it a useful diagnostic before including the variable in any analysis.
 
-### Subgroup descriptives 
+<br>
+
+## Subgroup descriptives 
 
 Aggregate statistics can conceal important variation across groups. For continuous variables, computing descriptives by subgroup makes it possible to compare, for instance, how disposable income differs across tenure statuses or demographic categories.
 
@@ -88,8 +93,9 @@ For further processing, users may wish to transform these outputs into a tidy ta
 
 <!-- add perhaps something here on `inum` and LWS !!!!!!!-->
 
+<br>
 
-### Percentiles methodology {#pm}
+## Percentiles methodology {#pm}
 
 We close with an important note on how percentiles are estimated, as the choice of method directly affects the comparability of results with LIS official figures.
 

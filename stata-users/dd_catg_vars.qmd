@@ -32,7 +32,11 @@ To retrieve an aggregate figure for a given value of the column **dname** (datas
 
 While the first approach is simpler to write, essentially a single line of code, its output can become lengthy and hard to read when many datasets are in use. The `collapse` approach, though more code-intensive, structures the data in a way that is well-suited for producing plots or exporting results to a spreadsheet in CSV format. Both uses are covered in the section on [Structuring Results for Analysis](/stata-users/tidy_exp_to_csv.html).
 
-## Categorical Variables
+
+<br>
+
+
+# Categorical Variables
 
 Categorical variables are composed of numeric codes, each uniquely associated with a label. In both LIS and LWS, two types of categorical variables are available:
 
@@ -40,11 +44,14 @@ Categorical variables are composed of numeric codes, each uniquely associated wi
 
 - **Country-specific**: these provide categorized information on topics that are inherently non-comparable across countries — either by nature (e.g., `region_c`) or because they do not follow a standard international classification (e.g., `health_c`). Such variables may also lack comparability across time within a given country.
 
-### Standardized variables
+
+<br>
+
+## Standardized variables
 
 Because standardized variables follow a fixed category structure across all countries and years, users can import and tabulate them with confidence. This makes it straightforward to assess the composition of a variable and get a first look at how the sample is distributed across groups for any given country-year. The examples below focus on **one-way tabulations**, which display both absolute and relative frequencies directly in LISSY. Two approaches are demonstrated throughout: the `by` command and the `collapse` command.
 
-#### One-way tabulation - `by` command
+### One-way tabulation - `by` command
 
 The `by` command offers a quick and readable way to produce one-way tabulations across multiple datasets in a single call. The examples below illustrate how to obtain both absolute frequencies, and non-weighted and weighted frequency distributions of a standardized categorical variable.
 
@@ -60,7 +67,9 @@ qui lissyuse, iso2(mx es) from(2020) pvars(own pwgt) hvars(hid dname)
 by dname: tabulate sex [aw = pwgt]
 ```
 
-#### One-way tabulation - `collapse` command
+
+
+### One-way tabulation - `collapse` command
 
 The `collapse` command provides a more structured alternative for obtaining frequency distributions. Rather than displaying figures directly in the console, `collapse` restructures the data into an aggregated dataset. This transformation, from microdata to aggregated data, is particularly well suited for producing visualizations or for printing the dataset to the console as a delimited string, which can then be copied and pasted into a spreadsheet for further inspection.
 
@@ -126,7 +135,7 @@ The weighted version follows the same logic, but replaces the auxiliary count va
 **Note to myself:** Confirm this on the weights later on !
 :::
 
-#### Two-way tabulation
+### Two-way tabulation
 
 One-way tabulations describe how a sample is distributed across the categories of a single variable. LIS and LWS datasets sometimes contain pairs of categorical variables where one is a finer disaggregation of the other. The variables `educ` and `educlev` are a prime example, where `educlev` breaks down each broad education category into more granular sub-groups. In such cases, a two-way tabulation serves a dual purpose: it describes the joint distribution of both variables simultaneously, and it allows the user to verify which categories of one variable correspond to which categories of the other, confirming that no unexpected combinations appear across countries or years.
 
@@ -156,7 +165,8 @@ In this example we switched the chosen separator from a comma to `@`. This preve
 :::
 
 
-#### Nested coding {#nested-coding}
+
+### Nested coding {#nested-coding}
 
 While standardized variables share a fixed category template across all datasets in LIS and LWS, this does not always guarantee straightforward comparability in practice. The level of detail available for a given variable can vary considerably across years within the same country series, reflecting differences in the underlying survey instrument. The variable `own` in the Spanish series illustrates this well.
 
@@ -176,7 +186,10 @@ By `es04`, the same variable is captured with considerably more granularity, dis
 
 This finer disaggregation in later years is not incidental: it reflects the hierarchical coding structure deliberately built into LIS and LWS standardized variables, where higher-level codes such as `[100]` or `[200]` represent aggregate categories, and lower-level codes such as `[110]`, `[120]`, or `[211]` represent their constituent sub-groups. Users should therefore always inspect the distribution of standardized categorical variables across the full country series before drawing comparisons, as apparent changes over time may reflect a shift in granularity rather than a genuine change in the underlying phenomenon.
 
-### Country-specific variables
+
+<br>
+
+## Country-specific variables
 
 Country-specific variables require special attention in LISSY. Unlike standardized variables, designed to be comparable across countries and over time, country-specific variables reflect the original national classifications and coding schemes used in each survey. As a result, **they should always be handled on a dataset-by-dataset basis**.
 
@@ -214,10 +227,12 @@ Running this loop produces separate, clean tabulations for Germany, Spain, and I
 In the R pacakge `lissyrtools`, there is a dedicated function named `variable_country_specific_categories` to assess beforehand the number of diferent categories across a given series to auxiliatte the user on the identifcation of breaks in the series, as well as to print them directly in a console across the different yearass avaiable in a given series. If curious check the section (/r-users/dd_catg_vars.html#ct_spec_vars_R)
 
 
--------------------------------------------------
+<br>
+
+---
 
 
-#### Extra tools in R
+### Extra tools in R
 
 An additional complication arises when working across multiple waves of the same country: classifications themselves may change from one year to the next, making longitudinal comparisons unreliable without prior investigation.
 

@@ -2,15 +2,22 @@
 title: "SAS and SPSS"
 ---
 
+LISSY supports SAS (9.4) and SPSS (22) in addition to R and Stata. 
 
-Dedicated to show some commands for these two pacakges .... 
+Note that the user guide does not provide full coverage of SAS and SPSS workflows. The examples below are intended as a starting point/
 
 
 ## SAS
 
+Data is loaded by referencing the dataset macro provided by LISSY. The example below computes basic summary statistics on the Luxembourg 2010 household file.
+
+
 ```{r, eval =FALSE, echo=TRUE}
 PROC MEANS DATA=&lu10h;
 ```
+
+
+To produce and export a chart, SAS requires specifying the output file via a `FILENAME` statement before calling the graphics procedure. The `GOPTIONS` line sets the output device and format. Without this, no image will be returned by LISSY.
 
 
 ```{r, eval =FALSE, echo=TRUE}
@@ -25,9 +32,16 @@ RUN;
 
 ## SPSS 
 
+In SPSS, datasets are loaded using `GET FILE` with the LISSY-provided dataset macro. The example below loads the Luxembourg 2010 household file.
+
+
+
 ```{r, eval =FALSE, echo=TRUE}
 get file = lu10h
 ```
+
+
+To produce a chart and export it, combine the `GRAPH` command with `OUTPUT EXPORT`. The example below produces a bar chart of relationship status by years of education and saves it as a JPEG.
 
 
 ```{r, eval =FALSE, echo=TRUE}

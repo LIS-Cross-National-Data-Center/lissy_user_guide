@@ -2,7 +2,7 @@
 title: "Data Handling"
 ---
 
-## Currency and Price Level Adjustments
+# Currency and Price Level Adjustments
 
 Income, wealth, and consumption data provided by LIS are expressed in national currencies at current prices for the income reference year. While this preserves the data in a form close to its original source, it also creates clear comparability issues across countries.
 

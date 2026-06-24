@@ -18,19 +18,25 @@ More than a thousand LIS and LWS datasets are available for use and analysis wit
 Before getting started, there are a few important concepts to keep in mind:
 
 - LIS and LWS datasets cannot be accessed simultaneously (remember to select the appropriate **Project** from the dropdown menu in the user interface).
+
 - Datasets are organized by country and year, following the `ccyy` naming convention (e.g., `de18`, `de19`).
+
 - In addition, each `ccyy` dataset is divided by level:
+
   - household-level data
   - individual-level data
 
 Stata users have two different methods available to import data into LISSY:
 
-1.  The newer `lissyuse` command\
+1.  The newer `lissyuse` command
+
 2.  The traditional Stata `use` command, which imports one dataset at a time, separately for household- (`h`) and person-level (`p`) data
 
 In this guide, we focus primarily on **Method 1**, based on the `lissyuse` command. This method imports the selected LIS datasets into a single appended dataset while simplifying dataset selection and file management.
 
-## Method 1: `lissyuse` {#import_data_stata}
+<br>
+
+# Method 1: `lissyuse` {#import_data_stata}
 
 The [`lissyuse`](https://www.lisdatacenter.org/wp-content/uploads/files/Job%20Submission-lissyuse.pdf) command, developed in-house and pre-installed in LISSY, provides several features designed to simplify and automate the data-import process for LIS users.
 
@@ -42,7 +48,7 @@ Its two main advantages are:
 
 <br>
 
-### Advantage 1: Importing Entire Country Series
+## Advantage 1: Importing Entire Country Series
 
 As noted above, LIS data is stored separately for each country–year combination, identified by a `ccyy` code.
 
@@ -82,7 +88,7 @@ In practice, this is usually inefficient. Therefore, users are strongly encourag
 
 <br>
 
-### Advantage 2: Automatic Data-Level Selection
+## Advantage 2: Automatic Data-Level Selection
 
 The second advantage of `lissyuse` is that it automatically determines the appropriate data level based on the variables selected.
 
@@ -109,7 +115,7 @@ codebook, compact
 
 <br>
 
-### Importing LWS data
+## Importing LWS data
 
 To import LWS data, one would need to change the selection in the <b>Project</b> drop-down menu, and add the `lws` option as exemplified in the snippet below.
 

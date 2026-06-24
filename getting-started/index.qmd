@@ -1,29 +1,286 @@
 ---
-title: "Getting Started"
+title: ""
 ---
 
-Welcome! If you are a new user, this page will get you up to speed with what LISSY is and what it is used for.
+```{=html}
+<div class="gs-hero">
+  <h1 class="gs-hero__title">Your first steps with LISSY</h1>
+  <p class="gs-hero__sub">LISSY lets you load, analyse and visualize harmonized microdata from over 50 countries remotely, just as you would on your own machine.</p>
+</div>
+```
 
-The next section will help you determine whether you are eligible to register and, if so, walk you through the steps to do so.
+```{=html}
+<div class="gs-cards">
 
-Once registered, you will find guidance on how to submit your first job and make the most of the interface.
+  <div class="gs-card">
+    <div class="gs-card__num">01</div>
+    <div class="gs-card__body">
+      <h3 class="gs-card__title">Register</h3>
+      <p class="gs-card__desc">Check your eligibility and create your LISSY account.</p>
+      <a href="/getting-started/registration.html" class="gs-card__link">→ Registration guide</a>
+    </div>
+  </div>
 
-## Quick Access
+  <div class="gs-card">
+    <div class="gs-card__num">02</div>
+    <div class="gs-card__body">
+      <h3 class="gs-card__title">Submit your first job</h3>
+      <p class="gs-card__desc">Learn how to use the interface and get your first results back.</p>
+      <a href="/getting-started/submit_first_job.html" class="gs-card__link">→ Submission guide</a>
+    </div>
+  </div>
 
-LISSY is designed to replicate the experience of working with data on your own machine. Through the interface, you can:
+  <div class="gs-card">
+    <div class="gs-card__num">03</div>
+    <div class="gs-card__body">
+      <h3 class="gs-card__title">Best practices</h3>
+      <p class="gs-card__desc">Tips for writing efficient jobs and avoiding common pitfalls.</p>
+      <a href="/getting-started/bp.html" class="gs-card__link">→ Best practices</a>
+    </div>
+  </div>
 
-- **Load harmonized datasets** for more than 50 countries worldwide. [R](/r-users/method1.html#import_data_r) | [Stata](/stata-users/method1.html#import_data_stata)
+</div>
+```
 
-- **Analyse and process data** just as you would locally, with additional access to CPI and PPP deflators provided by LIS. [R](/r-users/dh_cont_vars.html#ppp_in_r) | [Stata](/stata-users/dh_ppp.html#ppp_in_stata)
 
-- **Visualize your results** directly within LISSY. [R](/r-users/tidy_plots.html#plots_in_R) | [Stata](/stata-users/tidy_plots.html#plots_in_stata)
 
-- **Archive your work** and retrieve the outputs of all your past job submissions.
+```{=html}
+<div class="gs-capabilities">
+  <h2 class="gs-section-title">What you can do in LISSY</h2>
+  <div class="gs-cap-grid">
 
----
+    <div class="gs-cap">
+      <div class="gs-cap__icon">📦</div>
+      <div>
+        <strong>Load harmonized datasets</strong> for more than 50 countries worldwide.
+        <span class="gs-cap__links"><a href="/r-users/method1.html#import_data_r">R</a> · <a href="/stata-users/method1.html#import_data_stata">Stata</a></span>
+      </div>
+    </div>
 
-For more information on the data available, see:
+    <div class="gs-cap">
+      <div class="gs-cap__icon">🔢</div>
+      <div>
+        <strong>Analyse and process data</strong> just as you would locally, with access to LIS-provided CPI and PPP deflators.
+        <span class="gs-cap__links"><a href="/r-users/dh_cont_vars.html#ppp_in_r">R</a> · <a href="/stata-users/dh_ppp.html#ppp_in_stata">Stata</a></span>
+      </div>
+    </div>
 
-- **Countries and years** covered by the [LIS Database](https://www.lisdatacenter.org/our-data/lis-database/) and the [LWS Database](https://www.lisdatacenter.org/our-data/lws-database/), also available in [dataset format](https://www.lisdatacenter.org/wp-content/uploads/files/resources_datasets.txt).
-- **Variables** — [LIS variables](https://www.lisdatacenter.org/wp-content/uploads/files/data-lis-variables.pdf) and [LWS variables](https://www.lisdatacenter.org/wp-content/uploads/files/data-lws-variables.pdf).
-- **Metadata tools** — [METIS](https://www.lisdatacenter.org/frontend#/home) and [Compare.it](https://comparability.lisdatacenter.org/shiny/comparability/).
+    <div class="gs-cap">
+      <div class="gs-cap__icon">📈</div>
+      <div>
+        <strong>Visualize your results</strong> directly within LISSY.
+        <span class="gs-cap__links"><a href="/r-users/tidy_plots.html#plots_in_R">R</a> · <a href="/stata-users/tidy_plots.html#plots_in_stata">Stata</a></span>
+      </div>
+    </div>
+
+    <div class="gs-cap">
+      <div class="gs-cap__icon">🗂️</div>
+      <div>
+        <strong>Archive your work</strong> and retrieve outputs from all past job submissions.
+      </div>
+    </div>
+
+  </div>
+</div>
+```
+
+
+
+```{=html}
+<div class="gs-resources">
+  <h2 class="gs-section-title">Data resources</h2>
+  <div class="gs-res-grid">
+
+    <div class="gs-res-card">
+      <div class="gs-res-card__title">Coverage</div>
+      <p>Countries and years covered by the <a href="https://www.lisdatacenter.org/our-data/lis-database/">LIS Database</a> and the <a href="https://www.lisdatacenter.org/our-data/lws-database/">LWS Database</a>, also available in <a href="https://www.lisdatacenter.org/wp-content/uploads/files/resources_datasets.txt">dataset format</a>.</p>
+    </div>
+
+    <div class="gs-res-card">
+      <div class="gs-res-card__title">Variables</div>
+      <p><a href="https://www.lisdatacenter.org/wp-content/uploads/files/data-lis-variables.pdf">LIS variables</a> and <a href="https://www.lisdatacenter.org/wp-content/uploads/files/data-lws-variables.pdf">LWS variables</a> documentation.</p>
+    </div>
+
+    <div class="gs-res-card">
+      <div class="gs-res-card__title">Metadata tools</div>
+      <p><a href="https://www.lisdatacenter.org/frontend#/home">METIS</a> and <a href="https://comparability.lisdatacenter.org/shiny/comparability/">Compare.it</a> for exploring variable availability and comparability across waves.</p>
+    </div>
+
+  </div>
+</div>
+```
+
+```{=html}
+<style>
+/* Hero */
+.gs-hero {
+  padding: 2.5rem 0 1.5rem;
+}
+.gs-hero__badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #325d88;
+  border: 1px solid #c7d3e0;
+  border-radius: 20px;
+  padding: 4px 14px;
+  margin-bottom: 0.9rem;
+}
+.gs-hero__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a2e42;
+  margin: 0 0 0.75rem;
+  line-height: 1.2;
+}
+.gs-hero__sub {
+  font-size: 1rem;
+  color: #4a5568;
+  max-width: 620px;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Step cards */
+.gs-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+.gs-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1.5rem;
+  background: #f8fafc;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.gs-card__num {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #c7d3e0;
+  line-height: 1;
+  min-width: 2rem;
+}
+.gs-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a2e42;
+  margin: 0 0 0.35rem;
+}
+.gs-card__desc {
+  font-size: 0.88rem;
+  color: #4a5568;
+  margin: 0 0 0.75rem;
+  line-height: 1.5;
+}
+.gs-card__link {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #325d88;
+  text-decoration: none;
+}
+.gs-card__link:hover {
+  text-decoration: underline;
+}
+
+/* Capabilities */
+.gs-section-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a2e42;
+  margin: 0 0 1.25rem;
+}
+.gs-capabilities {
+  margin: 2rem 0;
+}
+.gs-cap-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.gs-cap {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  font-size: 0.92rem;
+  color: #2d3748;
+  line-height: 1.55;
+}
+.gs-cap__icon {
+  font-size: 1.2rem;
+  min-width: 1.5rem;
+  margin-top: 1px;
+}
+.gs-cap__links {
+  display: inline-block;
+  margin-left: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.gs-cap__links a {
+  color: #325d88;
+  text-decoration: none;
+}
+.gs-cap__links a:hover {
+  text-decoration: underline;
+}
+
+/* Resource cards */
+.gs-resources {
+  margin: 2rem 0;
+}
+.gs-res-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+.gs-res-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.25rem;
+  background: #fdf6f3;
+  border-color: #e8c9bc;
+}
+.gs-res-card__title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #D5490C;
+  margin-bottom: 0.5rem;
+}
+.gs-res-card p {
+  font-size: 0.88rem;
+  color: #4a5568;
+  line-height: 1.55;
+  margin: 0;
+}
+.gs-res-card a {
+  color: #325d88;
+  text-decoration: none;
+}
+.gs-res-card a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .gs-cards, .gs-res-grid {
+    grid-template-columns: 1fr;
+  }
+  .gs-cap-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+```
+</parameter>

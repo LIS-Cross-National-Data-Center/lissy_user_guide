@@ -13,7 +13,10 @@ knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 do "../src/lissyuse.do"
 ```
 
-## Method 2 - `use` command.
+<br>
+
+
+# Method 2 - `use` command.
 
 As with any other `.dta` file stored locally in Stata, LIS microdata files can also be accessed directly using Stata’s native `use` command.
 
