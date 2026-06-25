@@ -16,7 +16,7 @@ The file includes, among other information:
 
 It can be useful for quickly checking dataset availability or constructing loops programmatically in Stata.
 
-A convenient way to inspect metadata information however, is by using the auxiliary functions provided in the **R package** [`lissyrtools`](https://github.com/LIS-Cross-National-Data-Center/lissyrtools) package as it offers more tailored searches directly within LISSY.
+A convenient way to inspect metadata information however, is by using the auxiliary functions provided in the **R package** [`lissyrtools`](https://github.com/LIS-Cross-National-Data-Center/lissyrtools) as it offers more tailored searches directly within LISSY.
 
 ![](/images/project_R_notes.png){fig-align="center"}
 
@@ -31,6 +31,8 @@ lissyrtools::get_countries_lis()
 lissyrtools::get_countries_lws()
 ```
 
+<br>
+
 To obtain an overview of the years available for each country in the LIS and LWS databases, the auxiliary functions `get_years_*()` can be used like in the example below.
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold', class.output = "foldable"}
@@ -39,7 +41,11 @@ lissyrtools::get_years_lis(c("es", "de", "it", "fr", "cz", "pl"))
 lissyrtools::get_years_lws(c("no", "za"))
 ```
 
-Finally, with the `get_surveys_*()` functions provide a snapshot on which surveys were used across the series of a given country.
+
+<br>
+
+
+Finally, the `get_surveys_*()` functions provide a snapshot on which surveys were used across the series of a given country.
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold', class.output = "foldable"}
 
@@ -48,6 +54,9 @@ lissyrtools::get_surveys_lws(c("no", "za"))
 
   
 ```
+
+
+<br>
 
 Survey changes across different periods may introduce breaks in consistency, potentially affecting the availability, content, or coverage of certain variables.
 
@@ -92,7 +101,7 @@ lissyrtools::variable_labels(pattern = 'resid')
 
 <br>
 
-## Availabilty
+## Availability
 
 Before starting an analysis, it is often useful to assess whether the necessary variables are sufficiently available across countries and time.
 

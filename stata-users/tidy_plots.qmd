@@ -133,7 +133,7 @@ This template shifts from a flow variable to a categorical one. It plots the sha
 This is a useful template for any LIS variable that takes a small number of discrete values and for which tracking compositional change over time is of interest (employment type, household structure, education level, etc.).
 
 ::: {.callout-note}
-**Variable availability:** Industry of employment is not available for all country-waves in LIS. Before running this template on a new country, check coverage in the LIS variable documentation, or using the methods decribed in the early chapters of this guide.  
+**Variable availability:** Industry of employment is not available for all country-waves in LIS. Before running this template on a new country, check coverage in the LIS variable documentation, or using the methods described in the early chapters of this guide.  
 :::
 
 
@@ -422,7 +422,7 @@ graph export "$mypdf/ex5.png", replace width(871) height(522)
 
 ## Example 6: Multiple Indicators, Multiple Countries
 
-The final template plots multiple derived indicators on the same axes, and extends this to more than one country by wrapping the entire computation in a loop over country codes. Using the United Kingdom and Germany as examples, it computes three percentile ratios (90/10, 90/50, 50/10) of equivalised disposable income and plots them as a time series for each country in seperate images. 
+The final template plots multiple derived indicators on the same axes, and extends this to more than one country by wrapping the entire computation in a loop over country codes. Using the United Kingdom and Germany as examples, it computes three percentile ratios (90/10, 90/50, 50/10) of equivalised disposable income and plots them as a time series for each country in separate images. 
 
 The key step is `reshape long`, which converts the three ratio variables into a single `ratio` variable with a string identifier, making it straightforward to loop over indicators in `twoway`. This pattern generalises to any situation where multiple computed statistics need to appear on the same plot.
 

@@ -30,8 +30,9 @@ qui lissyuse, cc(us18 se18) hvars(dhi dname cname year)
 tabstat dhi, by(dname)
 ```
 
+<br>
 
-The figures reported above are not directly comparable. The large difference in magnitude, wtih Sweden appearing to have values more than five times higher than those of the United States, does not reflect real differences in income levels, but rather the fact that the **data are expressed in different national currencies**, implying the need for additional transformation steps.
+The figures reported above are not directly comparable. The large difference in magnitude, with Sweden appearing to have values more than five times higher than those of the United States, does not reflect real differences in income levels, but rather the fact that the **data are expressed in different national currencies**, implying the need for additional transformation steps.
 
 To address this issue, LIS provides both [CPI and PPP deflators for each country and year](https://www.lisdatacenter.org/resources/ppp-deflators). These allow users to convert values into a common, comparable scale. In practice, this process involves merging the deflator data with the countries' microdata, so that the relevant transformation can be applied to the flow variables.
 
@@ -39,13 +40,13 @@ To address this issue, LIS provides both [CPI and PPP deflators for each country
 
 As shown in the example above, we have 3 columns with conversion factors that the user can make use of. These are:
 
-- **Consummer Price Index**: needed to compare real amounts over time within countries;
+- **Consumer Price Index**: needed to compare real amounts over time within countries;
 
 - **Purchasing Power Parity**: needed to compare real amounts across countries;
 
 - **LISPPP**: which combine CPI and PPP deflators and can be used to compare real amounts across countries and over time.
 
-We can now redo the exercise above by making use of the deflators dataset, which allows us to convert and adjust the `dhi` varaible into international US dollars. 
+We can now redo the exercise above by making use of the deflators dataset, which allows us to convert and adjust the `dhi` variable into international US dollars. 
 
 
 
@@ -58,12 +59,12 @@ qui lissyuse, cc(us18 se18) hvars(dhi dname cname year)
 tabstat dhi, by(dname)
 ```
 
-
+<br>
 
 The Swedish figure is now much closer to American one, as both are expressed in **international US dollars at 2021 prices**. This adjustment makes the values directly comparable and better reflects real income levels.
 
 ::: callout-warning
-In some LWS datasets, wealth amounts and income amounts might differ in their reference year. The year of the dataset always corresponds to the wealth amounts reference year, but income amounts might have been expresssed as the ones in the year before.
+In some LWS datasets, wealth amounts and income amounts might differ in their reference year. The year of the dataset always corresponds to the wealth amounts reference year, but income amounts might have been expressed as the ones in the year before.
 :::
 
 To conclude this section on adjusting data for differences in currency and price levels, we present two additional examples illustrating how **CPI** and **LISPPP** deflators can be used in practice.
@@ -81,6 +82,7 @@ tabstat dhi, by(dname)
 tabstat dhi, by(dname)
 ```
 
+<br>
 
 Alternatively, users may be interested in making comparisons across countries and over time. In this context, relying solely on CPI adjustments is not sufficient, as values would still be expressed in different national currencies. This is where the **LISPPP** deflator becomes particularly useful. By **combining both CPI and PPP adjustments**, it converts values into a international US dollars at a given base year, thereby enabling meaningful cross-country comparisons in real terms.
 
@@ -95,6 +97,7 @@ tabstat dhi, by(dname)
 tabstat dhi, by(dname)
 ```
 
+<br>
 
 Together, these approaches highlight the importance of selecting the appropriate deflator depending on the analytical objective, whether the focus is on within-country trends or cross-country comparability.
 

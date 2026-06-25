@@ -4,7 +4,7 @@ title: "SAS and SPSS"
 
 LISSY supports SAS (9.4) and SPSS (22) in addition to R and Stata. 
 
-Note that the user guide does not provide full coverage of SAS and SPSS workflows. The examples below are intended as a starting point/
+Note that the user guide does not provide full coverage of SAS and SPSS workflows. The examples below are intended as a starting points.
 
 
 ## SAS

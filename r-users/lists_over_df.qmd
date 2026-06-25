@@ -34,11 +34,9 @@ Overall, this approach supports a workflow that is more efficient, more readable
 
 **What if** `lissyrtools` **does not porvide a specific functionality required for the analysis?** This is where the **`purrr`** package, part of the tidyverse, becomes particularly useful.
 
-As comprehensive as it is, `lissyrtools` cannot account for all possible adjustments or indicators that a user may wish to implement. In such cases, it may be necessary to rely on more flexible tools such as those provided by `purrr`.
+As comprehensive as it is, `lissyrtools` cannot account for all possible adjustments that a user may wish to implement. In such cases, it may be necessary to rely on more flexible tools such as those provided in `purrr`.
 
 One of the most intuitive ways to work with lists is to first define a data-processing pipeline for a single data frame, and then generalize that pipeline to all elements of the list using functions like `purrr::map()`. This approach, commonly referred to as **functional programming (FP)**, allows for clear and readable code, while ensuring that the same transformations (functions) are applied consistently across all datasets.
-
-One of the most intuitive ways to work with lists is to **design a data-processing pipeline for a single data frame** and then generalize that pipeline/function to all elements of the list using functions from the `purrr` package. This approach, called functionalbe progrraming (FP) allows us to write clear, readable code while ensuring that the same transformations are applied consistently across datasets.
 
 The examples below illustrate actions coded inside `purrr` functions such as:
 
@@ -112,4 +110,4 @@ Keeping datasets in a list helps preserve these differences and avoids unintende
 
 ---
 
-Throught this initial section on importing the data, we covered all aspects the user user need to be knowledgeable ahead of start workign with LIS data. Dataset structure, country codes, finding the variables names and asses their availability and notes. AS also the essential and benefits or working with list, and a way to overcome the limitations from [`lissyrtools`]{.underline}. In the next part, we will shift our focus on how can the user get quickly acquainted and assessed the data he or she imported.
+Throughout this section, we covered everything the user needs to know before working with LIS data: dataset structure, country codes, how to find variable names, assess their availability, and read their notes. We also highlighted the benefits of working with lists in R, and showed how to work around current limitations of [`lissyrtools`]{.underline}. In the next section, we shift focus to a more hands-on exploration on how to get quickly acquainted with the data imported.

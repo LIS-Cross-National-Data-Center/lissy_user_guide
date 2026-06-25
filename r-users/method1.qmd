@@ -12,8 +12,8 @@ Before getting started, there are a few important concepts to keep in mind:
 
 - In addition, each `ccyy` dataset is divided by level:
 
-  - household-level data
-  - individual-level data
+  - household-level file
+  - individual-level file
 
 R users have two different methods available to import data into LISSY:
 

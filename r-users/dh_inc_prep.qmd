@@ -134,9 +134,12 @@ lissyrtools::run_weighted_percentiles(
     )
 ```
 
+::: {style="height: 30px;"}
+:::
+
 We then use `purrr::map()` to apply this function across all datasets, retrieve the element corresponding to the median (named `"50%"`), and multiply it by 0.5 to establish the poverty line. This relative definition ensures that poverty is assessed in relation to the living standards prevailing within each dataset, so there is no need to adjust for inflation or different currencies.
 
-```{r}
+```{r,  class.output = "foldable"}
 medians <- purrr::map(
     lissyrtools::run_weighted_percentiles(
         data_eqv, 
@@ -148,6 +151,10 @@ poverty_lines <- purrr::map(medians  , ~ .x  * 0.5)
 
 print(poverty_lines)
 ```
+
+
+::: {style="height: 30px;"}
+:::
 
 It is important to note that the poverty line is always calculated based on the **full population**. This same threshold is subsequently applied when evaluating poverty rates for specific subgroups, such as children in single-mother households.
 

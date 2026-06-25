@@ -14,7 +14,7 @@ As in the previous section, this part of the guide is organised by variable type
 
 The most common operation users perform on categorical variables is, once familiar with the numeric codes and their respective labels, to recode them into broader or alternative groupings. This is typically done to align the variable with a preferred breakdown for comparability purposes, to collapse rarely populated categories, or to harmonise the coding scheme across country-years that do not share the same level of disaggregation.
 
-As mentioned in the data description section, the [nested coding](/r-users/dd_catg_vars.html#nested-coding) structure of LIS categorical variables delivers the richest possible information, but it can also introduce unexpected breaks in longitudinal series. The charts from the previous section illustrate this in practice: from 2004 onwards, LIS received more disaggregated data for the Spanish tenure variable `own`, introducing finer subcategories that were not present in earlier waves.
+As mentioned in the Describing Data section, the [nested coding](/r-users/dd_catg_vars.html#nested-coding) structure of LIS categorical variables delivers the richest possible information, but it can also introduce unexpected breaks in longitudinal series. The charts from the previous section illustrate this in practice: from 2004 onwards, LIS received more disaggregated data for the Spanish tenure variable `own`, introducing finer subcategories that were not present in earlier waves.
 
 ![](/images/ES00_data_handling.png){fig-align="center"} 
 ![](/images/ES04_data_handling.png){fig-align="center"}

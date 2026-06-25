@@ -116,6 +116,7 @@ foreach ccyy of local levels {
 }
 ```
 
+<br>
 
 ![](/images/copy_from_lissy_to_csv_stata.png){fig-align="center"}
 
@@ -123,7 +124,7 @@ Once the output appears in the console, you can transfer it into a spreadsheet a
 
 - Use your mouse to select the entire output displayed in the LISSY console
 
-- Copy it using **Ctrl + C** (on Windows/Linux) or Cmd + C (on macOS)
+- Copy it using **Ctrl + C** (on Windows/Linux) or **Cmd + C** (on macOS)
 
 - Open a new spreadsheet in Excel (or similar software)
 
@@ -135,7 +136,7 @@ If the data does not automatically split into columns, use the “Text to Column
 
 ![](/images/final_to_csv.png){fig-align="center"}
 
-This approach provides a simple and effective way to export *aggregate* results from LISSY, where user are not allowed to directly download files to a local storage folder. Instead, LISSY allows the download of job-related outputs such as the submitted code, the corresponding listings, and any generated visualizations (typically in image format).
+This approach provides a simple and effective way to export *aggregate* results from LISSY, where users are not allowed to directly download files to a local storage folder. Instead, LISSY allows the download of job-related outputs such as the submitted code, the corresponding listings, and any generated visualizations (typically in image format).
 
 Even in cases where personal storage is available, all outputs are subject to a disclosure control process: results must be reviewed and approved by LIS staff before they can be released to the user.
 

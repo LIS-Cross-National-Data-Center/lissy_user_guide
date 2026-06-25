@@ -36,6 +36,8 @@ qui lissyuse, iso2(it) from(2005) hvars(hid dname dhi)
 bysort dname: summarize dhi, detail 
 ```
 
+<br>
+
 ::: callout-warning
 While `summarize, detail` provides a convenient initial overview, its distributional measures (e.g., the median, p25, and p75) **do not follow the methodology used by LIS** in its official figures. This is discussed in more detail [later in this section](/stata-users/dd_cont_vars.html#pm_stata).
 :::
@@ -66,6 +68,8 @@ forvalues i = 1/`=_N' {
      di cname[`i'] ","  year[`i'] "," total_obs[`i'] "," nonmiss_obs[`i'] "," pct_nonmiss[`i']
 }
 ```
+
+<br>
 
 The result immediately reveals whether a given income component is consistently observed across the selected waves, or whether its coverage varies substantially over time, making it a useful diagnostic before including the variable in any analysis.
 
@@ -108,9 +112,6 @@ The two `gen` lines above handle a recurrent situation in LIS data. The variable
 
 We close with an important note on how percentiles are estimated, as the choice of method directly affects the comparability of results with LIS official figures.
 
-LIS adopts Definition 4 from Hyndman and Fan (1996) for the computation of all percentile-based estimates, including medians, percentile ratios, poverty lines, and decile shares. Full details are available in the [LIS methodological note](https://www.lisdatacenter.org/news-and-events/note-on-percentile-methodology-used-in-lis-key-figures/).
-
-
 Although percentile-based measures do not introduce fundamentally new techniques beyond those discussed above, it is important to clarify the methodology used by LIS, as this directly affects the comparability and reproducibility of results.
 
 LIS adopts Definition 4 from Hyndman and Fan (1996) for the computation of [key figures and all percentile-based estimates](https://www.lisdatacenter.org/news-and-events/note-on-percentile-methodology-used-in-lis-key-figures/), including medians, percentile ratios, poverty lines, and decile shares. The command [`percentils`](/src/percentils_help_file.pdf){target="_blank"} is a custom command that follows this methodology by default, so users can rely on it to produce estimates fully consistent with LIS standards without needing to configure anything manually.
@@ -134,6 +135,8 @@ forvalues i = 1/`=_N' {
      di year[`i'] "," cname[`i'] "," p_50[`i']
 }
 ```
+
+<br>
 
 The `p()` option accepts any value or vector of values between 0 and 100, making it straightforward to retrieve the full set of percentiles in a single call:
 
@@ -159,6 +162,8 @@ forvalues i = 1/`=_N' {
 }
 ```
 
+<br>
+
 ::: {.callout-tip}
 See also the [chapter on exporting results to excel](/stata-users/tidy_exp_to_csv.html), to learn how to export delimited outputs into excel spreadsheets like the one in the picture below.
 :::
@@ -179,9 +184,9 @@ foreach ccyy of local levels {
 } 
 ```
 
+<br>
 
 And the average income within each group:
-
 
 ```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
 qui lissyuse, iso2(es it) hvars(hid hpopwgt dhi cname year dname) from(2020)
@@ -194,6 +199,8 @@ foreach ccyy of local levels {
 	
 }
 ```
+
+
 
 
 

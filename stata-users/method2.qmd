@@ -13,8 +13,6 @@ knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 do "../src/lissyuse.do"
 ```
 
-<br>
-
 
 # Method 2 - `use` command.
 

@@ -47,7 +47,7 @@ To restore comparability across the full Spanish series, the more disaggregated 
 ```{stata, eval=TRUE, echo=TRUE, class.output="foldable", collectcode=TRUE}
 qui lissyuse, iso2(es) hvars(hid hpopwgt own cname year dname) from(2020)
 recode own (100/199 = 100) (210/219 = 210) (220/229 = 220)
-by dname: tab own
+bysort dname: tab own
 ```
 
 <div style="height: 30px;"></div>

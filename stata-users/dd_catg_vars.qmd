@@ -28,7 +28,7 @@ However, this information is currently displayed for one dataset (`ccyy`) at a t
 To retrieve an aggregate figure for a given value of the column **dname** (dataset name) without looping across country-year pairs, two approaches are available:
 
 - Using the `by` command ahead of other built-in commands like `tabulate` or `sum`.
-- Using the `collapse` command with the \*\*by option\* to produce an aggregated dataset that can be printed to the console.
+- Using the `collapse` command with the **by option** to produce an aggregated dataset that can be printed to the console.
 
 While the first approach is simpler to write, essentially a single line of code, its output can become lengthy and hard to read when many datasets are in use. The `collapse` approach, though more code-intensive, structures the data in a way that is well-suited for producing plots or exporting results to a spreadsheet in CSV format. Both uses are covered in the section on [Structuring Results for Analysis](/stata-users/tidy_exp_to_csv.html).
 
@@ -56,17 +56,21 @@ Because standardized variables follow a fixed category structure across all coun
 The `by` command offers a quick and readable way to produce one-way tabulations across multiple datasets in a single call. The examples below illustrate how to obtain both absolute frequencies, and non-weighted and weighted frequency distributions of a standardized categorical variable.
 
 ```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
-qui lissyuse, iso2(mx es) from(2020) pvars(own pwgt) hvars(hid dname)
-by dname: tabulate sex
+qui lissyuse, iso2(mx es) from(2020) pvars(pwgt sex) hvars(hid dname)
+bysort dname: tabulate sex
 ```
+
+
+<br>
 
 The non-weighted tabulation counts raw observations within each category, while the weighted version uses the personal weight (`pwgt`) to produce population-representative frequency distributions.
 
 ```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
-qui lissyuse, iso2(mx es) from(2020) pvars(own pwgt) hvars(hid dname)
-by dname: tabulate sex [aw = pwgt]
+qui lissyuse, iso2(mx es) from(2020) pvars(pwgt sex) hvars(hid dname)
+bysort dname: tabulate sex [aw = pwgt]
 ```
 
+<br>
 
 
 ### One-way tabulation - `collapse` command
@@ -105,6 +109,8 @@ preserve
 restore
 ```
 
+<br>
+
 ::: callout-tip
 Using `preserve` and `restore` is not needed in the example above, but allows you to print the intended aggregated dataset, while allowing you to continue to reuse the microdata in a single job submission.
 :::
@@ -128,6 +134,8 @@ forvalues i = 1/`=_N' {
 }
 restore
 ```
+
+<br>
 
 The weighted version follows the same logic, but replaces the auxiliary count variable `n` with `ppopwgt`, the personal population weight. Rather than summing observations, `collapse` now sums the weights within each group, so that the resulting percentages reflect the share of the **population** — rather than the sample — falling into each category. This is generally the preferred approach for substantive analysis, as it accounts for differences in sampling design across countries and years. The `preserve`/`restore` wrapper, the `bysort`-based denominator, and the `decode` step all carry over unchanged from the non-weighted example.
 
@@ -160,6 +168,8 @@ forvalues i = 1/`=_N' {
 restore
 ```
 
+<br>
+
 ::: callout-tip
 In this example we switched the chosen separator from a comma to `@`. This prevents further conflicts in cases where category labels themselves contain commas. To learn how to split numeric codes from the labels refer to [the note in the following section](/stata-users/dd_cont_vars.html#subgroup_stata).
 :::
@@ -173,8 +183,10 @@ While standardized variables share a fixed category template across all datasets
 ```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
 qui lissyuse, iso2(es) from(1999) to(2005) hvars(cname year dname)
 
-by dname: tabulate own, missing
+bysort dname: tabulate own, missing
 ```
+
+<br>
 
 In `es00`, housing tenure is recorded in three broad categories only, with all ownership grouped under a single code `[100]`.
 
@@ -202,7 +214,7 @@ To illustrate this, consider loading Italian, Spanish, and German data together 
 qui lissyuse , iso2(it de es) from(2016) to(2016) hvars(hid hwgt region_c dhi dname year)
 tab region_c  
 des
-tabstat dhi if dname  ==  "it20",  by(region_c)
+tabstat dhi if dname  ==  "it16",  by(region_c)
 ```
 
 
@@ -222,9 +234,9 @@ foreach x of local ds {
 }
 ```
 
-Running this loop produces separate, clean tabulations for Germany, Spain, and Italy, with region labels that correctly reflect each country's classification. Attempting the same analysis on the merged dataset would produce unreliable results without any error from Stata.
+<br>
 
-In the R pacakge `lissyrtools`, there is a dedicated function named `variable_country_specific_categories` to assess beforehand the number of diferent categories across a given series to auxiliatte the user on the identifcation of breaks in the series, as well as to print them directly in a console across the different yearass avaiable in a given series. If curious check the section (/r-users/dd_catg_vars.html#ct_spec_vars_R)
+Running this loop produces separate, clean tabulations for Germany, Spain, and Italy, with region labels that correctly reflect each country's classification. Attempting the same analysis on the merged dataset would produce unreliable results without any error from Stata.
 
 
 <br>

@@ -34,7 +34,7 @@ The sections that follow illustrate a more comprehensive workflow, combining sev
 The aim will be to compute the poverty rate among children in single-mother households in several countries. Constructing this indicator requires combining information available at both the household level (`dhi`, `nhhmem17`, `hpartner`), and the individual level (`sex`).
 
 ::: callout-important
-Recall from the earlier sections of this guidebook when we introduced the `lissyuse` command, that when both household and individual variables are specified, both files for a given `ccyy` are loaded and merged automatically. As a result, the data loaded at the individua
+Recall from the earlier sections of this guidebook when we introduced the `lissyuse` command, that when both household and individual variables are specified, both files for a given `ccyy` are loaded and merged automatically. As a result, the data loaded is at the individual-level. 
 :::
 
 ```{stata, eval =FALSE, echo=TRUE, class.output = "foldable"}
@@ -270,6 +270,9 @@ foreach ccyy of local levels {
 
 }
 ```
+
+
+<br>
 
 Several features of this routine are worth noting.
 

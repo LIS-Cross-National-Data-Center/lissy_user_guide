@@ -2,7 +2,7 @@
 title: "Import Data"
 ---
 
-# Country Codes
+# Country Codes and Years
 
 LIS uses ISO-2 country codes to identify the country associated with each dataset. To support this, the `get_countries_*()` functions allow users to quickly retrieve and verify the necessary country codes before loading data.
 
@@ -11,6 +11,9 @@ lissyrtools::get_countries_lis()
 lissyrtools::get_countries_lws()
 ```
 
+::: {style="height: 30px;"}
+:::
+
 To obtain an overview of the years available for each country in the LIS and LWS databases, the auxiliary functions `get_years_*()` can be used like in the example below.
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold', class.output = "foldable"}
@@ -18,6 +21,9 @@ To obtain an overview of the years available for each country in the LIS and LWS
 lissyrtools::get_years_lis(c("es", "de", "it", "fr", "cz", "pl")) 
 lissyrtools::get_years_lws(c("no", "za"))
 ```
+
+::: {style="height: 30px;"}
+:::
 
 Finally, with the `get_surveys_*()` functions provide a snapshot on which surveys were used across the series of a given country.
 
@@ -45,7 +51,7 @@ In addition to [METIS](https://www.lisdatacenter.org/frontend#/home), LIS provid
 
 [![](/images/lis_variable_list.png){fig-align="center"}](https://www.lisdatacenter.org/wp-content/uploads/files/data-lis-variables.pdf)
 
-## Finding variable names
+## Finding Variable Names
 
 Each variable is defined by both:
 
@@ -53,7 +59,7 @@ Each variable is defined by both:
 
 <li>its <b>name</b> in the dataset</li>
 
-<li>its <b>label</b>, a short description indicating what the variable represents</li>
+<li>its <b>label</b></li>
 
 </ul>
 

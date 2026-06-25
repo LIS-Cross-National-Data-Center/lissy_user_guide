@@ -23,8 +23,8 @@ Before getting started, there are a few important concepts to keep in mind:
 
 - In addition, each `ccyy` dataset is divided by level:
 
-  - household-level data
-  - individual-level data
+  - household-level file
+  - individual-level file
 
 Stata users have two different methods available to import data into LISSY:
 
@@ -92,12 +92,14 @@ In practice, this is usually inefficient. Therefore, users are strongly encourag
 
 The second advantage of `lissyuse` is that it automatically determines the appropriate data level based on the variables selected.
 
-If the user specifies only household-level variables in `hvars()`, such as disposable household income (\<b\>dhi\</b\>), household size (\<b\>nhhmem\</b\>), or geographic region (\<b\>region_c\</b\>), only household-level files are imported.
+If the user specifies only household-level variables in `hvars()`, such as disposable household income (**dhi**), household size (**nhhmem**), or geographic region (**region_c**), only household-level files are imported.
 
 ```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
 lissyuse, iso2(at ch) from(2019) to(2022) hvars(hid dname dhi nhhmem region_c hwgt) 
 codebook, compact
 ```
+
+<br>
 
 In the example below, only person-level variables are specified. As a result, only person-level files are imported
 
@@ -106,10 +108,13 @@ quietly lissyuse, iso2(at ch) from(2019) to(2022) pvars(pid age sex relation pi1
 codebook, compact
 ```
 
+
+<br>
+
 Finally, when both household-level and person-level variables are requested, `lissyuse` **automatically merges both files into a single dataset**.
 
 ```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
-quietly lissyuse, iso2(at ch) from(2019) to(2022) pvars(pid age sex relation pi11 lfs) 
+quietly lissyuse, iso2(at ch) from(2019) to(2022) hvars(hid dname dhi nhhmem region_c hwgt)  pvars(pid age sex relation pi11 lfs) 
 codebook, compact
 ```
 
@@ -121,11 +126,14 @@ To import LWS data, one would need to change the selection in the <b>Project</b>
 
 ![](/images/project_lws.png){fig-align="center"}
 
-```{r, eval=TRUE, echo=TRUE}
-quietly lissyuse, iso2(at) from(2017) to(2021) lws
+```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
+quietly lissyuse, iso2(it) from(2017) to(2022) lws hvars(hid dnw inum cname dname year) 
 codebook, compact
 ```
 
+<br>
+
+
 ::: callout-caution
-Always remeber to change the Project dropdown and to add the `lws` argument !
+Always remember to change the Project dropdown and to add the `lws` argument !
 :::

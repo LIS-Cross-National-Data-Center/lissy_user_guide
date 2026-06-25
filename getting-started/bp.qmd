@@ -14,6 +14,6 @@ title: "Best Practises"
 
 - Do not request frequencies on continuous variables because this violates our security measures. If you are and **R user** When using some of the functions from `lissyrtools` such as: `run_weighted_count()`, or `run_weighted_mean()` , always use the original names of LIS variables (eg. var_name = 'own', instead of var_name = 'my_version_of_own'). See more on [this section](/r-users/dh_catg_vars.html#orig_vars_placeholder).
 
-- If you wish to come up with multiple charts being created in a single job. You need to name them differently. More on this [**here for Stata**]{style="color: #991d14;"} and [**here for R**]{style="color: #991d14;"}.
+- If you wish to come up with multiple charts being created in a single job. You need to name them differently. More on this in topic in the following links for [Stata](/stata-users/tidy_plots.html) and [R](/r-users/tidy_plots.html).
 
 - R packages and Stata ado files can only be installed by the LIS Staff into the LISSY system. Please contact [User Support](faqs/index.html#contact-support) if you wish to do so. 

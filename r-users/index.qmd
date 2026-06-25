@@ -6,7 +6,7 @@ Welcome R people 👋
 
 # What you'll find here  
 
-Welcome! This guide walks you step by step through working with LIS data in R — from getting started to building a solid, reproducible workflow.  
+This guide walks you step by step through working with LIS data in R — from getting started to building a solid, reproducible workflow.  
 
 You’ll learn how to navigate the structure and specific features of LIS datasets, while developing practical skills you can apply directly to your own projects. We cover each stage of the workflow, highlight common operations, and share tips to help you work more efficiently.  
 

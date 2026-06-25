@@ -4,7 +4,7 @@ title: "Data Handling"
 
 # Currency and Price Level Adjustments
 
-Income, wealth, and consumption data provided by LIS are expressed in national currencies at current prices for the income reference year. While this preserves the data in a form close to its original source, it also creates clear comparability issues across countries.
+LIS variables on income, wealth, and consumption are always expressed in national currency at current prices for that income reference year. While this preserves the data in a form close to its original source, it also creates clear comparability issues across countries.
 
 For clarity, the snippet below retrieves the unweighted average of disposable household income (`dhi`) for both the United States and Sweden in 2018.
 
@@ -27,7 +27,7 @@ To address this issue, LIS provides both [CPI and PPP deflators for each country
 
 As shown in the example above, we have 3 columns with conversion factors that the user can make use of. These are:
 
-- **Consummer Price Index**: needed to compare real amounts over time within countries;
+- **Consumer Price Index**: needed to compare real amounts over time within countries;
 
 - **Purchasing Power Parity**: needed to compare real amounts across countries;
 
@@ -52,7 +52,7 @@ lissyuse(data = c('us18', 'se18'), vars  = 'dhi') %>%
 The Swedish figure is now much closer to American one, as both are expressed in **international US dollars at 2021 prices**. This adjustment makes the values directly comparable and better reflects real income levels.
 
 ::: callout-warning
-In some LWS datasets, wealth amounts and income amounts might differ in their reference year. The year of the dataset always corresponds to the wealth amounts reference year, but income amounts might have been expresssed as the ones in the year before. LWS data users, do not need to worry with this as long as they mannualy sprecify `database = 'lws'`, which immediately adjust the reference year depending on `var_name` is a wealth (`dnw`) or income variable (`dhi`).
+In some LWS datasets, wealth amounts and income amounts might differ in their reference year. The year of the dataset always corresponds to the wealth amounts reference year, but income amounts might have been expresssed as the ones in the year before. LWS data users, do not need to worry with this as long as they mannualy specify `database = 'lws'`, which immediately adjust the reference year depending on `var_name` is a wealth (`dnw`) or income variable (`dhi`).
 :::
 
 To conclude this section on adjusting data for differences in currency and price levels, we present two additional examples illustrating how **CPI** and **LISPPP** deflators can be used in practice.

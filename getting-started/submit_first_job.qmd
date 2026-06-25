@@ -12,7 +12,7 @@ Upon first logging into LISSY, users have access to an intuitive interface where
 
 - View the printed output of their jobs, as in Stata, RStudio, or VSCode;
 
-- Produce visualizations if desired;
+- Produce visualizations;
 
 - Download all outputs to their local machine;
 
@@ -38,7 +38,7 @@ For a smoother experience, we strongly recommend using our **Sample Files** to p
 Stata users can find and download the sample files [here](https://www.lisdatacenter.org/resources/self-teaching/), while R users can directly install the [lissyrtools](https://lis-cross-national-data-center.github.io/lissyrtools/) package, which already includes them. This package will be introduced in more detail in the section dedicated to R users.
 :::
 
-Once the job has been submitted, switch to the **Recent Jobs** pane, where the output of ypur submitted job will soon become available.
+Once the job has been submitted, switch to the **Recent Jobs** pane, where the output of your submitted job will soon become available.
 
 ![](/images/ampersand_stop_signs.png){fig-align="center"}
 
@@ -139,7 +139,7 @@ LISSY provides several ways to access and download your outputs:
 
 More detailed examples of exporting outputs in both [R](/r-users/tidy_exp_to_csv.html) and [Stata](/stata-users/tidy_exp_to_csv.html) will be provided throughout the remainder of this user guide.
 
-## Using External files with the LIS databases
+## Using External files in LISSY
 
 If you wish to merge your own poersonall dataset toghether with the microdata in LISSY, send your request, along with the attached file, to usersupport\@lisdatacenter.org.
 

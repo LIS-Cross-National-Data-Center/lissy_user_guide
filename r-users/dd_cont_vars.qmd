@@ -88,7 +88,7 @@ run_weighted_mean(ex_data, var_name = 'dhi', wgt_name = NULL,  by = 'own')
 Like `run_weighted_count()` introduced in the previous section, `run_weighted_mean()` makes subgroup descriptives straightforward to produce in a reproducible and consistent way across multiple country-year datasets.
 
 <!-- Make sure this line here makes sense or if it was introduced repeatedly many time in the sections before -->
-For further processing, users may wish to transform these outputs into a tidy tabular format suitable for export or visualisation. Guidance on structuring and exporting results is available in the [dedicated export section](/r-users/exp_to_csv.html#export-csv).
+For further processing, users may wish to transform these outputs into a tidy tabular format suitable for export or visualisation. Guidance on structuring and exporting results is available in the [dedicated export section](/r-users/tidy_exp_to_csv.html#export-csv).
 
 
 <!-- add perhaps something here on `inum` and LWS !!!!!!!-->
@@ -99,7 +99,7 @@ For further processing, users may wish to transform these outputs into a tidy ta
 
 We close with an important note on how percentiles are estimated, as the choice of method directly affects the comparability of results with LIS official figures.
 
-LIS adopts Definition 4 from Hyndman and Fan (1996) for the computation of all percentile-based estimates, including medians, percentile ratios, poverty lines, and decile shares. Full details are available in the [LIS methodological note](https://www.lisdatacenter.org/news-and-events/note-on-percentile-methodology-used-in-lis-key-figures/).
+LIS adopts Definition 4 from Hyndman and Fan (1996) for the computation of all percentile-based estimates, including medians, percentile ratios, poverty lines, and decile shares. Full details are available in this [LIS methodological note](https://www.lisdatacenter.org/news-and-events/note-on-percentile-methodology-used-in-lis-key-figures/).
 
 The function `run_weighted_percentiles()` follows this methodology by default, so users can rely on it to produce estimates that are fully consistent with LIS standards without needing to configure anything manually.
 
