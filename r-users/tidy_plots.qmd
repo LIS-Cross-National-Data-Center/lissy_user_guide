@@ -116,6 +116,7 @@ This is a useful template for any LIS variable that takes a small number of disc
 library(lissyrtools)
 library(tidyverse)
 library(ggplot2)
+library(scales)
 
 data_for_plot = lissyuse(
     data = c('de'),
@@ -180,6 +181,7 @@ This template extends Example 2 to multiple countries, using occupation group (`
 library(lissyrtools)
 library(tidyverse)
 library(ggplot2)
+library(scales)
 
 data_for_plot <- lissyuse(
     data = c('pe', 'lu'),
@@ -246,6 +248,7 @@ The previous examples all used standardized LIS variables. This template instead
 library(lissyrtools)
 library(tidyverse)
 library(ggplot2)
+library(scales)
 
 
 data_for_plot <- lissyuse(
@@ -333,6 +336,7 @@ This template uses `sex` to disaggregate median labour income (`pi11`) for worki
 library(lissyrtools)
 library(tidyverse)
 library(ggplot2)
+library(scales)
 
 lis_data <- lissyuse(
     data = c("se", "de"),
@@ -341,31 +345,32 @@ lis_data <- lissyuse(
 )
 
 
-png(file = paste0(USR_PDF, "ex5.png"), width = 1280, height = 720, res = 150)
+png(file = paste0(USR_PDF, "/ex5.png"), width = 1280, height = 720, res = 150)
 
 lis_data %>%
     map(
         ~ .x %>%
             filter(age > 24 & age < 56) %>%
-            filter(emp == 1),
-        filter(!is.na(pi11))
+            filter(emp == 1) %>%
+            filter(!is.na(pi11)) 
     ) %>%
     apply_ppp_adjustment(
         "pi11",
         database = "lis",
         transformation = "lisppp"
     ) %>%
-    run_weighted_mean("pi11", "ppopwgt", by = "sex") %>%
+    run_weighted_percentiles("pi11", "ppopwgt", probs = 0.5 , by = "sex") %>%
     structure_to_plot() %>%
     ggplot(
         aes(x = year, y = value, group = category, color = category)
     ) +
     geom_line() +
     geom_point(size = 2.5) +
+    facet_wrap("cname") +
     labs(
         x = "",
         y = "",
-        title = "Working-Age Average Wage",
+        title = "Working-Age Median Wage",
         caption = "Source: Luxembourg Income Study",
         color = "Gender"
     ) +
@@ -382,8 +387,7 @@ lis_data %>%
         plot.caption = element_text(hjust = 0, size = 8, color = "grey50"),
         plot.title = element_text(face = "bold", size = 12),
         strip.text = element_text(face = "bold", size = 10)
-    ) +
-    facet_wrap("cname")
+    )     
 ```
 
 
