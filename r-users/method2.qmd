@@ -32,7 +32,7 @@ class(full_data)
 
 <br>
 
-## Importing LWS data
+## Importing LWS and LCS data
 
 To import LWS data, the syntax remains exactly the same, but again the <b>Project</b> must be changed in the drop-down menu.
 
@@ -52,10 +52,26 @@ varp <- c('hid', 'dname', 'inum', 'ppopwgt', 'age', 'sex', 'relation', 'emp', 'p
 data_h <- read.LIS(c("de17h", "es17h"), vars = varh)
 data_p <- read.LIS(c("de17p", "es17p"), vars = varp)
 
-full_data <- merge(data_h, data_p, by = c("dname", "hid")) 
 df <- merge(data_p , data_h , by = c("dname", "hid", "inum"))
 
 names(df)
 ```
 
 
+
+```{r, eval=TRUE, echo=FALSE, include=FALSE}
+# put here the code of read.LIS, then on a hidden file, such that is doesn't go to the github. 
+source("../src/read.LIS_for_lcs.R") 
+```
+
+```{r, eval=TRUE, echo=TRUE, results = 'hold'}
+varh <- c('hid', 'dname', 'own', 'hc01_t')
+varp <- c('hid', 'dname', 'ppopwgt', 'age', 'sex', 'relation', 'emp', 'health1_c', 'health2_c', 'health3_c') 
+
+data_h <- read.LIS(c("be22h", "be24h"), vars = varh)
+data_p <- read.LIS(c("be22p", "be24p"), vars = varp)
+
+df <- merge(data_p , data_h , by = c("dname", "hid"))
+
+names(df)
+```

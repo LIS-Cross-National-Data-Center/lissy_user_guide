@@ -8,7 +8,7 @@ Due to the wide range of research questions that can be explored using data from
 
 To work effectively on cross-country projects with LIS data, users must have a solid understanding of how to apply the deflators provided. The first part will therefore focus on this process and its specific nuances.
 
-In the second part, we demonstrate how to compute a Children Poverty Rate among Single-Mother Families. This particular indicator requires several steps, making it a comprehensive example of the types of R functions users can rely on, as well as highlighting important considerations when working with LIS and LWS data.
+In the second part, we demonstrate how to compute a Children Poverty Rate among Single-Mother Families. This particular indicator requires several steps, making it a comprehensive example of the types of R functions users can rely on, as well as highlighting important considerations when working with LIS/LWS/LCS data.
 
 <br>
 

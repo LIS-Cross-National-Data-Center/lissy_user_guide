@@ -29,9 +29,9 @@ We begin with *categorical* variables and how to perform exploratory and frequen
 
 # Categorical Variables
 
-Categorical Varaibles are composed by numeric codes, each uniquely associated with its own label. In both LIS and LWS, we have two types of categorical variables:
+Categorical Varaibles are composed by numeric codes, each uniquely associated with its own label. We provide two types of categorical variables:
 
-- **Standardized**: their categories are the same across all datasets in LIS or LWS.
+- **Standardized**: their categories are the same across all datasets in LIS/LWS/LCS.
 
 - **Country-specific**: these provide categorized information on topics that are inherently non-comparable across countries — either by nature (e.g., `region_c`) or because they do not follow a standard international classification (e.g., `health_c`). Such variables may also lack comparability across time within a given country.
 
@@ -64,7 +64,7 @@ lissyrtools::run_weighted_count(
 
 <div style="height: 30px;"></div>
 
-The function `run_weighted_count()` takes a list of LIS or LWS datasets as its `data` argument and returns a tabulation of the variable specified in `var_name`. 
+The function `run_weighted_count()` takes a list of LIS/LWS/LCS datasets as its `data` argument and returns a tabulation of the variable specified in `var_name`. 
 
 
 ::: {.callout-tip}
@@ -109,7 +109,7 @@ lissyrtools::run_weighted_count(
 
 ### Two-way tabulation 
 
-LIS and LWS datasets sometimes contain pairs of categorical variables where one is a finer disaggregation of the other. The variables `educ` and `educlev` are a prime example: `educlev` breaks each 
+Datasets sometimes contain pairs of categorical variables where one is a finer disaggregation of the other. The variables `educ` and `educlev` are a prime example: `educlev` breaks each 
 broad education category into more granular sub-groups. In such cases, a two-way tabulation serves a dual purpose. It describes the joint distribution of both variables simultaneously, and allows the user to verify which sub-categories of `educlev` correspond to which parent categories of `educ`.
 
 `run_weighted_count()` supports this directly via the `by` argument. Always place the more disaggregated variable in `var_name` and the broader grouping variable in `by`:
@@ -132,7 +132,7 @@ For better-structured tabular output, or to quickly produce trend plots for visu
 
 ### Nested coding  {#nested-coding}
 
-While standardized variables share a fixed category template across all datasets in LIS and LWS, this does not always guarantee straightforward comparability in practice. The level of detail available for a given variable can vary considerably across years within the same country series, reflecting differences in the underlying survey instrument. The variable `own` in the Spanish series illustrates this well.
+While standardized variables share a fixed category template across all datasets, this does not always guarantee straightforward comparability in practice. The level of detail available for a given variable can vary considerably across years within the same country series, reflecting differences in the underlying survey instrument. The variable `own` in the Spanish series illustrates this well.
 
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
@@ -154,7 +154,7 @@ By `es04`, the same variable is captured with considerably more granularity, dis
 
 ![](/images/ES04_data_handling.png)
 
-This finer disaggregation in later years is not incidental: it reflects the hierarchical coding structure deliberately built into LIS and LWS standardized variables, where higher-level codes such as `[100]` or `[200]` represent aggregate categories, and lower-level codes such as `[110]`, `[120]`, or `[211]` represent their constituent sub-groups. Users should therefore always inspect the distribution of standardized categorical variables across the full country series before drawing comparisons, as apparent changes over time may reflect a shift in granularity rather than a genuine change in the underlying phenomenon.
+This finer disaggregation in later years is not incidental: it reflects the hierarchical coding structure deliberately built into LIS/LWS/LCS standardized variables, where higher-level codes such as `[100]` or `[200]` represent aggregate categories, and lower-level codes such as `[110]`, `[120]`, or `[211]` represent their constituent sub-groups. Users should therefore always inspect the distribution of standardized categorical variables across the full country series before drawing comparisons, as apparent changes over time may reflect a shift in granularity rather than a genuine change in the underlying phenomenon.
 
 
 <br>

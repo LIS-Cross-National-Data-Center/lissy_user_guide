@@ -47,7 +47,7 @@ data_for_plot = lissyuse(
     'dhi',
     from = 2000,
     to = 2024,
-    lws = FALSE
+    database = 'lis'
 ) %>%
     map(
         ~ .x %>% filter(!is.na(dhi)) %>% mutate(new_wgt = hwgt * nhhmem)
@@ -123,7 +123,7 @@ data_for_plot = lissyuse(
     'indb1',
     from = 2000,
     to = 2024,
-    lws = FALSE
+    database = 'lis'
 ) %>%
     map(~ .x %>% filter(!is.na(indb1)))
 
@@ -188,7 +188,7 @@ data_for_plot <- lissyuse(
     'occa1',
     from = 2000,
     to = 2024,
-    lws = FALSE
+    database = 'lis'
 ) %>%
     map(~ .x %>% filter(!is.na(occa1)))
 
@@ -256,7 +256,7 @@ data_for_plot <- lissyuse(
     c('dhi', 'region_c'),
     from = 2000,
     to = 2024,
-    lws = FALSE
+    database = 'lis'
 ) %>%
     map(~ .x %>% filter(!is.na(dhi)) %>% mutate(new_wgt = nhhmem * hwgt)) %>%
     apply_iqr_top_bottom_coding('dhi', 'hwgt') %>%

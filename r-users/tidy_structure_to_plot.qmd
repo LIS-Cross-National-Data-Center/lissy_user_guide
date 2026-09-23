@@ -2,7 +2,7 @@
 title: "Structuring Results for Analysis"
 ---
 
-# Structuring results for Analysis
+
 
 So far, most of our outputs have been returned as lists. This is intentional, as **direct printing of data frames is not possible in LISSY** for security reasons.
 
@@ -20,6 +20,7 @@ The function `structure_to_plot()` was designed to convert complex outputs into 
 To illustrate this, and to provide a visual representation of the resulting output, we present examples **using `lissyrtools` locally** with some of its embedded [sample datasets](https://lis-cross-national-data-center.github.io/lissyrtools/reference/index.html#sample-datasets). This approach reflects how a user would interact with `lissyrtools` outside of LISSY, working on their local machine, which is made possible through the inclusion of these embedded datasets.
 
 <!-- This part is for users to run in LISSY not to be eval .....  -->
+<!-- This part will not work for LWS !  .....  -->
 
 ```{r, eval=FALSE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
 library(lissyrtools)
@@ -35,7 +36,8 @@ datasets_final <- lissyuse(
   data = available_sample_datasets, 
   vars = c('educ', 'pilabour', 'age', 'emp', 'sex'), 
   from = 2014, 
-  to = 2018  
+  to = 2018, 
+  database = 'lis'  
   ) 
 ```
 

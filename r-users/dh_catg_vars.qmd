@@ -31,7 +31,7 @@ library(dplyr)
 library(purrr)
 library(labelled)
 
-recoded_data = lissyuse('es', 'own', from =  2000, to = 2004, lws = FALSE) %>%
+recoded_data = lissyuse('es', 'own', from =  2000, to = 2004, database = 'lis') %>%
   purrr::map(
     ~ .x %>% mutate(
       own_copy_old  = own, # create a copy of the original variable 'own' 
@@ -48,7 +48,7 @@ lissyrtools::run_weighted_count(data = recoded_data, var_name = 'own', na.rm = T
 ```
 
 ::: {#orig_vars_placeholder .callout-important}
-Functions in `lissyrtools`, only accept columns named after the original LIS or LWS variable names. Always perform recoding on the original variable directly, preserving a copy beforehand if needed. Variable names such as `own_recoded` or `own_new` will not be accepted — the variable must retain its original name (`own`, `educ`, `educlev`, and so on).
+Functions in `lissyrtools`, only accept columns named after the original LIS, LWS and LCS variable names. Always perform recoding on the original variable directly, preserving a copy beforehand if needed. Variable names such as `own_recoded` or `own_new` will not be accepted — the variable must retain its original name (`own`, `educ`, `educlev`, and so on).
 :::
 
 

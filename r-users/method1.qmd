@@ -2,11 +2,11 @@
 title: "Import Data"
 ---
 
-More than a thousand LIS and LWS datasets are available for use and analysis within LISSY. Learning how to import these datasets is one of the first key steps in the user workflow, as it requires becoming familiar with the built-in tools specifically designed for this purpose.
+More than a thousand LIS, LWS and LCS datasets are available for use and analysis within LISSY. Learning how to import these datasets is one of the first key steps in the user workflow, as it requires becoming familiar with the built-in tools specifically designed for this purpose.
 
 Before getting started, there are a few important concepts to keep in mind:
 
-- LIS and LWS datasets cannot be accessed simultaneously (remember to select the appropriate **Project** from the dropdown menu in the user interface).
+- LIS/LWS/LCS datasets cannot be accessed simultaneously (remember to select the appropriate **Project** from the dropdown menu in the user interface).
 
 - Datasets are organized by country and year, following the `ccyy` naming convention (e.g., `de18`, `de19`).
 
@@ -131,9 +131,9 @@ Note as well that **some variables were imported by default**. Variables such as
 
 <br>
 
-## Importing LWS data
+## Importing LWS and LCS data
 
-To import LWS data, one would need to change the selection in the <b>Project</b> drop-down menu, and set the `lws` logical argument equal to `TRUE`.
+To import data from these databases, one would need to change the selection in the <b>Project</b> drop-down menu, and set the `database` argument equal to `lws` or `lcs` accordingly.
 
 ![](/images/project_lws.png){fig-align="center"}
 
@@ -142,12 +142,21 @@ us_lws_data = lissyrtools::lissyuse(
   data = c("us"), 
   vars = c("dnw"), # disposable net wealth - LWS specific variable. 
   from = 2015, 
-  lws = TRUE  # `lws` logical argument        
+  database = 'lws' 
 )
 
 names(us_lws_data[[1]])
 ```
 
 
+```{r, eval=TRUE, echo=TRUE}
+be_lcs_data = lissyrtools::lissyuse(
+  data = c("be"), 
+  vars = c("hc01_t"), # LCS specific variable. 
+  from = 2018, 
+  database = 'lcs' 
+)
 
 
+names(be_lcs_data[[1]])
+```

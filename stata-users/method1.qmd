@@ -13,11 +13,11 @@ knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 do "../src/lissyuse.do"
 ```
 
-More than a thousand LIS and LWS datasets are available for use and analysis within LISSY. Learning how to import these datasets is one of the first essential steps in the user workflow, as it requires becoming familiar with the built-in tools specifically designed for this purpose.
+More than a thousand LIS, LWS and LCS datasets are available for use and analysis within LISSY. Learning how to import these datasets is one of the first essential steps in the user workflow, as it requires becoming familiar with the built-in tools specifically designed for this purpose.
 
 Before getting started, there are a few important concepts to keep in mind:
 
-- LIS and LWS datasets cannot be accessed simultaneously (remember to select the appropriate **Project** from the dropdown menu in the user interface).
+- LIS/LWS/LCS datasets cannot be accessed simultaneously (remember to select the appropriate **Project** from the dropdown menu in the user interface).
 
 - Datasets are organized by country and year, following the `ccyy` naming convention (e.g., `de18`, `de19`).
 
@@ -120,9 +120,9 @@ codebook, compact
 
 <br>
 
-## Importing LWS data
+## Importing LWS and LCS data
 
-To import LWS data, one would need to change the selection in the <b>Project</b> drop-down menu, and add the `lws` option as exemplified in the snippet below.
+To import LWS or LCS data, one would need to change the selection in the <b>Project</b> drop-down menu, and add the `lws` or `lcs` options accordingly as exemplified in the snippet below.
 
 ![](/images/project_lws.png){fig-align="center"}
 
@@ -133,7 +133,11 @@ codebook, compact
 
 <br>
 
+```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
+quietly lissyuse, iso2(be) from(2018) to(2022) lcs hvars(hid cname dname year hc01_t) 
+codebook, compact
+```
 
 ::: callout-caution
-Always remember to change the Project dropdown and to add the `lws` argument !
+Always remember to change the Project dropdown and to add the `lws` or `lcs` argument !
 :::

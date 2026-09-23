@@ -22,7 +22,7 @@ Upon first logging into LISSY, users have access to an intuitive interface where
 
 The first stage of using LISSY begins in the **Edit Job** pane, where users must configure two drop-down menus at the top of the editor:
 
-- **Project** - the database to work with (e.g. LIS, LWS, ERFLIS);
+- **Project** - the database to work with (e.g. LIS, LWS, LCS, ERFLIS);
 
 - **Package** - the coding language for the job (R, Stata, SAS, or SPSS).
 
@@ -103,7 +103,7 @@ data_list =  lissyrtools::lissyuse(
   vars = 'dhi', 
   from = 2018, 
   to = 2019, 
-  lws = FALSE
+  database = 'lis'
 )  
 
 results = lissyrtools::run_weighted_mean(
