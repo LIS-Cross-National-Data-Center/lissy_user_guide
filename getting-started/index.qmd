@@ -151,6 +151,7 @@ title: ""
   margin: 2rem 0;
 }
 .gs-card {
+  position: relative;             
   border: 1px solid #e2e8f0;
   border-radius: 10px;
   padding: 1.5rem;
@@ -158,7 +159,15 @@ title: ""
   display: flex;
   gap: 1rem;
   align-items: flex-start;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;  
 }
+
+.gs-card:hover {                    
+  background: #f1f5f9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(50, 93, 136, 0.12);
+}
+
 .gs-card__num {
   font-size: 1.4rem;
   font-weight: 800;
@@ -184,6 +193,22 @@ title: ""
   color: #325d88;
   text-decoration: none;
 }
+
+.gs-card__link::after {             /* NEW: makes the entire card clickable */
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.gs-card:hover .gs-card__link {     /* CHANGED: underline when hovering anywhere on the card */
+  text-decoration: underline;
+}
+.gs-card__link:focus-visible {      /* NEW: visible outline for keyboard users */
+  outline: 3px solid #9ec1e6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 .gs-card__link:hover {
   text-decoration: underline;
 }

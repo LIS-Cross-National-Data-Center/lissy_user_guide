@@ -2,20 +2,147 @@
 title: "Other Resources"
 ---
 
+## Aggregate Figures
 
-## Aggregate Figures 
+```{=html}
+<div class="or-grid or-grid--three">
 
- - [DART](https://dart.lisdatacenter.org/)
- - [IKF](https://www.lisdatacenter.org/lis-ikf-webapp/app/search-ikf-figures)
- - [Our World in Data](https://www.lisdatacenter.org/data-access/lis-in-our-world-in-data-owid/)
+  <div class="or-card or-card--blue">
+    <h3 class="or-card__title">DART</h3>
+    <p class="or-card__desc">Explore aggregate LIS figures through the online DART tool.</p>
+    <a href="https://dart.lisdatacenter.org/" class="or-card__link">→ Open DART</a>
+  </div>
 
+  <div class="or-card or-card--blue">
+    <h3 class="or-card__title">IKF</h3>
+    <p class="or-card__desc">Search the LIS key figures available through the IKF web application.</p>
+    <a href="https://www.lisdatacenter.org/lis-ikf-webapp/app/search-ikf-figures" class="or-card__link">→ Search IKF figures</a>
+  </div>
 
-## Teaching Materials 
+  <div class="or-card or-card--blue">
+    <h3 class="or-card__title">Our World in Data</h3>
+    <p class="or-card__desc">See how LIS data is presented in Our World in Data.</p>
+    <a href="https://www.lisdatacenter.org/data-access/lis-in-our-world-in-data-owid/" class="or-card__link">→ LIS in Our World in Data</a>
+  </div>
 
- - [Sample Files and Self-Teaching Exercises](https://www.lisdatacenter.org/resources/self-teaching/)
- - [Online Tutorial Series](https://www.lisdatacenter.org/resources/online-tutorial-series/)
+</div>
+```
 
+## Teaching Materials
 
- We could then add the necessary links and whatnot 
+```{=html}
+<div class="or-grid or-grid--two">
 
+  <div class="or-card or-card--blue">
+    <h3 class="or-card__title">Sample Files and Self-Teaching Exercises</h3>
+    <p class="or-card__desc">Sample files and exercises for learning to work with LIS data at your own pace.</p>
+    <a href="https://www.lisdatacenter.org/resources/self-teaching/" class="or-card__link">→ Self-teaching resources</a>
+  </div>
 
+  <div class="or-card or-card--blue">
+    <h3 class="or-card__title">Online Tutorial Series</h3>
+    <p class="or-card__desc">A series of online tutorials on using LIS data.</p>
+    <a href="https://www.lisdatacenter.org/resources/online-tutorial-series/" class="or-card__link">→ Online tutorials</a>
+  </div>
+
+</div>
+```
+
+```{=html}
+<style>
+/* Shared card layout */
+.or-grid {
+  display: grid;
+  gap: 1.25rem;
+  margin: 1.25rem 0 2.5rem;
+}
+.or-grid--three {
+  grid-template-columns: repeat(3, 1fr);
+}
+.or-grid--two {
+  grid-template-columns: repeat(2, 1fr);
+}
+.or-card {
+  position: relative;               /* lets the whole card act as a link */
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  padding: 1.4rem 1.25rem 1.25rem;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.or-card:hover {
+  transform: translateY(-2px);
+}
+.or-card__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a2e42;
+  margin: 0 0 0.45rem;
+}
+.or-card__desc {
+  font-size: 0.9rem;
+  color: #4a5568;
+  line-height: 1.55;
+  margin: 0 0 1rem;
+  flex-grow: 1;                     /* keeps the links aligned across cards */
+}
+.or-card__link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.or-card__link::after {             /* makes the entire card clickable */
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.or-card__link:hover {
+  text-decoration: underline;
+}
+
+/* Blue cards (Aggregate Figures) */
+.or-card--blue {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+.or-card--blue:hover {
+  background: #f1f5f9;
+  box-shadow: 0 4px 14px rgba(50, 93, 136, 0.12);
+}
+.or-card--blue .or-card__link {
+  color: #325d88;
+}
+.or-card--blue .or-card__link:focus-visible {
+  outline: 3px solid #9ec1e6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Orange cards (Teaching Materials) */
+.or-card--orange {
+  background: #fdf6f3;
+  border: 1px solid #e8c9bc;
+  border-top: 3px solid #D5490C;
+}
+.or-card--orange:hover {
+  background: #fbefe9;
+  box-shadow: 0 4px 14px rgba(213, 73, 12, 0.12);
+}
+.or-card--orange .or-card__link {
+  color: #B83D08;
+}
+.or-card--orange .or-card__link:focus-visible {
+  outline: 3px solid #f0b79d;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Stack the cards on tablets and phones */
+@media (max-width: 768px) {
+  .or-grid--three,
+  .or-grid--two {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+```

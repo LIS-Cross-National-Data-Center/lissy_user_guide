@@ -38,15 +38,48 @@ title: ""
 </div>
 ```
 
-For any questions, contact our [User Support](/faqs/index.qmd#contact-support) service.
 
 ---
 
-**News and Upcoming Events**
 
-- Most recent activity at [LIS](https://www.lisdatacenter.org/news-and-events/)
-- Latest [Data News](https://www.lisdatacenter.org/news-and-events/highlights/)
-- Our quarterly [newsletter](https://www.lisdatacenter.org/newsletter/)
+
+```{=html}
+<h2 class="news-heading">News and Upcoming Events</h2>
+
+<div class="news-row">
+
+  <div class="news-card">
+    <div class="news-card__eyebrow">Latest</div>
+    <h3 class="news-card__title">LIS activity</h3>
+    <p class="news-card__desc">Recent news, events and announcements from the Luxembourg Income Study.</p>
+    <a class="news-card__link" href="https://www.lisdatacenter.org/news-and-events/">See news and events →</a>
+  </div>
+
+  <div class="news-card">
+    <div class="news-card__eyebrow">Data</div>
+    <h3 class="news-card__title">Data news</h3>
+    <p class="news-card__desc">New releases, updates and highlights from the LIS and LWS databases.</p>
+    <a class="news-card__link" href="https://www.lisdatacenter.org/news-and-events/highlights/">Read data news →</a>
+  </div>
+
+  <div class="news-card">
+    <div class="news-card__eyebrow">Quarterly</div>
+    <h3 class="news-card__title">Newsletter</h3>
+    <p class="news-card__desc">Our quarterly roundup of work, publications and upcoming events.</p>
+    <a class="news-card__link" href="https://www.lisdatacenter.org/newsletter/">Browse the newsletter →</a>
+  </div>
+
+</div>
+```
+
+
+---
+
+::: {.support-note}
+For any additional questions, contact our [User Support](/faqs/index.qmd#contact-support) service.
+:::
+
+
 
 ```{=html}
 <style>
@@ -68,6 +101,7 @@ For any questions, contact our [User Support](/faqs/index.qmd#contact-support) s
   margin-bottom: 1rem;
 }
 .hero-title {
+  text-align: center !important;
   font-size: 2.6rem;
   font-weight: 700;
   color: #1a2e42;
@@ -169,5 +203,89 @@ For any questions, contact our [User Support](/faqs/index.qmd#contact-support) s
     font-size: 1.9rem;
   }
 }
+
+
+/* News section */
+.news-heading {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a2e42;
+  margin: 2.5rem 0 1.25rem;
+  border-bottom: none;
+}
+.news-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+.news-card {
+  position: relative;                 /* lets the whole card act as a link */
+  background-color: #f1f3f5;          /* neutral light grey */
+  border: 1px solid #e2e5e9;
+  border-radius: 12px;
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.news-card:hover {
+  background-color: #e8ebee;
+  transform: translateY(-2px);
+}
+.news-card__eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5f6b7a;
+  margin-bottom: 0.5rem;
+}
+.news-card__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a2e42;
+  margin: 0 0 0.5rem;
+}
+.news-card__desc {
+  font-size: 0.92rem;
+  color: #4a5568;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+  flex-grow: 1;                       /* keeps the links aligned across cards */
+}
+.news-card__link {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #325d88;
+  text-decoration: none;
+}
+.news-card__link::after {             /* makes the entire card clickable */
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.news-card__link:focus-visible {
+  outline: 3px solid #9ec1e6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Stack the cards on tablets and phones */
+@media (max-width: 768px) {
+  .news-row { grid-template-columns: 1fr; }
+}
+
+
+/* Support Note */
+
+.support-note {
+  text-align: center;
+  margin: 2rem 0;
+  color: #4a5568;
+}
+
+
 </style>
 ```

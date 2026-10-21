@@ -4,6 +4,7 @@ _site/
 src
 index_files
 dump_img
+feedback_temp
 
 
 **/*.quarto_ipynb
