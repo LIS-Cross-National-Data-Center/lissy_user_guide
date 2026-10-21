@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Data Handling – LISSY User Guide</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../stata-users/dh_ppp.html" rel="next">
+<link href="../stata-users/dh_catg_vars.html" rel="prev">
+<link href="../images/main.jpg" rel="icon" type="image/jpeg">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-10097104095abffb620768ae092cce97.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="../styles.css">
+</head>
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">LISSY User Guide</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../getting-started/index.html"> 
+<span class="menu-text">Getting Started</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../r-users/index.html"> 
+<span class="menu-text">R Users</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../stata-users/index.html" aria-current="page"> 
+<span class="menu-text">Stata Users</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../other-resources/index.html"> 
+<span class="menu-text">Other Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../faqs/index.html"> 
+<span class="menu-text">FAQs</span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Data Handling</h1>
+        </a>     
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Import Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/method1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Method 1: lissyuse</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/method2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Method 2: use</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/datasets_and_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datasets and Variables</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Describing Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dd_catg_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Categorical Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dd_cont_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Continuous Variables</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data Handling</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dh_catg_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recoding Categories</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dh_inc_prep.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Preparing Income Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dh_ppp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Currency and Price Level Adjustments</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Structuring Results for Analysis</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/tidy_exp_to_csv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Export to CSV</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/tidy_plots.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plotting in Stata</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li>
+<a href="#processing-income-variables" id="toc-processing-income-variables" class="nav-link active" data-scroll-target="#processing-income-variables">Processing Income Variables</a>
+  <ul class="collapse">
+<li><a href="#children-poverty-rates---single-mother-families" id="toc-children-poverty-rates---single-mother-families" class="nav-link" data-scroll-target="#children-poverty-rates---single-mother-families">Children Poverty Rates - Single-Mother Families</a></li>
+  <li><a href="#filtering-and-variable-construction" id="toc-filtering-and-variable-construction" class="nav-link" data-scroll-target="#filtering-and-variable-construction">Filtering and Variable Construction</a></li>
+  <li><a href="#bottom-and-top-coding" id="toc-bottom-and-top-coding" class="nav-link" data-scroll-target="#bottom-and-top-coding">Bottom and Top Coding</a></li>
+  <li><a href="#equivalence-scales" id="toc-equivalence-scales" class="nav-link" data-scroll-target="#equivalence-scales">Equivalence Scales</a></li>
+  <li><a href="#poverty-line" id="toc-poverty-line" class="nav-link" data-scroll-target="#poverty-line">Poverty Line</a></li>
+  <li><a href="#weighted-aggregation" id="toc-weighted-aggregation" class="nav-link" data-scroll-target="#weighted-aggregation">Weighted Aggregation</a></li>
+  <li><a href="#multiple-countries-and-waves" id="toc-multiple-countries-and-waves" class="nav-link" data-scroll-target="#multiple-countries-and-waves">Multiple Countries and Waves</a></li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title d-none d-lg-block">Data Handling</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="processing-income-variables" class="level1"><h1>Processing Income Variables</h1>
+<p>Due to the wide range of research questions that can be explored using data from LIS, it is often necessary to perform multiple and distinct types of data preparation after the initial import. For this reason, this section is divided into two parts, each dedicated to a different analytical goal.</p>
+<p>In the first part, we demonstrate how to compute a Children Poverty Rate among Single-Mother Families. This particular indicator requires several steps, making it a comprehensive example of the types of Stata functions users can rely on, as well as highlighting important considerations when working with LIS/LWS/LCS data.</p>
+<p>In the second part, we focus on how to apply the deflators provided by LIS, an essential step for cross-country and cross-time comparisons, and discuss the specific nuances involved in that process.</p>
+<p><br></p>
+<section id="children-poverty-rates---single-mother-families" class="level2"><h2 class="anchored" data-anchor-id="children-poverty-rates---single-mother-families">Children Poverty Rates - Single-Mother Families</h2>
+<p>The sections that follow illustrate a more comprehensive workflow, combining several preparation steps to construct a policy-relevant indicator from microdata.</p>
+<p>The aim will be to compute the poverty rate among children in single-mother households in several countries. Constructing this indicator requires combining information available at both the household level (<code>dhi</code>, <code>nhhmem17</code>, <code>hpartner</code>), and the individual level (<code>sex</code>).</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Recall from the earlier sections of this guidebook when we introduced the <code>lissyuse</code> command, that when both household and individual variables are specified, both files for a given <code>ccyy</code> are loaded and merged automatically. As a result, the data loaded is at the individual-level.</p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(us <span class="kw">de</span> uk fr) from(2018) to(2024) hvars(hid cname dname <span class="fu">year</span> dhi nhhmem nhhmem17 hpartner hwgt) pvars(pid sex relation)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><br></p>
+</section><section id="filtering-and-variable-construction" class="level2"><h2 class="anchored" data-anchor-id="filtering-and-variable-construction">Filtering and Variable Construction</h2>
+<p>At this stage, we prepare the dataset so that it is <strong>aligned with the unit of analysis required for our indicator</strong>: the household. Although we imported both household- and person-level variables, the poverty measure is computed at the household level and then attributed to individuals (in this case, children).</p>
+<p>Since in the importing stage we retrieve microdata for several waves appended into a single dataset, the transformations described below must be applied to each <code>ccyy</code> separately. At the end of this section we present the complete routine, which uses a loop together with the <code>preserve</code>/<code>restore</code> technique. For now, we walk through each transformation step individually.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>*===================================</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>* Keep only household heads</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>*===================================    </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> <span class="kw">if</span> relation != 1000 <span class="co">// (data is now at household-level)    </span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>*===================================</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>* Filter out <span class="fu">missing</span> observations </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>*===================================</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> <span class="kw">if</span> <span class="fu">missing</span>(dhi)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>*===================================</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>* Create person\children weights (<span class="kw">data</span> is <span class="fu">at</span> household-<span class="dv">level</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>*===================================</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> <span class="kw">double</span> pwt = hwgt * nhhmem </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> <span class="kw">double</span> cwt = hwgt * nhhmem17 </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We begin by retaining only records corresponding to the household reference person (<code>relation == 1000</code>). This step ensures that each household appears exactly once in the dataset, avoiding the duplication that would arise from keeping all person-level records. We then drop observations with missing disposable household income (<code>dhi</code>), as these cannot contribute to the poverty calculation.</p>
+<p>Next, we construct two adjusted weights. For population-level indicators, we use a person-level weight derived from the household weight multiplied by household size (<code>hwgt * nhhmem</code>). For child-specific indicators, we construct a child weight by multiplying the household weight by the number of children in the household (<code>hwgt * nhhmem17</code>). These weights ensure that estimates correctly reflect the underlying population structure.</p>
+<p><br></p>
+</section><section id="bottom-and-top-coding" class="level2"><h2 class="anchored" data-anchor-id="bottom-and-top-coding">Bottom and Top Coding</h2>
+<p>Before proceeding with inequality and poverty calculations, we address the presence of extreme income values. While the underlying microdata do not impose bounds on income, very high or very low values can disproportionately influence distributional measures.</p>
+<p>To mitigate this, we apply bottom- and top-coding to disposable household income (<code>dhi</code>). For methodological consistency with the rest of the workflow, we use the <code>percentils</code> command introduced in the previous sections to estimate the relevant percentiles.</p>
+<!-- Definition 4 as proposed by Hyndman and Fan (1996) -->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>*===================================</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>* Bottom and top coding / outlier detection</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>*===================================</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> <span class="kw">double</span> dhi_log = <span class="fu">log</span>(dhi) </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> dhi_log = 0 <span class="kw">if</span> dhi_log == . &amp; dhi != .        <span class="co">// keep negatives and 0 </span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">sort</span> dhi_log hwgt</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> percentils dhi_log [aw = hwgt], <span class="kw">p</span>(25 75)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> p75 = <span class="fu">e</span>(Perc_75)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> p25 = <span class="fu">e</span>(Perc_25) </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">double</span> <span class="fu">iqr</span> = <span class="ot">`p75'</span> - <span class="ot">`p25'</span>                        <span class="co">// interquartile range</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">double</span> upper_bound = <span class="ot">`p75'</span>  + (<span class="fu">iqr</span> * 3)           <span class="co">// upper bound for extreme values</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">double</span> lower_bound = <span class="ot">`p25'</span>  - (<span class="fu">iqr</span> * 3)           <span class="co">// lower bound for extreme values</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> dhi=<span class="fu">exp</span>(upper_bound) <span class="kw">if</span> dhi&gt;<span class="fu">exp</span>(upper_bound)  <span class="co">// top code income at upper bound for extreme values</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> dhi=<span class="fu">exp</span>(lower_bound) <span class="kw">if</span> dhi&lt;<span class="fu">exp</span>(lower_bound)  <span class="co">// bottom code income at lower bound for extreme values</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>sort</code> step helps maintain consistency when assessing the position of observations that share the same income value. Using <code>double</code> precision throughout helps preserve numerical accuracy and avoids rounding errors that can accumulate in distributional calculations.</p>
+</div>
+</div>
+<p>This adjustment is carried out on the logarithmic scale. An interquartile range (IQR) rule is applied: values above the upper threshold (Q3 + 3×IQR) are capped, and values below the lower threshold (Q1 − 3×IQR) are raised. Working on the log scale has the advantage of making the IQR rule less sensitive to the heavy right-skew that is typical of income distributions. The back-transformation via <code><a href="https://rdrr.io/r/base/Log.html">exp()</a></code> then brings the bounds back to the original income scale. This approach ensures that extreme observations do not disproportionately affect results, while preserving the overall shape and structure of the income distribution.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To ensure consistency with the methodology applied by LIS across all disseminated aggregate figures, this step must be performed prior to equivalisation. In addition, the quartiles used to define the IQR thresholds should be estimated following Definition 4 as proposed by Hyndman and Fan (1996).</p>
+</div>
+</div>
+<p><br></p>
+</section><section id="equivalence-scales" class="level2"><h2 class="anchored" data-anchor-id="equivalence-scales">Equivalence Scales</h2>
+<p>Households differ in size and composition, which affects their economic needs. To enable meaningful comparisons across households, we equivalize disposable household income.</p>
+<p>We apply the square root equivalence scale, dividing household income by the square root of the total number of household members. This transformation accounts for economies of scale in consumption: larger households require more resources, but not proportionally more per additional member.</p>
+<p>As a result, all individuals within a household are assigned the same equivalised income, regardless of their age or role within the household.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>*===================================</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>* Equivalise income (square root)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>*===================================</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> <span class="kw">double</span> ey = ( dhi / (nhhmem^0.5) )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><br></p>
+</section><section id="poverty-line" class="level2"><h2 class="anchored" data-anchor-id="poverty-line">Poverty Line</h2>
+<p>Having adjusted the income variable and reduced the dataset to the household level, we are now ready to compute the poverty line. We define it as <strong>50% of the weighted median of equivalised income</strong>,</p>
+<p>Because <code>percentils</code> stores results in scalars using the naming convention <code>e(Perc_XX)</code>, the median can be retrieved directly as <code>e(Perc_50)</code> and then halved to obtain the threshold. Note that the median is estimated on the <code>ey</code> variable using the person-level weight <code>pwt</code>, which ensures it represents the distribution across individuals rather than households.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>*===================================</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>* Compute Poverty Line</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>*===================================</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">sort</span> ey pwt </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> percentils ey [aw= pwt], <span class="kw">p</span>(50) <span class="co">// median    </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> <span class="kw">gen</span> <span class="kw">double</span> poverty_line_50  = <span class="fu">e</span>(Perc_50) * 0.5</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>It is important to note that the poverty line is always calculated based on the <strong>full population</strong>. This same threshold is then applied when evaluating poverty rates for specific subgroups, such as children in single-mother households.</p>
+<p><br></p>
+</section><section id="weighted-aggregation" class="level2"><h2 class="anchored" data-anchor-id="weighted-aggregation">Weighted Aggregation</h2>
+<p>In the final step, we restrict the sample to the population of interest: children living in single-mother households. This is defined as households where the reference person is female (<code>sex == 2</code>), has no partner present (<code>hpartner == 0</code>), and where at least one child is present (<code>nhhmem17 &gt; 0</code>).</p>
+<p>We first generate the binary poverty indicator, then compute its weighted mean using the child-specific weight (<code>cwt</code>). This produces the poverty rate among children in single-mother households, expressed as a percentage.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>*===================================</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>* Children Poverty Rates - Single Mother Family (50%)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>*===================================    </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> <span class="kw">sum</span> pov50 [<span class="fu">w</span>=cwt] <span class="kw">if</span> hpartner == 0 &amp; <span class="co">/// </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                              sex == 2 &amp; <span class="co">///</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                              nhhmem17 &gt; 0</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                             </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="kw">display</span> <span class="st">"Children Poverty Rates - Single-Mother Families (50%) = "</span> <span class="fu">r</span>(<span class="kw">mean</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><br></p>
+</section><section id="multiple-countries-and-waves" class="level2"><h2 class="anchored" data-anchor-id="multiple-countries-and-waves">Multiple Countries and Waves</h2>
+<p>The code below extends the single-country workflow to multiple countries and waves. It follows the same logical steps as before, but wraps them in a loop that iterates over each dataset (<code>ccyy</code>) identified in the pooled data loaded by <code>lissyuse</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 1) Load data </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(us <span class="kw">de</span> uk fr) <span class="co">///</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>              from(2018) to(2024) <span class="co">/// </span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>              hvars(hid cname dname <span class="fu">year</span> dhi nhhmem nhhmem17 hpartner hwgt) <span class="co">/// </span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>              pvars(pid sex relation) <span class="co">// (data is at person-level)</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>*==========================================</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>* Identify and loop <span class="bn">over</span> selected datasets</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>*=========================================</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="kw">levelsof</span> dname, <span class="kw">local</span>(<span class="kw">levels</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> ccyy <span class="kw">of</span> <span class="kw">local</span> <span class="kw">levels</span> {</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    **</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">preserve</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    **</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> {</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">keep</span> <span class="kw">if</span> dname == <span class="st">"`ccyy'"</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>        <span class="co">// 2) Data preparation </span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    *===================================</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    * Keep only household heads</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    *===================================    </span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">drop</span> <span class="kw">if</span> relation != 1000 <span class="co">// (data is at household-level)    </span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    *===================================</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    * Filter out <span class="fu">missing</span> observations </span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    *===================================</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">drop</span> <span class="kw">if</span> <span class="fu">missing</span>(dhi)</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    *===================================</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    * Create person\children\elderly weights (<span class="kw">data</span> is <span class="fu">at</span> household-<span class="dv">level</span>)</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    *===================================</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">generate</span> <span class="kw">double</span> pwt = hwgt * nhhmem </span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    <span class="kw">generate</span> <span class="kw">double</span> cwt = hwgt * nhhmem17 </span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    *===================================</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>    * Bottom and top coding / outlier detection</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    *===================================</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    <span class="kw">generate</span> <span class="kw">double</span> dhi_log = <span class="fu">log</span>(dhi) </span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> dhi_log = 0 <span class="kw">if</span> dhi_log == . &amp; dhi != . <span class="co">// keep negatives and 0 </span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>    <span class="kw">sort</span> dhi_log hwgt</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> percentils dhi_log [aw = hwgt], <span class="kw">p</span>(25 75)</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> p75 = <span class="fu">e</span>(Perc_75)</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> p25 = <span class="fu">e</span>(Perc_25) </span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>    <span class="kw">gen</span> <span class="kw">double</span> <span class="fu">iqr</span> = <span class="ot">`p75'</span> - <span class="ot">`p25'</span>  <span class="co">// interquartile range</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>    <span class="kw">gen</span> <span class="kw">double</span> upper_bound = <span class="ot">`p75'</span>  + (<span class="fu">iqr</span> * 3)  <span class="co">// upper bound for extreme values</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>    <span class="kw">gen</span> <span class="kw">double</span> lower_bound = <span class="ot">`p25'</span>  - (<span class="fu">iqr</span> * 3)  <span class="co">// lower bound for extreme values</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> dhi=<span class="fu">exp</span>(upper_bound) <span class="kw">if</span> dhi&gt;<span class="fu">exp</span>(upper_bound)  <span class="co">// top code income at upper bound for extreme values</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> dhi=<span class="fu">exp</span>(lower_bound) <span class="kw">if</span> dhi&lt;<span class="fu">exp</span>(lower_bound)  <span class="co">// bottom code income at lower bound for extreme values</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>    *===================================</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>    * Equivalise income (square root)</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>    *===================================</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>    <span class="kw">generate</span> <span class="kw">double</span> ey = ( dhi / (nhhmem^0.5) )</span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>        <span class="co">// 3) Compute Key Figures </span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>    <span class="kw">sort</span> ey pwt </span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> percentils ey [aw= pwt], <span class="kw">p</span>(50) <span class="co">// median    </span></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> <span class="kw">gen</span> <span class="kw">double</span> poverty_line_50  = <span class="fu">e</span>(Perc_50) * 0.5</span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> <span class="kw">gen</span> <span class="kw">double</span> pov50 = 0 <span class="kw">if</span> !<span class="fu">missing</span>(ey)</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> pov50 = 100 <span class="kw">if</span> ey &lt; poverty_line_50 </span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>    *===================================</span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>    * Children Poverty Rates - Single Mother Family (50%)</span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>    *===================================    </span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> <span class="kw">sum</span> pov50 [<span class="fu">w</span>=cwt] <span class="kw">if</span> hpartner == 0 &amp; <span class="co">/// </span></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>                             sex == 2 &amp; <span class="co">///</span></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>                             nhhmem17 &gt; 0</span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>    }                        </span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span> <span class="st">"`ccyy'"</span> <span class="st">","</span> <span class="st">"Children Poverty Rates - Single-Mother Families (50%)"</span> <span class="st">","</span> <span class="fu">r</span>(<span class="kw">mean</span>)    </span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>    **</span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>    <span class="kw">restore</span></span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>    **</span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>`"de18"' `"de19"' `"de20"' `"de21"' `"de22"' `"fr18"' `"fr19"' `"fr20"' `"fr21"
+&gt; ' `"fr22"' `"uk18"' `"uk19"' `"uk20"' `"uk21"' `"uk22"' `"uk23"' `"uk24"' `"u
+&gt; s18"' `"us19"' `"us20"' `"us21"' `"us22"' `"us23"' `"us24"'
+
+ 11. 
+ 17.         gen double lower_bound = `p25'  - (iqr * 3)  // lower bound for ex
+&gt; treme values
+ 18.         replace dhi=exp(upper_bound) if dhi&gt;exp(upper_bound)  // top code 
+&gt; income at upper bound for extreme values
+ 19.         replace dhi=exp(lower_bound) if dhi&lt;exp(lower_bound)  // bottom co
+&gt; de income at lower bound for extreme values
+ 20. 
+ 27.     }                                            
+ 28.         display "`ccyy'" "," "Children Poverty Rates - Single-Mother Famil
+&gt; ies (50%)" "," r(mean)        
+ 29.                 
+de18,Children Poverty Rates - Single-Mother Families (50%),35.547373
+de19,Children Poverty Rates - Single-Mother Families (50%),32.251714
+de20,Children Poverty Rates - Single-Mother Families (50%),28.537285
+de21,Children Poverty Rates - Single-Mother Families (50%),32.736249
+de22,Children Poverty Rates - Single-Mother Families (50%),30.05648
+fr18,Children Poverty Rates - Single-Mother Families (50%),31.874152
+fr19,Children Poverty Rates - Single-Mother Families (50%),32.065758
+fr20,Children Poverty Rates - Single-Mother Families (50%),28.882188
+fr21,Children Poverty Rates - Single-Mother Families (50%),32.44479
+fr22,Children Poverty Rates - Single-Mother Families (50%),30.128994
+uk18,Children Poverty Rates - Single-Mother Families (50%),21.741622
+uk19,Children Poverty Rates - Single-Mother Families (50%),26.128479
+uk20,Children Poverty Rates - Single-Mother Families (50%),15.848984
+uk21,Children Poverty Rates - Single-Mother Families (50%),24.146842
+uk22,Children Poverty Rates - Single-Mother Families (50%),28.324502
+uk23,Children Poverty Rates - Single-Mother Families (50%),29.577635
+uk24,Children Poverty Rates - Single-Mother Families (50%),26.393133
+us18,Children Poverty Rates - Single-Mother Families (50%),44.608048
+us19,Children Poverty Rates - Single-Mother Families (50%),46.898475
+us20,Children Poverty Rates - Single-Mother Families (50%),41.613576
+us21,Children Poverty Rates - Single-Mother Families (50%),30.3695
+us22,Children Poverty Rates - Single-Mother Families (50%),45.092728
+us23,Children Poverty Rates - Single-Mother Families (50%),46.291571
+us24,Children Poverty Rates - Single-Mother Families (50%),46.48196</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Several features of this routine are worth noting.</p>
+<ol type="1">
+<li><p><strong><code>levelsof</code> and the loop.</strong> After loading the pooled dataset, <code>levelsof dname</code> extracts the full list of unique dataset identifiers — one per country-wave combination (e.g., <code>us19</code>, <code>de20</code>) — and stores them in the local macro <code>levels</code>. The <code>foreach</code> loop then iterates over this list, processing each dataset in turn. This avoids hardcoding country-year combinations and makes the routine straightforward to extend to additional countries or time periods simply by adjusting the arguments passed to <code>lissyuse</code>.</p></li>
+<li><p><strong><code>preserve</code> and <code>restore</code>.</strong> Because all waves and countries are held in memory simultaneously as a single pooled dataset, any modification made inside the loop — such as dropping observations or generating new variables — would otherwise permanently alter the data for all subsequent iterations. The <code>preserve</code> command saves a snapshot of the full dataset in memory at the start of each iteration, and <code>restore</code> reinstates it at the end, ensuring that each pass through the loop starts from the same complete pooled dataset.</p></li>
+<li><p><strong>Comma-separated output.</strong> The <code>display</code> statement at the end of each iteration prints the dataset identifier, the indicator label, and the estimated poverty rate as a comma-separated line. This format is deliberately chosen for its portability: the output can be copied directly into a spreadsheet or text file and parsed without any further reformatting.</p></li>
+</ol>
+
+
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../stata-users/dh_catg_vars.html" class="pagination-link" aria-label="Recoding Categories">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Recoding Categories</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../stata-users/dh_ppp.html" class="pagination-link" aria-label="Currency and Price Level Adjustments">
+        <span class="nav-page-text">Currency and Price Level Adjustments</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Luxembourg Income Study, 2026</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This website was built using <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer><script src="../assets/foldable.js"></script>
+
+
+</body></html>

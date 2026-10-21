@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Describing Data – LISSY User Guide</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../r-users/dd_cont_vars.html" rel="next">
+<link href="../r-users/lists_over_df.html" rel="prev">
+<link href="../images/main.jpg" rel="icon" type="image/jpeg">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-10097104095abffb620768ae092cce97.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="../styles.css">
+</head>
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">LISSY User Guide</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../getting-started/index.html"> 
+<span class="menu-text">Getting Started</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../r-users/index.html" aria-current="page"> 
+<span class="menu-text">R Users</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../stata-users/index.html"> 
+<span class="menu-text">Stata Users</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../other-resources/index.html"> 
+<span class="menu-text">Other Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../faqs/index.html"> 
+<span class="menu-text">FAQs</span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Describing Data</h1>
+        </a>     
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Import Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/method1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Method 1: lissyuse</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/method2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Method 2: read.LIS()</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/ccyy_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Country Codes and Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/lists_over_df.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bonus: lists over data.frames ?</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Describing Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/dd_catg_vars.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Categorical Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/dd_cont_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Continuous Variables</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Data Handling</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/dh_catg_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recoding Categories</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/dh_inc_prep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preparing Income Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/dh_ppp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Currency and Price Level Adjustments</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Structuring Results for Analysis</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/tidy_structure_to_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">structure_to_plot()</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/tidy_exp_to_csv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Export to CSV</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/tidy_plots.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plotting in LISSY</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li>
+<a href="#categorical-variables" id="toc-categorical-variables" class="nav-link active" data-scroll-target="#categorical-variables">Categorical Variables</a>
+  <ul class="collapse">
+<li>
+<a href="#standardized-variables" id="toc-standardized-variables" class="nav-link" data-scroll-target="#standardized-variables">Standardized variables</a>
+  <ul class="collapse">
+<li><a href="#one-way-tabulation" id="toc-one-way-tabulation" class="nav-link" data-scroll-target="#one-way-tabulation">One-way tabulation</a></li>
+  <li><a href="#two-way-tabulation" id="toc-two-way-tabulation" class="nav-link" data-scroll-target="#two-way-tabulation">Two-way tabulation</a></li>
+  <li><a href="#nested-coding" id="toc-nested-coding" class="nav-link" data-scroll-target="#nested-coding">Nested coding</a></li>
+  </ul>
+</li>
+  <li><a href="#ct_spec_vars_R" id="toc-ct_spec_vars_R" class="nav-link" data-scroll-target="#ct_spec_vars_R">Country-specific variables</a></li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title d-none d-lg-block">Describing Data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><p>Being able to describe newly imported data is a critical step, particularly in an environment where users cannot freely browse the underlying microdata.</p>
+<p>This section introduces routine coding tasks designed to <strong>maximize descriptive insight on a variable with minimal code</strong>. These practices help users identify patterns and inconsistencies across datasets such as: breaks in a series, shifts in the level of disaggregation, the availability of non-zero and non-missing values for income variables across countries and years, etc…</p>
+<p>In <a href="https://www.lisdatacenter.org/frontend#/home">METIS</a>, a substantial amount of descriptive information is already provided for each variable in a dataset, as illustrated in the figure below:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="..\images/lissy_codebooks.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>However, this information is currently displayed for one dataset (<code>ccyy</code>) at a time. To complement this, we will take a different approach: <strong>describing a single variable across countries series simultaneously</strong>, already taking advantage of the fact that the data are stored as a list of multiple <code>ccyy</code> data frames.</p>
+<p>Using <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code> together with appropriate helper functions, it becomes straightforward to apply the same descriptive routine across multiple datasets, while ensuring that the output is already structured by country-year.</p>
+<p>In support of this workflow, <code>lissyrtools</code> provides three useful functions:</p>
+<ul>
+<li><p><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_count.html"><code>run_weighted_count()</code></a></p></li>
+<li><p><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_mean.html"><code>run_weighted_mean()</code></a></p></li>
+<li><p><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_percentiles.html"><code>run_weighted_percentiles()</code></a></p></li>
+</ul>
+<p>We begin with <em>categorical</em> variables and how to perform exploratory and frequency analysis on them, before moving on to continuous variables. In addition to standard summary statistics such as the mean and percentiles, we will also demonstrate how to define custom functions, for instance, to compute the share of non-missing observations.</p>
+<p><br></p>
+<section id="categorical-variables" class="level1"><h1>Categorical Variables</h1>
+<p>Categorical Varaibles are composed by numeric codes, each uniquely associated with its own label. We provide two types of categorical variables:</p>
+<ul>
+<li><p><strong>Standardized</strong>: their categories are the same across all datasets in LIS/LWS/LCS.</p></li>
+<li><p><strong>Country-specific</strong>: these provide categorized information on topics that are inherently non-comparable across countries — either by nature (e.g., <code>region_c</code>) or because they do not follow a standard international classification (e.g., <code>health_c</code>). Such variables may also lack comparability across time within a given country.</p></li>
+</ul>
+<p><br></p>
+<section id="standardized-variables" class="level2"><h2 class="anchored" data-anchor-id="standardized-variables">Standardized variables</h2>
+<section id="one-way-tabulation" class="level3"><h3 class="anchored" data-anchor-id="one-way-tabulation">One-way tabulation</h3>
+<p>To quickly get a first look at a variable’s categories and how the sample is distributed across them, we can perform a straightforward <strong>one-way tabulation</strong> returning absolute frequencies for each category:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/">lissyrtools</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">imported_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/lissyuse.html">lissyuse</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'mx'</span>, <span class="st">'es'</span><span class="op">)</span>, </span>
+<span>  vars <span class="op">=</span> <span class="st">'sex'</span>, </span>
+<span>  from <span class="op">=</span> <span class="fl">2020</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_count.html">run_weighted_count</a></span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">imported_list</span>, </span>
+<span>    var_name <span class="op">=</span> <span class="st">'sex'</span>, </span>
+<span>    wgt_name <span class="op">=</span> <span class="cn">NULL</span>, </span>
+<span>    percent <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>    na.rm <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    <span class="op">)</span>   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 
+$mx24p
+  [1]male [2]female 
+   148748    159723 
+
+$mx22p
+  [1]male [2]female 
+   149490    160044 
+
+$mx20p
+  [1]male [2]female 
+   153548    162071 
+
+$es22p
+  [1]male [2]female 
+    32649     34593 
+
+$es21p
+  [1]male [2]female 
+    29041     30758 
+
+$es20p
+  [1]male [2]female 
+    25443     26882 </code></pre>
+</div>
+</div>
+<div style="height: 30px;">
+
+</div>
+<p>The function <code><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_count.html">run_weighted_count()</a></code> takes a list of LIS/LWS/LCS datasets as its <code>data</code> argument and returns a tabulation of the variable specified in <code>var_name</code>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Because the <strong>output is itself a list</strong>: one element per country-year, it can be piped directly into <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code> for further operations for each <em>ccyy</em>.</p>
+</div>
+</div>
+<p>Now that we have a clear picture of the absolute counts, it is straightforward to switch to <strong>relative frequencies</strong> by setting <code>percent = TRUE</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_count.html">run_weighted_count</a></span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">imported_list</span>, </span>
+<span>    var_name <span class="op">=</span> <span class="st">'sex'</span>, </span>
+<span>    wgt_name <span class="op">=</span> <span class="cn">NULL</span>, </span>
+<span>    percent <span class="op">=</span> <span class="cn">TRUE</span>,  </span>
+<span>    na.rm <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    <span class="op">)</span>   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$mx24p
+  [1]male [2]female 
+    48.22     51.78 
+
+$mx22p
+  [1]male [2]female 
+     48.3      51.7 
+
+$mx20p
+  [1]male [2]female 
+    48.65     51.35 
+
+$es22p
+  [1]male [2]female 
+    48.55     51.45 
+
+$es21p
+  [1]male [2]female 
+    48.56     51.44 
+
+$es20p
+  [1]male [2]female 
+    48.62     51.38 </code></pre>
+</div>
+</div>
+<div style="height: 30px;">
+
+</div>
+<p>The unweighted shares above reflect the sample composition. To obtain <strong>population-representative</strong> shares, we can pass a weight variable via <code>wgt_name</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Weight variables are always imported by default. There is no need to include them explicitly in <code>lissyuse</code>. To check the names of the columsn in the data frames run: <code>print(names(imported_list[[1]]))</code></p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_count.html">run_weighted_count</a></span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">imported_list</span>, </span>
+<span>    var_name <span class="op">=</span> <span class="st">'sex'</span>, </span>
+<span>    wgt_name <span class="op">=</span> <span class="st">'ppopwgt'</span>, </span>
+<span>    percent <span class="op">=</span> <span class="cn">TRUE</span>,  </span>
+<span>    na.rm <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    <span class="op">)</span>   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>$mx24p
+  [1]male [2]female 
+    47.88     52.12 
+
+$mx22p
+  [1]male [2]female 
+    47.94     52.06 
+
+$mx20p
+  [1]male [2]female 
+    48.34     51.66 
+
+$es22p
+  [1]male [2]female 
+    48.99     51.01 
+
+$es21p
+  [1]male [2]female 
+    49.03     50.97 
+
+$es20p
+  [1]male [2]female 
+    49.06     50.94 </code></pre>
+</div>
+</div>
+<div style="height: 30px;">
+
+</div>
+</section><section id="two-way-tabulation" class="level3"><h3 class="anchored" data-anchor-id="two-way-tabulation">Two-way tabulation</h3>
+<p>Datasets sometimes contain pairs of categorical variables where one is a finer disaggregation of the other. The variables <code>educ</code> and <code>educlev</code> are a prime example: <code>educlev</code> breaks each broad education category into more granular sub-groups. In such cases, a two-way tabulation serves a dual purpose. It describes the joint distribution of both variables simultaneously, and allows the user to verify which sub-categories of <code>educlev</code> correspond to which parent categories of <code>educ</code>.</p>
+<p><code><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_count.html">run_weighted_count()</a></code> supports this directly via the <code>by</code> argument. Always place the more disaggregated variable in <code>var_name</code> and the broader grouping variable in <code>by</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">imported_list</span> <span class="op">&lt;-</span> <span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/lissyuse.html">lissyuse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'es18'</span>, <span class="st">'mx18'</span><span class="op">)</span>, vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'educ'</span>, <span class="st">'educlev'</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_count.html">run_weighted_count</a></span><span class="op">(</span><span class="va">imported_list</span>, <span class="st">'educlev'</span>, by <span class="op">=</span> <span class="st">'educ'</span><span class="op">)</span>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 
+$mx18p
+$mx18p$`[1]low`
+[110]less than primary    [111]never attended           [120]primary 
+                 52758                  11619                  48825 
+  [130]lower secondary 
+                 69309 
+
+$mx18p$`[2]medium`
+[210]upper secondary 
+               38531 
+
+$mx18p$`[3]high`
+   [311]short-cycle tertiary  [312]bachelor or equivalent 
+                        1590                        17628 
+   [313]master or equivalent [320]doctorate or equivalent 
+                        2078                          142 
+
+
+$es18p
+$es18p$`[1]low`
+[110]less than primary    [111]never attended           [120]primary 
+                  2142                    627                   6431 
+  [130]lower secondary 
+                  7110 
+
+$es18p$`[2]medium`
+            [210]upper secondary [220]post-secondary non-tertiary 
+                            7506                               35 
+
+$es18p$`[3]high`
+   [311]short-cycle tertiary  [312]bachelor or equivalent 
+                        2796                         2688 
+   [313]master or equivalent [320]doctorate or equivalent 
+                        3654                          198 </code></pre>
+</div>
+</div>
+<div style="height: 30px;">
+
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For better-structured tabular output, or to quickly produce trend plots for visual inspection, see the <a href="..\r-users/tidy_exp_to_csv.html#export-csv">chapter on exporting results</a>.</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="..\images/csv_teaser_dd.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section><section id="nested-coding" class="level3"><h3 class="anchored" data-anchor-id="nested-coding">Nested coding</h3>
+<p>While standardized variables share a fixed category template across all datasets, this does not always guarantee straightforward comparability in practice. The level of detail available for a given variable can vary considerably across years within the same country series, reflecting differences in the underlying survey instrument. The variable <code>own</code> in the Spanish series illustrates this well.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/lissyuse.html">lissyuse</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="st">'es'</span>, </span>
+<span>  vars <span class="op">=</span> <span class="st">'own'</span>, </span>
+<span>  from <span class="op">=</span> <span class="fl">1999</span>, </span>
+<span>  to <span class="op">=</span> <span class="fl">2005</span></span>
+<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_count.html">run_weighted_count</a></span><span class="op">(</span> var_name <span class="op">=</span> <span class="st">'own'</span>, wgt_name <span class="op">=</span> <span class="cn">NULL</span>, percent <span class="op">=</span> <span class="cn">FALSE</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 
+$es05h
+                    [100]owned            [110]owned outright 
+                            18                           6892 
+      [120]owned with mortgage    [211]rented at market price 
+                          3187                            890 
+[212]rented below market price              [220]free housing 
+                           365                            853 
+
+$es04h
+                    [100]owned            [110]owned outright 
+                            19                           7478 
+      [120]owned with mortgage    [211]rented at market price 
+                          3327                            886 
+[212]rented below market price              [220]free housing 
+                           426                            860 
+
+$es00h
+       [100]owned       [210]rented [220]free housing              &lt;NA&gt; 
+             4204               487               274                 1 
+
+$es99h
+       [100]owned       [210]rented [220]free housing              &lt;NA&gt; 
+             4352               493               283                 4 </code></pre>
+</div>
+</div>
+<div style="height: 30px;">
+
+</div>
+<p>In <code>es00</code>, housing tenure is recorded in three broad categories only, with all ownership grouped under a single code <code>[100]</code>.</p>
+<p><img src="..\images/ES00_data_handling.png" class="img-fluid"></p>
+<p>By <code>es04</code>, the same variable is captured with considerably more granularity, distinguishing for instance between outright ownership <code>[110]</code> and ownership with a mortgage <code>[120]</code>, and similarly splitting the rental category into market <code>[211]</code> and sub-market <code>[212]</code> rentals.</p>
+<p><img src="..\images/ES04_data_handling.png" class="img-fluid"></p>
+<p>This finer disaggregation in later years is not incidental: it reflects the hierarchical coding structure deliberately built into LIS/LWS/LCS standardized variables, where higher-level codes such as <code>[100]</code> or <code>[200]</code> represent aggregate categories, and lower-level codes such as <code>[110]</code>, <code>[120]</code>, or <code>[211]</code> represent their constituent sub-groups. Users should therefore always inspect the distribution of standardized categorical variables across the full country series before drawing comparisons, as apparent changes over time may reflect a shift in granularity rather than a genuine change in the underlying phenomenon.</p>
+<p><br></p>
+</section></section><section id="ct_spec_vars_R" class="level2"><h2 class="anchored" data-anchor-id="ct_spec_vars_R">Country-specific variables</h2>
+<p>As the name suggests, country-specific variables are not designed to be comparable across countries. What is less immediately obvious is that they can also be unreliable for within-country comparisons over time: the categories used to capture a given concept may change from one wave to the next, either because the underlying survey instrument was revised or because the national classification itself evolved.</p>
+<p>The variable <code>ethnic_c</code> in the United Kingdom series is a good illustration of how complex such variables can be in practice. The number of distinct ethnicity categories recorded has changed across waves, making any naive time-series comparison misleading without first understanding where those breaks occur.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/lissyuse.html">lissyuse</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="st">'es'</span>, </span>
+<span>  vars <span class="op">=</span> <span class="st">'own'</span>, </span>
+<span>  from <span class="op">=</span> <span class="fl">1999</span>, </span>
+<span>  to <span class="op">=</span> <span class="fl">2005</span></span>
+<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_count.html">run_weighted_count</a></span><span class="op">(</span> var_name <span class="op">=</span> <span class="st">'own'</span>, wgt_name <span class="op">=</span> <span class="cn">NULL</span>, percent <span class="op">=</span> <span class="cn">FALSE</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code> 
+$es05h
+                    [100]owned            [110]owned outright 
+                            18                           6892 
+      [120]owned with mortgage    [211]rented at market price 
+                          3187                            890 
+[212]rented below market price              [220]free housing 
+                           365                            853 
+
+$es04h
+                    [100]owned            [110]owned outright 
+                            19                           7478 
+      [120]owned with mortgage    [211]rented at market price 
+                          3327                            886 
+[212]rented below market price              [220]free housing 
+                           426                            860 
+
+$es00h
+       [100]owned       [210]rented [220]free housing              &lt;NA&gt; 
+             4204               487               274                 1 
+
+$es99h
+       [100]owned       [210]rented [220]free housing              &lt;NA&gt; 
+             4352               493               283                 4 </code></pre>
+</div>
+</div>
+<p>To assist with this, <code>lissyrtools</code> provides the <code><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/variable_country_specific_categories.html">variable_country_specific_categories()</a></code> function, which prints the categories of a country-specific variable across all available waves for a given country. Setting the argument <code>n_categories = TRUE</code> returns only the count of distinct categories per wave rather than the full listing — a quick way to spot where breaks are likely occurring before committing to a deeper investigation,</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/variable_country_specific_categories.html">variable_country_specific_categories</a></span><span class="op">(</span></span>
+<span>  variable <span class="op">=</span> <span class="st">'ethnic_c'</span>, </span>
+<span>  iso2 <span class="op">=</span> <span class="st">'uk'</span>,</span>
+<span>  n_categories <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`LIS database. Number of distinct categories in variable: ethnic_c.`
+uk24 uk23 uk22 uk21 uk20 uk19 uk18 uk17 uk16 uk15 uk14 uk13 uk12 uk11 uk10 uk09 
+   5    5    5    5    5    5    5    5    5    5    5    5    5    5   15   15 
+uk08 uk07 uk06 uk05 uk04 uk03 uk02 uk01 uk00 uk99 uk98 uk97 uk96 uk95 uk94 
+  15   15   15   15   15   15   15   15    9    9    9    9    9    9    9 </code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For any substantive analysis involving country-specific variables, always load and inspect one country at a time. The same numerical code may carry an entirely different meaning depending on the country and wave, and mixing datasets without accounting for this will produce results that are difficult or impossible to interpret correctly.</p>
+</div>
+</div>
+
+
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../r-users/lists_over_df.html" class="pagination-link" aria-label="Bonus: lists over data.frames ?">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Bonus: lists over data.frames ?</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../r-users/dd_cont_vars.html" class="pagination-link" aria-label="Continuous Variables">
+        <span class="nav-page-text">Continuous Variables</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Luxembourg Income Study, 2026</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This website was built using <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer><script src="../assets/foldable.js"></script>
+
+
+</body></html>

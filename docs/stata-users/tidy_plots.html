@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Structuring Results for Analysis – LISSY User Guide</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../stata-users/tidy_exp_to_csv.html" rel="prev">
+<link href="../images/main.jpg" rel="icon" type="image/jpeg">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-10097104095abffb620768ae092cce97.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="../styles.css">
+</head>
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">LISSY User Guide</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../getting-started/index.html"> 
+<span class="menu-text">Getting Started</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../r-users/index.html"> 
+<span class="menu-text">R Users</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../stata-users/index.html" aria-current="page"> 
+<span class="menu-text">Stata Users</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../other-resources/index.html"> 
+<span class="menu-text">Other Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../faqs/index.html"> 
+<span class="menu-text">FAQs</span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Structuring Results for Analysis</h1>
+        </a>     
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Import Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/method1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Method 1: lissyuse</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/method2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Method 2: use</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/datasets_and_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datasets and Variables</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Describing Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dd_catg_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Categorical Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dd_cont_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Continuous Variables</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Data Handling</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dh_catg_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recoding Categories</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dh_inc_prep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preparing Income Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dh_ppp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Currency and Price Level Adjustments</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Structuring Results for Analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/tidy_exp_to_csv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Export to CSV</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/tidy_plots.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Plotting in Stata</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li>
+<a href="#plots_in_stata" id="toc-plots_in_stata" class="nav-link active" data-scroll-target="#plots_in_stata">Plotting in Stata</a>
+  <ul class="collapse">
+<li><a href="#example-1-flow-variable-trend-multiple-countries" id="toc-example-1-flow-variable-trend-multiple-countries" class="nav-link" data-scroll-target="#example-1-flow-variable-trend-multiple-countries">Example 1: Flow Variable Trend, Multiple Countries</a></li>
+  <li><a href="#stata_ex2" id="toc-stata_ex2" class="nav-link" data-scroll-target="#stata_ex2">Example 2: Categorical Variable Trend, Single Country</a></li>
+  <li><a href="#example-3-relative-frequencies-trend-multi-country" id="toc-example-3-relative-frequencies-trend-multi-country" class="nav-link" data-scroll-target="#example-3-relative-frequencies-trend-multi-country">Example 3: Relative Frequencies Trend, Multi-Country</a></li>
+  <li><a href="#stata_ex4" id="toc-stata_ex4" class="nav-link" data-scroll-target="#stata_ex4">Example 4: Country-Specific Disaggregation, Multiple Countries</a></li>
+  <li><a href="#stata_ex5" id="toc-stata_ex5" class="nav-link" data-scroll-target="#stata_ex5">Example 5: Standardized Disaggregation, Multiple Countries</a></li>
+  <li><a href="#example-6-multiple-indicators-multiple-countries" id="toc-example-6-multiple-indicators-multiple-countries" class="nav-link" data-scroll-target="#example-6-multiple-indicators-multiple-countries">Example 6: Multiple Indicators, Multiple Countries</a></li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title d-none d-lg-block">Structuring Results for Analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="plots_in_stata" class="level1"><h1>Plotting in Stata</h1>
+<p>This section of the user guide focuses on data visualization in LISSY using Stata. Beyond general plotting practices, we highlight a few particularities that users should be aware of when working in the LISSY environment, things that wouldn’t arise when coding locally. Our focus is exclusively on trends (line charts), organized around six templates that users can adapt to their own countries and variables of interest.</p>
+<p>Working from templates matters more here than it would in a local session. LISSY operates on a job-submission system rather than an interactive one: there is no way to inspect intermediate output or tweak a chart on the fly, and every change requires a new submission. Starting from a tested example that already matches your use case significantly reduces the number of iterations needed.</p>
+<p>Each template addresses a different combination of practical dimensions: the number of countries, the type of variable being plotted (a flow variable or a categorical one), the level of disaggregation, and the number of indicators shown simultaneously. Together they cover most situations a user is likely to encounter.</p>
+<p>The six examples are organized as follows:</p>
+<ul>
+<li>
+<strong>Examples 1–2</strong> — single variable, one country or multiple countries (flow variable; categorical variable)</li>
+<li>
+<strong>Examples 3–4</strong> — categorical variable across multiple countries, with increasing disaggregation (standardized variable; country-specific variable)</li>
+<li>
+<strong>Example 5</strong> — standardized disaggregation by a person-level variable, multiple countries side by side</li>
+<li>
+<strong>Example 6</strong> — multiple derived indicators in a single plot, single country</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>All examples use <code>graph export</code> to save the chart as a <code>.png</code> file. This is not optional in LISSY: without an export command, no chart is returned. When submitting multiple figures in a single job, each must be given a <strong>unique filename</strong> — reusing the same name will silently overwrite earlier outputs and only the last chart will be retrievable.</p>
+</div>
+</div>
+<p><br></p>
+<section id="example-1-flow-variable-trend-multiple-countries" class="level2"><h2 class="anchored" data-anchor-id="example-1-flow-variable-trend-multiple-countries">Example 1: Flow Variable Trend, Multiple Countries</h2>
+<p>This first template computes median equivalised disposable household income (<code>dhi</code>) over time for several countries simultaneously, expressed in PPP-adjusted 2021 US dollars. It illustrates the most common pattern: a flow variable, aggregated to a single statistic per country-year, plotted as connected lines.</p>
+<p>A few aspects of the code are worth noting. The loop over <code>dname</code> processes each country-wave separately before appending results to a temporary file — this is the standard LISSY pattern for cross-wave computations that need to be done at the dataset level (here, IQR capping and percentile estimation). The <code>twoway</code> command is then built dynamically by looping over countries, so the code scales to any number of countries without manual adjustment.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Import data </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>lissyuse, iso2(fr lu se us uk) hvars(hid cname <span class="fu">year</span> dhi nhhmem hwgt dname) from(2010) to(2024)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> <span class="kw">merge</span> <span class="fu">m</span>:1 cname <span class="fu">year</span>  <span class="kw">using</span> <span class="st">"$myincl/ppp_2021.dta"</span> ,  <span class="kw">keep</span>(<span class="fu">match</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Loop over each dataset</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">tempfile</span> final</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">save</span> <span class="ot">`final'</span>, <span class="kw">replace</span> emptyok</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> <span class="kw">levelsof</span> dname, <span class="kw">local</span>(<span class="kw">levels</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> ccyy <span class="kw">of</span> <span class="kw">local</span> <span class="kw">levels</span> {</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">preserve</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">keep</span> <span class="kw">if</span> dname == <span class="st">"`ccyy'"</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">drop</span> <span class="kw">if</span> <span class="fu">missing</span>(dhi)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    * Person <span class="kw">weight</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">generate</span> <span class="kw">double</span> pwt = hwgt * nhhmem</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    * IQR capping (done per ccyy)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">generate</span> <span class="kw">double</span> dhi_log = <span class="fu">log</span>(dhi)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> dhi_log = 0 <span class="kw">if</span> dhi_log == . &amp; dhi != .</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">sort</span> dhi_log hwgt</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> percentils dhi_log [aw = hwgt], <span class="kw">p</span>(25 75)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> p75 = <span class="fu">e</span>(Perc_75)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> p25 = <span class="fu">e</span>(Perc_25)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">gen</span> <span class="kw">double</span> <span class="fu">iqr</span>     = <span class="ot">`p75'</span> - <span class="ot">`p25'</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">gen</span> <span class="kw">double</span> upper_bound = <span class="ot">`p75'</span> + (<span class="fu">iqr</span> * 3)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">gen</span> <span class="kw">double</span> lower_bound = <span class="ot">`p25'</span> - (<span class="fu">iqr</span> * 3)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> dhi = <span class="fu">exp</span>(upper_bound) <span class="kw">if</span> dhi &gt; <span class="fu">exp</span>(upper_bound)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> dhi = <span class="fu">exp</span>(lower_bound) <span class="kw">if</span> dhi &lt; <span class="fu">exp</span>(lower_bound)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    * Equivalisation</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">generate</span> <span class="kw">double</span> ey = dhi / (nhhmem^0.5)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    * PPP adjustment</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">generate</span> <span class="kw">double</span> ey_adj = ey / lisppp</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    * Median</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">sort</span> ey_adj hwgt</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> percentils ey_adj [aw = pwt], <span class="kw">p</span>(50)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="kw">gen</span> <span class="kw">median</span> = <span class="fu">e</span>(Perc_50)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">collapse</span> <span class="kw">median</span>, <span class="kw">by</span>(cname <span class="fu">year</span> dname)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    * Append to final file</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="kw">append</span> <span class="kw">using</span> <span class="ot">`final'</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">save</span> <span class="ot">`final'</span>, <span class="kw">replace</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="kw">restore</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="ot">`final'</span>, <span class="kw">clear</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> <span class="kw">if</span> <span class="fu">missing</span>(<span class="kw">median</span>)</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="kw">keep</span> cname <span class="fu">year</span> dname <span class="kw">median</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>* Build <span class="kw">twoway</span> command dynamically</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> <span class="kw">levelsof</span> cname, <span class="kw">local</span>(countries)</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> twoway_cmd <span class="st">""</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> i 1</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> c <span class="kw">of</span> <span class="kw">local</span> countries {</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> twoway_cmd <span class="st">`"</span><span class="ot">`twoway_cmd'</span> (connected <span class="kw">median</span> <span class="fu">year</span> <span class="kw">if</span> cname == <span class="st">"`c'"</span>, msize(small))<span class="st">"'</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="st">    local labels `"</span><span class="ot">`labels'</span> lab(<span class="ot">`i'</span> <span class="st">"`c'"</span>)<span class="st">"'</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="st">    local i = `i' + 1</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="st">    // Plotting </span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="st">twoway `twoway_cmd', ///</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="st">    ytitle("") xtitle("") ///</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="st">    ylabel(0(10000)60000, angle(horizontal) labsize(vsmall) format(%8.0gc)) ///</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="st">    xlabel(, labsize(vsmall)) ///</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="st">    title("</span>Median Disposable Household Income <span class="kw">in</span> US <span class="kw">int</span>.$ 2021<span class="st">", size(small)) ///</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="st">    caption("</span>LIS - Luxembourg Income Study<span class="st">", size(tiny) position(5)) ///</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="st">    graphr(color(white)) ///</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="st">    legend(pos(3) col(1) size(vsmall) `labels')</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="st">graph export "</span><span class="ot">$mypdf</span>/ex1.png<span class="st">", replace width(871) height(522)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><img src="..\images/stata_viz_1.png" class="img-fluid" style="width:100.0%"></p>
+<p><br></p>
+</section><section id="stata_ex2" class="level2"><h2 class="anchored" data-anchor-id="stata_ex2">Example 2: Categorical Variable Trend, Single Country</h2>
+<p>This template shifts from a flow variable to a categorical one. It plots the share of employment by industry sector (<code>indb1</code>) in Germany over time, using relative frequencies rather than a monetary aggregate. The structure is similar to Example 1 — a dynamic <code>twoway</code> loop over categories — but the data preparation is simpler: a <code>collapse</code> on weighted counts followed by a within-wave normalization is sufficient.</p>
+<p>This is a useful template for any LIS variable that takes a small number of discrete values and for which tracking compositional change over time is of interest (employment type, household structure, education level, etc.).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Variable availability:</strong> Industry of employment is not available for all country-waves in LIS. Before running this template on a new country, check coverage in the LIS variable documentation, or using the methods described in the early chapters of this guide.</p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lissyuse, iso2(<span class="kw">de</span>) hvars(hid cname <span class="fu">year</span> nhhmem dname) pvars(pid indb1 ppopwgt) from(2010) to(2024) </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> <span class="kw">if</span> <span class="fu">missing</span>(indb1)  </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">collapse</span> (<span class="kw">sum</span>) ppopwgt, <span class="kw">by</span>(dname indb1 cname <span class="fu">year</span>) </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">bysort</span> dname: <span class="kw">egen</span> <span class="kw">total</span> = <span class="kw">total</span>(ppopwgt) </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">gen</span> <span class="kw">percent</span> = ppopwgt / <span class="kw">total</span> * 100 </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> short_label = <span class="st">""</span> </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> short_label = <span class="st">"Agriculture"</span>    <span class="kw">if</span> indb1 == 1 </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> short_label = <span class="st">"Manufacturing"</span>  <span class="kw">if</span> indb1 == 2 </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> short_label = <span class="st">"Construction"</span>   <span class="kw">if</span> indb1 == 3 </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> short_label = <span class="st">"Trade"</span>          <span class="kw">if</span> indb1 == 4 </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> short_label = <span class="st">"Transport"</span>      <span class="kw">if</span> indb1 == 5 </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> short_label = <span class="st">"Finance"</span>        <span class="kw">if</span> indb1 == 6 </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> short_label = <span class="st">"Real estate"</span>    <span class="kw">if</span> indb1 == 7 </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> short_label = <span class="st">"Public admin"</span>   <span class="kw">if</span> indb1 == 8 </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> short_label = <span class="st">"Other services"</span> <span class="kw">if</span> indb1 == 9 </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> <span class="kw">levelsof</span> indb1, <span class="kw">local</span>(codes) </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> twoway_cmd <span class="st">""</span> </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> labels <span class="st">""</span> </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> i 1 </span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> c <span class="kw">of</span> <span class="kw">local</span> codes { </span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> <span class="kw">levelsof</span> short_label <span class="kw">if</span> indb1 == <span class="ot">`c'</span>, <span class="kw">local</span>(lbl) <span class="kw">clean</span> </span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> twoway_cmd <span class="st">`"</span><span class="ot">`twoway_cmd'</span> (connected <span class="kw">percent</span> <span class="fu">year</span> <span class="kw">if</span> indb1 == <span class="ot">`c'</span>, msize(small) lwidth(<span class="bn">medthick</span>))<span class="st">"' </span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="st">    local labels `"</span><span class="ot">`labels'</span> lab(<span class="ot">`i'</span> <span class="st">"`lbl'"</span>)<span class="st">"' </span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="st">    local i = `i' + 1 </span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="st">} </span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="st">twoway `twoway_cmd', /// </span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="st">    ytitle("") xtitle("") /// </span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="st">    ylabel(, angle(horizontal) labsize(vsmall) format(%5.1f)) /// </span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="st">    xlabel(, labsize(vsmall)) /// </span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="st">    title("</span>Employment <span class="kw">by</span> Industry Sector, Germany<span class="st">", size(small)) /// </span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="st">    caption("</span>LIS - Luxembourg Income Study<span class="st">", size(tiny) position(5)) /// </span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="st">    graphr(color(white)) /// </span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="st">    legend(pos(3) col(1) size(vsmall) `labels')  </span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="st">graph export "</span><span class="ot">$mypdf</span>/ex2.png<span class="st">", replace width(871) height(522)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><img src="..\images/stata_viz_2.png" class="img-fluid" style="width:100.0%"></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The short labels assigned manually via <code>replace short_label = ...</code> are necessary because <code>indb1</code> is stored as a numeric code. An alternative is to use <code>decode indb1, gen(indb1_label)</code> and then strip the numeric prefix from the value label. This is the approach used in Example 3.</p>
+</div>
+</div>
+<p><br></p>
+</section><section id="example-3-relative-frequencies-trend-multi-country" class="level2"><h2 class="anchored" data-anchor-id="example-3-relative-frequencies-trend-multi-country">Example 3: Relative Frequencies Trend, Multi-Country</h2>
+<p>This template extends Example 2 to multiple countries, using occupation group (<code>occa1</code>) rather than industry. Because a single <code>twoway</code> plot with all countries and categories at once would be illegible, each country gets its own subplot, which are then assembled side by side using <code>graph combine</code>.</p>
+<p>The label extraction here uses <code>decode</code> followed by regex parsing to separate the numeric code from the value label text — a cleaner approach than manual reassignment when the number of categories is large.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong><code>graph combine</code> as a faceting tool:</strong> we generate one named graph per country with <code>name(g_</code>i’, replace)<code>and then we combine them side by side via the option</code>cols()` which controls the grid layout.</p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>lissyuse, iso2(pe lu) pvars(pid occa1 ppopwgt) hvars(hid cname <span class="fu">year</span> dname) from(2000) to(2024)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> <span class="kw">if</span> <span class="fu">missing</span>(occa1)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">collapse</span> (<span class="kw">sum</span>) ppopwgt, <span class="kw">by</span>(dname occa1 cname <span class="fu">year</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">bysort</span> dname: <span class="kw">egen</span> <span class="kw">total</span> = <span class="kw">total</span>(ppopwgt)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">gen</span> <span class="kw">percent</span> = ppopwgt / <span class="kw">total</span> * 100</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">decode</span> occa1, <span class="kw">gen</span>(occa1_label)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> <span class="kw">gen</span> code        = <span class="fu">real</span>(<span class="fu">regexs</span>(1)) <span class="kw">if</span> <span class="fu">regexm</span>(occa1_label, <span class="st">"\[([^\]]+)\]"</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> <span class="kw">gen</span> short_label = <span class="fu">strtrim</span>(<span class="fu">substr</span>(occa1_label, <span class="fu">strpos</span>(occa1_label, <span class="st">"]"</span>) + 1, .))</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">// One graph per country, then combine</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="kw">levelsof</span> cname, <span class="kw">local</span>(countries)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> graphs <span class="st">""</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> i 1</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> country <span class="kw">of</span> <span class="kw">local</span> countries {</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> <span class="kw">levelsof</span> code <span class="kw">if</span> cname == <span class="st">"`country'"</span>, <span class="kw">local</span>(codes)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> twoway_cmd <span class="st">""</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> labels <span class="st">""</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> j 1 </span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">foreach</span> c <span class="kw">of</span> <span class="kw">local</span> codes {</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">qui</span> <span class="kw">levelsof</span> short_label <span class="kw">if</span> code == <span class="ot">`c'</span> &amp; cname == <span class="st">"`country'"</span>, <span class="kw">local</span>(lbl) <span class="kw">clean</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="kw">local</span> twoway_cmd <span class="st">`"</span><span class="ot">`twoway_cmd'</span> (connected <span class="kw">percent</span> <span class="fu">year</span> <span class="kw">if</span> code == <span class="ot">`c'</span> &amp; cname == <span class="st">"`country'"</span>, msize(small) lwidth(<span class="bn">medthick</span>))<span class="st">"'</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="st">        local labels `"</span><span class="ot">`labels'</span> lab(<span class="ot">`j'</span> <span class="st">"`lbl'"</span>)<span class="st">"'</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="st">        local j = `j' + 1</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="st">    twoway `twoway_cmd', ///</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="st">        ytitle("") xtitle("") ///</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="st">        ylabel(0(10)100, angle(horizontal) labsize(vsmall) format(%5.1f)) ///</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="st">        xlabel(, labsize(vsmall)) ///</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="st">        title("</span><span class="ot">`country'</span><span class="st">", size(small) color(black)) ///</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="st">        graphr(color(white)) plotregion(color(white)) ///</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="st">        legend(pos(6) row(2) size(vsmall) `labels') ///</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="st">        name(g_`i', replace)</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="st">    local graphs "</span><span class="ot">`graphs'</span> g_<span class="ot">`i'</span><span class="st">"</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="st">    local i = `i' + 1</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="st">    // Combine side by side</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="st">graph combine `graphs', ///</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="st">    cols(2) ///</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="st">    graphr(color(white)) ///</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="st">    title("</span>Employment <span class="kw">by</span> Occupation Group<span class="st">", size(small) color(black)) ///</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="st">    caption("</span>LIS - Luxembourg Income Study<span class="st">", size(tiny) position(5))</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="st">graph export "</span><span class="ot">$mypdf</span>/ex3.png<span class="st">", replace width(871) height(522)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><img src="..\images/stata_viz_3.png" class="img-fluid" style="width:100.0%"></p>
+<p><br></p>
+</section><section id="stata_ex4" class="level2"><h2 class="anchored" data-anchor-id="stata_ex4">Example 4: Country-Specific Disaggregation, Multiple Countries</h2>
+<p>The previous examples all used standardized LIS variables. This template instead uses <code>region_c</code>, a country-specific variable that is not harmonized across time and countries.</p>
+<p>The code manually selects a subset of regions per country using <code>strpos</code> on the decoded label. This is intentional: <code>region_c</code> often contains many categories, and selecting a meaningful subset makes the chart readable. The specific regions chosen here are illustrative.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Manual dataset loop: Unlike the previous examples, which use lissyuse with iso2() to load multiple countries at once, this template loops manually over ccyy codes. This is necessary here because the country-specific filtering on region_c must be applied per dataset before appending results, but it is also a valid general pattern that users can adopt in any of the earlier examples.</p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">clear</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">tempfile</span> final</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">save</span> <span class="ot">`final'</span>, <span class="kw">replace</span> emptyok</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Country-specific variables require working with one dataset at a time. </span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> ccyy <span class="kw">in</span> de00 de01 de02 de03 de04 de05 de06 de07 de08 de09 de10 <span class="co">///</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                de11 de12 de13 de14 de15 de16 de17 de18 de19 de20 de21 de22  <span class="co">///</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                it00  it02  it04  it06  it08  it10 <span class="co">///</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                it12  it14  it16    it20  it22   {</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    lissyuse, <span class="kw">cc</span>(<span class="ot">`ccyy'</span>) hvars(hid cname <span class="fu">year</span> dname dhi nhhmem hwgt region_c)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> <span class="kw">merge</span> <span class="fu">m</span>:1 cname <span class="fu">year</span>  <span class="kw">using</span> <span class="st">"$myincl/ppp_2021.dta"</span> ,  <span class="kw">keep</span>(<span class="fu">match</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">drop</span> <span class="kw">if</span> <span class="fu">missing</span>(dhi)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">generate</span> <span class="kw">double</span> new_wgt = nhhmem * hwgt</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>      *--- IQR capping per dataset ---*</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">generate</span> <span class="kw">double</span> dhi_log = <span class="fu">log</span>(dhi)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> dhi_log = 0 <span class="kw">if</span> dhi_log == . &amp; dhi != .</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">sort</span> dhi_log hwgt</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> percentils dhi_log [aw = hwgt], <span class="kw">p</span>(25 75)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> p75 = <span class="fu">e</span>(Perc_75)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> p25 = <span class="fu">e</span>(Perc_25)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">gen</span> <span class="kw">double</span> <span class="fu">iqr</span>         = <span class="ot">`p75'</span> - <span class="ot">`p25'</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">gen</span> <span class="kw">double</span> upper_bound = <span class="ot">`p75'</span> + (<span class="fu">iqr</span> * 3)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">gen</span> <span class="kw">double</span> lower_bound = <span class="ot">`p25'</span> - (<span class="fu">iqr</span> * 3)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> dhi = <span class="fu">exp</span>(upper_bound) <span class="kw">if</span> dhi &gt; <span class="fu">exp</span>(upper_bound)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> dhi = <span class="fu">exp</span>(lower_bound) <span class="kw">if</span> dhi &lt; <span class="fu">exp</span>(lower_bound)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    *--- Equivalisation ---*</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> dhi = dhi / (nhhmem^0.5)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    *--- PPP adjustment ---*</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> dhi = dhi / lisppp</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    *--- Weighted <span class="kw">mean</span> <span class="kw">by</span> region ---*</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">collapse</span> (<span class="kw">mean</span>) dhi [aw = new_wgt], <span class="kw">by</span>(cname <span class="fu">year</span> dname region_c)</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    *--- Decode region and filter selected regions ---*</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">decode</span> region_c, <span class="kw">gen</span>(region_label)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    <span class="kw">keep</span> <span class="kw">if</span> <span class="fu">strpos</span>(region_label, <span class="st">"Lazio"</span>)      | <span class="co">///</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>            <span class="fu">strpos</span>(region_label, <span class="st">"Lombardia"</span>)  | <span class="co">///</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>            <span class="fu">strpos</span>(region_label, <span class="st">"Campania"</span>)   | <span class="co">///</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>            <span class="fu">strpos</span>(region_label, <span class="st">"Sicilia"</span>)    | <span class="co">///</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>            <span class="fu">strpos</span>(region_label, <span class="st">"Bavaria"</span>)    | <span class="co">///</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>            <span class="fu">strpos</span>(region_label, <span class="st">"Westphalia"</span>) | <span class="co">///</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>            <span class="fu">strpos</span>(region_label, <span class="st">"Baden"</span>)      | <span class="co">///</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>            <span class="fu">strpos</span>(region_label, <span class="st">"Mecklenburg"</span>)</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>    <span class="kw">append</span> <span class="kw">using</span> <span class="ot">`final'</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    <span class="kw">save</span> <span class="ot">`final'</span>, <span class="kw">replace</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="ot">`final'</span>, <span class="kw">clear</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Build twoway dynamically, for each country</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> <span class="kw">levelsof</span> cname, <span class="kw">local</span>(countries)</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> graphs <span class="st">""</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> g = 1</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> country <span class="kw">of</span> <span class="kw">local</span> countries {</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> <span class="kw">levelsof</span> region_label <span class="kw">if</span> cname == <span class="st">"`country'"</span>, <span class="kw">local</span>(regions)</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> twoway_cmd <span class="st">""</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> labels <span class="st">""</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> i 1</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    <span class="kw">foreach</span> <span class="fu">r</span> <span class="kw">of</span> <span class="kw">local</span> regions {</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>        <span class="kw">local</span> twoway_cmd <span class="st">`"</span><span class="ot">`twoway_cmd'</span> (connected dhi <span class="fu">year</span> <span class="kw">if</span> region_label == <span class="st">"`r'"</span> &amp; cname == <span class="st">"`country'"</span>, msize(small) lwidth(<span class="bn">medthick</span>))<span class="st">"'</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="st">        local labels `"</span><span class="ot">`labels'</span> lab(<span class="ot">`i'</span> <span class="st">"`r'"</span>)<span class="st">"'</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="st">        local i = `i' + 1</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="st">    twoway `twoway_cmd', ///</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="st">        ytitle("") xtitle("") ///</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="st">        ylabel(15000(5000)50000, angle(horizontal) labsize(vsmall) format(%8.0gc)) ///</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="st">        xlabel(, labsize(vsmall)) ///</span></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a><span class="st">        title("</span><span class="ot">`country'</span><span class="st">", size(small) color(black)) ///</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a><span class="st">        graphr(color(white)) plotregion(color(white)) ///</span></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a><span class="st">        legend(pos(6) col(4) size(tiny) `labels') ///</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a><span class="st">        name(graph`g', replace)</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a><span class="st">    local graphs "</span><span class="ot">`graphs'</span> graph<span class="ot">`g'</span><span class="st">"</span></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a><span class="st">    local g = `g' + 1</span></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a><span class="st">    // Combine side by side</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="st">graph combine `graphs', ///</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a><span class="st">    cols(2) ///</span></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="st">    graphr(color(white)) ///</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a><span class="st">    title("</span>Mean Equivalised Disposable Income <span class="kw">by</span> Region<span class="st">", size(small) color(black)) ///</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a><span class="st">    subtitle("</span>Germany and Italy, selected regions (CPI-adjusted, PPP)<span class="st">", size(vsmall) color(gs8)) ///</span></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a><span class="st">    caption("</span>LIS - Luxembourg Income Study<span class="st">", size(tiny) position(5))</span></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a><span class="st">graph export "</span><span class="ot">$mypdf</span>/ex4.png<span class="st">", replace width(871) height(522)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><img src="..\images/stata_viz_4.png" class="img-fluid" style="width:100.0%"></p>
+<p><br></p>
+</section><section id="stata_ex5" class="level2"><h2 class="anchored" data-anchor-id="stata_ex5">Example 5: Standardized Disaggregation, Multiple Countries</h2>
+<p>This template returns to a standardized LIS variable, and uses it to disaggregate median labour income (<code>pi11</code>) for working-age employed individuals in Sweden and Germany. Unlike the previous examples, which used <code>collapse</code> or <code>percentils</code> inside a loop, this template uses <code>statsby</code> to compute percentiles across all country-sex combinations in a single pass, producing a clean collapsed dataset ready for plotting.</p>
+<p>The countries are displayed as facets using <code>by(cname)</code> within <code>twoway</code>, which is a simpler alternative to the <code>graph combine</code> approach when the same set of series (here, male and female) applies to all subplots and a <strong>shared legend is desirable.</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lissyuse, iso2(se <span class="kw">de</span>) pvars(age sex pi11 emp ppopwgt dname cname currency <span class="fu">year</span>) from(2002)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> <span class="kw">if</span> ppopwgt == 0 <span class="co">// Such particular cases can be found in DE data for some years (person-level only). </span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">keep</span> <span class="kw">if</span> age &gt; 24 &amp; age &lt; 56 </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">keep</span> <span class="kw">if</span> emp == 1 </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="kw">keep</span> <span class="kw">if</span> !<span class="fu">missing</span>(pi11) &amp; !<span class="fu">missing</span>(sex)  </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Deflators</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="kw">merge</span> <span class="fu">m</span>:1 cname <span class="fu">year</span>  <span class="kw">using</span> <span class="st">"$myincl/ppp_2017.dta"</span> ,  <span class="kw">keep</span>(<span class="fu">match</span>)      </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span>  pi11 =  pi11 / lisppp </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Alternative to `collapse` </span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="kw">statsby</span> <span class="co">///</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    p_50 = <span class="fu">e</span>(Perc_50), <span class="co">///</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">by</span>(<span class="fu">year</span> cname sex) <span class="kw">clear</span>:   <span class="co">///</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    percentils pi11 [aw = ppopwgt], <span class="kw">p</span>(50) nose  </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="kw">twoway</span>  (connected p_50 <span class="fu">year</span> <span class="kw">if</span> sex == 1 ,  msize(small)) <span class="co">///</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        (connected p_50 <span class="fu">year</span> <span class="kw">if</span> sex == 2,  msize(small)) <span class="co">///</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>         , <span class="kw">by</span>(cname, <span class="bn">legend</span>(pos(6)) <span class="kw">note</span>(<span class="st">""</span>) graphr(<span class="kw">color</span>(<span class="bn">white</span>)) <span class="bn">caption</span>(<span class="st">"Wages expressed in US$ 2017 PPP"</span>, <span class="kw">size</span>(tiny) <span class="bn">position</span>(5)))   leg(col(2) <span class="kw">size</span>(vsmall) lab(1 <span class="st">"Male"</span>) lab(2 <span class="st">"Female"</span>)) <span class="co">///</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>          <span class="bn">ytitle</span>(<span class="st">"Median Wage"</span>, <span class="kw">size</span>(vsmall)) <span class="bn">xtitle</span>(<span class="st">""</span>)  <span class="kw">ylabel</span>(,  angle(horizontal) <span class="bn">labsize</span>(vsmall) <span class="kw">format</span>(%8.0fc))  <span class="kw">xlabel</span>(2002(6)2020 ,<span class="bn">labsize</span>(vsmall)) <span class="bn">subtitle</span>(, bcolor(<span class="bn">white</span>)  lcolor(<span class="bn">white</span>))</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>                                                    </span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="kw">graph</span> <span class="kw">export</span> <span class="st">"$mypdf/ex5.png"</span>, <span class="kw">replace</span> <span class="kw">width</span>(871) height(522)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><img src="..\images/stata_viz_5.png" class="img-fluid" style="width:100.0%"></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong><code>statsby</code> for multi-percentile estimation:</strong> Unlike <code>collapse</code>, which aggregates data using its own built-in methods, <code>statsby</code> collapses the dataset by subgroups using the stored results of any estimation command. Here it calls <code>percentils</code> once per country-year group and retrieves the stored percentile values directly, allowing multiple percentiles to be computed in a single pass. The <code>nose</code> option suppresses standard errors.</p>
+</div>
+</div>
+<p><br></p>
+</section><section id="example-6-multiple-indicators-multiple-countries" class="level2"><h2 class="anchored" data-anchor-id="example-6-multiple-indicators-multiple-countries">Example 6: Multiple Indicators, Multiple Countries</h2>
+<p>The final template plots multiple derived indicators on the same axes, and extends this to more than one country by wrapping the entire computation in a loop over country codes. Using the United Kingdom and Germany as examples, it computes three percentile ratios (90/10, 90/50, 50/10) of equivalised disposable income and plots them as a time series for each country in separate images.</p>
+<p>The key step is <code>reshape long</code>, which converts the three ratio variables into a single <code>ratio</code> variable with a string identifier, making it straightforward to loop over indicators in <code>twoway</code>. This pattern generalises to any situation where multiple computed statistics need to appear on the same plot.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Dynamic export naming:</strong> Because this template produces one chart per country within the same job submission, each <code>graph export</code> call must use a unique filename. Here this is achieved by embedding the country code <code>x</code> directly in the filename: <code>ex6_x.png</code>. Without this, each iteration would overwrite the previous file and only the last country’s chart would be retrievable from LISSY output.</p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> cts uk <span class="kw">de</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> x <span class="kw">of</span> <span class="kw">local</span> cts {</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>lissyuse, iso2(<span class="ot">`x'</span>) hvars(dhi hwgt nhhmem nhhmem13 cname <span class="fu">year</span> dname) from(1970)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">levelsof</span> cname, <span class="kw">local</span>(<span class="kw">levels</span>) </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> ctitle : <span class="fu">word</span> 1 <span class="kw">of</span> <span class="ot">`levels'</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> <span class="kw">if</span> <span class="fu">missing</span>(dhi) </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> <span class="kw">if</span> <span class="fu">missing</span>(nhhmem13) | <span class="fu">missing</span>(nhhmem)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> dhi = dhi / (nhhmem^0.5)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="kw">statsby</span> <span class="co">///</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    p_10 = <span class="fu">e</span>(Perc_10) <span class="co">///</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    p_50 = <span class="fu">e</span>(Perc_50) <span class="co">///</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    p_90 = <span class="fu">e</span>(Perc_90), <span class="co">///</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">by</span>(<span class="fu">year</span> cname) <span class="kw">clear</span>:   <span class="co">///</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    percentils dhi [aw = hwgt], <span class="kw">p</span>(10 50 90) nose</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> ratio90_10 = p_90 / p_10</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> ratio90_50 = p_90 / p_50</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> ratio50_10 = p_50 / p_10</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> p_*    </span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="kw">reshape</span> <span class="kw">long</span> <span class="kw">ratio</span>, i(cname <span class="fu">year</span>) j(indicator) <span class="fu">string</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="kw">twoway</span> (connected <span class="kw">ratio</span> <span class="fu">year</span> <span class="kw">if</span> indicator == <span class="st">"90_10"</span>, msize(small)) <span class="co">///</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>       (connected <span class="kw">ratio</span> <span class="fu">year</span> <span class="kw">if</span> indicator == <span class="st">"90_50"</span>, msize(small))  <span class="co">///</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>       (connected <span class="kw">ratio</span> <span class="fu">year</span> <span class="kw">if</span> indicator == <span class="st">"50_10"</span>, msize(small)), <span class="co">///</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>       graphr(<span class="kw">color</span>(<span class="bn">white</span>)) <span class="co">///</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>       <span class="kw">xlabel</span>(, <span class="bn">labsize</span>(vsmall)) <span class="co">///</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>       <span class="kw">ylabel</span>(0(0.5)5, angle(horizontal) <span class="bn">labsize</span>(vsmall)) <span class="co">/// </span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>       <span class="bn">subtitle</span>(, bcolor(<span class="bn">white</span>) lcolor(<span class="bn">white</span>)) <span class="co">///</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>       <span class="bn">title</span>(<span class="st">"`ctitle' — Inequality Ratios"</span>, <span class="kw">size</span>(medsmall)) <span class="co">///</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>       <span class="bn">ytitle</span>(<span class="st">"Ratio"</span>, <span class="kw">size</span>(vsmall)) <span class="bn">xtitle</span>(<span class="st">""</span>) <span class="co">///</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>       leg(col(3) pos(6) <span class="kw">size</span>(vsmall) lab(1 <span class="st">"90/10"</span>) lab(2 <span class="st">"90/50"</span>) lab(3 <span class="st">"50/10"</span>)) </span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="kw">graph</span> <span class="kw">export</span> <span class="st">`"</span><span class="ot">$mypdf</span>/ex6_<span class="ot">`x'</span>.png<span class="st">"', replace width(871) height(522)       </span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="st">       </span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><img src="..\images/stata_viz_6.png" class="img-fluid" style="width:100.0%"></p>
+
+
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../stata-users/tidy_exp_to_csv.html" class="pagination-link" aria-label="Export to CSV">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Export to CSV</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Luxembourg Income Study, 2026</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This website was built using <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer><script src="../assets/foldable.js"></script>
+
+
+</body></html>

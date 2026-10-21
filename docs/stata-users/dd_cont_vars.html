@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Describing Data – LISSY User Guide</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../stata-users/dh_catg_vars.html" rel="next">
+<link href="../stata-users/dd_catg_vars.html" rel="prev">
+<link href="../images/main.jpg" rel="icon" type="image/jpeg">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-10097104095abffb620768ae092cce97.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="../styles.css">
+</head>
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">LISSY User Guide</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../getting-started/index.html"> 
+<span class="menu-text">Getting Started</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../r-users/index.html"> 
+<span class="menu-text">R Users</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../stata-users/index.html" aria-current="page"> 
+<span class="menu-text">Stata Users</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../other-resources/index.html"> 
+<span class="menu-text">Other Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../faqs/index.html"> 
+<span class="menu-text">FAQs</span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Describing Data</h1>
+        </a>     
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Import Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/method1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Method 1: lissyuse</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/method2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Method 2: use</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/datasets_and_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datasets and Variables</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Describing Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dd_catg_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Categorical Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dd_cont_vars.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Continuous Variables</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Data Handling</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dh_catg_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recoding Categories</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dh_inc_prep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preparing Income Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dh_ppp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Currency and Price Level Adjustments</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Structuring Results for Analysis</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/tidy_exp_to_csv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Export to CSV</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/tidy_plots.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plotting in Stata</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li>
+<a href="#continuous-variables" id="toc-continuous-variables" class="nav-link active" data-scroll-target="#continuous-variables">Continuous Variables</a>
+  <ul class="collapse">
+<li><a href="#quick-summary" id="toc-quick-summary" class="nav-link" data-scroll-target="#quick-summary">Quick Summary</a></li>
+  <li><a href="#descriptive-routines" id="toc-descriptive-routines" class="nav-link" data-scroll-target="#descriptive-routines">Descriptive Routines</a></li>
+  <li><a href="#subgroup_stata" id="toc-subgroup_stata" class="nav-link" data-scroll-target="#subgroup_stata">Subgroup descriptives</a></li>
+  <li><a href="#pm_stata" id="toc-pm_stata" class="nav-link" data-scroll-target="#pm_stata">Percentiles methodology</a></li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title d-none d-lg-block">Describing Data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="continuous-variables" class="level1"><h1>Continuous Variables</h1>
+<p>In LIS/LWS/LCS datasets, continuous variables are distinct from the socioeconomic categorical variables discussed in the previous section. Rather than grouping households or individuals into discrete classes, they capture actual flows and stocks — income, consumption, and wealth, along with their subcomponents and aggregates. Examples include disposable household income (<code>dhi</code>), capital income (<code>hicapital</code>), and net worth (<code>dnw</code>). These variables tend to be right-skewed, can span several orders of magnitude, and vary considerably in coverage across country-years — a variable that is well-populated in one dataset may be sparse or entirely absent in another. Getting a quick distributional snapshot before any substantive analysis is therefore good practice. The emphasis in this section is not so much on the mechanics of any single statistic, but on building reproducible workflows that apply consistently across countries and waves with minimal extra effort.</p>
+<p><br></p>
+<section id="quick-summary" class="level2"><h2 class="anchored" data-anchor-id="quick-summary">Quick Summary</h2>
+<p>A natural starting point is to use the <code>summarize</code> command to obtain an initial overview of a variable’s scale and distribution, iterating across datasets via <code>by dname:</code>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Always make sure the data is at the appropriate level for the variable being analysed. Disposable household income (<code>dhi</code>), for instance, is defined at the household level. Running summary statistics on it from an individual-level dataset will silently duplicate observations, inflating counts and distorting distributional measures.</p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(it) from(2005) hvars(hid dname dhi)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">bysort</span> dname: <span class="kw">summarize</span> dhi, <span class="kw">detail</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>-&gt; dname = it06
+
+           disposable household income, household
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     2075.019      -8642.963
+ 5%         6760           -624
+10%     9120.409              0       Obs               7,768
+25%     13774.11              0       Sum of wgt.       7,768
+
+50%     20992.88                      Mean           26004.83
+                        Largest       Std. dev.       24091.3
+75%     32815.78       503809.5
+90%      46221.3       514788.5       Variance       5.80e+08
+95%     57381.09       520570.4       Skewness       10.64885
+99%     93651.96       804218.6       Kurtosis       239.7349
+
+-------------------------------------------------------------------------------
+-&gt; dname = it08
+
+           disposable household income, household
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     1897.939              0
+ 5%         7200              0
+10%     9608.702              0       Obs               7,977
+25%      14392.6              0       Sum of wgt.       7,977
+
+50%     21619.12                      Mean           26685.88
+                        Largest       Std. dev.      21438.94
+75%        33520       321391.4
+90%     47934.28       384720.2       Variance       4.60e+08
+95%     59484.23       452208.6       Skewness       6.109901
+99%     98434.23       565159.9       Kurtosis       99.06627
+
+-------------------------------------------------------------------------------
+-&gt; dname = it10
+
+           disposable household income, household
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%          480       -996.834
+ 5%     7009.498              0
+10%     9163.321              0       Obs               7,951
+25%     14063.32              0       Sum of wgt.       7,951
+
+50%     21887.35                      Mean           26647.06
+                        Largest       Std. dev.      20393.44
+75%     34182.41       220209.8
+90%        48000       230276.1       Variance       4.16e+08
+95%     59909.39       230982.1       Skewness       4.743922
+99%     100316.5       569183.9       Kurtosis       77.61524
+
+-------------------------------------------------------------------------------
+-&gt; dname = it12
+
+           disposable household income, household
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     1477.037      -3869.891
+ 5%     6516.426          -3000
+10%         8710          -1000       Obs               8,151
+25%     13095.45              0       Sum of wgt.       8,151
+
+50%     20647.47                      Mean           25853.37
+                        Largest       Std. dev.      20208.87
+75%     33426.13       252201.3
+90%     47193.53       285068.1       Variance       4.08e+08
+95%     59452.66       297732.7       Skewness       3.675881
+99%      95965.4       350689.7       Kurtosis       33.28551
+
+-------------------------------------------------------------------------------
+-&gt; dname = it14
+
+           disposable household income, household
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0      -2987.096
+ 5%         6461      -1691.397
+10%     8482.281              0       Obs               8,151
+25%     13268.82              0       Sum of wgt.       8,151
+
+50%     20516.16                      Mean           25444.73
+                        Largest       Std. dev.      19371.17
+75%      33147.5       218292.8
+90%     47085.83       235738.9       Variance       3.75e+08
+95%     58399.72       258242.4       Skewness       3.662002
+99%     91424.39       432999.1       Kurtosis       41.25483
+
+-------------------------------------------------------------------------------
+-&gt; dname = it16
+
+           disposable household income, household
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0      -400.0002
+ 5%      5881.14              0
+10%         8400              0       Obs               7,420
+25%     13021.61              0       Sum of wgt.       7,420
+
+50%     19853.67                      Mean           24881.99
+                        Largest       Std. dev.      19941.15
+75%     32457.82       240286.4
+90%     46630.15         365610       Variance       3.98e+08
+95%     58030.42       384220.6       Skewness       5.449982
+99%     90083.99       529879.1       Kurtosis       91.51458
+
+-------------------------------------------------------------------------------
+-&gt; dname = it20
+
+           disposable household income, household
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%          350      -198699.4
+ 5%     7443.099      -101610.7
+10%     10401.97      -59337.52       Obs               6,239
+25%     16910.03      -19929.73       Sum of wgt.       6,239
+
+50%      29803.1                      Mean              48072
+                        Largest       Std. dev.      77583.67
+75%     51006.84        1015165
+90%     93007.66        1223878       Variance       6.02e+09
+95%     143344.6        1805762       Skewness       10.01026
+99%     347667.9        2282033       Kurtosis       191.1132
+
+-------------------------------------------------------------------------------
+-&gt; dname = it22
+
+           disposable household income, household
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%          700      -19990.67
+ 5%     7821.951          -7900
+10%      10805.9      -4990.591       Obs               9,641
+25%      17612.1      -1135.465       Sum of wgt.       9,641
+
+50%     29950.17                      Mean           46301.93
+                        Largest       Std. dev.        117044
+75%     49573.05        2095700
+90%     80372.02        2325417       Variance       1.37e+10
+95%     119989.9        2707841       Skewness       43.22543
+99%     314643.6        8482282       Kurtosis       2868.703</code></pre>
+</div>
+</div>
+<p><br></p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>While <code>summarize, detail</code> provides a convenient initial overview, its distributional measures (e.g., the median, p25, and p75) <strong>do not follow the methodology used by LIS</strong> in its official figures. This is discussed in more detail <a href="..\stata-users/dd_cont_vars.html#pm_stata">later in this section</a>.</p>
+</div>
+</div>
+</section><section id="descriptive-routines" class="level2"><h2 class="anchored" data-anchor-id="descriptive-routines">Descriptive Routines</h2>
+<p>Beyond summary statistics, it is often useful to compute a specific diagnostic and apply it systematically across all available datasets. This keeps the workflow transparent and easy to replicate.</p>
+<p>As a practical illustration, consider measuring data coverage: for a given income component, what share of observations are both non-missing and non-zero? This is especially relevant for variables like capital income (<code>hicapital</code>), which may be consistently recorded in some country-years but sparse or absent in others.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(it) from(2005) hvars(hid cname <span class="fu">year</span> dname dhi hicapital)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">byte</span> has_inc   = (!<span class="fu">missing</span>(hicapital) &amp; hicapital != 0)   </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">byte</span> obs_count = 1 </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">egen</span> total_obs    = <span class="kw">total</span>(obs_count), <span class="kw">by</span>(dname)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">egen</span> nonmiss_obs  = <span class="kw">total</span>(has_inc)  , <span class="kw">by</span>(dname)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> pct_nonmiss = (nonmiss_obs / total_obs) * 100</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">bysort</span> dname: <span class="kw">keep</span> <span class="kw">if</span> <span class="dt">_n</span> == 1 <span class="co">// keeping one row per dname (mimics collapse)</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">keep</span> cname <span class="fu">year</span> total_obs nonmiss_obs pct_nonmiss</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="kw">forvalues</span> i = 1/<span class="ot">`=_N'</span> {</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>   <span class="kw">if</span> <span class="ot">`i'</span> == 1 {</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>     <span class="kw">di</span> <span class="st">"cname,year,total_obs,nonmiss_obs,pct_nonmiss"</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        } </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>     <span class="kw">di</span> cname[<span class="ot">`i'</span>] <span class="st">","</span>  <span class="fu">year</span>[<span class="ot">`i'</span>] <span class="st">","</span> total_obs[<span class="ot">`i'</span>] <span class="st">","</span> nonmiss_obs[<span class="ot">`i'</span>] <span class="st">","</span> pct_nonmiss[<span class="ot">`i'</span>]</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>(63,295 observations deleted)
+
+
+  6. }
+cname,year,total_obs,nonmiss_obs,pct_nonmiss
+Italy,2006,7768,6520,83.93409
+Italy,2008,7977,6552,82.136139
+Italy,2010,7951,6490,81.624954
+Italy,2012,8151,6518,79.965645
+Italy,2014,8156,6748,82.736633
+Italy,2016,7420,6196,83.504044
+Italy,2020,6239,5787,92.755249
+Italy,2022,9641,8839,91.681358</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>The result immediately reveals whether a given income component is consistently observed across the selected waves, or whether its coverage varies substantially over time, making it a useful diagnostic before including the variable in any analysis.</p>
+<p><br></p>
+</section><section id="subgroup_stata" class="level2"><h2 class="anchored" data-anchor-id="subgroup_stata">Subgroup descriptives</h2>
+<p>Aggregate statistics can conceal important variation across groups. For continuous variables, computing descriptives by subgroup makes it possible to compare, for instance, how disposable income differs across tenure statuses or demographic categories.</p>
+<p>As seen in the section on categorical variables, <a href="..\src/dcollapse.pdf" target="_blank"><code>collapse</code></a> is a natural tool for this in Stata. Here the same logic applies, with <code>(mean)</code> as the descriptive measure of interest, though this can be replaced by any other statistic supported by the command, such as <code>(median)</code>, <code>(sd)</code>, or <code>(p25)</code> and <code>(p75)</code>. The <code><a href="https://rdrr.io/r/base/by.html">by()</a></code> option ensures the computation is carried out separately for each combination of dataset and tenure group:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(fr it es <span class="kw">de</span>) from(2021) hvars(hid dhi hwgt dname cname <span class="fu">year</span> own)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">collapse</span> (<span class="kw">mean</span>) avg_dhi = dhi, <span class="kw">by</span>(dname own cname <span class="fu">year</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">decode</span> own, <span class="kw">gen</span>(own_label)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> <span class="kw">gen</span> code = <span class="fu">real</span>(<span class="fu">regexs</span>(1)) <span class="kw">if</span> <span class="fu">regexm</span>(own_label, <span class="st">"\[([^\]]+)\]"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> <span class="kw">gen</span> <span class="kw">label</span> = <span class="fu">substr</span>(own_label, <span class="fu">strpos</span>(own_label, <span class="st">"]"</span>) + 1, .)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="kw">forvalues</span> i = 1/<span class="ot">`=_N'</span> {</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>   <span class="kw">if</span> <span class="ot">`i'</span> == 1 {</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>     <span class="kw">di</span> <span class="st">"cname,year,code,label,avg_dhi"</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        } </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>     <span class="kw">di</span> cname[<span class="ot">`i'</span>] <span class="st">","</span> <span class="fu">year</span>[<span class="ot">`i'</span>] <span class="st">","</span> code[<span class="ot">`i'</span>] <span class="st">","</span> <span class="kw">label</span>[<span class="ot">`i'</span>] <span class="st">","</span> avg_dhi[<span class="ot">`i'</span>] </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>  6. }
+cname,year,code,label,avg_dhi
+Germany,2021,100,owned,35518.647
+Germany,2021,110,owned outright,65917.728
+Germany,2021,120,owned with mortgage,71121.759
+Germany,2021,211,rented at market price,37717.114
+Germany,2021,212,rented below market price,33449.818
+Germany,2021,220,free housing,41313.088
+Germany,2021,.,,21901.649
+Germany,2022,100,owned,30483.73
+Germany,2022,110,owned outright,72423.306
+Germany,2022,120,owned with mortgage,75454.778
+Germany,2022,211,rented at market price,34184.783
+Germany,2022,212,rented below market price,26234.51
+Germany,2022,220,free housing,25565.311
+Germany,2022,.,,12820.357
+Spain,2021,110,owned outright,33911.155
+Spain,2021,120,owned with mortgage,40156.952
+Spain,2021,211,rented at market price,26682.614
+Spain,2021,212,rented below market price,22287.365
+Spain,2021,220,free housing,24327.957
+Spain,2022,110,owned outright,36519.212
+Spain,2022,120,owned with mortgage,42688.951
+Spain,2022,211,rented at market price,29705.704
+Spain,2022,212,rented below market price,23894.96
+Spain,2022,220,free housing,27454.001
+France,2021,110,owned outright,44412.095
+France,2021,120,owned with mortgage,52745.362
+France,2021,211,rented at market price,30520.595
+France,2021,212,rented below market price,26774.827
+France,2021,220,free housing,30949.228
+France,2021,.,,43213
+France,2022,110,owned outright,45567.096
+France,2022,120,owned with mortgage,54919.52
+France,2022,211,rented at market price,31845.984
+France,2022,212,rented below market price,28280.591
+France,2022,220,free housing,33408.828
+France,2022,.,,39407.882
+Italy,2022,100,owned,30140.055
+Italy,2022,110,owned outright,50475.485
+Italy,2022,120,owned with mortgage,57422.651
+Italy,2022,210,rented,30182.619
+Italy,2022,211,rented at market price,34369.303
+Italy,2022,212,rented below market price,21898.195
+Italy,2022,220,free housing,28453.196</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The two <code>gen</code> lines above handle a recurrent situation in LIS data. The variable <code>own</code> is originally numeric with value labels — category 110 is stored as the number <code>110</code> and displayed as <code>owned outright</code>. After <code>decode</code>, it becomes the plain string <code>[110]owned outright</code>. While readable, this single string is harder to filter or sort programmatically. The two lines split it back into its two components: <code>code</code> recovers the numeric part (<code>110</code>) by extracting the content inside the brackets, and <code>label</code> recovers the clean text (<code>owned outright</code>) by taking everything after the closing bracket. This gives you a tidy, analysis-ready output where the category code and its description live in separate variables.</p>
+</div>
+</div>
+<p><br></p>
+</section><section id="pm_stata" class="level2"><h2 class="anchored" data-anchor-id="pm_stata">Percentiles methodology</h2>
+<p>We close with an important note on how percentiles are estimated, as the choice of method directly affects the comparability of results with LIS official figures.</p>
+<p>Although percentile-based measures do not introduce fundamentally new techniques beyond those discussed above, it is important to clarify the methodology used by LIS, as this directly affects the comparability and reproducibility of results.</p>
+<p>LIS adopts Definition 4 from Hyndman and Fan (1996) for the computation of <a href="https://www.lisdatacenter.org/news-and-events/note-on-percentile-methodology-used-in-lis-key-figures/">key figures and all percentile-based estimates</a>, including medians, percentile ratios, poverty lines, and decile shares. The command <a href="..\src/percentils_help_file.pdf" target="_blank"><code>percentils</code></a> is a custom command that follows this methodology by default, so users can rely on it to produce estimates fully consistent with LIS standards without needing to configure anything manually.</p>
+<div class="cell" data-collectcode="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(es it) hvars(hid hpopwgt dhi cname <span class="fu">year</span> dname) from(2020)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>* `statsby` mimics `collapse` <span class="kw">using</span> the stored results from the selected command  </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">statsby</span> <span class="co">///</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    p_50 = <span class="fu">e</span>(Perc_50), <span class="co">///</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">by</span>(<span class="fu">year</span> cname) <span class="kw">clear</span>:   <span class="co">///</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    percentils dhi [aw = hpopwgt], <span class="kw">p</span>(50) nose   </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="kw">sort</span> cname <span class="fu">year</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="kw">forvalues</span> i = 1/<span class="ot">`=_N'</span> {</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>   <span class="kw">if</span> <span class="ot">`i'</span> == 1 {</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>     <span class="kw">di</span> <span class="st">"year,cname,p_50"</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        } </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>     <span class="kw">di</span> <span class="fu">year</span>[<span class="ot">`i'</span>] <span class="st">","</span> cname[<span class="ot">`i'</span>] <span class="st">","</span> p_50[<span class="ot">`i'</span>]</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>(running percentils on estimation sample)
+
+      Command: percentils dhi [aweight= hpopwgt], p(50) nose
+         p_50: e(Perc_50)
+           By: year cname
+
+Statsby groups:
+.....
+
+
+year,cname,p_50
+2020,Italy,21280.344
+2022,Italy,24055.66
+2020,Spain,26651.314
+2021,Spain,28076.07
+2022,Spain,30392.301</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>The <code>p()</code> option accepts any value or vector of values between 0 and 100, making it straightforward to retrieve the full set of percentiles in a single call:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(es it) hvars(hid hpopwgt dhi cname <span class="fu">year</span> dname) from(2020)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">statsby</span> <span class="co">///</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    p_10 = <span class="fu">e</span>(Perc_10) <span class="co">///</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    p_25 = <span class="fu">e</span>(Perc_25) <span class="co">///</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    p_50 = <span class="fu">e</span>(Perc_50) <span class="co">///</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    p_75 = <span class="fu">e</span>(Perc_75) <span class="co">///</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    p_90 = <span class="fu">e</span>(Perc_90), <span class="co">///</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">by</span>(<span class="fu">year</span> cname) <span class="kw">clear</span>:   <span class="co">///</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    percentils dhi [aw = hpopwgt], <span class="kw">p</span>(10 25 50 75 90) nose   </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="kw">sort</span> cname <span class="fu">year</span> </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="kw">forvalues</span> i = 1/<span class="ot">`=_N'</span> {</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>   <span class="kw">if</span> <span class="ot">`i'</span> == 1 {</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>     <span class="kw">di</span> <span class="st">"year,cname,p_10,p_25,p_50,p_75,p_90"</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        } </span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>     <span class="kw">di</span> <span class="fu">year</span>[<span class="ot">`i'</span>] <span class="st">","</span> cname[<span class="ot">`i'</span>] <span class="st">","</span> p_10[<span class="ot">`i'</span>] <span class="st">","</span> p_25[<span class="ot">`i'</span>] <span class="st">","</span> p_50[<span class="ot">`i'</span>] <span class="st">","</span> p_75[<span class="ot">`i'</span>] <span class="st">","</span> p_90[<span class="ot">`i'</span>] </span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>(running percentils on estimation sample)
+
+      Command: percentils dhi [aweight= hpopwgt], p(10 25 50 75 90) nose
+         p_10: e(Perc_10)
+         p_25: e(Perc_25)
+         p_50: e(Perc_50)
+         p_75: e(Perc_75)
+         p_90: e(Perc_90)
+           By: year cname
+
+Statsby groups:
+.....
+
+
+  6. }
+year,cname,p_10,p_25,p_50,p_75,p_90
+2020,Italy,8325.3516,13788.191,21280.344,35192.965,50453.758
+2022,Italy,9600,15398.144,24055.66,37756.703,54031.586
+2020,Spain,9541.2217,15767.139,26651.314,40584.914,59165.609
+2021,Spain,10209.263,16839.277,28076.07,42878.148,61268.457
+2022,Spain,11206.502,18383.984,30392.301,46180.836,65956.539</code></pre>
+</div>
+</div>
+<p><br></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>See also the <a href="..\stata-users/tidy_exp_to_csv.html">chapter on exporting results to excel</a>, to learn how to export delimited outputs into excel spreadsheets like the one in the picture below.</p>
+</div>
+</div>
+<p>Beyond point estimates, <a href="..\src/pshare_help_file.pdf" target="_blank"><code>pshare</code></a>, another custom command, supports the computation of distributional shares, that is, the share of total income held by each segment of the distribution:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(es it) hvars(hid hpopwgt dhi cname <span class="fu">year</span> dname) from(2020)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> <span class="kw">levelsof</span> dname, <span class="kw">local</span>(<span class="kw">levels</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> ccyy <span class="kw">of</span> <span class="kw">local</span> <span class="kw">levels</span> {</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a> <span class="kw">di</span> <span class="st">"`ccyy'"</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a> pshare estimate dhi <span class="kw">if</span> dname == <span class="st">"`ccyy'"</span>, <span class="kw">p</span>(10(10)90) <span class="kw">percent</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>} </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>es20
+
+Percentile shares (percent)             Number of obs = 21,007
+
+--------------------------------------------------------------
+         dhi | Coefficient  Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+        0-10 |   1.771334   .0341581      1.704381    1.838286
+       10-20 |   3.734509   .0291284      3.677415    3.791603
+       20-30 |   5.105744   .0306692       5.04563    5.165858
+       30-40 |   6.440807    .032616      6.376878    6.504737
+       40-50 |   7.827438   .0340457      7.760705     7.89417
+       50-60 |   9.287744   .0334704       9.22214    9.353349
+       60-70 |   10.85302   .0363215      10.78183    10.92422
+       70-80 |   12.99561   .0438566      12.90965    13.08157
+       80-90 |   16.39063   .0587691      16.27543    16.50582
+      90-100 |   25.59317   .1540905      25.29114     25.8952
+--------------------------------------------------------------
+es21
+
+Percentile shares (percent)             Number of obs = 24,313
+
+--------------------------------------------------------------
+         dhi | Coefficient  Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+        0-10 |   1.983943   .0290187      1.927065    2.040822
+       10-20 |   3.844742   .0262474      3.793295    3.896188
+       20-30 |   5.161597   .0288027      5.105142    5.218052
+       30-40 |   6.478666   .0304888      6.418906    6.538425
+       40-50 |   7.887623   .0318512      7.825192    7.950053
+       50-60 |   9.274967   .0305086      9.215168    9.334766
+       60-70 |   10.86395   .0346965      10.79595    10.93196
+       70-80 |   12.96862   .0395657      12.89107    13.04617
+       80-90 |   16.17088    .052946       16.0671    16.27466
+      90-100 |   25.36501   .1491248      25.07272    25.65731
+--------------------------------------------------------------
+es22
+
+Percentile shares (percent)             Number of obs = 27,227
+
+--------------------------------------------------------------
+         dhi | Coefficient  Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+        0-10 |    1.99267   .0287204      1.936376    2.048963
+       10-20 |   3.924248   .0244412      3.876342    3.972154
+       20-30 |   5.266892   .0274208      5.213145    5.320638
+       30-40 |   6.596485   .0295585      6.538549    6.654421
+       40-50 |   7.969159    .027916      7.914442    8.023875
+       50-60 |   9.279888   .0285373      9.223954    9.335823
+       60-70 |     10.888   .0324494      10.82439     10.9516
+       70-80 |   12.98548   .0376075      12.91177     13.0592
+       80-90 |   16.07519     .04826      15.98059    16.16978
+      90-100 |   25.02199      .1384      24.75072    25.29327
+--------------------------------------------------------------
+it20
+
+Percentile shares (percent)              Number of obs = 6,239
+
+--------------------------------------------------------------
+         dhi | Coefficient  Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+        0-10 |   1.230309    .092621       1.04874    1.411878
+       10-20 |   2.662986   .0596599      2.546032     2.77994
+       20-30 |   3.525322   .0728409      3.382529    3.668115
+       30-40 |   4.417739    .087939      4.245348    4.590129
+       40-50 |   5.516535   .1089686      5.302919    5.730151
+       50-60 |   6.907293   .1291144      6.654185    7.160402
+       60-70 |   8.442628    .150351      8.147889    8.737368
+       70-80 |   10.64537   .1822022      10.28819    11.00255
+       80-90 |   15.16816   .2503512      14.67739    15.65894
+      90-100 |   41.48365   .9298803      39.66077    43.30654
+--------------------------------------------------------------
+it22
+
+Percentile shares (percent)              Number of obs = 9,641
+
+--------------------------------------------------------------
+         dhi | Coefficient  Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+        0-10 |   1.498002   .0493269      1.401311    1.594693
+       10-20 |   2.876318   .0771589       2.72507    3.027565
+       20-30 |   3.793777   .0979294      3.601815    3.985739
+       30-40 |   4.716568   .1205074      4.480348    4.952787
+       40-50 |   5.817768   .1473477      5.528936    6.106601
+       50-60 |   7.137568   .1779433      6.788761    7.486374
+       60-70 |   8.731075    .214703      8.310212    9.151938
+       70-80 |   10.72823   .2599344       10.2187    11.23776
+       80-90 |   14.28041   .3384471      13.61699    14.94384
+      90-100 |   40.42028   1.424589      37.62779    43.21277
+--------------------------------------------------------------</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>And the average income within each group:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(es it) hvars(hid hpopwgt dhi cname <span class="fu">year</span> dname) from(2020)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> <span class="kw">levelsof</span> dname, <span class="kw">local</span>(<span class="kw">levels</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> ccyy <span class="kw">of</span> <span class="kw">local</span> <span class="kw">levels</span> {</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a> <span class="kw">di</span> <span class="st">"`ccyy'"</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a> pshare estimate dhi <span class="kw">if</span> dname == <span class="st">"`ccyy'"</span>, <span class="kw">p</span>(10(10)90) average</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>es20
+
+Percentile shares (average)             Number of obs = 21,007
+
+--------------------------------------------------------------
+         dhi | Coefficient  Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+        0-10 |   5682.286   115.0028      5456.872      5907.7
+       10-20 |   11979.98   106.4835      11771.27     12188.7
+       20-30 |   16378.78   119.9481      16143.68    16613.89
+       30-40 |   20661.55   136.8242      20393.37    20929.74
+       40-50 |   25109.74   152.7075      24810.43    25409.06
+       50-60 |   29794.28   155.2415         29490    30098.57
+       60-70 |   34815.56    180.948      34460.89    35170.23
+       70-80 |   41688.79   236.0011      41226.21    42151.37
+       80-90 |   52579.71   319.2779       51953.9    53205.52
+      90-100 |   82100.67     706.08       80716.7    83484.64
+--------------------------------------------------------------
+es21
+
+Percentile shares (average)             Number of obs = 24,313
+
+--------------------------------------------------------------
+         dhi | Coefficient  Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+        0-10 |   6713.197   103.0574      6511.198    6915.195
+       10-20 |    13009.7   100.1056      12813.49    13205.91
+       20-30 |   17465.63   118.1304      17234.08    17697.17
+       30-40 |   21922.28   134.1036      21659.42    22185.13
+       40-50 |   26689.85   149.0026       26397.8    26981.91
+       50-60 |    31384.3   145.3466      31099.41    31669.19
+       60-70 |   36761.05    181.388      36405.52    37116.59
+       70-80 |   43882.74   217.9121      43455.62    44309.86
+       80-90 |   54718.44   298.2542      54133.85    55303.04
+      90-100 |   85829.22   719.3113      84419.32    87239.11
+--------------------------------------------------------------
+es22
+
+Percentile shares (average)             Number of obs = 27,227
+
+--------------------------------------------------------------
+         dhi | Coefficient  Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+        0-10 |   7269.894   110.2588      7053.782    7486.007
+       10-20 |   14316.91   100.8517      14119.23    14514.58
+       20-30 |    19215.3   121.8687      18976.43    19454.17
+       30-40 |   24066.08   141.2873      23789.15    24343.01
+       40-50 |   29074.03    138.425      28802.71    29345.35
+       50-60 |   33855.99   148.1958      33565.52    34146.46
+       60-70 |   39722.88   184.0007      39362.23    40083.53
+       70-80 |   47375.17   224.4434      46935.25    47815.09
+       80-90 |   58647.39   290.0111      58078.96    59215.83
+      90-100 |    91288.2    715.391         89886     92690.4
+--------------------------------------------------------------
+it20
+
+Percentile shares (average)              Number of obs = 6,239
+
+--------------------------------------------------------------
+         dhi | Coefficient  Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+        0-10 |   5914.341    441.806      5048.249    6780.433
+       10-20 |   12801.51   192.8603      12423.43    13179.58
+       20-30 |   16946.93   214.9923      16525.47    17368.39
+       30-40 |   21236.95   262.3959      20722.57    21751.34
+       40-50 |   26519.09   377.4202      25779.21    27258.96
+       50-60 |   33204.74   423.1451      32375.23    34034.25
+       60-70 |   40585.41   478.5591      39647.27    41523.55
+       70-80 |   51174.44   726.1554      49750.92    52597.95
+       80-90 |   72916.41    1393.15      70185.35    75647.46
+      90-100 |   199420.2   8124.017      183494.4    215346.1
+--------------------------------------------------------------
+it22
+
+Percentile shares (average)              Number of obs = 9,641
+
+--------------------------------------------------------------
+         dhi | Coefficient  Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+        0-10 |   6936.039    159.221      6623.932    7248.146
+       10-20 |    13317.9   161.1009      13002.11     13633.7
+       20-30 |   17565.92   168.9337      17234.77    17897.06
+       30-40 |   21838.62   216.2827      21414.66    22262.58
+       40-50 |   26937.39   280.6967      26387.16    27487.61
+       50-60 |   33048.31   320.4601      32420.14    33676.48
+       60-70 |   40426.56   373.2143      39694.98    41158.14
+       70-80 |   49673.77   475.7906      48741.12    50606.42
+       80-90 |   66121.07    808.876       64535.5    67706.64
+      90-100 |   187153.7   11262.01      165077.8    209229.6
+--------------------------------------------------------------</code></pre>
+</div>
+</div>
+
+
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../stata-users/dd_catg_vars.html" class="pagination-link" aria-label="Categorical Variables">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Categorical Variables</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../stata-users/dh_catg_vars.html" class="pagination-link" aria-label="Recoding Categories">
+        <span class="nav-page-text">Recoding Categories</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Luxembourg Income Study, 2026</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This website was built using <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer><script src="../assets/foldable.js"></script>
+
+
+</body></html>

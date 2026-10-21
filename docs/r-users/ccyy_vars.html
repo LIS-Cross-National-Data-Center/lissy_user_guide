@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Import Data – LISSY User Guide</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../r-users/lists_over_df.html" rel="next">
+<link href="../r-users/method2.html" rel="prev">
+<link href="../images/main.jpg" rel="icon" type="image/jpeg">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-10097104095abffb620768ae092cce97.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="../styles.css">
+</head>
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">LISSY User Guide</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../getting-started/index.html"> 
+<span class="menu-text">Getting Started</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../r-users/index.html" aria-current="page"> 
+<span class="menu-text">R Users</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../stata-users/index.html"> 
+<span class="menu-text">Stata Users</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../other-resources/index.html"> 
+<span class="menu-text">Other Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../faqs/index.html"> 
+<span class="menu-text">FAQs</span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Import Data</h1>
+        </a>     
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Import Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/method1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Method 1: lissyuse</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/method2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Method 2: read.LIS()</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/ccyy_vars.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Country Codes and Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/lists_over_df.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bonus: lists over data.frames ?</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Describing Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/dd_catg_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Categorical Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/dd_cont_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Continuous Variables</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Data Handling</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/dh_catg_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recoding Categories</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/dh_inc_prep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preparing Income Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/dh_ppp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Currency and Price Level Adjustments</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Structuring Results for Analysis</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/tidy_structure_to_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">structure_to_plot()</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/tidy_exp_to_csv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Export to CSV</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/tidy_plots.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plotting in LISSY</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#country-codes-and-years" id="toc-country-codes-and-years" class="nav-link active" data-scroll-target="#country-codes-and-years">Country Codes and Years</a></li>
+  <li>
+<a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a>
+  <ul class="collapse">
+<li><a href="#finding-variable-names" id="toc-finding-variable-names" class="nav-link" data-scroll-target="#finding-variable-names">Finding Variable Names</a></li>
+  <li><a href="#availabilty" id="toc-availabilty" class="nav-link" data-scroll-target="#availabilty">Availabilty</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title d-none d-lg-block">Import Data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="country-codes-and-years" class="level1"><h1>Country Codes and Years</h1>
+<p>LIS uses ISO-2 country codes to identify the country associated with each dataset. To support this, the <code>get_countries_*()</code> functions allow users to quickly retrieve and verify the necessary country codes before loading data.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/get_countries_lis.html">get_countries_lis</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/get_countries_lws.html">get_countries_lws</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/get_countries_lcs.html">get_countries_lcs</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>         Australia            Austria            Belgium             Brazil 
+              "au"               "at"               "be"               "br" 
+          Bulgaria             Canada              Chile              China 
+              "bg"               "ca"               "cl"               "cn" 
+          Colombia            Czechia            Denmark Dominican Republic 
+              "co"               "cz"               "dk"               "do" 
+           Estonia            Finland             France            Georgia 
+              "ee"               "fi"               "fr"               "ge" 
+           Germany             Greece          Guatemala            Hungary 
+              "de"               "gr"               "gt"               "hu" 
+           Iceland              India            Ireland             Israel 
+              "is"               "in"               "ie"               "il" 
+             Italy        Ivory Coast              Japan          Lithuania 
+              "it"               "ci"               "jp"               "lt" 
+        Luxembourg               Mali             Mexico        Netherlands 
+              "lu"               "ml"               "mx"               "nl" 
+            Norway          Palestine             Panama           Paraguay 
+              "no"               "ps"               "pa"               "py" 
+              Peru        Philippines             Poland            Romania 
+              "pe"               "ph"               "pl"               "ro" 
+            Russia             Serbia           Slovakia           Slovenia 
+              "ru"               "rs"               "sk"               "si" 
+      South Africa        South Korea              Spain             Sweden 
+              "za"               "kr"               "es"               "se" 
+       Switzerland             Taiwan     United Kingdom      United States 
+              "ch"               "tw"               "uk"               "us" 
+           Uruguay            Vietnam 
+              "uy"               "vn" 
+     Australia        Austria         Canada          Chile        Czechia 
+          "au"           "at"           "ca"           "cl"           "cz" 
+       Denmark        Estonia        Finland         France        Germany 
+          "dk"           "ee"           "fi"           "fr"           "de" 
+        Greece          India        Ireland          Italy          Japan 
+          "gr"           "in"           "ie"           "it"           "jp" 
+    Luxembourg         Mexico         Norway       Slovakia       Slovenia 
+          "lu"           "mx"           "no"           "sk"           "si" 
+  South Africa    South Korea          Spain         Sweden United Kingdom 
+          "za"           "kr"           "es"           "se"           "uk" 
+ United States 
+          "us" 
+       Belgium        Finland         France         Israel          Italy 
+          "be"           "fi"           "fr"           "il"           "it" 
+          Laos     Luxembourg           Mali         Mexico      Palestine 
+          "la"           "lu"           "ml"           "mx"           "ps" 
+   Philippines         Poland   South Africa          Spain    Switzerland 
+          "ph"           "pl"           "za"           "es"           "ch" 
+United Kingdom 
+          "uk" </code></pre>
+</div>
+</div>
+<div style="height: 30px;">
+
+</div>
+<p>To obtain an overview of the years available for each country in the LIS/LWS/LCS databases, the auxiliary functions <code>get_years_*()</code> can be used like in the example below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/get_years_lis.html">get_years_lis</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"es"</span>, <span class="st">"de"</span>, <span class="st">"it"</span>, <span class="st">"fr"</span>, <span class="st">"cz"</span>, <span class="st">"pl"</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/get_years_lws.html">get_years_lws</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"no"</span>, <span class="st">"za"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>$es
+ [1] 1980 1985 1990 1993 1994 1995 1996 1997 1998 1999 2000 2004 2005 2006 2007
+[16] 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022
+
+$de
+ [1] 1973 1978 1983 1984 1985 1986 1987 1988 1989 1990 1991 1992 1993 1994 1995
+[16] 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010
+[31] 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022
+
+$it
+ [1] 1977 1978 1979 1980 1981 1982 1983 1984 1986 1987 1989 1991 1993 1995 1998
+[16] 2000 2002 2004 2006 2008 2010 2012 2014 2016 2020 2022
+
+$fr
+ [1] 1970 1975 1979 1984 1990 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005
+[16] 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020
+[31] 2021 2022
+
+$cz
+ [1] 1992 1996 2002 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015
+[16] 2016 2017 2018 2019 2020 2021 2022 2023
+
+$pl
+ [1] 1986 1992 1995 1999 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014
+[16] 2015 2016 2017 2018 2019 2020 2021 2022 2023
+
+$no
+[1] 2010 2013 2016 2019 2020 2021 2022
+
+$za
+[1] 2015 2017</code></pre>
+</div>
+</div>
+<div style="height: 30px;">
+
+</div>
+<p>Finally, with the <code>get_surveys_*()</code> functions provide a snapshot on which surveys were used across the series of a given country.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/get_surveys_lis.html">get_surveys_lis</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"es"</span>, <span class="st">"de"</span>, <span class="st">"cz"</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/get_surveys_lws.html">get_surveys_lws</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"no"</span>, <span class="st">"za"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>$es
+                                           1980 
+                "Household Budget Survey (HBS)" 
+                                           1985 
+    "Household Budget Continuous Survey (HBCS)" 
+                                           1990 
+                "Household Budget Survey (HBS)" 
+                                           1993 
+    "European Community Household Panel (ECHP)" 
+                                           1994 
+    "European Community Household Panel (ECHP)" 
+                                           1995 
+    "European Community Household Panel (ECHP)" 
+                                           1996 
+    "European Community Household Panel (ECHP)" 
+                                           1997 
+    "European Community Household Panel (ECHP)" 
+                                           1998 
+    "European Community Household Panel (ECHP)" 
+                                           1999 
+    "European Community Household Panel (ECHP)" 
+                                           2000 
+    "European Community Household Panel (ECHP)" 
+                                           2004 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2005 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2006 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2007 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2008 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2009 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2010 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2011 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2012 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2013 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2014 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2015 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2016 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2017 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2018 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2019 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2020 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2021 
+"Survey on Income and Living Conditions (SILC)" 
+                                           2022 
+"Survey on Income and Living Conditions (SILC)" 
+
+$de
+                                 1973                                  1978 
+   "Income and Consumer Survey (EVS)"    "Income and Consumer Survey (EVS)" 
+                                 1983                                  1984 
+   "Income and Consumer Survey (EVS)" "German Socio-Economic Panel (GSOEP)" 
+                                 1985                                  1986 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 1987                                  1988 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 1989                                  1990 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 1991                                  1992 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 1993                                  1994 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 1995                                  1996 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 1997                                  1998 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 1999                                  2000 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 2001                                  2002 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 2003                                  2004 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 2005                                  2006 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 2007                                  2008 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 2009                                  2010 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 2011                                  2012 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 2013                                  2014 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 2015                                  2016 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 2017                                  2018 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 2019                                  2020 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+                                 2021                                  2022 
+"German Socio-Economic Panel (GSOEP)" "German Socio-Economic Panel (GSOEP)" 
+
+$cz
+                                                         1992 
+                                                "Microcensus" 
+                                                         1996 
+                                                "Microcensus" 
+                                                         2002 
+                                                "Microcensus" 
+                                                         2004 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2005 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2006 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2007 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2008 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2009 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2010 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2011 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2012 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2013 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2014 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2015 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2016 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2017 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2018 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2019 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2020 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2021 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2022 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+                                                         2023 
+"Statistics on Income and Living Conditions survey (EU-SILC)" 
+
+$no
+                         2010                          2013 
+"Household Wealth Statistics" "Household Wealth Statistics" 
+                         2016                          2019 
+"Household Wealth Statistics" "Household Wealth Statistics" 
+                         2020                          2021 
+"Household Wealth Statistics" "Household Wealth Statistics" 
+                         2022 
+"Household Wealth Statistics" 
+
+$za
+                                   2015                                    2017 
+"National Income Dynamics Study (NIDS)" "National Income Dynamics Study (NIDS)" </code></pre>
+</div>
+</div>
+<div style="height: 30px;">
+
+</div>
+<p>Survey changes across different periods may introduce breaks in consistency, potentially affecting the availability, content, or coverage of certain variables.</p>
+<p><br></p>
+</section><section id="variables" class="level1"><h1>Variables</h1>
+<p>Regardless of the country and year, all datasets at a given level (household or individual) share the same set of variables. In practice, this means that even if a variable is not available in the original microdata provided to the LIS team, it will still appear in the dataset structure, filled entirely with missing values.</p>
+<p>In addition to <a href="https://www.lisdatacenter.org/frontend#/home">METIS</a>, we provides three separate variable lists, one for <a href="https://www.lisdatacenter.org/wp-content/uploads/files/data-lis-variables.pdf">LIS</a>, another for <a href="https://www.lisdatacenter.org/wp-content/uploads/files/data-lws-variables.pdf">LWS</a>, and another for <a href="https://www.lisdatacenter.org/wp-content/uploads/files/resources_BetaLCS_varlist.pdf">LCS</a>. <!-- the lcs link is likely to be changed. Please update afterwards. --> <br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="https://www.lisdatacenter.org/wp-content/uploads/files/data-lis-variables.pdf"><img src="..\images/lis_variable_list.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></a></p>
+</figure>
+</div>
+<section id="finding-variable-names" class="level2"><h2 class="anchored" data-anchor-id="finding-variable-names">Finding Variable Names</h2>
+<p>Each variable is defined by both:</p>
+<ul>
+<li>
+its <b>name</b> in the dataset
+</li>
+<li>
+its <b>label</b>
+</li>
+</ul>
+<p>To efficiently explore relevant variables and ensure you do not overlook any related to your topic of interest, you can search for patterns within variable labels. The <code>variable_labels()</code> function allows you to do this by specifying a string pattern:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/variable_labels.html">variable_labels</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">'occupation'</span><span class="op">)</span>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                       occa1 
+                 "occupation (3 categories)" 
+                                       occb1 
+        "occupation (ISCO-88: major groups)" 
+                                      occ1_c 
+              "occupation: country specific" 
+                                       hi331 
+          "occupational pensions, household" 
+                                       pi331 
+             "occupational pensions, person" 
+                                        haso 
+                     "occupational pensions" 
+                                        paso 
+             "occupational pensions, person" 
+                                      hasodb 
+        "occupational pensions (DB schemes)" 
+                                      pasodb 
+"occupational pensions (DB schemes), person" 
+                                      hasodc 
+        "occupational pensions (DC schemes)" 
+                                      pasodc 
+"occupational pensions (DC schemes), person" 
+                                       occc1 
+        "occupation (ISCO-08: major groups)" </code></pre>
+</div>
+</div>
+<p>For example, a researcher interested in housing topics could search using a different keyword:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/variable_labels.html">variable_labels</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">'resid'</span><span class="op">)</span>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                own 
+                     "main residence tenure status" 
+                                                ppr 
+            "purchase price of principal residence" 
+                                                ppy 
+          "year of purchase of principal residence" 
+                                              hanrp 
+                              "principal residence" 
+                                               hlrp 
+                        "principal residence loans" 
+                                              hlsrp 
+                   "secured by principal residence" 
+                                        areaqual1_c 
+"quality of residential area (1): country specific" 
+                                        areaqual2_c 
+"quality of residential area (2): country specific" 
+                                        areaqual3_c 
+"quality of residential area (3): country specific" 
+                                        areaqual4_c 
+"quality of residential area (4): country specific" </code></pre>
+</div>
+</div>
+<p><br></p>
+</section><section id="availabilty" class="level2"><h2 class="anchored" data-anchor-id="availabilty">Availabilty</h2>
+<p>Before starting an analysis, it is often useful to assess whether the necessary variables are sufficiently available across countries and time.</p>
+<p>This can be done using the <code>variable_exists()</code> function:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/variable_exists.html">variable_exists</a></span><span class="op">(</span>variable <span class="op">=</span> <span class="st">"ethnic_c"</span>, iso2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'uk'</span>, <span class="st">'ie'</span><span class="op">)</span>, database <span class="op">=</span> <span class="st">'lis'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`United Kingdom`
+ 1968  1969  1970  1971  1972  1973  1974  1975  1976  1977  1978  1979  1980 
+ "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+ 1981  1982  1983  1984  1985  1986  1987  1988  1989  1990  1991  1992  1993 
+ "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+ 1994  1995  1996  1997  1998  1999  2000  2001  2002  2003  2004  2005  2006 
+"Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" 
+ 2007  2008  2009  2010  2011  2012  2013  2014  2015  2016  2017  2018  2019 
+"Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" 
+ 2020  2021  2022  2023  2024 
+"Yes" "Yes" "Yes" "Yes" "Yes" 
+
+$Ireland
+1987 1994 1995 1996 2000 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 
+"No" "No" "No" "No" "No" "No" "No" "No" "No" "No" "No" "No" "No" "No" "No" "No" 
+2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023 
+"No" "No" "No" "No" "No" "No" "No" "No" "No" "No" "No" </code></pre>
+</div>
+</div>
+<p>In addition to enabling cross-country searches for a given variable, this function also reports the share of datasets in which the variable contains non-missing values within each country series.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/variable_exists.html">variable_exists</a></span><span class="op">(</span>variable <span class="op">=</span> <span class="st">"basb"</span>, iso2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"fr"</span>, <span class="st">"de"</span>, <span class="st">"us"</span>, <span class="st">"uk"</span><span class="op">)</span>, database <span class="op">=</span> <span class="st">'lws'</span>, share <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`Share of years across the series in LWS where: basb has values other than zeros and missings.`
+        France        Germany United Kingdom  United States 
+          75.0            0.0           87.5          100.0 </code></pre>
+</div>
+</div>
+<p><br></p>
+</section><section id="notes" class="level2"><h2 class="anchored" data-anchor-id="notes">Notes</h2>
+<p>Some variables are accompanied by notes. These may reflect:</p>
+<ul>
+<li>
+<p>changes in definition across years,</p>
+</li>
+<li>
+<p>limitations in coverage,</p>
+</li>
+<li>
+<p>the use of alternative weighting variables, or</p>
+</li>
+<li>
+<p>other dataset-specific considerations highlighted by LIS.</p>
+</li>
+</ul>
+<p>A convenient way to inspect all notes at once is to switch to the <b>Stata Package</b> in LISSY.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="..\images/project_stata_notes.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Once this setup is complete, all notes for a given country series can be retrieved as follows:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(se) from(2018)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">notes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>LIS strongly recommends to specify options pvars and/or hvars to select only va
+&gt; riables needed in order to massively reduce computation time
+
+
+rural:
+  1.  [se23] Rural areas refer to thinly populated areas.
+  2.  [se22] Rural areas refer to thinly populated areas.
+  3.  [se21] Rural areas refer to thinly populated areas.
+  4.  [se20] Rural areas refer to thinly populated areas.
+  5.  [se19] Rural areas refer to thinly populated areas.
+  6.  [se18] Rural areas refer to thinly populated areas.
+
+typehh:
+  1.  [se23] Mixed categories: household typology has been created based solely
+      on the relationship variable constructed from partner and parent
+      pointers. As a result, not all relatives can be identified in the data
+      and distinguished from non-relatives. Therefore, code 41 is
+      underestimated, while codes 42, 51 and 52 remain unassigned; these
+      households are categorized to code 90 (other household type).
+  2.  [se22] Mixed categories: household typology has been created based solely
+      on the relationship variable constructed from partner and parent
+      pointers. As a result, not all relatives can be identified in the data
+      and distinguished from non-relatives. Therefore, code 41 is
+      underestimated, while codes 42, 51 and 52 remain unassigned; these
+      households are categorized to code 90 (other household type).
+  3.  [se21] Mixed categories: household typology has been created based solely
+      on the relationship variable constructed from partner and parent
+      pointers. As a result, not all relatives can be identified in the data
+      and distinguished from non-relatives. Therefore, code 41 is
+      underestimated, while codes 42, 51 and 52 remain unassigned; these
+      households are categorized to code 90 (other household type).
+  4.  [se20] Mixed categories: household typology has been created based solely
+      on the relationship variable constructed from partner and parent
+      pointers. As a result, not all relatives can be identified in the data
+      and distinguished from non-relatives. Therefore, code 41 is
+      underestimated, while codes 42, 51 and 52 remain unassigned; these
+      households are categorized to code 90 (other household type).
+  5.  [se19] Mixed categories: household typology has been created based solely
+      on the relationship variable constructed from partner and parent
+      pointers. As a result, not all relatives can be identified in the data
+      and distinguished from non-relatives. Therefore, code 41 is
+      underestimated, while codes 42, 51 and 52 remain unassigned; these
+      households are categorized to code 90 (other household type).
+  6.  [se18] Mixed categories: household typology has been created based solely
+      on the relationship variable constructed from partner and parent
+      pointers. As a result, not all relatives can be identified in the data
+      and distinguished from non-relatives. Therefore, code 41 is
+      underestimated, while codes 42, 51 and 52 remain unassigned; these
+      households are categorized to code 90 (other household type).
+
+lfs:
+  1.  [se23] Refers to self-defined current economic status.
+  2.  [se22] Refers to self-defined current economic status.
+  3.  [se21] Refers to self-defined current economic status.
+  4.  [se20] Refers to self-defined current economic status.
+  5.  [se19] Refers to self-defined current economic status.
+  6.  [se18] Refers to self-defined current economic status.
+
+emp:
+  1.  [se23] Refers to self-defined current economic status.
+  2.  [se22] Refers to self-defined current economic status.
+  3.  [se21] Refers to self-defined current economic status.
+  4.  [se20] Refers to self-defined current economic status.
+  5.  [se19] Refers to self-defined current economic status.
+  6.  [se18] Refers to self-defined current economic status.
+
+temp1:
+  1.  [se23] Scope limitation: information available only for selected
+      respondents; the variable should be used in conjunction with the weight
+      for the selected respondents (pwgta).
+  2.  [se22] Scope limitation: information available only for selected
+      respondents; the variable should be used in conjunction with the weight
+      for the selected respondents (pwgta).
+  3.  [se21] Scope limitation: information available only for selected
+      respondents; the variable should be used in conjunction with the weight
+      for the selected respondents (pwgta).
+  4.  [se20] Scope limitation: information available only for selected
+      respondents; the variable should be used in conjunction with the weight
+      for the selected respondents (pwgta).
+  5.  [se19] Scope limitation: information available only for selected
+      respondents; the variable should be used in conjunction with the weight
+      for the selected respondents (pwgta).
+  6.  [se18] Scope limitation: information available only for selected
+      respondents; the variable should be used in conjunction with the weight
+      for the selected respondents (pwgta).
+
+ind1_c:
+  1.  [se23] Swedish Standard Industrial Classification (SNI) 2007 which is
+      based on NACE rev.2.
+  2.  [se22] Swedish Standard Industrial Classification (SNI) 2007 which is
+      based on NACE rev.2.
+  3.  [se21] Swedish Standard Industrial Classification (SNI) 2007 which is
+      based on NACE rev.2.
+  4.  [se20] Swedish Standard Industrial Classification (SNI) 2007 which is
+      based on NACE rev.2.
+  5.  [se19] Swedish Standard Industrial Classification (SNI) 2007 which is
+      based on NACE rev.2.
+  6.  [se18] Swedish Standard Industrial Classification (SNI) 2007 which is
+      based on NACE rev.2.
+
+wage1:
+  1.  [se21] Payments were reported in annual amounts which have been converted
+      to monthly amounts using the reported number of months worked.
+  2.  [se20] Payments were reported in annual amounts which have been converted
+      to monthly amounts using the reported number of months worked.
+  3.  [se19] Payments were reported in annual amounts which have been converted
+      to monthly amounts using the reported number of months worked.
+  4.  [se18] Payments were reported in annual amounts which have been converted
+      to monthly amounts using the reported number of months worked.
+
+hwage1:
+  1.  [se23] Definitional deviation: the hourly wage rate is calculated from
+      yearly dependent labour income (including overtime paid) using usual
+      weekly hours worked. It might be overestimated because the yearly labour
+      income includes as well tips and commissions and other supplementary
+      payments such as: 13th or 14th month payments, holiday pay, profit share,
+      bonuses, etc..
+  2.  [se23] Scope limitation: provided only for those with only one job and
+      the employees who worked during the reference year either full time or
+      part-time, but not a combination of the two.
+  3.  [se22] Definitional deviation: the hourly wage rate is calculated from
+      yearly dependent labour income (including overtime paid) using usual
+      weekly hours worked. It might be overestimated because the yearly labour
+      income includes as well tips and commissions and other supplementary
+      payments such as: 13th or 14th month payments, holiday pay, profit share,
+      bonuses, etc..
+  4.  [se22] Scope limitation: provided only for those with only one job and
+      the employees who worked during the reference year either full time or
+      part-time, but not a combination of the two.
+  5.  [se21] The hourly wage rate is calculated from gross annual wages and
+      usual working hours.
+  6.  [se20] The hourly wage rate is calculated from gross annual wages and
+      usual working hours.
+  7.  [se19] The hourly wage rate is calculated from gross annual wages and
+      usual working hours.
+  8.  [se18] The hourly wage rate is calculated from gross annual wages and
+      usual working hours.
+
+wexptl:
+  1.  [se23] Scope limitation: only available for the interviewed sample,
+      weight variable pwgta should be used when using this variable.
+  2.  [se22] Scope limitation: only available for the interviewed sample,
+      weight variable pwgta should be used when using this variable.
+  3.  [se21] Scope limitation: only available for the interviewed sample,
+      weight variable pwgta should be used when using this variable.
+  4.  [se20] Scope limitation: only available for the interviewed sample,
+      weight variable pwgta should be used when using this variable.
+
+enroll:
+  1.  [se23] Scope limitation: available only for persons aged 16 and above.
+  2.  [se22] Scope limitation: available only for persons aged 16 and above.
+  3.  [se21] Scope limitation: available only for persons aged 16 and above.
+  4.  [se20] Scope limitation: available only for persons aged 16 and above.
+  5.  [se19] Scope limitation: available only for persons aged 16 and above.
+  6.  [se18] Scope limitation: available only for persons aged 16 and above.
+
+educ_c:
+  1.  [se23] Scope limitation: available only for persons aged 16 and above.
+  2.  [se22] Scope limitation: available only for persons aged 16 and above.
+  3.  [se21] Scope limitation: available only for persons aged 16 and above.
+  4.  [se20] Scope limitation: available only for persons aged 16 and above.
+  5.  [se19] Scope limitation: available only for persons aged 16 and above.
+      Codes 342-354 and 440-450 available only for persons aged 16 to 34 years
+      old.
+  6.  [se18] Scope limitation: available only for persons aged 16 and above.
+      Codes 342-354 and 440-450 available only for persons aged 16 to 34 years
+      old.
+
+educlev:
+  1.  [se23] Scope limitation: available only for persons aged 16 and above.
+  2.  [se22] Scope limitation: available only for persons aged 16 and above.
+  3.  [se21] Scope limitation: available only for persons aged 16 and above.
+  4.  [se20] Scope limitation: available only for persons aged 16 and above.
+  5.  [se19] Scope limitation: available only for persons aged 16 and above.
+  6.  [se18] Scope limitation: available only for persons aged 16 and above.
+
+educ:
+  1.  [se23] Scope limitation: available only for persons aged 16 and above.
+  2.  [se22] Scope limitation: available only for persons aged 16 and above.
+  3.  [se21] Scope limitation: available only for persons aged 16 and above.
+  4.  [se20] Scope limitation: available only for persons aged 16 and above.
+  5.  [se19] Scope limitation: available only for persons aged 16 and above.
+  6.  [se18] Scope limitation: available only for persons aged 16 and above.
+
+edyrs:
+  1.  [se23] Scope limitation: available only for persons aged 16 and above.
+  2.  [se22] Scope limitation: available only for persons aged 16 and above.
+  3.  [se21] Scope limitation: available only for persons aged 16 and above.
+  4.  [se20] Scope limitation: available only for persons aged 16 and above.
+  5.  [se19] Scope limitation: available only for persons aged 16 and above.
+  6.  [se18] Scope limitation: available only for persons aged 16 and above.
+
+edmom_c:
+  1.  [se23] refers to the highest level of education of the mother in 2024 and
+      not the year of the survey.
+  2.  [se22] refers to the highest level of education of the mother in 2024 and
+      not the year of the survey.
+  3.  [se21] refers to the highest level of education of the mother in 2024 and
+      not the year of the survey.
+  4.  [se20] refers to the highest level of education of the mother in 2024 and
+      not the year of the survey.
+  5.  [se19] refers to the highest level of education of the mother in 2024 and
+      not the year of the survey.
+  6.  [se18] refers to the highest level of education of the mother in 2024 and
+      not the year of the survey.
+
+eddad_c:
+  1.  [se23] refers to the highest level of education of the father in 2024 and
+      not the year of the survey.
+  2.  [se22] refers to the highest level of education of the father in 2024 and
+      not the year of the survey.
+  3.  [se21] refers to the highest level of education of the father in 2024 and
+      not the year of the survey.
+  4.  [se20] refers to the highest level of education of the father in 2024 and
+      not the year of the survey.
+  5.  [se19] refers to the highest level of education of the father in 2024 and
+      not the year of the survey.
+  6.  [se18] refers to the highest level of education of the father in 2024 and
+      not the year of the survey.
+
+yrsresid:
+  1.  [se23] Duration of stay in the country of residence in completed years
+      (since last establishing the place of usual residence in this country).
+  2.  [se22] Duration of stay in the country of residence in completed years
+      (since last establishing the place of usual residence in this country).
+  3.  [se21] Duration of stay in the country of residence in completed years
+      (since last establishing the place of usual residence in this country).
+  4.  [se20] Duration of stay in the country of residence in completed years
+      (since last establishing the place of usual residence in this country).
+
+immigr:
+  1.  [se23] Immigrant refers to persons whose citizenship or country of birth
+      is not the same as the country they live in.
+  2.  [se22] Immigrant refers to persons whose citizenship or country of birth
+      is not the same as the country they live in.
+  3.  [se21] Immigrant refers to persons whose citizenship or country of birth
+      is not the same as the country they live in.
+  4.  [se20] Immigrant refers to persons whose citizenship or country of birth
+      is not the same as the country they live in.
+  5.  [se19] Immigrant refers to persons whose citizenship or country of birth
+      is not the same as the country they live in.
+  6.  [se18] Immigrant refers to persons whose citizenship or country of birth
+      is not the same as the country they live in.
+
+relation:
+  1.  [se23] Mixed categories: relation to the reference person has been
+      created solely based on partner and parent pointers. Therefore, not all
+      relatives can be identified in the data. Therefore, code 4000 (other)
+      includes, besides all non-relatives, also other relatives that could not
+      be identified with the pointers.
+  2.  [se22] Mixed categories: relation to the reference person has been
+      created solely based on partner and parent pointers. Therefore, not all
+      relatives can be identified in the data. Therefore, code 4000 (other)
+      includes, besides all non-relatives, also other relatives that could not
+      be identified with the pointers.
+  3.  [se21] Mixed categories: relation to the reference person has been
+      created solely based on partner and parent pointers. Therefore, not all
+      relatives can be identified in the data. Therefore, code 4000 (other)
+      includes, besides all non-relatives, also other relatives that could not
+      be identified with the pointers.
+  4.  [se20] Mixed categories: relation to the reference person has been
+      created solely based on partner and parent pointers. Therefore, not all
+      relatives can be identified in the data. Therefore, code 4000 (other)
+      includes, besides all non-relatives, also other relatives that could not
+      be identified with the pointers.
+  5.  [se19] Mixed categories: relation to the reference person has been
+      created solely based on partner and parent pointers. Therefore, not all
+      relatives can be identified in the data. Therefore, code 4000 (other)
+      includes, besides all non-relatives, also other relatives that could not
+      be identified with the pointers.
+  6.  [se18] Mixed categories: relation to the reference person has been
+      created solely based on partner and parent pointers. Therefore, not all
+      relatives can be identified in the data. Therefore, code 4000 (other)
+      includes, besides all non-relatives, also other relatives that could not
+      be identified with the pointers.
+
+pwgta:
+  1.  [se23] Personal cross-sectional weight for selected respondent.
+  2.  [se22] Personal cross-sectional weight for selected respondent.
+  3.  [se21] Personal cross-sectional weight for selected respondent.
+  4.  [se20] Personal cross-sectional weight for selected respondent.
+  5.  [se19] Personal cross-sectional weight for selected respondent.
+  6.  [se18] Personal cross-sectional weight for selected respondent.</code></pre>
+</div>
+</div>
+<div style="height: 30px;">
+
+</div>
+<p>If inconsistencies appear in a variable over time, or if verification is needed, the <code>variable_has_note()</code> function can be used to determine whether the variable is accompanied by any notes.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/variable_has_note.html">variable_has_note</a></span><span class="op">(</span>variable <span class="op">=</span> <span class="st">"basb"</span>, iso2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"fr"</span>, <span class="st">"de"</span>, <span class="st">"us"</span>, <span class="st">"uk"</span><span class="op">)</span>, database <span class="op">=</span> <span class="st">'lws'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$France
+ 2009  2014  2017  2020 
+ "No" "Yes" "Yes" "Yes" 
+
+$Germany
+2002 2007 2012 2017 
+"No" "No" "No" "No" 
+
+$`United States`
+ 1995  1998  2001  2004  2007  2010  2013  2016  2019  2022 
+"Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" 
+
+$`United Kingdom`
+ 2007  2009  2011  2013  2015  2017  2019  2021 
+"Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes"  "No" </code></pre>
+</div>
+</div>
+<p>Care should be taken to specify the <code>database</code> argument correctly, in order to query the intended database (LIS/LWS/LCS).</p>
+
+
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../r-users/method2.html" class="pagination-link" aria-label="Method 2: read.LIS()">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Method 2: read.LIS()</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../r-users/lists_over_df.html" class="pagination-link" aria-label="Bonus: lists over data.frames ?">
+        <span class="nav-page-text">Bonus: lists over data.frames ?</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Luxembourg Income Study, 2026</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This website was built using <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer><script src="../assets/foldable.js"></script>
+
+
+</body></html>

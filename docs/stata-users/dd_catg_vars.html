@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Describing Data – LISSY User Guide</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../stata-users/dd_cont_vars.html" rel="next">
+<link href="../stata-users/datasets_and_vars.html" rel="prev">
+<link href="../images/main.jpg" rel="icon" type="image/jpeg">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-10097104095abffb620768ae092cce97.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="../styles.css">
+</head>
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">LISSY User Guide</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../getting-started/index.html"> 
+<span class="menu-text">Getting Started</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../r-users/index.html"> 
+<span class="menu-text">R Users</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../stata-users/index.html" aria-current="page"> 
+<span class="menu-text">Stata Users</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../other-resources/index.html"> 
+<span class="menu-text">Other Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../faqs/index.html"> 
+<span class="menu-text">FAQs</span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Describing Data</h1>
+        </a>     
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Import Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/method1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Method 1: lissyuse</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/method2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Method 2: use</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/datasets_and_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datasets and Variables</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Describing Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dd_catg_vars.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Categorical Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dd_cont_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Continuous Variables</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Data Handling</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dh_catg_vars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recoding Categories</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dh_inc_prep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preparing Income Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dh_ppp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Currency and Price Level Adjustments</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Structuring Results for Analysis</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/tidy_exp_to_csv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Export to CSV</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/tidy_plots.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plotting in Stata</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li>
+<a href="#categorical-variables" id="toc-categorical-variables" class="nav-link active" data-scroll-target="#categorical-variables">Categorical Variables</a>
+  <ul class="collapse">
+<li>
+<a href="#standardized-variables" id="toc-standardized-variables" class="nav-link" data-scroll-target="#standardized-variables">Standardized variables</a>
+  <ul class="collapse">
+<li><a href="#one-way-tabulation---by-command" id="toc-one-way-tabulation---by-command" class="nav-link" data-scroll-target="#one-way-tabulation---by-command">One-way tabulation - <code>by</code> command</a></li>
+  <li><a href="#one-way-tabulation---collapse-command" id="toc-one-way-tabulation---collapse-command" class="nav-link" data-scroll-target="#one-way-tabulation---collapse-command">One-way tabulation - <code>collapse</code> command</a></li>
+  <li><a href="#two-way-tabulation" id="toc-two-way-tabulation" class="nav-link" data-scroll-target="#two-way-tabulation">Two-way tabulation</a></li>
+  <li><a href="#nested-coding" id="toc-nested-coding" class="nav-link" data-scroll-target="#nested-coding">Nested coding</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#country-specific-variables" id="toc-country-specific-variables" class="nav-link" data-scroll-target="#country-specific-variables">Country-specific variables</a>
+  <ul class="collapse">
+<li><a href="#extra-tools-in-r" id="toc-extra-tools-in-r" class="nav-link" data-scroll-target="#extra-tools-in-r">Extra tools in R</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title d-none d-lg-block">Describing Data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><p>Being able to describe newly imported data is a critical step, particularly in an environment where users cannot freely browse the underlying microdata.</p>
+<p>This section introduces routine coding tasks designed to <strong>maximize descriptive insight on a variable with minimal code</strong>. These practices help users identify patterns and inconsistencies across datasets such as: breaks in a series, shifts in the level of disaggregation, the availability of non-zero and non-missing values for income variables across countries and years, etc…</p>
+<p>In <a href="https://www.lisdatacenter.org/frontend#/home">METIS</a>, a substantial amount of descriptive information is already provided for each variable in a dataset, as illustrated in the figure below:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="..\images/lissy_codebooks.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>However, this information is currently displayed for one dataset (<code>ccyy</code>) at a time. To complement it, this section takes a different approach: <strong>describing a single variable across countries series simultaneously</strong>, leveraging the fact that the data are stored in a single dataset comprising microdata for multiple country-year pairs.</p>
+<p>To retrieve an aggregate figure for a given value of the column <strong>dname</strong> (dataset name) without looping across country-year pairs, two approaches are available:</p>
+<ul>
+<li>Using the <code>by</code> command ahead of other built-in commands like <code>tabulate</code> or <code>sum</code>.</li>
+<li>Using the <code>collapse</code> command with the <strong>by option</strong> to produce an aggregated dataset that can be printed to the console.</li>
+</ul>
+<p>While the first approach is simpler to write, essentially a single line of code, its output can become lengthy and hard to read when many datasets are in use. The <code>collapse</code> approach, though more code-intensive, structures the data in a way that is well-suited for producing plots or exporting results to a spreadsheet in CSV format. Both uses are covered in the section on <a href="..\stata-users/tidy_exp_to_csv.html">Structuring Results for Analysis</a>.</p>
+<p><br></p>
+<section id="categorical-variables" class="level1"><h1>Categorical Variables</h1>
+<p>Categorical variables are composed of numeric codes, each uniquely associated with a label. LIS provides two types of categorical variables are available:</p>
+<ul>
+<li><p><strong>Standardized</strong>: their categories are identical across all datasets in LIS/LWS/LCS, enabling direct cross-country and cross-time comparisons.</p></li>
+<li><p><strong>Country-specific</strong>: these provide categorized information on topics that are inherently non-comparable across countries — either by nature (e.g., <code>region_c</code>) or because they do not follow a standard international classification (e.g., <code>health_c</code>). Such variables may also lack comparability across time within a given country.</p></li>
+</ul>
+<p><br></p>
+<section id="standardized-variables" class="level2"><h2 class="anchored" data-anchor-id="standardized-variables">Standardized variables</h2>
+<p>Because standardized variables follow a fixed category structure across all countries and years, users can import and tabulate them with confidence. This makes it straightforward to assess the composition of a variable and get a first look at how the sample is distributed across groups for any given country-year. The examples below focus on <strong>one-way tabulations</strong>, which display both absolute and relative frequencies directly in LISSY. Two approaches are demonstrated throughout: the <code>by</code> command and the <code>collapse</code> command.</p>
+<section id="one-way-tabulation---by-command" class="level3"><h3 class="anchored" data-anchor-id="one-way-tabulation---by-command">One-way tabulation - <code>by</code> command</h3>
+<p>The <code>by</code> command offers a quick and readable way to produce one-way tabulations across multiple datasets in a single call. The examples below illustrate how to obtain both absolute frequencies, and non-weighted and weighted frequency distributions of a standardized categorical variable.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(mx es) from(2020) pvars(pwgt sex) hvars(hid dname)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">bysort</span> dname: <span class="kw">tabulate</span> sex</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>-&gt; dname = es20
+
+     gender |      Freq.     Percent        Cum.
+------------+-----------------------------------
+    [1]male |     25,443       48.62       48.62
+  [2]female |     26,882       51.38      100.00
+------------+-----------------------------------
+      Total |     52,325      100.00
+
+-------------------------------------------------------------------------------
+-&gt; dname = es21
+
+     gender |      Freq.     Percent        Cum.
+------------+-----------------------------------
+    [1]male |     29,041       48.56       48.56
+  [2]female |     30,758       51.44      100.00
+------------+-----------------------------------
+      Total |     59,799      100.00
+
+-------------------------------------------------------------------------------
+-&gt; dname = es22
+
+     gender |      Freq.     Percent        Cum.
+------------+-----------------------------------
+    [1]male |     32,649       48.55       48.55
+  [2]female |     34,593       51.45      100.00
+------------+-----------------------------------
+      Total |     67,242      100.00
+
+-------------------------------------------------------------------------------
+-&gt; dname = mx20
+
+     gender |      Freq.     Percent        Cum.
+------------+-----------------------------------
+    [1]male |    153,548       48.65       48.65
+  [2]female |    162,071       51.35      100.00
+------------+-----------------------------------
+      Total |    315,619      100.00
+
+-------------------------------------------------------------------------------
+-&gt; dname = mx22
+
+     gender |      Freq.     Percent        Cum.
+------------+-----------------------------------
+    [1]male |    149,490       48.30       48.30
+  [2]female |    160,044       51.70      100.00
+------------+-----------------------------------
+      Total |    309,534      100.00
+
+-------------------------------------------------------------------------------
+-&gt; dname = mx24
+
+     gender |      Freq.     Percent        Cum.
+------------+-----------------------------------
+    [1]male |    148,748       48.22       48.22
+  [2]female |    159,723       51.78      100.00
+------------+-----------------------------------
+      Total |    308,471      100.00</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>The non-weighted tabulation counts raw observations within each category, while the weighted version uses the personal weight (<code>pwgt</code>) to produce population-representative frequency distributions.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(mx es) from(2020) pvars(pwgt sex) hvars(hid dname)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">bysort</span> dname: <span class="kw">tabulate</span> sex [aw = pwgt]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>-&gt; dname = es20
+
+     gender |      Freq.     Percent        Cum.
+------------+-----------------------------------
+    [1]male | 25,672.423       49.06       49.06
+  [2]female | 26,652.577       50.94      100.00
+------------+-----------------------------------
+      Total |     52,325      100.00
+
+-------------------------------------------------------------------------------
+-&gt; dname = es21
+
+     gender |      Freq.     Percent        Cum.
+------------+-----------------------------------
+    [1]male | 29,322.251       49.03       49.03
+  [2]female | 30,476.749       50.97      100.00
+------------+-----------------------------------
+      Total |     59,799      100.00
+
+-------------------------------------------------------------------------------
+-&gt; dname = es22
+
+     gender |      Freq.     Percent        Cum.
+------------+-----------------------------------
+    [1]male |  32,939.79       48.99       48.99
+  [2]female |  34,302.21       51.01      100.00
+------------+-----------------------------------
+      Total |     67,242      100.00
+
+-------------------------------------------------------------------------------
+-&gt; dname = mx20
+
+     gender |      Freq.     Percent        Cum.
+------------+-----------------------------------
+    [1]male | 152,583.94       48.34       48.34
+  [2]female | 163,035.06       51.66      100.00
+------------+-----------------------------------
+      Total |    315,619      100.00
+
+-------------------------------------------------------------------------------
+-&gt; dname = mx22
+
+     gender |      Freq.     Percent        Cum.
+------------+-----------------------------------
+    [1]male | 148,386.79       47.94       47.94
+  [2]female | 161,147.21       52.06      100.00
+------------+-----------------------------------
+      Total |    309,534      100.00
+
+-------------------------------------------------------------------------------
+-&gt; dname = mx24
+
+     gender |      Freq.     Percent        Cum.
+------------+-----------------------------------
+    [1]male | 147,681.74       47.88       47.88
+  [2]female | 160,789.26       52.12      100.00
+------------+-----------------------------------
+      Total |    308,471      100.00</code></pre>
+</div>
+</div>
+<p><br></p>
+</section><section id="one-way-tabulation---collapse-command" class="level3"><h3 class="anchored" data-anchor-id="one-way-tabulation---collapse-command">One-way tabulation - <code>collapse</code> command</h3>
+<p>The <code>collapse</code> command provides a more structured alternative for obtaining frequency distributions. Rather than displaying figures directly in the console, <code>collapse</code> restructures the data into an aggregated dataset. This transformation, from microdata to aggregated data, is particularly well suited for producing visualizations or for printing the dataset to the console as a delimited string, which can then be copied and pasted into a spreadsheet for further inspection.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>See also the <a href="..\stata-users/tidy_exp_to_csv.html">chapter on exporting results to excel</a>, to learn how to export delimited outputs into excel spreadsheets like the one in the picture below.</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="..\images/csv_teaser_dd_stata.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%"></p>
+</figure>
+</div>
+<p><strong>Relative frequencies, non-weighted</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(mx es) from(2020) pvars(pid sex ppopwgt) hvars(hid dname cname <span class="fu">year</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">preserve</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">gen</span> n = 1</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">collapse</span> (<span class="kw">sum</span>) n, <span class="kw">by</span>(sex cname <span class="fu">year</span> dname)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">bysort</span> dname: <span class="kw">egen</span> <span class="kw">total</span> = <span class="kw">total</span>(n)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">gen</span> <span class="kw">percent</span> = n / <span class="kw">total</span> *100</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">decode</span> sex, <span class="kw">gen</span>(gender) </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">forvalues</span> i = 1/<span class="ot">`=_N'</span> {</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="ot">`i'</span> == 1 {</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">di</span> <span class="st">"cname,year,gender,percent"</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        } </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">di</span> cname[<span class="ot">`i'</span>] <span class="st">","</span>  <span class="fu">year</span>[<span class="ot">`i'</span>] <span class="st">","</span> gender[<span class="ot">`i'</span>] <span class="st">","</span> <span class="kw">percent</span>[<span class="ot">`i'</span>]   </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="kw">restore</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>  6.         }
+cname,year,gender,percent
+Spain,2020,[1]male,48.624939
+Spain,2020,[2]female,51.375061
+Spain,2021,[2]female,51.435642
+Spain,2021,[1]male,48.564358
+Spain,2022,[1]male,48.554474
+Spain,2022,[2]female,51.445526
+Mexico,2020,[2]female,51.350204
+Mexico,2020,[1]male,48.649796
+Mexico,2022,[1]male,48.295177
+Mexico,2022,[2]female,51.704823
+Mexico,2024,[2]female,51.778934
+Mexico,2024,[1]male,48.221066</code></pre>
+</div>
+</div>
+<p><br></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using <code>preserve</code> and <code>restore</code> is not needed in the example above, but allows you to print the intended aggregated dataset, while allowing you to continue to reuse the microdata in a single job submission.</p>
+</div>
+</div>
+<p>A few implementation details are worth noting. First, an auxiliary variable <code>n</code> is created and set to 1 for every observation before collapsing. This is a common and convenient technique: since <code>collapse</code> aggregates by summing, each row contributes exactly one unit to the count, so the sum of <code>n</code> within a group directly gives the number of observations in that group. Second, a dataset-level total is computed using <code>bysort dname: egen total = total(n)</code>, which allows the within-group percentages to be calculated relative to the correct denominator for each country-year pair. Finally, <code>decode sex</code> is used to convert the numeric codes of the <code>sex</code> variable into their corresponding string labels, storing them in a new variable <code>gender</code>. Without this step, the output would display numeric codes only, making it harder to read at a glance, particularly when sharing results or preparing them for a plot or export.</p>
+<p><strong>Relative frequencies, weighted</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(mx es) from(2020) pvars(pid sex ppopwgt) hvars(hid cname <span class="fu">year</span> dname)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">preserve</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">collapse</span> (<span class="kw">sum</span>) ppopwgt, <span class="kw">by</span>(dname sex cname <span class="fu">year</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">bysort</span> dname: <span class="kw">egen</span> <span class="kw">total</span> = <span class="kw">total</span>(ppopwgt)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">percent</span> = ppopwgt / <span class="kw">total</span> *100</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">decode</span> sex, <span class="kw">gen</span>(gender) </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">forvalues</span> i = 1/<span class="ot">`=_N'</span> {</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="ot">`i'</span> == 1 {</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>     <span class="kw">di</span> <span class="st">"cname,year,gender,percent"</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    } </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">di</span> cname[<span class="ot">`i'</span>] <span class="st">","</span>  <span class="fu">year</span>[<span class="ot">`i'</span>] <span class="st">","</span> gender[<span class="ot">`i'</span>] <span class="st">","</span> <span class="kw">percent</span>[<span class="ot">`i'</span>]   </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="kw">restore</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>cname,year,gender,percent
+Spain,2020,[1]male,49.0634
+Spain,2020,[2]female,50.9366
+Spain,2021,[1]male,49.034687
+Spain,2021,[2]female,50.965317
+Spain,2022,[1]male,48.986927
+Spain,2022,[2]female,51.013073
+Mexico,2020,[1]male,48.344345
+Mexico,2020,[2]female,51.655655
+Mexico,2022,[1]male,47.938766
+Mexico,2022,[2]female,52.06123
+Mexico,2024,[1]male,47.875404
+Mexico,2024,[2]female,52.124596</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>The weighted version follows the same logic, but replaces the auxiliary count variable <code>n</code> with <code>ppopwgt</code>, the personal population weight. Rather than summing observations, <code>collapse</code> now sums the weights within each group, so that the resulting percentages reflect the share of the <strong>population</strong> — rather than the sample — falling into each category. This is generally the preferred approach for substantive analysis, as it accounts for differences in sampling design across countries and years. The <code>preserve</code>/<code>restore</code> wrapper, the <code>bysort</code>-based denominator, and the <code>decode</code> step all carry over unchanged from the non-weighted example.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Note to myself:</strong> Confirm this on the weights later on !</p>
+</div>
+</div>
+</section><section id="two-way-tabulation" class="level3"><h3 class="anchored" data-anchor-id="two-way-tabulation">Two-way tabulation</h3>
+<p>One-way tabulations describe how a sample is distributed across the categories of a single variable. Sometimes however, datasets contain pairs of categorical variables where one is a finer disaggregation of the other. The variables <code>educ</code> and <code>educlev</code> are a prime example, where <code>educlev</code> breaks down each broad education category into more granular sub-groups. In such cases, a two-way tabulation serves a dual purpose: it describes the joint distribution of both variables simultaneously, and it allows the user to verify which categories of one variable correspond to which categories of the other, confirming that no unexpected combinations appear across countries or years.</p>
+<p>The example below cross-tabulates <code>educ</code> and <code>educlev</code> for Mexico and Spain, computing the share of each <code>educlev</code> sub-category within its parent <code>educ</code> group.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(mx es) from(2018) to(2018) pvars(pid educ educlev ppopwgt) hvars(cname <span class="fu">year</span> dname)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">preserve</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> <span class="kw">if</span> (<span class="fu">missing</span>(educ) | <span class="fu">missing</span>(educlev))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> n = 1</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">collapse</span> (<span class="kw">sum</span>) n, <span class="kw">by</span>(dname cname <span class="fu">year</span> educ educlev)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="kw">bysort</span> dname educ: <span class="kw">egen</span> <span class="kw">total</span> = <span class="kw">total</span>(n)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">percent</span> = n / <span class="kw">total</span> * 100</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="kw">decode</span> educ, <span class="kw">gen</span>(education) </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="kw">decode</span> educlev, <span class="kw">gen</span>(education_level) </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="kw">forvalues</span> i = 1/<span class="ot">`=_N'</span> {</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="ot">`i'</span> == 1 {</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">di</span> <span class="st">"cname@year@education@education_level@percent"</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    } </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">di</span> cname[<span class="ot">`i'</span>] <span class="st">"@"</span> <span class="fu">year</span>[<span class="ot">`i'</span>] <span class="st">"@"</span> education[<span class="ot">`i'</span>] <span class="st">"@"</span> education_level[<span class="ot">`i'</span>] <span class="st">"@"</span> <span class="kw">percent</span>[<span class="ot">`i'</span>]   </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="kw">restore</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>(33,250 observations deleted)
+
+
+
+
+
+
+
+  6. }
+cname@year@education@education_level@percent
+Spain@2018@[1]low@[110]less than primary@13.133047
+Spain@2018@[1]low@[111]never attended@3.8442674
+Spain@2018@[1]low@[120]primary@39.429798
+Spain@2018@[1]low@[130]lower secondary@43.592888
+Spain@2018@[2]medium@[210]upper secondary@99.535873
+Spain@2018@[2]medium@[220]post-secondary non-tertiary@.46412942
+Spain@2018@[3]high@[311]short-cycle tertiary@29.948586
+Spain@2018@[3]high@[312]bachelor or equivalent@28.791773
+Spain@2018@[3]high@[313]master or equivalent@39.138817
+Spain@2018@[3]high@[320]doctorate or equivalent@2.1208227
+Mexico@2018@[1]low@[110]less than primary@28.906752
+Mexico@2018@[1]low@[111]never attended@6.3661919
+Mexico@2018@[1]low@[120]primary@26.751812
+Mexico@2018@[1]low@[130]lower secondary@37.975246
+Mexico@2018@[2]medium@[210]upper secondary@100
+Mexico@2018@[3]high@[311]short-cycle tertiary@7.4167366
+Mexico@2018@[3]high@[312]bachelor or equivalent@82.227821
+Mexico@2018@[3]high@[313]master or equivalent@9.6930685
+Mexico@2018@[3]high@[320]doctorate or equivalent@.66237521</code></pre>
+</div>
+</div>
+<p><br></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this example we switched the chosen separator from a comma to <code>@</code>. This prevents further conflicts in cases where category labels themselves contain commas. To learn how to split numeric codes from the labels refer to <a href="..\stata-users/dd_cont_vars.html#subgroup_stata">the note in the following section</a>.</p>
+</div>
+</div>
+</section><section id="nested-coding" class="level3"><h3 class="anchored" data-anchor-id="nested-coding">Nested coding</h3>
+<p>While standardized variables share a fixed category template across all countries and years, this does not always guarantee straightforward comparability in practice. The level of detail available for a given variable can vary considerably across years within the same country series, reflecting differences in the underlying survey instrument. The variable <code>own</code> in the Spanish series illustrates this well.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(es) from(1999) to(2005) hvars(cname <span class="fu">year</span> dname)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">bysort</span> dname: <span class="kw">tabulate</span> own, <span class="fu">missing</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>-&gt; dname = es00
+variable own not found
+r(111);
+
+r(111);</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>In <code>es00</code>, housing tenure is recorded in three broad categories only, with all ownership grouped under a single code <code>[100]</code>.</p>
+<p><img src="..\images/ES00_data_handling.png" class="img-fluid"></p>
+<p>By <code>es04</code>, the same variable is captured with considerably more granularity, distinguishing for instance between outright ownership <code>[110]</code> and ownership with a mortgage <code>[120]</code>, and similarly splitting the rental category into market <code>[211]</code> and sub-market <code>[212]</code> rentals.</p>
+<p><img src="..\images/ES04_data_handling.png" class="img-fluid"></p>
+<p>This finer disaggregation in later years is not incidental: it reflects the hierarchical coding structure deliberately built into LIS/LWS/LCS standardized variables, where higher-level codes such as <code>[100]</code> or <code>[200]</code> represent aggregate categories, and lower-level codes such as <code>[110]</code>, <code>[120]</code>, or <code>[211]</code> represent their constituent sub-groups. Users should therefore always inspect the distribution of standardized categorical variables across the full country series before drawing comparisons, as apparent changes over time may reflect a shift in granularity rather than a genuine change in the underlying phenomenon.</p>
+<p><br></p>
+</section></section><section id="country-specific-variables" class="level2"><h2 class="anchored" data-anchor-id="country-specific-variables">Country-specific variables</h2>
+<p>Country-specific variables require special attention in LISSY. Unlike standardized variables, designed to be comparable across countries and over time, country-specific variables reflect the original national classifications and coding schemes used in each survey. As a result, <strong>they should always be handled on a dataset-by-dataset basis</strong>.</p>
+<p>The <code>lissyuse</code> command appends all selected <em>ccyy</em> datasets into a single large dataset. While this is convenient for harmonised variables, it creates technical issues for country-specific variables. The same numerical codes may carry entirely different meanings depending on the country and year, and when datasets are stacked together, Stata attempts to reconcile conflicting <strong>value labels</strong> — often <strong>silently overwriting</strong> some with others.</p>
+<p>To illustrate this, consider loading Italian, Spanish, and German data together and including <code>region_c</code> among the selected variables:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse , iso2(it <span class="kw">de</span> es) from(2016) to(2016) hvars(hid hwgt region_c dhi dname <span class="fu">year</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">tab</span> region_c  </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">des</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="kw">tabstat</span> dhi <span class="kw">if</span> dname  ==  <span class="st">"it16"</span>,  <span class="kw">by</span>(region_c)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    region of residence(NUTS2) |      Freq.     Percent        Cum.
+-------------------------------+-----------------------------------
+                             1 |      2,634        6.81        6.81
+                             2 |      2,792        7.22       14.03
+                             3 |      1,567        4.05       18.08
+                             4 |        931        2.41       20.49
+                             5 |        598        1.55       22.03
+                             6 |        504        1.30       23.34
+                             7 |      1,493        3.86       27.20
+                             8 |        971        2.51       29.71
+                             9 |      2,249        5.81       35.52
+                            10 |      3,786        9.79       45.31
+                   [11]Galicia |      1,970        5.09       50.41
+    [12]Principado de Asturias |      1,240        3.21       53.61
+                 [13]Cantabria |      1,633        4.22       57.83
+                            14 |        707        1.83       59.66
+                            15 |      1,353        3.50       63.16
+                            16 |      1,085        2.81       65.97
+                            17 |        119        0.31       66.27
+                            18 |        197        0.51       66.78
+                            19 |        569        1.47       68.25
+                            20 |        314        0.81       69.07
+                [21]País Vasco |        749        1.94       71.00
+[22]Comunidad Foral de Navarra |        389        1.01       72.01
+                  [23]La Rioja |        355        0.92       72.93
+                    [24]Aragón |        514        1.33       74.26
+       [30]Comunidad de Madrid |      1,261        3.26       77.52
+           [41]Castilla y León |        814        2.10       79.62
+        [42]Castilla-La Mancha |        612        1.58       81.20
+               [43]Extremadura |        517        1.34       82.54
+                  [51]Cataluña |      2,952        7.63       90.17
+      [52]Comunidad Valenciana |        861        2.23       92.40
+             [53]Illes Balears |        318        0.82       93.22
+                 [61]Andalucía |      1,409        3.64       96.86
+          [62]Región de Murcia |        494        1.28       98.14
+  [63]Ciudad Autónoma de Ceuta |        104        0.27       98.41
+[64]Ciudad Autónoma de Melilla |        120        0.31       98.72
+                  [70]Canarias |        495        1.28      100.00
+-------------------------------+-----------------------------------
+                         Total |     38,676      100.00
+
+
+Contains data from C:\Users\marques\AppData\Local\Temp\ST_78dc_000004.tmp
+ Observations:        38,676                  es16: version created on 29 Nov
+                                                2024 15:49
+    Variables:             6                  21 Oct 2026 13:35
+-------------------------------------------------------------------------------
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+-------------------------------------------------------------------------------
+hid             int     %8.0g                 household identifier
+dhi             double  %16.0f                disposable household income,
+                                                household
+region_c        byte    %31.0g     region_es16
+                                              region of residence(NUTS2)
+dname           str4    %9s                   country/year identifier
+year            int     %8.0g                 reference year
+hwgt            double  %10.0g                normalised household weight
+-------------------------------------------------------------------------------
+Sorted by: 
+
+
+Summary for variables: dhi
+Group variable: region_c (region of residence(NUTS2))
+
+        region_c |      Mean
+-----------------+----------
+               1 |  25904.32
+               2 |  26786.22
+               3 |  30234.97
+               4 |  28392.96
+               5 |  27779.22
+               6 |  30299.58
+               7 |  26262.21
+               8 |  31271.51
+               9 |  28371.12
+              10 |  27436.08
+     [11]Galicia |  27681.62
+[12]Principado d |  22654.91
+   [13]Cantabria |  25334.57
+              14 |  24609.16
+              15 |  17521.63
+              16 |  18947.73
+              17 |  20390.08
+              18 |  17423.67
+              19 |  18908.87
+              20 |  19751.96
+-----------------+----------
+           Total |  24881.99
+----------------------------</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To work safely with country-specific variables, <strong>always load one country at a time</strong>. This guarantees that value labels are unambiguous and that the categories you see correspond exactly to the national classification used in that survey year.</p>
+</div>
+</div>
+<p>The loop below shows this recommended pattern, each iteration loads a single country, applies any country-specific logic, and produces output before moving on to the next:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> <span class="kw">ds</span> de16 es16 it16 </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> x <span class="kw">of</span> <span class="kw">local</span> <span class="kw">ds</span> {</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> lissyuse, <span class="kw">cc</span>(<span class="ot">`x'</span>) hvars(hid hwgt dhi region_c) </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">tabstat</span> dhi,  <span class="kw">by</span>(region_c)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>Summary for variables: dhi
+Group variable: region_c (federal state of residence (Länder - NUTS1))
+
+        region_c |      Mean
+-----------------+----------
+[1]DE1 - Baden-W |  43040.52
+[2]DE2 - Bavaria |  40401.88
+ [3]DE3 - Berlin |   32885.7
+[4]DE4 - Branden |  31084.26
+ [5]DE5 - Bremen |  34446.44
+[6]DE6 - Hamburg |  40781.24
+  [7]DE7 - Hesse |  39578.98
+[8]DE8 - Mecklen |  29338.38
+[9]DE9 - Lower S |  37579.01
+[10]DEA - North  |  39884.66
+[11]DEB - Rhinel |  36804.42
+[12]DEC - Saarla |  28663.63
+[13]DED - Saxony |  31731.66
+[14]DEE - Saxony |  29996.85
+[15]DEF - Schles |  35267.01
+[16]DEG - Thurin |  30244.38
+-----------------+----------
+           Total |  37520.42
+----------------------------
+
+Summary for variables: dhi
+Group variable: region_c (region of residence(NUTS2))
+
+        region_c |      Mean
+-----------------+----------
+     [11]Galicia |  27632.48
+[12]Principado d |   29921.7
+   [13]Cantabria |  28002.33
+  [21]País Vasco |  36205.43
+[22]Comunidad Fo |  34396.06
+    [23]La Rioja |  30885.44
+      [24]Aragón |  30887.17
+[30]Comunidad de |  33182.64
+[41]Castilla y L |  27207.35
+[42]Castilla-La  |  24518.23
+ [43]Extremadura |  20676.56
+    [51]Cataluña |  32181.65
+[52]Comunidad Va |   26219.1
+[53]Illes Balear |  31702.72
+   [61]Andalucía |   24890.1
+[62]Región de Mu |  24145.97
+[63]Ciudad Autón |  29099.24
+[64]Ciudad Autón |  33242.24
+    [70]Canarias |  23716.71
+-----------------+----------
+           Total |  29178.88
+----------------------------
+
+Summary for variables: dhi
+Group variable: region_c (region of residence, Istat codes (national institute 
+&gt; of statistics) - NUTS2)
+
+        region_c |      Mean
+-----------------+----------
+[1]ITC1 - Piemon |  25904.32
+[2]ITC2 - Valle  |  26786.22
+[3]ITC4 - Lombar |  30234.97
+[4]ITH1 and ITH2 |  28392.96
+[5]ITH3 - Veneto |  27779.22
+[6]ITH4 - Friuli |  30299.58
+[7]ITC3 - Liguri |  26262.21
+[8]ITH5 - Emilia |  31271.51
+[9]ITI1 - Toscan |  28371.12
+[10]ITI2 - Umbri |  27436.08
+[11]ITI3 - March |  27681.62
+[12]ITI4 - Lazio |  22654.91
+[13]ITF1 - Abruz |  25334.57
+[14]ITF2 - Molis |  24609.16
+[15]ITF3 - Campa |  17521.63
+[16]ITF4 - Pugli |  18947.73
+[17]ITF5 - Basil |  20390.08
+[18]ITF6 - Calab |  17423.67
+[19]ITG1 - Sicil |  18908.87
+[20]ITG2 - Sarde |  19751.96
+-----------------+----------
+           Total |  24881.99
+----------------------------</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Running this loop produces separate, clean tabulations for Germany, Spain, and Italy, with region labels that correctly reflect each country’s classification. Attempting the same analysis on the merged dataset would produce unreliable results without any error from Stata.</p>
+<p><br></p>
+<hr>
+<section id="extra-tools-in-r" class="level3"><h3 class="anchored" data-anchor-id="extra-tools-in-r">Extra tools in R</h3>
+<p>An additional complication arises when working across multiple waves of the same country: classifications themselves may change from one year to the next, making longitudinal comparisons unreliable without prior investigation.</p>
+<p>For R users, the <code>lissyrtools</code> package provides a dedicated function, <code>variable_country_specific_categories()</code>, which helps assess the number of distinct categories a country-specific variable takes across waves of a given series. This allows you to identify classification breaks before attempting any trend analysis. For details, see the <a href="../r-users/dd_catg_vars.html#ct_spec_vars_R">corresponding R section</a>.</p>
+
+
+</section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../stata-users/datasets_and_vars.html" class="pagination-link" aria-label="Datasets and Variables">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Datasets and Variables</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../stata-users/dd_cont_vars.html" class="pagination-link" aria-label="Continuous Variables">
+        <span class="nav-page-text">Continuous Variables</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Luxembourg Income Study, 2026</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This website was built using <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer><script src="../assets/foldable.js"></script>
+
+
+</body></html>

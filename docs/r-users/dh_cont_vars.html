@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Data Handling – LISSY User Guide</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/main.jpg" rel="icon" type="image/jpeg">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-10097104095abffb620768ae092cce97.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="../styles.css">
+</head>
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">LISSY User Guide</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../getting-started/index.html"> 
+<span class="menu-text">Getting Started</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../r-users/index.html"> 
+<span class="menu-text">R Users</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../stata-users/index.html"> 
+<span class="menu-text">Stata Users</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../other-resources/index.html"> 
+<span class="menu-text">Other Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../faqs/index.html"> 
+<span class="menu-text">FAQs</span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li>
+<a href="#adjusting-and-preparing-income-variables" id="toc-adjusting-and-preparing-income-variables" class="nav-link active" data-scroll-target="#adjusting-and-preparing-income-variables">Adjusting and Preparing Income Variables</a>
+  <ul class="collapse">
+<li><a href="#ppp_in_r" id="toc-ppp_in_r" class="nav-link" data-scroll-target="#ppp_in_r">Currency and Price Level Adjustments</a></li>
+  <li><a href="#filtering-and-variable-construction" id="toc-filtering-and-variable-construction" class="nav-link" data-scroll-target="#filtering-and-variable-construction">Filtering and Variable Construction</a></li>
+  <li><a href="#bottom-and-top-coding" id="toc-bottom-and-top-coding" class="nav-link" data-scroll-target="#bottom-and-top-coding">Bottom and Top Coding</a></li>
+  <li><a href="#equivalence-scales" id="toc-equivalence-scales" class="nav-link" data-scroll-target="#equivalence-scales">Equivalence Scales</a></li>
+  <li><a href="#poverty-line" id="toc-poverty-line" class="nav-link" data-scroll-target="#poverty-line">Poverty Line</a></li>
+  <li><a href="#conditional-variable-construction" id="toc-conditional-variable-construction" class="nav-link" data-scroll-target="#conditional-variable-construction">Conditional Variable Construction</a></li>
+  <li><a href="#weighted-aggregation" id="toc-weighted-aggregation" class="nav-link" data-scroll-target="#weighted-aggregation">Weighted Aggregation</a></li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Data Handling</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="adjusting-and-preparing-income-variables" class="level1"><h1>Adjusting and Preparing Income Variables</h1>
+<p>Due to the wide range of research questions that can be explored using data from LIS, it is often necessary to perform multiple and distinct types of data preparation after the initial import. For this reason, this section is divided into two parts, each dedicated to a different analytical goal.</p>
+<p>To work effectively on cross-country projects with LIS data, users must have a solid understanding of how to apply the deflators provided. The first part will therefore focus on this process and its specific nuances.</p>
+<p>In the second part, we demonstrate how to compute a Children Poverty Rate among Single-Mother Families. This particular indicator requires several steps, making it a comprehensive example of the types of R functions users can rely on, as well as highlighting important considerations when working with LIS/LWS/LCS data.</p>
+<p><br></p>
+<section id="ppp_in_r" class="level2"><h2 class="anchored" data-anchor-id="ppp_in_r">Currency and Price Level Adjustments</h2>
+<p>Income, wealth, and consumption data provided by LIS are expressed in national currencies at current prices for the income reference year. While this preserves the data in a form close to its original source, it also creates clear comparability issues across countries.</p>
+<p>For clarity, the snippet below retrieves the unweighted average of disposable household income (<code>dhi</code>) for both the United States and Sweden in 2018.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/">lissyrtools</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/lissyuse.html">lissyuse</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'us18'</span>, <span class="st">'se18'</span><span class="op">)</span>, vars  <span class="op">=</span> <span class="st">'dhi'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_mean.html">run_weighted_mean</a></span><span class="op">(</span><span class="st">'dhi'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The list contains the following `household-level` data frames: se18h, us18h.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 
+$Sweden
+    2018 
+504749.2 
+
+$`United States`
+    2018 
+73735.58 </code></pre>
+</div>
+</div>
+<div style="height: 30px;">
+
+</div>
+<p>The figures reported above are not directly comparable. The large difference in magnitude, wtih Sweden appearing to have values more than five times higher than those of the United States, does not reflect real differences in income levels, but rather the fact that the <strong>data are expressed in different national currencies</strong>, implying the need for additional transformation steps.</p>
+<p>To address this issue, LIS provides both <a href="https://www.lisdatacenter.org/resources/ppp-deflators">CPI and PPP deflators for each country and year</a>. These allow users to convert values into a common, comparable scale. In practice, this process is simplified through the <code><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/apply_ppp_adjustment.html">lissyrtools::apply_ppp_adjustment()</a></code> function, which automatically applies the necessary transformations and enables meaningful comparisons across countries and over time.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="..\images/deflators.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>As shown in the example above, we have 3 columns with conversion factors that the user can make use of. These are:</p>
+<ul>
+<li><p><strong>Consummer Price Index</strong>: needed to compare real amounts over time within countries;</p></li>
+<li><p><strong>Purchasing Power Parity</strong>: needed to compare real amounts across countries;</p></li>
+<li><p><strong>LISPPP</strong>: which combine CPI and PPP deflators and can be used to compare real amounts across countries and over time.</p></li>
+</ul>
+<p>Once equipped with these tools and resources we can now redo the exercise above by making use of the PPP conversion factors, by specifying it, in the form of a character, in the <code>transformation</code> argument.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/lissyuse.html">lissyuse</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'us18'</span>, <span class="st">'se18'</span><span class="op">)</span>, vars  <span class="op">=</span> <span class="st">'dhi'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/apply_ppp_adjustment.html">apply_ppp_adjustment</a></span><span class="op">(</span></span>
+<span>        var_name <span class="op">=</span> <span class="st">'dhi'</span>, </span>
+<span>        database <span class="op">=</span> <span class="st">'lis'</span>, </span>
+<span>        transformation <span class="op">=</span> <span class="st">'ppp'</span>, </span>
+<span>        base_year_ppp <span class="op">=</span> <span class="fl">2021</span></span>
+<span>        <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_mean.html">run_weighted_mean</a></span><span class="op">(</span><span class="st">'dhi'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Variable 'dhi' was adjusted for cross-country comparability using '2021' USD PPP conversion factors (USA = 1).</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Sweden
+    2018 
+55795.59 
+
+$`United States`
+    2018 
+73735.58 </code></pre>
+</div>
+</div>
+<div style="height: 30px;">
+
+</div>
+<p>The Swedish figure is now much closer to American one, as both are expressed in <strong>international US dollars at 2021 prices</strong>. This adjustment makes the values directly comparable and better reflects real income levels.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In some LWS datasets, wealth amounts and income amounts might differ in their reference year. The year odf the dataset always corresponds to the wealth amounts reference year, but income amounts might have been expresssed as the ones in the year before. LWS data users, do not need to worry with this as long as they mannualy sprecify <code>database = 'lws'</code>, which immediately adjust the reference year depending on <code>var_name</code> is a wealth (<code>dnw</code>) or income variable (<code>dhi</code>).</p>
+</div>
+</div>
+<p>To conclude this section on adjusting data for differences in currency and price levels, we present two additional examples illustrating how <strong>CPI</strong> and <strong>LISPPP</strong> deflators can be used in practice.</p>
+<p>We begin with a case where the analysis focuses on a single country. In such situations, users may wish to keep results expressed in the country’s national currency while adjusting for inflation over time. Applying the CPI deflator allows values to be converted into constant prices, ensuring that changes reflect real variation rather than shifts in the price level.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/lissyuse.html">lissyuse</a></span><span class="op">(</span>data <span class="op">=</span> <span class="st">'it'</span>, vars  <span class="op">=</span> <span class="st">'dhi'</span>, from <span class="op">=</span> <span class="fl">2010</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  </span>
+<span>    <span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_mean.html">run_weighted_mean</a></span><span class="op">(</span><span class="st">'dhi'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code> 
+$Italy
+    2022     2020     2016     2014     2012     2010 
+46301.93 48072.00 24881.99 25444.73 25853.37 26647.06 </code></pre>
+</div>
+</div>
+<div style="height: 30px;">
+
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/lissyuse.html">lissyuse</a></span><span class="op">(</span>data <span class="op">=</span> <span class="st">'it'</span>, vars  <span class="op">=</span> <span class="st">'dhi'</span>, from <span class="op">=</span> <span class="fl">2010</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  </span>
+<span>    <span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/apply_ppp_adjustment.html">apply_ppp_adjustment</a></span><span class="op">(</span></span>
+<span>        var_name <span class="op">=</span> <span class="st">'dhi'</span>, </span>
+<span>        database <span class="op">=</span> <span class="st">'lis'</span>, </span>
+<span>        transformation <span class="op">=</span> <span class="st">'cpi'</span>,  </span>
+<span>        base_year_ppp <span class="op">=</span> <span class="fl">2021</span></span>
+<span>        <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_mean.html">run_weighted_mean</a></span><span class="op">(</span><span class="st">'dhi'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Variable 'dhi' was adjusted for domestic inflation using the CPI (base year '2021' = 100).</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code> 
+$Italy
+    2022     2020     2016     2014     2012     2010 
+42792.40 48972.77 26073.67 26648.62 27472.99 29988.93 </code></pre>
+</div>
+</div>
+<div style="height: 30px;">
+
+</div>
+<!-- Interpert the results here  ?  -->
+<p>Alternatively, users may be interested in making comparisons across countries and over time. In this context, relying solely on CPI adjustments is not sufficient, as values would still be expressed in different national currencies. This is where the <strong>LISPPP</strong> deflator becomes particularly useful. By <strong>combining both CPI and PPP adjustments</strong>, it converts values into a international US dollars at a given base year, thereby enabling meaningful cross-country comparisons in real terms.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/lissyuse.html">lissyuse</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'it'</span>, <span class="st">'se'</span><span class="op">)</span>, vars <span class="op">=</span> <span class="st">'dhi'</span>, from <span class="op">=</span> <span class="fl">2010</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_mean.html">run_weighted_mean</a></span><span class="op">(</span><span class="st">'dhi'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code> 
+$Italy
+    2022     2020     2016     2014     2012     2010 
+46301.93 48072.00 24881.99 25444.73 25853.37 26647.06 
+
+$Sweden
+    2023     2022     2021     2020     2019     2018     2017     2016 
+638771.3 601107.7 575956.5 546580.8 534309.5 504749.2 509026.1 505105.1 
+    2015     2014     2013     2012     2011     2010 
+478623.5 464035.1 446265.0 440190.5 586478.0 665450.7 </code></pre>
+</div>
+</div>
+<div style="height: 30px;">
+
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/lissyuse.html">lissyuse</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'it'</span>, <span class="st">'se'</span><span class="op">)</span>, vars  <span class="op">=</span> <span class="st">'dhi'</span>, from <span class="op">=</span> <span class="fl">2010</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  </span>
+<span>    <span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/apply_ppp_adjustment.html">apply_ppp_adjustment</a></span><span class="op">(</span></span>
+<span>        var_name <span class="op">=</span> <span class="st">'dhi'</span>, </span>
+<span>        database <span class="op">=</span> <span class="st">'lis'</span>, </span>
+<span>        transformation <span class="op">=</span> <span class="st">'lisppp'</span>,</span>
+<span>        base_year_ppp <span class="op">=</span> <span class="fl">2021</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_mean.html">run_weighted_mean</a></span><span class="op">(</span><span class="st">'dhi'</span><span class="op">)</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Variable 'dhi' was adjusted using LIS-specific deflators: both for domestic inflation (CPI, base year '2021' = 100), and for cross-country comparability using purchasing power parity (PPP) conversion factors, with '2021' USD as the base (USA = 1).</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code> 
+$Italy
+    2022     2020     2016     2014     2012     2010 
+61138.98 69969.09 37252.36 38073.81 39251.62 42846.23 
+
+$Sweden
+    2023     2022     2021     2020     2019     2018     2017     2016 
+60025.95 61315.50 63666.93 61726.71 60641.00 58308.14 59950.93 60556.66 
+    2015     2014     2013     2012     2011     2010 
+57946.59 56154.11 53906.68 53149.37 71441.45 83461.82 </code></pre>
+</div>
+</div>
+<div style="height: 30px;">
+
+</div>
+<p>Together, these approaches highlight the importance of selecting the appropriate deflator depending on the analytical objective, whether the focus is on within-country trends or cross-country comparability.</p>
+<!-- ### Children Poverty Rates - Single-Mother Families  -->
+<p>The sections that follow illustrates a more comprehensive workflow, combining several preparation steps to construct a policy-relevant indicator from microdata.</p>
+<p>The aim will be to compute the poverty rate among children in single-mother households in the United States. Constructing this indicator requires combining information available at both the household level (<code>dhi</code>, <code>nhhmem17</code>, <code>hpartner</code>), and the individual level (<code>sex</code>).</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Recall from the early sections of this guidebook when we introduced <code><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/lissyuse.html">lissyuse()</a></code>, that when both household and individual levels are specified in <code>vars</code>, both files for a given <code>ccyy</code> are loaded are merged automatically. Therefore we end up with the data loaded at the individual level.</p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">us_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/lissyuse.html">lissyuse</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="st">"us"</span>,  </span>
+<span>  vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dhi"</span>, <span class="st">"nhhmem17"</span>, <span class="st">"sex"</span>, <span class="st">"hpartner"</span><span class="op">)</span>, <span class="co"># 3 'h-level' + 1 'p-level'</span></span>
+<span>  from <span class="op">=</span> <span class="fl">2018</span>, </span>
+<span>  to <span class="op">=</span> <span class="fl">2024</span>   </span>
+<span><span class="op">)</span>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The list contains the following `person-level` data frames: us24, us23, us22, us21, us20, us19, us18.</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Variables <code>relation</code> and <code>nhhmem</code> are part of the group of variables that are always imported by default.</p>
+</div>
+</div>
+<p><code>{r,  class.output = "foldable"},  columns = names(us_data[[1]]) lissyrtools::variable_labels(vars = columns)</code></p>
+<p><br></p>
+</section><section id="filtering-and-variable-construction" class="level2"><h2 class="anchored" data-anchor-id="filtering-and-variable-construction">Filtering and Variable Construction</h2>
+<p>At this stage, we prepare the dataset so that it is <strong>aligned with the unit of analysis required for our indicator</strong>: the household. Although we imported both household- and person-level variables, the poverty measure is computed at the household level and then attributed to individuals (in this case, children).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data_prep</span> <span class="op">&lt;-</span> <span class="va">us_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">dhi</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">relation</span> <span class="op">==</span> <span class="fl">1000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>          new_wgt <span class="op">=</span> <span class="va">hwgt</span> <span class="op">*</span> <span class="va">nhhmem</span>,</span>
+<span>          new_chld_wgt <span class="op">=</span> <span class="va">hwgt</span> <span class="op">*</span> <span class="va">nhhmem17</span>,</span>
+<span>        <span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Like in previous examples, we will define a pipeline inside the <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code> function to apply the same processes for each dataset. We begin by filtering out observations with missing disposable household income (<code>dhi</code>). Next, we retain only records corresponding to the household reference person (<code>relation == 1000</code>). This step ensures that each household appears only once in the dataset, avoiding duplication that would arise from person-level records.</p>
+<p>We then construct adjusted weights. For population-level indicators, we use a person-level weight derived from the household weight multiplied by household size (<code>hwgt * nhhmem</code>). For child-specific indicators, we instead construct a child weight by multiplying the household weight by the number of children in the household (<code>hwgt * nhhmem17</code>). These weights ensure that estimates correctly reflect the underlying population structure.</p>
+<p><br></p>
+</section><section id="bottom-and-top-coding" class="level2"><h2 class="anchored" data-anchor-id="bottom-and-top-coding">Bottom and Top Coding</h2>
+<p>Before proceeding with inequality and poverty calculations, we address the presence of extreme income values. While the underlying microdata do not impose bounds on income, very high or very low values can disproportionately influence distributional measures.</p>
+<p>To mitigate this, we apply bottom- and top-coding to disposable household income (dhi), with the help of another auxilliary function named <code><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/apply_iqr_top_bottom_coding.html">apply_iqr_top_bottom_coding()</a></code> tailored specifically for such stage.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data_tb_coded</span> <span class="op">&lt;-</span> <span class="va">data_prep</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/apply_iqr_top_bottom_coding.html">apply_iqr_top_bottom_coding</a></span><span class="op">(</span></span>
+<span>        var_name <span class="op">=</span> <span class="st">'dhi'</span>, </span>
+<span>        wgt_name <span class="op">=</span> <span class="st">'hwgt'</span>, </span>
+<span>        times <span class="op">=</span> <span class="fl">3</span>, </span>
+<span>        one_sided <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>        type <span class="op">=</span> <span class="st">'type_4'</span> </span>
+<span>        <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>In more detail, this adjustment is carried out on the logarithmic scale using an interquartile range (IQR) rule: values above the upper threshold (Q3 + 3×IQR) are capped, and values below the lower threshold (Q1 − 3×IQR) are raised. This method ensures that extreme observations do not disproportionately affect the results, while preserving the overall shape and structure of the income distribution.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To ensure consistency with the latest methodology applied by LIS across all disseminated aggregate figures, this step must be performed prior to equivalisation. In addition, the quartiles used to define the IQR thresholds should be estimated following Definition 4 as proposed by Hyndman and Fan (1996).</p>
+</div>
+</div>
+<!-- DART still uses old percentile estimation method in its IQR preparation... -->
+<p><br></p>
+</section><section id="equivalence-scales" class="level2"><h2 class="anchored" data-anchor-id="equivalence-scales">Equivalence Scales</h2>
+<p>Households differ in size and composition, which affects their economic needs. To enable meaningful comparisons across households, we equivalize disposable household income.</p>
+<p>We apply the square root equivalence scale, dividing household income by the square root of the total number of household members. This transformation accounts for economies of scale in consumption: larger households require more resources, but not proportionally more per additional member.</p>
+<p>As a result, all individuals within a household are assigned the same equivalised income, regardless of their age or role within the household.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data_eqv</span> <span class="op">&lt;-</span> <span class="va">data_tb_coded</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>     <span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/apply_sqrt_equivalisation.html">apply_sqrt_equivalisation</a></span><span class="op">(</span></span>
+<span>        var_name <span class="op">=</span> <span class="st">'dhi'</span></span>
+<span>        <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><br></p>
+</section><section id="poverty-line" class="level2"><h2 class="anchored" data-anchor-id="poverty-line">Poverty Line</h2>
+<p>At this point, we have done all the adjustments to original <code>dhi</code> variable, and reduced the dataset to the household-level. We are now settled to compute a poverty line that we will establish to be 50% of the weighted median of equivalised income</p>
+<p>We can use the already familiar <code><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_percentiles.html">run_weighted_percentiles()</a></code> that by default will compute the Minimum the Maximum and the 25th, 50th and 75th percentiles, and output themn in a named vector inside a list.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_percentiles.html">run_weighted_percentiles</a></span><span class="op">(</span></span>
+<span>        <span class="va">data_eqv</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, </span>
+<span>        var_name <span class="op">=</span> <span class="st">"dhi"</span>, </span>
+<span>        wgt_name <span class="op">=</span> <span class="st">"new_wgt"</span></span>
+<span>    <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre class="foldable"><code>$us24
+          0%          25%          50%          75%         100% 
+    362.2004   31148.7992   51944.4144   81552.4012 1099114.7599 </code></pre>
+</div>
+</div>
+<p>Therefore, we can use the <code>map()</code> function and retreive only the elemet corresponding to the Median, named “50%”, and then multiply it by 0.5 to establish the poverty line. This relative definition ensures that poverty is assessed in relation to the living standards prevailing within each dataset, and thus there is no need to adjust for inflation or for diffferent currencies.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">medians</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
+<span>    <span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_percentiles.html">run_weighted_percentiles</a></span><span class="op">(</span></span>
+<span>        <span class="va">data_eqv</span>, </span>
+<span>        var_name <span class="op">=</span> <span class="st">"dhi"</span>, </span>
+<span>        wgt_name <span class="op">=</span> <span class="st">"new_wgt"</span></span>
+<span>    <span class="op">)</span>, <span class="st">"50%"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">poverty_lines</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">medians</span>  , <span class="op">~</span> <span class="va">.x</span>  <span class="op">*</span> <span class="fl">0.5</span><span class="op">)</span> <span class="co"># Half of the Median</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">poverty_lines</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$us24
+[1] 25972.21
+
+$us23
+[1] 24599.92
+
+$us22
+[1] 22910.16
+
+$us21
+[1] 23328.8
+
+$us20
+[1] 22156.97
+
+$us19
+[1] 20941.03
+
+$us18
+[1] 19427.36</code></pre>
+</div>
+</div>
+<p>It is important to note that poverty lines are always calculated based on the full population. These same thresholds are subsequently used when evaluating poverty rates for specific subgroups, such as children or the elderly.</p>
+<p><br></p>
+</section><section id="conditional-variable-construction" class="level2"><h2 class="anchored" data-anchor-id="conditional-variable-construction">Conditional Variable Construction</h2>
+<p>With the poverty line established, we create an indicator identifying whether each household falls below this threshold. For each observation, we compare equivalised income (<code>dhi</code>) to the poverty line.</p>
+<p>Households with income below the threshold are classified as poor and assigned a value of 100, while all others are assigned 0. This binary indicator forms the basis for computing poverty rates.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data_with_pov_line</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span></span>
+<span>  <span class="va">data_eqv</span>,</span>
+<span>  <span class="va">poverty_lines</span>,</span>
+<span>  <span class="op">~</span> <span class="va">.x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>      line <span class="op">=</span> <span class="va">.y</span>,</span>
+<span>      poor <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">dhi</span> <span class="op">&lt;</span> <span class="va">line</span>, <span class="fl">100</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When using <code>purrr::map()2</code>, ‘.x’ refers to the first element of the first list <code>data_eqv</code>, whilst ‘.y’ to the first element of the second list <code>povery_lines</code>.</p>
+</div>
+</div>
+<p>By expressing the indicator as 0/100 rather than 0/1, the resulting weighted mean directly corresponds to a percentage.</p>
+<p><br></p>
+</section><section id="weighted-aggregation" class="level2"><h2 class="anchored" data-anchor-id="weighted-aggregation">Weighted Aggregation</h2>
+<p>In the final step, we restrict the sample to the population of interest: children living in single-mother households. This is defined as households where the reference person is female (<code>sex == 2</code>), has no partner present (<code>hpartner == 0</code>), and where at least one child is present (<code>nhhmem17 &gt; 0</code>).</p>
+<p>We then compute the weighted mean of the poverty indicator using the child-specific weight (<code>hwgt * nhhmem17</code>). This produces the poverty rate among children in single-mother households.</p>
+<p>Throughout this process, the poverty line remains fixed—having been calculated for the total population—while the weighting scheme ensures that the estimate accurately reflects the distribution of children across households.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data_with_pov_line</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">.x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>         <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">hpartner</span><span class="op">==</span><span class="fl">0</span> <span class="op">&amp;</span> <span class="va">sex</span><span class="op">==</span><span class="fl">2</span> <span class="op">&amp;</span> <span class="va">nhhmem17</span><span class="op">&gt;</span><span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/run_weighted_mean.html">run_weighted_mean</a></span><span class="op">(</span><span class="st">"poor"</span>, <span class="st">"new_chld_wgt"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`United States`
+    2024     2023     2022     2021     2020     2019     2018 
+46.48196 46.29157 45.09273 30.36950 41.61358 46.89847 44.60805 </code></pre>
+</div>
+</div>
+
+
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Luxembourg Income Study, 2026</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This website was built using <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer><script src="../assets/foldable.js"></script>
+
+
+</body></html>
