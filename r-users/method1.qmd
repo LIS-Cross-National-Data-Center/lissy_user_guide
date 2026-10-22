@@ -122,7 +122,7 @@ names(merged_hhd_ind_data[[1]])
 ```
 
 ::: callout-important
-**Recap:** As soon as a indiviudal-level variable is selected in the argument `vars`, the data will be loaded at individual level as well. If only household-level variables are selected, then data will be loaded at inidividual level. If none are selected, then all variables are considered and consequently data will be at the individual-level.
+**Recap:** As soon as an indiviudal-level variable is selected in the argument `vars`, the data will be loaded at individual-level as well. If only household-level variables are selected, then data will be loaded at household-level. If none are selected, then all variables are considered and consequently data will be at the individual-level.
 :::
 
 ::: callout-tip
