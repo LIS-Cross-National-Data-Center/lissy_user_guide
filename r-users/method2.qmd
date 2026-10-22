@@ -14,13 +14,10 @@ Despite being superseded in most workflows, this function is still useful in spe
 
 
 ```{r, eval=TRUE, echo=FALSE, include=FALSE}
+library(readstata13)
 source("../src/read.LIS.R")
 ```
 
-```{r, eval=TRUE, echo=FALSE, include=FALSE}
-# put here the code of read.LIS, then on a hidden file, such that is doesn't go to the github. 
-source("../src/read.LIS.R") 
-```
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold'}
 data_h <- read.LIS(c("de18h", "es18h")) # Import h-level data for Lux. 2010 
