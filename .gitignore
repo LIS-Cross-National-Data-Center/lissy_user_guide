@@ -8,3 +8,6 @@ feedback_temp
 
 
 **/*.quarto_ipynb
+
+r_dependencies_README
+stata_dependencies_README
