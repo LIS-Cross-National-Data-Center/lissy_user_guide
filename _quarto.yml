@@ -1,6 +1,13 @@
+
+# Built with Quarto 1.9.36 and R 4.4.1 (knitr: 1.48; rmarkdown: 2.28).
+# To reproduce: install this Quarto version, open the project,
+# run renv::restore() in R, then run quarto render
+
 project:
   type: website
   output-dir: docs
+
+quarto-required: "~1.9.36"
 
 website:
   title: "LISSY User Guide"
