@@ -10,7 +10,7 @@ Upon first logging into LISSY, users have access to an intuitive interface where
 
 - Write and run jobs in a dedicated code editor;
 
-- View the printed output of their jobs, as in Stata, RStudio, or VSCode;
+- Inspect job outputs;
 
 - Produce visualizations;
 
@@ -119,7 +119,7 @@ lissyrtools::structure_to_plot(
 ) %>% write.csv()
 ```
 
-You may already notice a few distinctive features in the snippets above, particularly the Stata commands and R packages specifically designed for use within LISSY.
+The snippets above already show some LISSY-specific features, such as dedicated Stata commands and R packages.
 
 Apart from these LISSY-specific elements which will naturally be adressed later in in this guide, working in LISSY is very similar to using Stata or R in your usual workflow and working environment.
 
@@ -141,5 +141,5 @@ More detailed examples of exporting outputs in both [R](/r-users/tidy_exp_to_csv
 
 ## Using External files in LISSY
 
-If you wish to merge your own poersonall dataset toghether with the microdata in LISSY, send your request, along with the attached file, to usersupport\@lisdatacenter.org.
+If you wish to merge your own personal dataset toghether with the microdata in LISSY, send your request, along with the attached file, to [usersupport\@lisdatacenter.org](mailto:usersupport@lisdatacenter.org).
 

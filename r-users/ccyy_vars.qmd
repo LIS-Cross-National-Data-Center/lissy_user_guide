@@ -44,7 +44,7 @@ Survey changes across different periods may introduce breaks in consistency, pot
 
 # Variables
 
-Regardless of the country and year, all datasets at a given level (household or individual) share the same set of variables. In practice, this means that even if a variable is not available in the original microdata provided to the LIS team, it will still appear in the dataset structure, filled entirely with missing values.
+Regardless of the country and year, all datasets at a given level (household or individual) share the same set of variables. In practice, this means that even if a variable is not available in the original microdata provided to the LIS team, it will still appear in the dataset structure, filled entirely with missing values or zeros.
 
 In addition to [METIS](https://www.lisdatacenter.org/frontend#/home), we provides three separate variable lists, one for [LIS](https://www.lisdatacenter.org/wp-content/uploads/files/data-lis-variables.pdf), another for [LWS](https://www.lisdatacenter.org/wp-content/uploads/files/data-lws-variables.pdf), and another for [LCS](https://www.lisdatacenter.org/wp-content/uploads/files/resources_BetaLCS_varlist.pdf).
 <!-- the lcs link is likely to be changed. Please update afterwards. -->

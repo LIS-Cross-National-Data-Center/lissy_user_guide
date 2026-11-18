@@ -33,22 +33,18 @@ library(labelled)
 recoded_data = lissyuse('es', 'own', from =  2000, to = 2004, database = 'lis') %>%
   purrr::map(
     ~ .x %>% mutate(
-      own_copy_old  = own, # create a copy of the original variable 'own' 
-      own = case_when( # do the transformations on the variable with the original name from LIS
+      new_own = case_when( # do the transformations on the variable with the original name from LIS
         own >= 100 & own < 199 ~ 100, 
         own >= 210 & own < 219 ~ 210, 
         own >= 220 & own < 229 ~ 220, 
       ),
-      own = haven::labelled(own, labels = labelled::val_labels(own_copy_old))
+      new_own = haven::labelled(new_own, labels = labelled::val_labels(own))
     ) 
   )
 
-lissyrtools::run_weighted_count(data = recoded_data, var_name = 'own', na.rm = TRUE)
+lissyrtools::run_weighted_count(data = recoded_data, var_name = 'new_own', na.rm = TRUE)
 ```
 
-::: {#orig_vars_placeholder .callout-important}
-Functions in `lissyrtools`, only accept columns named after the original LIS, LWS and LCS variable names. Always perform recoding on the original variable directly, preserving a copy beforehand if needed. Variable names such as `own_recoded` or `own_new` will not be accepted — the variable must retain its original name (`own`, `educ`, `educlev`, and so on).
-:::
 
 ![Spain — tenure variable `own` before recoding](/images/ES_ts_no_recoding.png){width="100%" fig-alt="Before recoding"}
 

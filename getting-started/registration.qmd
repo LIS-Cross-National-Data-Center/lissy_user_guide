@@ -4,7 +4,7 @@ title: "Registration"
 
 ## Access Eligibility
 
-Use of LIS/LWS microdata is restricted to **scholarly, research, or educational purposes**. Commercial use is never permitted.
+The use of LIS, LWS and LCS microdata is restricted to **scholarly, research, or educational purposes**. Commercial use is never permitted.
 
 Eligibility depends on user status:
 

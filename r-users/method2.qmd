@@ -2,7 +2,6 @@
 title: "Import Data"
 ---
 
-
 # Method 2 - `read.LIS()`
 
 The second method, the `read.LIS()` function has a less automated yet robust approach on importing the data.
@@ -10,14 +9,11 @@ The second method, the `read.LIS()` function has a less automated yet robust app
 This method requires handling each country-year file separately by level. The imported datasets are then appended into a single data.frame, rather than being stored as a list.
 
 Despite being superseded in most workflows, this function is still useful in specific cases—particularly for importing less frequently used files, such as those containing replicate weights in LWS.
- 
-
 
 ```{r, eval=TRUE, echo=FALSE, include=FALSE}
 library(readstata13)
 source("../src/read.LIS.R")
 ```
-
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold'}
 data_h <- read.LIS(c("de18h", "es18h")) # Import h-level data for Lux. 2010 
@@ -34,7 +30,6 @@ class(full_data)
 To import LWS data, the syntax remains exactly the same, but again the <b>Project</b> must be changed in the drop-down menu.
 
 ![](/images/project_lws.png){fig-align="center"}
-
 
 ```{r, eval=TRUE, echo=FALSE, include=FALSE}
 # put here the code of read.LIS, then on a hidden file, such that is doesn't go to the github. 
@@ -53,8 +48,6 @@ df <- merge(data_p , data_h , by = c("dname", "hid", "inum"))
 
 names(df)
 ```
-
-
 
 ```{r, eval=TRUE, echo=FALSE, include=FALSE}
 # put here the code of read.LIS, then on a hidden file, such that is doesn't go to the github. 
