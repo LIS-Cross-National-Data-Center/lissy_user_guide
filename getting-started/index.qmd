@@ -61,7 +61,7 @@ title: ""
       <div class="gs-cap__icon">🔢</div>
       <div>
         <strong>Analyse and process data</strong> just as you would locally, with access to LIS-provided CPI and PPP deflators.
-        <span class="gs-cap__links"><a href="/r-users/dh_cont_vars.html#ppp_in_r">R</a> · <a href="/stata-users/dh_ppp.html#ppp_in_stata">Stata</a></span>
+        <span class="gs-cap__links"><a href="/r-users/dh_ppp.html#ppp_in_r">R</a> · <a href="/stata-users/dh_ppp.html#ppp_in_stata">Stata</a></span>
       </div>
     </div>
 

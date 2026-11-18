@@ -6,7 +6,7 @@ Once data has been successfully imported and explored, the next step is preparat
 
 Developing familiarity with these operations is essential, as they allow researchers to adapt datasets to their analytical goals while maintaining clarity and consistency. A structured approach to data manipulation also enhances workflow efficiency and reduces the risk of errors or misinterpretation during analysis.
 
-As in the previous section, this part of the guide is organised by variable type, distinguishing between categorical and continuous data. By the end of this section, users will be equipped with a set of practical tools and techniques that add an additional layer of flexibility to their work with LIS data, ultimately expanding the range and depth of analyses they can perform.
+As in the previous section, **this part of the guide is organised by variable type, distinguishing between categorical and continuous data**. By the end of this section, users will be equipped with a set of practical tools and techniques that add an additional layer of flexibility to their work with LIS data, ultimately expanding the range and depth of analyses they can perform.
 
 <br>
 
@@ -16,8 +16,7 @@ The most common operation users perform on categorical variables is, once famili
 
 As mentioned in the Describing Data section, the [nested coding](/r-users/dd_catg_vars.html#nested-coding) structure of LIS categorical variables delivers the richest possible information, but it can also introduce unexpected breaks in longitudinal series. The charts from the previous section illustrate this in practice: from 2004 onwards, LIS received more disaggregated data for the Spanish tenure variable `own`, introducing finer subcategories that were not present in earlier waves.
 
-![](/images/ES00_data_handling.png){fig-align="center"} 
-![](/images/ES04_data_handling.png){fig-align="center"}
+![](/images/ES00_data_handling.png){fig-align="center"} ![](/images/ES04_data_handling.png){fig-align="center"}
 
 <br>
 
@@ -51,9 +50,8 @@ lissyrtools::run_weighted_count(data = recoded_data, var_name = 'own', na.rm = T
 Functions in `lissyrtools`, only accept columns named after the original LIS, LWS and LCS variable names. Always perform recoding on the original variable directly, preserving a copy beforehand if needed. Variable names such as `own_recoded` or `own_new` will not be accepted — the variable must retain its original name (`own`, `educ`, `educlev`, and so on).
 :::
 
+![Spain — tenure variable `own` before recoding](/images/ES_ts_no_recoding.png){width="100%" fig-alt="Before recoding"}
 
-![Spain — tenure variable `own` before recoding](/images/ES_ts_no_recoding.png){width=100% fig-alt="Before recoding"}
-
-![Spain — tenure variable `own` after recoding](/images/ES_ts_recoding.png){width=100% fig-alt="After recoding"}
+![Spain — tenure variable `own` after recoding](/images/ES_ts_recoding.png){width="100%" fig-alt="After recoding"}
 
 The two charts above illustrate the practical consequence of the nested coding structure and the value of the recoding step. In the first chart, the series breaks sharply around 2004, with the broad ownership category effectively disappearing as it splinters into finer subcategories introduced in later waves. A user working with the raw codes would face an artificial discontinuity that makes any longitudinal comparison across the full Spanish series unreliable. The second chart shows the result after recoding: by collapsing the more disaggregated categories back to the three broad codes present at the start of the series, the distribution becomes consistent across all waves and the series can be read and compared as intended.
