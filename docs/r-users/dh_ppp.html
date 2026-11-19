@@ -370,17 +370,17 @@ $`United States`
 
 </div>
 <p>The Swedish figure is now much closer to American one, as both are expressed in <strong>international US dollars at 2021 prices</strong>. This adjustment makes the values directly comparable and better reflects real income levels.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Warning
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In some LWS datasets, wealth amounts and income amounts might differ in their reference year. The year of the dataset always corresponds to the wealth amounts reference year, but income amounts might have been expresssed as the ones in the year before. LWS data users, do not need to worry with this as long as they mannualy specify <code>database = 'lws'</code>, which immediately adjusts the reference year depending if <code>var_name</code> is a wealth (<code>dnw</code>) or income variable (<code>dhi</code>).</p>
+<p>LIS provides PPPs for different base years and versions. To use another one, such as 2017 or a future release like 2024, simply change the <code>base_year_ppp</code> argument, e.g.&nbsp;<code>base_year_ppp = 2017</code>.</p>
 </div>
 </div>
 <p>To conclude this section on adjusting data for differences in currency and price levels, we present two additional examples illustrating how <strong>CPI</strong> and <strong>LISPPP</strong> deflators can be used in practice.</p>
@@ -469,6 +469,19 @@ $Sweden
 
 </div>
 <p>Together, these approaches highlight the importance of selecting the appropriate deflator depending on the analytical objective, whether the focus is on within-country trends or cross-country comparability.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In some LWS datasets, wealth amounts and income amounts might differ in their reference year. The year of the dataset always corresponds to the wealth amounts reference year, but income amounts might have been expresssed as the ones in the year before. LWS data users, do not need to worry with this as long as they mannualy specify <code>database = 'lws'</code>, which immediately adjusts the reference year depending if <code>var_name</code> is a wealth (<code>dnw</code>) or income variable (<code>dhi</code>).</p>
+</div>
+</div>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

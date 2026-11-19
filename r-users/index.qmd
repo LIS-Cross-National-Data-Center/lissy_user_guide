@@ -8,7 +8,7 @@ Welcome R people 👋
 
 This guide walks you step by step through working with LIS data in R — from getting started to building a solid, reproducible workflow.  
 
-You’ll learn how to navigate the structure and specific features of LIS LWS and LCS datasets, while developing practical skills you can apply directly to your own projects. We cover each stage of the workflow, highlight common operations, and share tips to help you work more efficiently.  
+You’ll learn how to navigate the structure and specific features of LIS, LWS and LCS datasets, while developing practical skills you can apply directly to your own projects. We cover each stage of the workflow, highlight common operations, and share tips to help you work more efficiently.  
 
 Most examples rely on the in-house R package `lissyrtools`, designed to simplify and streamline your interaction with LIS data.  
 

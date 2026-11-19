@@ -274,7 +274,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#method-2---use-command." id="toc-method-2---use-command." class="nav-link active" data-scroll-target="#method-2---use-command.">Method 2 - <code>use</code> command.</a></li>
+<li>
+<a href="#method-2---use-command." id="toc-method-2---use-command." class="nav-link active" data-scroll-target="#method-2---use-command.">Method 2 - <code>use</code> command.</a>
+  <ul class="collapse">
+<li><a href="#rep_wgt_in_stata" id="toc-rep_wgt_in_stata" class="nav-link" data-scroll-target="#rep_wgt_in_stata">Importing replicate weights in LWS</a></li>
+  </ul>
+</li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -345,9 +350,22 @@ Tip
 <p>When loading LIS datasets with Stata’s <code>use</code> command, always prefix the dataset name with <strong>$</strong> and specify the corresponding data level suffix: <strong>h</strong> for household-level files and <strong>p</strong> for person-level files.</p>
 </div>
 </div>
+<p><br></p>
+<section id="rep_wgt_in_stata" class="level2"><h2 class="anchored" data-anchor-id="rep_wgt_in_stata">Importing replicate weights in LWS</h2>
+<p>For some LWS datasets, a third file is available, identified by the suffix <strong>r</strong> (e.g.&nbsp;<code>us22r</code>). It contains columns with the so-called <strong>replicate weights</strong>.</p>
+<p>Replicate weights are used to estimate the <strong>uncertainty</strong> of your results (standard errors, confidence intervals), not the estimates themselves. The idea is simple: instead of one weight per household, the survey provider supplies many alternative versions of the weights, each one built by resampling or re-adjusting the sample. You then compute your statistic once with the main weight (your point estimate) and once with each replicate weight. The variability across those replicate results reflects the sampling variability that standard formulas would miss under a complex survey design.</p>
+<p>In practice, whenever an LWS user wants to include replicate weights in an analysis, they need to import the file with the <code>use</code> command and merge it with the LWS microdata of the respective country and year, using the household identifier <code>hid</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lissyuse, <span class="kw">cc</span>(us22) lws hvars(hid dnw inum cname dname <span class="fu">year</span>) </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">merge</span> <span class="fu">m</span>:1 hid <span class="kw">using</span> <span class="ot">$us22r</span>, <span class="kw">assert</span>(<span class="fu">match</span> master) <span class="kw">keep</span>(<span class="fu">match</span>) nogen</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">display</span> c(<span class="kw">k</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The merged data frame contains all the original columns plus the replicate weight columns, which is why the number of columns is much larger than in the original microdata.</p>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();

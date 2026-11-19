@@ -351,17 +351,17 @@ Group variable: dname (country/year identifier)
 </div>
 <p><br></p>
 <p>The Swedish figure is now much closer to American one, as both are expressed in <strong>international US dollars at 2021 prices</strong>. This adjustment makes the values directly comparable and better reflects real income levels.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Warning
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In some <strong>LWS datasets</strong>, wealth amounts and income amounts might differ in their reference year. The year of the dataset always corresponds to the wealth amounts reference year. Income amounts however, might have been expressed as the ones in the year before.</p>
+<p>LIS provides parallel PPP files for different base years and versions. For example, to use the 2017 version, or a future one such as 2024, simply change the year in the file name, e.g.&nbsp;<code>"$myincl/ppp_2017.dta"</code> or <code>"$myincl/ppp_2024.dta"</code>.</p>
 </div>
 </div>
 <p>To conclude this section on adjusting data for differences in currency and price levels, we present two additional examples illustrating how <strong>CPI</strong> and <strong>LISPPP</strong> deflators can be used in practice.</p>
@@ -442,6 +442,19 @@ Group variable: dname (country/year identifier)
 </div>
 <p><br></p>
 <p>Together, these approaches highlight the importance of selecting the appropriate deflator depending on the analytical objective, whether the focus is on within-country trends or cross-country comparability.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In some <strong>LWS datasets</strong>, wealth amounts and income amounts might differ in their reference year. The year of the dataset always corresponds to the wealth amounts reference year. Income amounts however, might have been expressed as the ones in the year before. This information is provided in <strong>METIS</strong>. Results &gt; Dataset Information &gt; Data Source &gt; Income &gt; Reference Period.</p>
+</div>
+</div>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

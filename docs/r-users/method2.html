@@ -290,6 +290,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <a href="#method-2---read.lis" id="toc-method-2---read.lis" class="nav-link active" data-scroll-target="#method-2---read.lis">Method 2 - <code>read.LIS()</code></a>
   <ul class="collapse">
 <li><a href="#importing-lws-and-lcs-data" id="toc-importing-lws-and-lcs-data" class="nav-link" data-scroll-target="#importing-lws-and-lcs-data">Importing LWS and LCS data</a></li>
+  <li><a href="#rep_wgt_in_R" id="toc-rep_wgt_in_R" class="nav-link" data-scroll-target="#rep_wgt_in_R">Importing replicate weights in LWS</a></li>
   </ul>
 </li>
   </ul></nav>
@@ -375,6 +376,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  [7] "emp"       "health1_c" "health2_c" "health3_c" "own"       "hc01_t"   </code></pre>
 </div>
 </div>
+<p><br></p>
+</section><section id="rep_wgt_in_R" class="level2"><h2 class="anchored" data-anchor-id="rep_wgt_in_R">Importing replicate weights in LWS</h2>
+<p>For some LWS datasets, a third file is available, identified by the suffix <strong>r</strong> (e.g.&nbsp;<code>us22r</code>). It contains columns with the so-called <strong>replicate weights</strong>.</p>
+<p>Replicate weights are used to estimate the <strong>uncertainty</strong> of your results (standard errors, confidence intervals), not the estimates themselves. The idea is simple: instead of one weight per household, the survey provider supplies many alternative versions of the weights, each one built by resampling or re-adjusting the sample. You then compute your statistic once with the main weight (your point estimate) and once with each replicate weight. The variability across those replicate results reflects the sampling variability that standard formulas would miss under a complex survey design.</p>
+<p>In practice, whenever an LWS user wants to include replicate weights in an analysis, they need to import the file with <code>read.LIS()</code> and merge it with the LWS microdata of the respective country and year, using the household identifier <code>hid</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/">lissyrtools</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">us_lws22_microdata</span> <span class="op">=</span> <span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/lissyuse.html">lissyuse</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"us22"</span><span class="op">)</span>, </span>
+<span>  vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dnw"</span><span class="op">)</span>, </span>
+<span>  database <span class="op">=</span> <span class="st">'lws'</span> </span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The list contains the following `household-level` data frames: us22h.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">file_r</span> <span class="op">&lt;-</span> <span class="fu">read.LIS</span><span class="op">(</span><span class="st">'us22r'</span><span class="op">)</span> <span class="co"># suffix 'r'</span></span>
+<span></span>
+<span><span class="co"># Retrieve the data.frame from the list</span></span>
+<span><span class="va">us_lws22_microdata_df</span> <span class="op">=</span> <span class="va">us_lws22_microdata</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">lws_us22</span> <span class="op">&lt;-</span> <span class="va">us_lws22_microdata_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">file_r</span>, by <span class="op">=</span> <span class="st">"hid"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">lws_us22</span><span class="op">)</span><span class="op">)</span>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 
+[1] "Loading dataset us22r..."
+[1] 1012</code></pre>
+</div>
+</div>
+<p>The merged data frame contains all the original columns plus the replicate weight columns, which is why the number of columns is much larger than in the original microdata.</p>
 
 
 </section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

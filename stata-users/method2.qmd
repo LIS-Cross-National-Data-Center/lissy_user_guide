@@ -66,3 +66,24 @@ Although this method remains fully valid and may provide more granular control f
 ::: callout-tip
 When loading LIS datasets with Stata’s `use` command, always prefix the dataset name with **\$** and specify the corresponding data level suffix: **h** for household-level files and **p** for person-level files.
 :::
+
+<br>
+
+## Importing replicate weights in LWS {#rep_wgt_in_stata}
+
+For some LWS datasets, a third file is available, identified by the suffix **r** (e.g. `us22r`). It contains columns with the so-called **replicate weights**.
+
+Replicate weights are used to estimate the **uncertainty** of your results (standard errors, confidence intervals), not the estimates themselves. The idea is simple: instead of one weight per household, the survey provider supplies many alternative versions of the weights, each one built by resampling or re-adjusting the sample. You then compute your statistic once with the main weight (your point estimate) and once with each replicate weight. The variability across those replicate results reflects the sampling variability that standard formulas would miss under a complex survey design.
+
+In practice, whenever an LWS user wants to include replicate weights in an analysis, they need to import the file with the `use` command and merge it with the LWS microdata of the respective country and year, using the household identifier `hid`.
+
+```{stata, eval =FALSE, echo=TRUE}
+lissyuse, cc(us22) lws hvars(hid dnw inum cname dname year) 
+
+merge m:1 hid using $us22r, assert(match master) keep(match) nogen
+
+display c(k)
+
+```
+
+The merged data frame contains all the original columns plus the replicate weight columns, which is why the number of columns is much larger than in the original microdata.

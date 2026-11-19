@@ -30,7 +30,7 @@ Stata users have two different methods available to import data into LISSY:
 
 1.  The newer `lissyuse` command, which allows loading several datasets in one go;
 
-2.  The traditional Stata `use` command, which imports one dataset at a time, separately for household- (`h`) and person-level (`p`) data.
+2.  The traditional Stata `use` command, which imports one dataset at a time, separately for household- (`h`) and person-level (`p`) data. 
 
 In this guide, we focus primarily on **Method 1**, based on the `lissyuse` command. This method imports the selected LIS datasets into a single appended dataset while simplifying dataset selection and file management.
 

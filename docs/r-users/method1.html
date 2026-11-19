@@ -329,7 +329,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>R users have two different methods available to import data into LISSY:</p>
 <ol type="1">
 <li><p>The newer <code><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/lissyuse.html">lissyrtools::lissyuse()</a></code> function, which allows loading several datasets in one go;</p></li>
-<li><p>The <code>read.LIS()</code> method, which is still used in some cases, particularly for less frequently used files such as LWS replicate weights.</p></li>
+<li><p>The <code>read.LIS()</code> method, reserved for a few specialised cases (see <a href="..\r-users/method2.html#rep_wgt_in_R">here</a> for LWS replicate weights).</p></li>
 </ol>
 <p>For the remainder of this guide, we will focus on <strong>Method 1</strong>, which imports the selected LIS datasets into a list, where each element corresponds to a specific country–year dataset.</p>
 <p><br></p>
@@ -556,10 +556,11 @@ Tip
  [7] "nhhmem"   "hwgt"     "hpopwgt"  "hwgta"   </code></pre>
 </div>
 </div>
+<p><br></p>
 </section><section id="working-locally-with-lissyrtools" class="level2"><h2 class="anchored" data-anchor-id="working-locally-with-lissyrtools">Working locally with <a href="https://lis-cross-national-data-center.github.io/lissyrtools/">lissyrtools</a>
 </h2>
 <p>It is also possible to install the <a href="https://lis-cross-national-data-center.github.io/lissyrtools/">lissyrtools</a> package locally on your machine. This helps you prototype and debug your jobs in the environment or IDE you are most used to working in. To install the package, go to the GitHub repository and follow the instructions in the <a href="https://github.com/LIS-Cross-National-Data-Center/lissyrtools#installation">installation</a> section.</p>
-<p>Once installed, the package includes sample datasets from countries whose microdata is already publicly available. This lets you try out your jobs locally, and afterwards you only need to copy the content of your scripts into LISSY and change the countries to the ones you want to run your jobs for.</p>
+<p>Once installed, the package includes <a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/index.html#sample-datasets">sample datasets</a> from countries whose microdata is already publicly available. This lets you try out your jobs locally, and afterwards you only need to copy the content of your scripts into LISSY and change the countries to the ones you want to run your jobs for.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
