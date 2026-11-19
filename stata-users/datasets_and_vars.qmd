@@ -61,11 +61,15 @@ lissyrtools::get_surveys_lws(c("no", "za"))
 
 Survey changes across different periods may introduce breaks in consistency, potentially affecting the availability, content, or coverage of certain variables.
 
+::: callout-tip
+For more information on within-country comparability across time, we suggest users explore the [**Compare.it**](https://comparability.lisdatacenter.org/shiny/comparability/){target="_blank"} tool.
+:::
+
 <br>
 
 # Variables
 
-All datasets at a given level share the same set of variables. In practice, this means that even if a variable is not available in the original data provided to LIS, it will still appear in the dataset structure, filled entirely with missing values.
+All datasets at a given level share the same set of variables. In practice, this means that even if a variable is not available in the original data provided to LIS, it will still appear in the dataset structure, filled entirely with missing values or zeros.
 
 In addition to [METIS](https://www.lisdatacenter.org/frontend#/home), LIS provides three separate variable lists, one for [LIS](https://www.lisdatacenter.org/wp-content/uploads/files/data-lis-variables.pdf), another for [LWS](https://www.lisdatacenter.org/wp-content/uploads/files/data-lws-variables.pdf), and another for [LCS](https://www.lisdatacenter.org/wp-content/uploads/files/resources_BetaLCS_varlist.pdf).
 <!-- the lcs link is likely to be changed. Please update afterwards. -->

@@ -306,7 +306,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 </header><section id="ppp_in_r" class="level1"><h1>Currency and Price Level Adjustments</h1>
-<p>LIS variables on income, wealth, and consumption are always expressed in national currency at current prices for that income reference year. While this preserves the data in a form close to its original source, it also creates clear comparability issues across countries.</p>
+<p>Income and consumption data provided by LIS are expressed in national currencies at current prices for the income/consumption reference period. Wealth is reported as market value at a specific point in time, either the interview data, or at another fixed date. While this preserves the data in a form close to its original source, it also creates clear comparability issues across countries.</p>
 <p>For clarity, the snippet below retrieves the unweighted average of disposable household income (<code>dhi</code>) for both the United States and Sweden in 2018.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/">lissyrtools</a></span><span class="op">)</span></span>
@@ -332,7 +332,7 @@ $`United States`
 
 </div>
 <p>The figures reported above are not directly comparable. The large difference in magnitude, wtih Sweden appearing to have values more than five times higher than those of the United States, does not reflect real differences in income levels, but rather the fact that the <strong>data are expressed in different national currencies</strong>, implying the need for additional transformation steps.</p>
-<p>To address this issue, LIS provides both <a href="https://www.lisdatacenter.org/resources/ppp-deflators">CPI and PPP deflators for each country and year</a>. These allow users to convert values into a common, comparable scale. In practice, this process is simplified through the <code><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/apply_ppp_adjustment.html">lissyrtools::apply_ppp_adjustment()</a></code> function, which automatically applies the necessary transformations and enables meaningful comparisons across countries and over time.</p>
+<p>To address this issue, LIS provides both <a href="https://www.lisdatacenter.org/resources/ppp-deflators">CPI and PPP deflators for each country and year</a> retrieved from the World Bank Development Indicators database. These allow users to convert values into a common, comparable scale. In practice, this process is simplified through the <code><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/apply_ppp_adjustment.html">lissyrtools::apply_ppp_adjustment()</a></code> function, which automatically applies the necessary transformations and enables meaningful comparisons across countries and over time.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="..\images/deflators.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
@@ -380,7 +380,7 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In some LWS datasets, wealth amounts and income amounts might differ in their reference year. The year of the dataset always corresponds to the wealth amounts reference year, but income amounts might have been expresssed as the ones in the year before. LWS data users, do not need to worry with this as long as they mannualy specify <code>database = 'lws'</code>, which immediately adjust the reference year depending on <code>var_name</code> is a wealth (<code>dnw</code>) or income variable (<code>dhi</code>).</p>
+<p>In some LWS datasets, wealth amounts and income amounts might differ in their reference year. The year of the dataset always corresponds to the wealth amounts reference year, but income amounts might have been expresssed as the ones in the year before. LWS data users, do not need to worry with this as long as they mannualy specify <code>database = 'lws'</code>, which immediately adjusts the reference year depending if <code>var_name</code> is a wealth (<code>dnw</code>) or income variable (<code>dhi</code>).</p>
 </div>
 </div>
 <p>To conclude this section on adjusting data for differences in currency and price levels, we present two additional examples illustrating how <strong>CPI</strong> and <strong>LISPPP</strong> deflators can be used in practice.</p>

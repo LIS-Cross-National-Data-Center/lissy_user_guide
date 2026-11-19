@@ -494,29 +494,25 @@ Warning
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">egen</span> nonmiss_obs  = <span class="kw">total</span>(has_inc)  , <span class="kw">by</span>(dname)</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> pct_nonmiss = (nonmiss_obs / total_obs) * 100</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">bysort</span> dname: <span class="kw">keep</span> <span class="kw">if</span> <span class="dt">_n</span> == 1 <span class="co">// keeping one row per dname (mimics collapse)</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">keep</span> cname <span class="fu">year</span> total_obs nonmiss_obs pct_nonmiss</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="kw">forvalues</span> i = 1/<span class="ot">`=_N'</span> {</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>   <span class="kw">if</span> <span class="ot">`i'</span> == 1 {</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>     <span class="kw">di</span> <span class="st">"cname,year,total_obs,nonmiss_obs,pct_nonmiss"</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        } </span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>     <span class="kw">di</span> cname[<span class="ot">`i'</span>] <span class="st">","</span>  <span class="fu">year</span>[<span class="ot">`i'</span>] <span class="st">","</span> total_obs[<span class="ot">`i'</span>] <span class="st">","</span> nonmiss_obs[<span class="ot">`i'</span>] <span class="st">","</span> pct_nonmiss[<span class="ot">`i'</span>]</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">tabstat</span> pct_nonmiss, <span class="kw">by</span>(dname) stat(n <span class="kw">mean</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="foldable"><code>(63,295 observations deleted)
+<pre class="foldable"><code>Summary for variables: pct_nonmiss
+Group variable: dname (country/year identifier)
 
-
-  6. }
-cname,year,total_obs,nonmiss_obs,pct_nonmiss
-Italy,2006,7768,6520,83.93409
-Italy,2008,7977,6552,82.136139
-Italy,2010,7951,6490,81.624954
-Italy,2012,8151,6518,79.965645
-Italy,2014,8156,6748,82.736633
-Italy,2016,7420,6196,83.504044
-Italy,2020,6239,5787,92.755249
-Italy,2022,9641,8839,91.681358</code></pre>
+ dname |         N      Mean
+-------+--------------------
+  it06 |      7768  83.93409
+  it08 |      7977  82.13614
+  it10 |      7951  81.62495
+  it12 |      8151  79.96564
+  it14 |      8156  82.73663
+  it16 |      7420  83.50404
+  it20 |      6239  92.75525
+  it22 |      9641  91.68136
+-------+--------------------
+ Total |     63303  84.75112
+----------------------------</code></pre>
 </div>
 </div>
 <p><br></p>

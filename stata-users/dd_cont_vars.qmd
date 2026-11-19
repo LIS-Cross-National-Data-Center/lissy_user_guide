@@ -58,15 +58,8 @@ egen total_obs    = total(obs_count), by(dname)
 egen nonmiss_obs  = total(has_inc)  , by(dname)
 
 gen pct_nonmiss = (nonmiss_obs / total_obs) * 100
-bysort dname: keep if _n == 1 // keeping one row per dname (mimics collapse)
 
-keep cname year total_obs nonmiss_obs pct_nonmiss
-forvalues i = 1/`=_N' {
-   if `i' == 1 {
-     di "cname,year,total_obs,nonmiss_obs,pct_nonmiss"
-		} 
-     di cname[`i'] ","  year[`i'] "," total_obs[`i'] "," nonmiss_obs[`i'] "," pct_nonmiss[`i']
-}
+tabstat pct_nonmiss, by(dname) stat(n mean)
 ```
 
 <br>

@@ -328,7 +328,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>While the first approach is simpler to write, essentially a single line of code, its output can become lengthy and hard to read when many datasets are in use. The <code>collapse</code> approach, though more code-intensive, structures the data in a way that is well-suited for producing plots or exporting results to a spreadsheet in CSV format. Both uses are covered in the section on <a href="..\stata-users/tidy_exp_to_csv.html">Structuring Results for Analysis</a>.</p>
 <p><br></p>
 <section id="categorical-variables" class="level1"><h1>Categorical Variables</h1>
-<p>Categorical variables are composed of numeric codes, each uniquely associated with a label. LIS provides two types of categorical variables are available:</p>
+<p>Categorical variables are composed of numeric codes, each uniquely associated with a label. LIS provides two types of categorical variables:</p>
 <ul>
 <li><p><strong>Standardized</strong>: their categories are identical across all datasets in LIS/LWS/LCS, enabling direct cross-country and cross-time comparisons.</p></li>
 <li><p><strong>Country-specific</strong>: these provide categorized information on topics that are inherently non-comparable across countries — either by nature (e.g., <code>region_c</code>) or because they do not follow a standard international classification (e.g., <code>health_c</code>). Such variables may also lack comparability across time within a given country.</p></li>
@@ -655,15 +655,60 @@ Tip
 </section><section id="nested-coding" class="level3"><h3 class="anchored" data-anchor-id="nested-coding">Nested coding</h3>
 <p>While standardized variables share a fixed category template across all countries and years, this does not always guarantee straightforward comparability in practice. The level of detail available for a given variable can vary considerably across years within the same country series, reflecting differences in the underlying survey instrument. The variable <code>own</code> in the Spanish series illustrates this well.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(es) from(1999) to(2005) hvars(cname <span class="fu">year</span> dname)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> lissyuse, iso2(es) from(1999) to(2005) hvars(cname <span class="fu">year</span> dname own)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">bysort</span> dname: <span class="kw">tabulate</span> own, <span class="fu">missing</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre class="foldable"><code>-&gt; dname = es00
-variable own not found
-r(111);
 
-r(111);</code></pre>
+  main residence tenure status |      Freq.     Percent        Cum.
+-------------------------------+-----------------------------------
+                    [100]owned |      4,204       84.66       84.66
+                   [210]rented |        487        9.81       94.46
+             [220]free housing |        274        5.52       99.98
+                             . |          1        0.02      100.00
+-------------------------------+-----------------------------------
+                         Total |      4,966      100.00
+
+-------------------------------------------------------------------------------
+-&gt; dname = es04
+
+  main residence tenure status |      Freq.     Percent        Cum.
+-------------------------------+-----------------------------------
+                    [100]owned |         19        0.15        0.15
+           [110]owned outright |      7,478       57.54       57.69
+      [120]owned with mortgage |      3,327       25.60       83.29
+   [211]rented at market price |        886        6.82       90.10
+[212]rented below market price |        426        3.28       93.38
+             [220]free housing |        860        6.62      100.00
+-------------------------------+-----------------------------------
+                         Total |     12,996      100.00
+
+-------------------------------------------------------------------------------
+-&gt; dname = es05
+
+  main residence tenure status |      Freq.     Percent        Cum.
+-------------------------------+-----------------------------------
+                    [100]owned |         18        0.15        0.15
+           [110]owned outright |      6,892       56.47       56.62
+      [120]owned with mortgage |      3,187       26.11       82.73
+   [211]rented at market price |        890        7.29       90.02
+[212]rented below market price |        365        2.99       93.01
+             [220]free housing |        853        6.99      100.00
+-------------------------------+-----------------------------------
+                         Total |     12,205      100.00
+
+-------------------------------------------------------------------------------
+-&gt; dname = es99
+
+  main residence tenure status |      Freq.     Percent        Cum.
+-------------------------------+-----------------------------------
+                    [100]owned |      4,352       84.80       84.80
+                   [210]rented |        493        9.61       94.41
+             [220]free housing |        283        5.51       99.92
+                             . |          4        0.08      100.00
+-------------------------------+-----------------------------------
+                         Total |      5,132      100.00</code></pre>
 </div>
 </div>
 <p><br></p>
@@ -671,7 +716,7 @@ r(111);</code></pre>
 <p><img src="..\images/ES00_data_handling.png" class="img-fluid"></p>
 <p>By <code>es04</code>, the same variable is captured with considerably more granularity, distinguishing for instance between outright ownership <code>[110]</code> and ownership with a mortgage <code>[120]</code>, and similarly splitting the rental category into market <code>[211]</code> and sub-market <code>[212]</code> rentals.</p>
 <p><img src="..\images/ES04_data_handling.png" class="img-fluid"></p>
-<p>This finer disaggregation in later years is not incidental: it reflects the hierarchical coding structure deliberately built into LIS/LWS/LCS standardized variables, where higher-level codes such as <code>[100]</code> or <code>[200]</code> represent aggregate categories, and lower-level codes such as <code>[110]</code>, <code>[120]</code>, or <code>[211]</code> represent their constituent sub-groups. Users should therefore always inspect the distribution of standardized categorical variables across the full country series before drawing comparisons, as apparent changes over time may reflect a shift in granularity rather than a genuine change in the underlying phenomenon.</p>
+<p>This finer disaggregation in later years is not incidental: it reflects the hierarchical coding structure deliberately built into LIS/LWS/LCS standardized variables, where higher-level codes such as <code>[100]</code> or <code>[200]</code> represent aggregate categories, and lower-level codes such as <code>[110]</code>, <code>[120]</code>, or <code>[211]</code> represent their constituent sub-groups. Users should therefore always inspect the distribution of standardized categorical variables across the full country series before drawing comparisons, as apparent changes over time may simply reflect a change in level of detail rather than a real change.</p>
 <p><br></p>
 </section></section><section id="country-specific-variables" class="level2"><h2 class="anchored" data-anchor-id="country-specific-variables">Country-specific variables</h2>
 <p>Country-specific variables require special attention in LISSY. Unlike standardized variables, designed to be comparable across countries and over time, country-specific variables reflect the original national classifications and coding schemes used in each survey. As a result, <strong>they should always be handled on a dataset-by-dataset basis</strong>.</p>
@@ -725,10 +770,10 @@ r(111);</code></pre>
                          Total |     38,676      100.00
 
 
-Contains data from C:\Users\marques\AppData\Local\Temp\ST_71b4_000004.tmp
+Contains data from C:\Users\marques\AppData\Local\Temp\ST_f6c_000004.tmp
  Observations:        38,676                  es16: version created on 29 Nov
                                                 2024 15:49
-    Variables:             6                  18 Nov 2026 15:12
+    Variables:             6                  19 Nov 2026 11:24
 -------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label

@@ -17,9 +17,9 @@ Before getting started, there are a few important concepts to keep in mind:
 
 R users have two different methods available to import data into LISSY:
 
-1.  The newer `lissyrtools::lissyuse()` function
+1.  The newer `lissyrtools::lissyuse()` function, which allows loading several datasets in one go;
 
-2.  The `read.LIS()` method, which is still used in some cases, particularly for less frequently used files such as LWS replicate weights
+2.  The `read.LIS()` method, which is still used in some cases, particularly for less frequently used files such as LWS replicate weights.
 
 For the remainder of this guide, we will focus on **Method 1**, which imports the selected LIS datasets into a list, where each element corresponds to a specific country–year dataset.
 
@@ -41,7 +41,7 @@ library(lissyrtools)
 
 ## Advantage 1: Import entire country series
 
-At the time we are writting this guide, LIS contains 26 datasets on Italy. This means that if the user wanted to import all years it would have needed to manually specify 26 distinct datasets. On top of it, it still had to know and confirm the exact specific years that we have data for each one of the countries.
+At the time we are writing this guide, LIS contains 26 datasets on Italy. This means that if the user wanted to import all years it would have needed to manually specify 26 distinct datasets. On top of it, it still had to know and confirm the exact specific years that we have data for each one of the countries.
 
 ```{stata, eval =FALSE, echo=TRUE}
 * it22 it20 it16 it14 it12 ...
@@ -126,7 +126,14 @@ names(merged_hhd_ind_data[[1]])
 :::
 
 ::: callout-tip
-Note as well that **some variables were imported by default**. Variables such as IDs, weights, and others do not need to be defined explicitly, as they are automatically included.
+Note as well that **some variables are imported by default**. IDs, technical variables and weights do not need to be defined explicitly in `vars`, as they are automatically included:
+
+| Level | IDs | Technical variables | Weights | Other |
+|-------|-----|---------------------|---------|-------|
+| **Household** | `hid` | `iso2`, `year`, `dname`, `currency` | `hwgt`, `hpopwgt`, `hwgta` | `nhhmem` |
+| **Person** | `hid`, `pid` | `iso2`, `year`, `dname`, `currency` | `pwgt`, `ppopwgt`, `pwgta` | `relation` |
+
+In **LWS**, the variable `inum` is also added by default at both levels.
 :::
 
 <br>
@@ -160,3 +167,15 @@ be_lcs_data = lissyrtools::lissyuse(
 
 names(be_lcs_data[[1]])
 ```
+
+
+
+## Working locally with [lissyrtools](https://lis-cross-national-data-center.github.io/lissyrtools/)
+
+It is also possible to install the [lissyrtools](https://lis-cross-national-data-center.github.io/lissyrtools/) package locally on your machine. This helps you prototype and debug your jobs in the environment or IDE you are most used to working in. To install the package, go to the GitHub repository and follow the instructions in the [installation](https://github.com/LIS-Cross-National-Data-Center/lissyrtools#installation) section.
+
+Once installed, the package includes sample datasets from countries whose microdata is already publicly available. This lets you try out your jobs locally, and afterwards you only need to copy the content of your scripts into LISSY and change the countries to the ones you want to run your jobs for.
+
+::: callout-tip
+For more details on working with the local version and its sample datasets, see the [local version](https://github.com/LIS-Cross-National-Data-Center/lissyrtools#local-version) section of the repository.
+:::

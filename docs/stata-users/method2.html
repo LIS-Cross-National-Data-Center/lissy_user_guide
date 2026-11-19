@@ -318,19 +318,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    * Load person-<span class="dv">level</span> file</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">use</span> <span class="ot">$varspp</span> <span class="kw">using</span> $<span class="ot">`ccyy'</span>p, <span class="kw">clear</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    * Merge household-<span class="dv">level</span> variables</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">merge</span> <span class="fu">m</span>:1 hid <span class="kw">using</span> $<span class="ot">`ccyy'</span>h, <span class="co">///</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        keepusing(<span class="ot">$varshh</span>) nogen</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    * Append to master dataset</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">append</span> <span class="kw">using</span> <span class="ot">`master'</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    * Save updated combined dataset</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">save</span> <span class="ot">`master'</span>, <span class="kw">replace</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>* Load final combined dataset</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="ot">`master'</span>, <span class="kw">clear</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="kw">tab</span> dname </span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>* Example summary <span class="kw">statistics</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="kw">tabstat</span> sex, <span class="kw">by</span>(dname)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="kw">tabstat</span> own, <span class="kw">by</span>(dname)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">merge</span> <span class="fu">m</span>:1 hid <span class="kw">using</span> $<span class="ot">`ccyy'</span>h, keepusing(<span class="ot">$varshh</span>) nogen</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    * Append to master dataset</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">append</span> <span class="kw">using</span> <span class="ot">`master'</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    * Save updated combined dataset</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">save</span> <span class="ot">`master'</span>, <span class="kw">replace</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>* Load final combined dataset</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="ot">`master'</span>, <span class="kw">clear</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="kw">tab</span> dname </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>* Example summary <span class="kw">statistics</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="kw">tabstat</span> sex, <span class="kw">by</span>(dname)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="kw">tabstat</span> own, <span class="kw">by</span>(dname)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Although this method remains fully valid and may provide more granular control for advanced users, <code>lissyuse</code> considerably simplifies the workflow by automating dataset selection, merging, appending, and data-level management procedures.</p>
 <div class="callout callout-style-default callout-tip callout-titled">

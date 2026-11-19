@@ -33,7 +33,7 @@ library(labelled)
 recoded_data = lissyuse('es', 'own', from =  2000, to = 2004, database = 'lis') %>%
   purrr::map(
     ~ .x %>% mutate(
-      new_own = case_when( # do the transformations on the variable with the original name from LIS
+      new_own = case_when( 
         own >= 100 & own < 199 ~ 100, 
         own >= 210 & own < 219 ~ 210, 
         own >= 220 & own < 229 ~ 220, 

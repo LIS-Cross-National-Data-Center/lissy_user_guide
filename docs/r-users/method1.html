@@ -292,6 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="#advantage-1-import-entire-country-series" id="toc-advantage-1-import-entire-country-series" class="nav-link" data-scroll-target="#advantage-1-import-entire-country-series">Advantage 1: Import entire country series</a></li>
   <li><a href="#advantage-2-automatic-data-level-selection" id="toc-advantage-2-automatic-data-level-selection" class="nav-link" data-scroll-target="#advantage-2-automatic-data-level-selection">Advantage 2: Automatic Data-Level Selection</a></li>
   <li><a href="#importing-lws-and-lcs-data" id="toc-importing-lws-and-lcs-data" class="nav-link" data-scroll-target="#importing-lws-and-lcs-data">Importing LWS and LCS data</a></li>
+  <li><a href="#working-locally-with-lissyrtools" id="toc-working-locally-with-lissyrtools" class="nav-link" data-scroll-target="#working-locally-with-lissyrtools">Working locally with lissyrtools</a></li>
   </ul>
 </li>
   </ul></nav>
@@ -327,8 +328,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>R users have two different methods available to import data into LISSY:</p>
 <ol type="1">
-<li><p>The newer <code><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/lissyuse.html">lissyrtools::lissyuse()</a></code> function</p></li>
-<li><p>The <code>read.LIS()</code> method, which is still used in some cases, particularly for less frequently used files such as LWS replicate weights</p></li>
+<li><p>The newer <code><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/lissyuse.html">lissyrtools::lissyuse()</a></code> function, which allows loading several datasets in one go;</p></li>
+<li><p>The <code>read.LIS()</code> method, which is still used in some cases, particularly for less frequently used files such as LWS replicate weights.</p></li>
 </ol>
 <p>For the remainder of this guide, we will focus on <strong>Method 1</strong>, which imports the selected LIS datasets into a list, where each element corresponds to a specific country–year dataset.</p>
 <p><br></p>
@@ -344,7 +345,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><br></p>
 <section id="advantage-1-import-entire-country-series" class="level2"><h2 class="anchored" data-anchor-id="advantage-1-import-entire-country-series">Advantage 1: Import entire country series</h2>
-<p>At the time we are writting this guide, LIS contains 26 datasets on Italy. This means that if the user wanted to import all years it would have needed to manually specify 26 distinct datasets. On top of it, it still had to know and confirm the exact specific years that we have data for each one of the countries.</p>
+<p>At the time we are writing this guide, LIS contains 26 datasets on Italy. This means that if the user wanted to import all years it would have needed to manually specify 26 distinct datasets. On top of it, it still had to know and confirm the exact specific years that we have data for each one of the countries.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>* it22 it20 it16 it14 it12 ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -470,7 +471,50 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Note as well that <strong>some variables were imported by default</strong>. Variables such as IDs, weights, and others do not need to be defined explicitly, as they are automatically included.</p>
+<p>Note as well that <strong>some variables are imported by default</strong>. IDs, technical variables and weights do not need to be defined explicitly in <code>vars</code>, as they are automatically included:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 10%">
+<col style="width: 42%">
+<col style="width: 18%">
+<col style="width: 14%">
+</colgroup>
+<thead><tr class="header">
+<th>Level</th>
+<th>IDs</th>
+<th>Technical variables</th>
+<th>Weights</th>
+<th>Other</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Household</strong></td>
+<td><code>hid</code></td>
+<td>
+<code>iso2</code>, <code>year</code>, <code>dname</code>, <code>currency</code>
+</td>
+<td>
+<code>hwgt</code>, <code>hpopwgt</code>, <code>hwgta</code>
+</td>
+<td><code>nhhmem</code></td>
+</tr>
+<tr class="even">
+<td><strong>Person</strong></td>
+<td>
+<code>hid</code>, <code>pid</code>
+</td>
+<td>
+<code>iso2</code>, <code>year</code>, <code>dname</code>, <code>currency</code>
+</td>
+<td>
+<code>pwgt</code>, <code>ppopwgt</code>, <code>pwgta</code>
+</td>
+<td><code>relation</code></td>
+</tr>
+</tbody>
+</table>
+<p>In <strong>LWS</strong>, the variable <code>inum</code> is also added by default at both levels.</p>
 </div>
 </div>
 <p><br></p>
@@ -510,6 +554,23 @@ Tip
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "hid"      "hc01_t"   "dname"    "iso2"     "year"     "currency"
  [7] "nhhmem"   "hwgt"     "hpopwgt"  "hwgta"   </code></pre>
+</div>
+</div>
+</section><section id="working-locally-with-lissyrtools" class="level2"><h2 class="anchored" data-anchor-id="working-locally-with-lissyrtools">Working locally with <a href="https://lis-cross-national-data-center.github.io/lissyrtools/">lissyrtools</a>
+</h2>
+<p>It is also possible to install the <a href="https://lis-cross-national-data-center.github.io/lissyrtools/">lissyrtools</a> package locally on your machine. This helps you prototype and debug your jobs in the environment or IDE you are most used to working in. To install the package, go to the GitHub repository and follow the instructions in the <a href="https://github.com/LIS-Cross-National-Data-Center/lissyrtools#installation">installation</a> section.</p>
+<p>Once installed, the package includes sample datasets from countries whose microdata is already publicly available. This lets you try out your jobs locally, and afterwards you only need to copy the content of your scripts into LISSY and change the countries to the ones you want to run your jobs for.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For more details on working with the local version and its sample datasets, see the <a href="https://github.com/LIS-Cross-National-Data-Center/lissyrtools#local-version">local version</a> section of the repository.</p>
 </div>
 </div>
 

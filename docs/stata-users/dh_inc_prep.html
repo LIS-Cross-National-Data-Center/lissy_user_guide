@@ -408,12 +408,25 @@ Note
 </section><section id="equivalence-scales" class="level2"><h2 class="anchored" data-anchor-id="equivalence-scales">Equivalence Scales</h2>
 <p>Households differ in size and composition, which affects their economic needs. To enable meaningful comparisons across households, we equivalize disposable household income.</p>
 <p>We apply the square root equivalence scale, dividing household income by the square root of the total number of household members. This transformation accounts for economies of scale in consumption: larger households require more resources, but not proportionally more per additional member.</p>
-<p>As a result, all individuals within a household are assigned the same equivalised income, regardless of their age or role within the household.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>*===================================</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>* Equivalise income (square root)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>*===================================</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> <span class="kw">double</span> ey = ( dhi / (nhhmem^0.5) )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><br></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Other equivalisation scales exist and can be used depending on the analysis. For example, the <strong>modified OECD scale</strong> gives different weights to household members depending on their age (children count for less than adults), while the <strong>per capita</strong> scale simply divides household income by the number of household members, assuming no economies of scale.</p>
+</div>
 </div>
 <p><br></p>
 </section><section id="poverty-line" class="level2"><h2 class="anchored" data-anchor-id="poverty-line">Poverty Line</h2>

@@ -315,8 +315,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Stata users have two different methods available to import data into LISSY:</p>
 <ol type="1">
-<li><p>The newer <code>lissyuse</code> command</p></li>
-<li><p>The traditional Stata <code>use</code> command, which imports one dataset at a time, separately for household- (<code>h</code>) and person-level (<code>p</code>) data</p></li>
+<li><p>The newer <code>lissyuse</code> command, which allows loading several datasets in one go;</p></li>
+<li><p>The traditional Stata <code>use</code> command, which imports one dataset at a time, separately for household- (<code>h</code>) and person-level (<code>p</code>) data.</p></li>
 </ol>
 <p>In this guide, we focus primarily on <strong>Method 1</strong>, based on the <code>lissyuse</code> command. This method imports the selected LIS datasets into a single appended dataset while simplifying dataset selection and file management.</p>
 <p><br></p>
@@ -419,7 +419,7 @@ Tip
 </div>
 </div>
 <p>You may notice a warning indicating that all variables were imported. This occurs because no variables were explicitly specified. In such cases, <code>lissyuse</code> imports all available LIS variables from both household- and person-level files.</p>
-<p>In practice, this is usually inefficient. Therefore, users are strongly encouraged to specify variables explicitly using the <code>hvars()</code> and <code>pvars()</code> options.</p>
+<p>In practice, this is inefficient in the analyses as typically not all variables are required. Therefore, users are strongly encouraged to specify variables explicitly using the <code>hvars()</code> and <code>pvars()</code> options.</p>
 <p><br></p>
 </section><section id="advantage-2-automatic-data-level-selection" class="level2"><h2 class="anchored" data-anchor-id="advantage-2-automatic-data-level-selection">Advantage 2: Automatic Data-Level Selection</h2>
 <p>The second advantage of <code>lissyuse</code> is that it automatically determines the appropriate data level based on the variables selected.</p>

@@ -123,8 +123,6 @@ Households differ in size and composition, which affects their economic needs. T
 
 We apply the square root equivalence scale, dividing household income by the square root of the total number of household members. This transformation accounts for economies of scale in consumption: larger households require more resources, but not proportionally more per additional member.
 
-As a result, all individuals within a household are assigned the same equivalised income, regardless of their age or role within the household.
-
 ```{stata, eval = FALSE, echo=TRUE, class.output = "foldable"}
 *===================================
 * Equivalise income (square root)
@@ -132,8 +130,14 @@ As a result, all individuals within a household are assigned the same equivalise
 generate double ey = ( dhi / (nhhmem^0.5) )
 ```
 
+<br>
+
+::: callout-tip
+Other equivalisation scales exist and can be used depending on the analysis. For example, the **modified OECD scale** gives different weights to household members depending on their age (children count for less than adults), while the **per capita** scale simply divides household income by the number of household members, assuming no economies of scale.
+:::
 
 <br>
+
 
 ## Poverty Line
 

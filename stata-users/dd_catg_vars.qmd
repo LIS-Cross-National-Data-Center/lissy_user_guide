@@ -38,7 +38,7 @@ While the first approach is simpler to write, essentially a single line of code,
 
 # Categorical Variables
 
-Categorical variables are composed of numeric codes, each uniquely associated with a label. LIS provides two types of categorical variables are available:
+Categorical variables are composed of numeric codes, each uniquely associated with a label. LIS provides two types of categorical variables:
 
 - **Standardized**: their categories are identical across all datasets in LIS/LWS/LCS, enabling direct cross-country and cross-time comparisons.
 
@@ -181,7 +181,7 @@ In this example we switched the chosen separator from a comma to `@`. This preve
 While standardized variables share a fixed category template across all countries and years, this does not always guarantee straightforward comparability in practice. The level of detail available for a given variable can vary considerably across years within the same country series, reflecting differences in the underlying survey instrument. The variable `own` in the Spanish series illustrates this well.
 
 ```{stata, eval =TRUE, echo=TRUE, class.output = "foldable"}
-qui lissyuse, iso2(es) from(1999) to(2005) hvars(cname year dname)
+qui lissyuse, iso2(es) from(1999) to(2005) hvars(cname year dname own)
 
 bysort dname: tabulate own, missing
 ```
@@ -196,7 +196,7 @@ By `es04`, the same variable is captured with considerably more granularity, dis
 
 ![](/images/ES04_data_handling.png)
 
-This finer disaggregation in later years is not incidental: it reflects the hierarchical coding structure deliberately built into LIS/LWS/LCS standardized variables, where higher-level codes such as `[100]` or `[200]` represent aggregate categories, and lower-level codes such as `[110]`, `[120]`, or `[211]` represent their constituent sub-groups. Users should therefore always inspect the distribution of standardized categorical variables across the full country series before drawing comparisons, as apparent changes over time may reflect a shift in granularity rather than a genuine change in the underlying phenomenon.
+This finer disaggregation in later years is not incidental: it reflects the hierarchical coding structure deliberately built into LIS/LWS/LCS standardized variables, where higher-level codes such as `[100]` or `[200]` represent aggregate categories, and lower-level codes such as `[110]`, `[120]`, or `[211]` represent their constituent sub-groups. Users should therefore always inspect the distribution of standardized categorical variables across the full country series before drawing comparisons, as apparent changes over time may simply reflect a change in level of detail rather than a real change.
 
 
 <br>

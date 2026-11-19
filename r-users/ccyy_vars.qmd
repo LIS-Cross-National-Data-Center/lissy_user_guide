@@ -40,6 +40,10 @@ lissyrtools::get_surveys_lws(c("no", "za"))
 
 Survey changes across different periods may introduce breaks in consistency, potentially affecting the availability, content, or coverage of certain variables.
 
+::: callout-tip
+For more information on within-country comparability across time, we suggest users explore the [**Compare.it**](https://comparability.lisdatacenter.org/shiny/comparability/){target="_blank"} tool.
+:::
+
 <br>
 
 # Variables

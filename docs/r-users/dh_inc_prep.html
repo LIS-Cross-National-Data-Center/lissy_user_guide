@@ -456,12 +456,25 @@ Note
 </section><section id="equivalence-scales" class="level2"><h2 class="anchored" data-anchor-id="equivalence-scales">Equivalence Scales</h2>
 <p>Households differ in size and composition, which affects their economic needs. To enable meaningful comparisons across households, we equivalize disposable household income.</p>
 <p>We apply the square root equivalence scale, dividing household income by the square root of the total number of household members. This transformation accounts for economies of scale in consumption: larger households require more resources, but not proportionally more per additional member.</p>
-<p>As a result, all individuals within a household are assigned the same equivalised income, regardless of their age or role within the household.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data_eqv</span> <span class="op">&lt;-</span> <span class="va">data_tb_coded</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>     <span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/apply_sqrt_equivalisation.html">apply_sqrt_equivalisation</a></span><span class="op">(</span></span>
 <span>        var_name <span class="op">=</span> <span class="st">'dhi'</span></span>
 <span>        <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><br></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Other equivalisation scales exist and can be used depending on the analysis. For example, the <strong>modified OECD scale</strong> gives different weights to household members depending on their age (children count for less than adults), while the <strong>per capita</strong> scale simply divides household income by the number of household members, assuming no economies of scale.</p>
+</div>
 </div>
 <p><br></p>
 </section><section id="poverty-line" class="level2"><h2 class="anchored" data-anchor-id="poverty-line">Poverty Line</h2>

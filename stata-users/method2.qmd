@@ -47,8 +47,7 @@ foreach ccyy in $datasets {
     * Load person-level file
     use $varspp using $`ccyy'p, clear
     * Merge household-level variables
-    merge m:1 hid using $`ccyy'h, ///
-        keepusing($varshh) nogen
+    merge m:1 hid using $`ccyy'h, keepusing($varshh) nogen
     * Append to master dataset
     append using `master'
     * Save updated combined dataset

@@ -8,12 +8,9 @@ Welcome Stata people 👋
 
 This guide walks you step by step through working with LIS data in Stata — from getting started to building a solid, reproducible workflow.  
 
-You’ll learn how to navigate the structure and specific features of LIS datasets, while developing practical skills you can apply directly to your own projects. We cover each stage of the workflow, highlight common operations, and share tips to help you work more efficiently.   
+You’ll learn how to navigate the structure and specific features of LIS LWS and LCS datasets, while developing practical skills you can apply directly to your own projects. We cover each stage of the workflow, highlight common operations, and share tips to help you work more efficiently.   
 
 Whether you're new to LIS or looking to improve your workflow, this guide aims to provide a clear and hands-on learning experience.  
 
-If you have any questions or feedback, feel free to contact the LIS team.
+If you have any questions or feedback, feel free to contact the [LIS team](mailto:usersupport@lisdatacenter.org).
 
-# Additional Resources  
-
-- [Self-Teaching Resources](https://www.lisdatacenter.org/resources/self-teaching/)

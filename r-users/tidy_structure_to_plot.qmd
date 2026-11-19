@@ -19,6 +19,7 @@ The function `structure_to_plot()` was designed to convert complex outputs into 
 
 To illustrate this, and to provide a visual representation of the resulting output, we present examples **using `lissyrtools` locally** with some of its embedded [sample datasets](https://lis-cross-national-data-center.github.io/lissyrtools/reference/index.html#sample-datasets). This approach reflects how a user would interact with `lissyrtools` outside of LISSY, working on their local machine, which is made possible through the inclusion of these embedded datasets.
 
+
 <!-- This part is for users to run in LISSY not to be eval .....  -->
 <!-- This part will not work for LWS !  .....  -->
 
@@ -41,7 +42,8 @@ datasets_final <- lissyuse(
   ) 
 ```
 
-<!--  .... but .....  here we run sample datasets ....  -->
+
+<!-- here we run sample datasets -->
 
 <!--  .... then we stored them in an object called 'datasets_final'   -->
 

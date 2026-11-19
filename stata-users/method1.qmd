@@ -28,9 +28,9 @@ Before getting started, there are a few important concepts to keep in mind:
 
 Stata users have two different methods available to import data into LISSY:
 
-1.  The newer `lissyuse` command
+1.  The newer `lissyuse` command, which allows loading several datasets in one go;
 
-2.  The traditional Stata `use` command, which imports one dataset at a time, separately for household- (`h`) and person-level (`p`) data
+2.  The traditional Stata `use` command, which imports one dataset at a time, separately for household- (`h`) and person-level (`p`) data.
 
 In this guide, we focus primarily on **Method 1**, based on the `lissyuse` command. This method imports the selected LIS datasets into a single appended dataset while simplifying dataset selection and file management.
 
@@ -84,7 +84,7 @@ When the output of a command is not essential, consider adding `quietly` (or `qu
 
 You may notice a warning indicating that all variables were imported. This occurs because no variables were explicitly specified. In such cases, `lissyuse` imports all available LIS variables from both household- and person-level files.
 
-In practice, this is usually inefficient. Therefore, users are strongly encouraged to specify variables explicitly using the `hvars()` and `pvars()` options.
+In practice, this is inefficient in the analyses as typically not all variables are required. Therefore, users are strongly encouraged to specify variables explicitly using the `hvars()` and `pvars()` options.
 
 <br>
 

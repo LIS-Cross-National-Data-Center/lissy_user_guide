@@ -16,8 +16,8 @@ source("../src/read.LIS.R")
 ```
 
 ```{r, eval=TRUE, echo=TRUE, results = 'hold'}
-data_h <- read.LIS(c("de18h", "es18h")) # Import h-level data for Lux. 2010 
-data_p <- read.LIS(c("de18p", "es18p")) # Import p-level data for Lux. 2010 
+data_h <- read.LIS(c("de18h", "es18h")) # Import h-level data 
+data_p <- read.LIS(c("de18p", "es18p")) # Import p-level data 
 
 full_data <- merge(data_p, data_h, by = c("dname", "hid"))  
 class(full_data) 
