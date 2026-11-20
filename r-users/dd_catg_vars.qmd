@@ -124,7 +124,7 @@ lissyrtools::run_weighted_count(imported_list, 'educlev', by = 'educ')
 
 
 ::: {.callout-tip}
-For better-structured tabular output, or to quickly produce trend plots for visual inspection, see the [chapter on exporting results](/r-users/tidy_exp_to_csv.html#export-csv).
+For better-structured tabular output, or to quickly produce trend plots for visual inspection, see the [chapter on CSV outputs](/r-users/tidy_exp_to_csv.html#export-csv) and the one dedicated to [plotting in LISSY](/r-users/tidy_plots.html).
 :::
 
 ![](/images/csv_teaser_dd.png){fig-align="center"}

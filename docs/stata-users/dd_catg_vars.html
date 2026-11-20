@@ -232,7 +232,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stata-users/dh_inc_prep.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preparing Income Variables</span></a>
+ <span class="menu-text">Preparing Monetary Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dh_weights_stata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using Weights</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -286,12 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#nested-coding" id="toc-nested-coding" class="nav-link" data-scroll-target="#nested-coding">Nested coding</a></li>
   </ul>
 </li>
-  <li>
-<a href="#country-specific-variables" id="toc-country-specific-variables" class="nav-link" data-scroll-target="#country-specific-variables">Country-specific variables</a>
-  <ul class="collapse">
-<li><a href="#extra-tools-in-r" id="toc-extra-tools-in-r" class="nav-link" data-scroll-target="#extra-tools-in-r">Extra tools in R</a></li>
-  </ul>
-</li>
+  <li><a href="#country-specific-variables" id="toc-country-specific-variables" class="nav-link" data-scroll-target="#country-specific-variables">Country-specific variables</a></li>
   </ul>
 </li>
   </ul></nav>
@@ -325,7 +326,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Using the <code>by</code> command ahead of other built-in commands like <code>tabulate</code> or <code>sum</code>.</li>
 <li>Using the <code>collapse</code> command with the <strong>by option</strong> to produce an aggregated dataset that can be printed to the console.</li>
 </ul>
-<p>While the first approach is simpler to write, essentially a single line of code, its output can become lengthy and hard to read when many datasets are in use. The <code>collapse</code> approach, though more code-intensive, structures the data in a way that is well-suited for producing plots or exporting results to a spreadsheet in CSV format. Both uses are covered in the section on <a href="..\stata-users/tidy_exp_to_csv.html">Structuring Results for Analysis</a>.</p>
+<p>While the first approach is simpler to write, essentially a single line of code, its output can become lengthy and hard to read when many datasets are in use. The <code>collapse</code> approach, though more code-intensive, structures the data in a way that is well-suited for producing plots or exporting aggregate results to a spreadsheet in CSV format. Both uses are covered in the section on <a href="..\stata-users/tidy_exp_to_csv.html">Structuring Results for Analysis</a>.</p>
 <p><br></p>
 <section id="categorical-variables" class="level1"><h1>Categorical Variables</h1>
 <p>Categorical variables are composed of numeric codes, each uniquely associated with a label. LIS provides two types of categorical variables:</p>
@@ -470,7 +471,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><br></p>
 </section><section id="one-way-tabulation---collapse-command" class="level3"><h3 class="anchored" data-anchor-id="one-way-tabulation---collapse-command">One-way tabulation - <code>collapse</code> command</h3>
-<p>The <code>collapse</code> command provides a more structured alternative for obtaining frequency distributions. Rather than displaying figures directly in the console, <code>collapse</code> restructures the data into an aggregated dataset. This transformation, from microdata to aggregated data, is particularly well suited for producing visualizations or for printing the dataset to the console as a delimited string, which can then be copied and pasted into a spreadsheet for further inspection.</p>
+<p>The <code>collapse</code> command provides a more structured alternative for obtaining frequency distributions. Rather than displaying figures directly in the console, <code>collapse</code> restructures the data into an aggregated dataset. This transformation from microdata to aggregated data is well suited for producing visualizations, or for displaying the results in the console as a delimited string that you can copy and paste into a spreadsheet for further inspection.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -481,7 +482,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>See also the <a href="..\stata-users/tidy_exp_to_csv.html">chapter on exporting results to excel</a>, to learn how to export delimited outputs into excel spreadsheets like the one in the picture below.</p>
+<p>See also the <a href="..\stata-users/tidy_exp_to_csv.html">chapter on CSV outputs</a>, to learn how to export delimited aggregate results into excel spreadsheets like the one in the picture below.</p>
 </div>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -573,19 +574,6 @@ Mexico,2024,[2]female,52.124596</code></pre>
 </div>
 <p><br></p>
 <p>The weighted version follows the same logic, but replaces the auxiliary count variable <code>n</code> with <code>ppopwgt</code>, the personal population weight. Rather than summing observations, <code>collapse</code> now sums the weights within each group, so that the resulting percentages reflect the share of the <strong>population</strong> — rather than the sample — falling into each category. This is generally the preferred approach for substantive analysis, as it accounts for differences in sampling design across countries and years. The <code>preserve</code>/<code>restore</code> wrapper, the <code>bysort</code>-based denominator, and the <code>decode</code> step all carry over unchanged from the non-weighted example.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Note to myself:</strong> Confirm this on the weights later on !</p>
-</div>
-</div>
 </section><section id="two-way-tabulation" class="level3"><h3 class="anchored" data-anchor-id="two-way-tabulation">Two-way tabulation</h3>
 <p>One-way tabulations describe how a sample is distributed across the categories of a single variable. Sometimes however, datasets contain pairs of categorical variables where one is a finer disaggregation of the other. The variables <code>educ</code> and <code>educlev</code> are a prime example, where <code>educlev</code> breaks down each broad education category into more granular sub-groups. In such cases, a two-way tabulation serves a dual purpose: it describes the joint distribution of both variables simultaneously, and it allows the user to verify which categories of one variable correspond to which categories of the other, confirming that no unexpected combinations appear across countries or years.</p>
 <p>The example below cross-tabulates <code>educ</code> and <code>educlev</code> for Mexico and Spain, computing the share of each <code>educlev</code> sub-category within its parent <code>educ</code> group.</p>
@@ -770,10 +758,10 @@ Tip
                          Total |     38,676      100.00
 
 
-Contains data from C:\Users\marques\AppData\Local\Temp\ST_697c_000004.tmp
+Contains data from C:\Users\marques\AppData\Local\Temp\ST_4e44_000004.tmp
  Observations:        38,676                  es16: version created on 29 Nov
                                                 2024 15:49
-    Variables:             6                  20 Nov 2026 09:49
+    Variables:             6                  20 Nov 2026 18:07
 -------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
@@ -833,108 +821,196 @@ Important
 <p>To work safely with country-specific variables, <strong>always load one country at a time</strong>. This guarantees that value labels are unambiguous and that the categories you see correspond exactly to the national classification used in that survey year.</p>
 </div>
 </div>
-<p>The loop below shows this recommended pattern, each iteration loads a single country, applies any country-specific logic, and produces output before moving on to the next:</p>
+<p>The loop below shows this recommended pattern. Each iteration loads a single country-year dataset, decodes the numeric region variable into a string label, and appends the result to the combined dataset built so far.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> <span class="kw">ds</span> de16 es16 it16 </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> x <span class="kw">of</span> <span class="kw">local</span> <span class="kw">ds</span> {</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> lissyuse, <span class="kw">cc</span>(<span class="ot">`x'</span>) hvars(hid hwgt dhi region_c) </span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">tabstat</span> dhi,  <span class="kw">by</span>(region_c)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">tempfile</span> <span class="kw">test</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> <span class="kw">ds</span> <span class="kw">in</span> de20 de19 it20 it16 {</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> lissyuse, <span class="kw">cc</span>(<span class="ot">`ds'</span>) hvars(hid cname dname <span class="fu">year</span> region_c)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">decode</span> region_c, <span class="kw">gen</span>(sregion_c)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">capture</span> <span class="kw">append</span> <span class="kw">using</span> <span class="ot">`test'</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> <span class="kw">save</span> <span class="ot">`test'</span>, <span class="kw">replace</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="kw">bysort</span> cname: <span class="kw">tabstat</span> hid, <span class="kw">by</span>(sregion_c) stat(n)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="kw">bysort</span> cname: <span class="kw">tab</span> sregion_c dname</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> <span class="kw">levelsof</span> cname</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> c <span class="kw">in</span> <span class="ot">`r(levels)'</span> {</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">qui</span> <span class="kw">levelsof</span> sregion_c <span class="kw">if</span> cname==<span class="st">"`c'"</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    dis <span class="dt">_n</span> <span class="st">"labels for `c'"</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">foreach</span> <span class="fu">e</span> <span class="kw">in</span> <span class="ot">`r(levels)'</span> {</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>        dis <span class="st">"   `e'"</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre class="foldable"><code>Summary for variables: dhi
-Group variable: region_c (federal state of residence (Länder - NUTS1))
+<pre class="foldable"><code>-&gt; cname = Germany
 
-        region_c |      Mean
+Summary for variables: hid
+Group variable: sregion_c (region of residence, Istat codes (national institute
+&gt;  of statistics) - NUTS2)
+
+       sregion_c |         N
 -----------------+----------
-[1]DE1 - Baden-W |  43040.52
-[2]DE2 - Bavaria |  40401.88
- [3]DE3 - Berlin |   32885.7
-[4]DE4 - Branden |  31084.26
- [5]DE5 - Bremen |  34446.44
-[6]DE6 - Hamburg |  40781.24
-  [7]DE7 - Hesse |  39578.98
-[8]DE8 - Mecklen |  29338.38
-[9]DE9 - Lower S |  37579.01
-[10]DEA - North  |  39884.66
-[11]DEB - Rhinel |  36804.42
-[12]DEC - Saarla |  28663.63
-[13]DED - Saxony |  31731.66
-[14]DEE - Saxony |  29996.85
-[15]DEF - Schles |  35267.01
-[16]DEG - Thurin |  30244.38
+[10]DEA - North  |      7202
+[11]DEB - Rhinel |      1301
+[12]DEC - Saarla |       400
+[13]DED - Saxony |      1875
+[14]DEE - Saxony |      1024
+[15]DEF - Schles |      1206
+[16]DEG - Thurin |      1067
+[1]DE1 - Baden-W |      3443
+[2]DE2 - Bavaria |      4927
+ [3]DE3 - Berlin |      1734
+[4]DE4 - Branden |      1266
+ [5]DE5 - Bremen |       317
+[6]DE6 - Hamburg |       798
+  [7]DE7 - Hesse |      2272
+[8]DE8 - Mecklen |       653
+[9]DE9 - Lower S |      3049
 -----------------+----------
-           Total |  37520.42
+           Total |     32534
 ----------------------------
 
-Summary for variables: dhi
-Group variable: region_c (region of residence(NUTS2))
+-------------------------------------------------------------------------------
+-&gt; cname = Italy
 
-        region_c |      Mean
+Summary for variables: hid
+Group variable: sregion_c (region of residence, Istat codes (national institute
+&gt;  of statistics) - NUTS2)
+
+       sregion_c |         N
 -----------------+----------
-     [11]Galicia |  27632.48
-[12]Principado d |   29921.7
-   [13]Cantabria |  28002.33
-  [21]País Vasco |  36205.43
-[22]Comunidad Fo |  34396.06
-    [23]La Rioja |  30885.44
-      [24]Aragón |  30887.17
-[30]Comunidad de |  33182.64
-[41]Castilla y L |  27207.35
-[42]Castilla-La  |  24518.23
- [43]Extremadura |  20676.56
-    [51]Cataluña |  32181.65
-[52]Comunidad Va |   26219.1
-[53]Illes Balear |  31702.72
-   [61]Andalucía |   24890.1
-[62]Región de Mu |  24145.97
-[63]Ciudad Autón |  29099.24
-[64]Ciudad Autón |  33242.24
-    [70]Canarias |  23716.71
+[10]ITI2 - Umbri |       488
+[11]ITI3 - March |       543
+[12]ITI4 - Lazio |       947
+[13]ITF1 - Abruz |       335
+[14]ITF2 - Molis |       175
+[15]ITF3 - Campa |      1220
+[16]ITF4 - Pugli |       845
+[17]ITF5 - Basil |       187
+[18]ITF6 - Calab |       330
+[19]ITG1 - Sicil |      1072
+[1]ITC1 - Piemon |      1060
+[20]ITG2 - Sarde |       643
+[2]ITC2 - Valle  |        61
+[3]ITC4 - Lombar |      1566
+[4]ITH1 and ITH2 |       506
+[5]ITH3 - Veneto |       915
+[6]ITH4 - Friuli |       319
+[7]ITC3 - Liguri |       462
+[8]ITH5 - Emilia |      1050
+[9]ITI1 - Toscan |       935
 -----------------+----------
-           Total |  29178.88
+           Total |     13659
 ----------------------------
 
-Summary for variables: dhi
-Group variable: region_c (region of residence, Istat codes (national institute 
-&gt; of statistics) - NUTS2)
 
-        region_c |      Mean
------------------+----------
-[1]ITC1 - Piemon |  25904.32
-[2]ITC2 - Valle  |  26786.22
-[3]ITC4 - Lombar |  30234.97
-[4]ITH1 and ITH2 |  28392.96
-[5]ITH3 - Veneto |  27779.22
-[6]ITH4 - Friuli |  30299.58
-[7]ITC3 - Liguri |  26262.21
-[8]ITH5 - Emilia |  31271.51
-[9]ITI1 - Toscan |  28371.12
-[10]ITI2 - Umbri |  27436.08
-[11]ITI3 - March |  27681.62
-[12]ITI4 - Lazio |  22654.91
-[13]ITF1 - Abruz |  25334.57
-[14]ITF2 - Molis |  24609.16
-[15]ITF3 - Campa |  17521.63
-[16]ITF4 - Pugli |  18947.73
-[17]ITF5 - Basil |  20390.08
-[18]ITF6 - Calab |  17423.67
-[19]ITG1 - Sicil |  18908.87
-[20]ITG2 - Sarde |  19751.96
------------------+----------
-           Total |  24881.99
-----------------------------</code></pre>
+-------------------------------------------------------------------------------
+-&gt; cname = Germany
+
+ region of residence, |
+Istat codes (national |     country/year
+         institute of |      identifier
+  statistics) - NUTS2 |      de19       de20 |     Total
+----------------------+----------------------+----------
+[10]DEA - North Rhi.. |     4,541      2,661 |     7,202 
+[11]DEB - Rhineland.. |       828        473 |     1,301 
+   [12]DEC - Saarland |       244        156 |       400 
+     [13]DED - Saxony |     1,101        774 |     1,875 
+[14]DEE - Saxony-An.. |       629        395 |     1,024 
+[15]DEF - Schleswig.. |       699        507 |     1,206 
+  [16]DEG - Thuringia |       648        419 |     1,067 
+[1]DE1 - Baden-Wuer.. |     2,077      1,366 |     3,443 
+     [2]DE2 - Bavaria |     3,022      1,905 |     4,927 
+      [3]DE3 - Berlin |     1,087        647 |     1,734 
+ [4]DE4 - Brandenburg |       780        486 |     1,266 
+      [5]DE5 - Bremen |       213        104 |       317 
+     [6]DE6 - Hamburg |       481        317 |       798 
+       [7]DE7 - Hesse |     1,398        874 |     2,272 
+[8]DE8 - Mecklenbur.. |       378        275 |       653 
+[9]DE9 - Lower Saxony |     1,837      1,212 |     3,049 
+----------------------+----------------------+----------
+                Total |    19,963     12,571 |    32,534 
+
+-------------------------------------------------------------------------------
+-&gt; cname = Italy
+
+ region of residence, |
+Istat codes (national |     country/year
+         institute of |      identifier
+  statistics) - NUTS2 |      it16       it20 |     Total
+----------------------+----------------------+----------
+    [10]ITI2 - Umbria |       248        240 |       488 
+    [11]ITI3 - Marche |       340        203 |       543 
+     [12]ITI4 - Lazio |       479        468 |       947 
+   [13]ITF1 - Abruzzo |       195        140 |       335 
+    [14]ITF2 - Molise |       101         74 |       175 
+  [15]ITF3 - Campania |       685        535 |     1,220 
+    [16]ITF4 - Puglia |       439        406 |       845 
+[17]ITF5 - Basilicata |       119         68 |       187 
+  [18]ITF6 - Calabria |       197        133 |       330 
+   [19]ITG1 - Sicilia |       569        503 |     1,072 
+   [1]ITC1 - Piemonte |       642        418 |     1,060 
+  [20]ITG2 - Sardegna |       314        329 |       643 
+[2]ITC2 - Valle d'A.. |        33         28 |        61 
+  [3]ITC4 - Lombardia |       828        738 |     1,566 
+[4]ITH1 and ITH2 - .. |       218        288 |       506 
+     [5]ITH3 - Veneto |       454        461 |       915 
+[6]ITH4 - Friuli-Ve.. |       175        144 |       319 
+    [7]ITC3 - Liguria |       277        185 |       462 
+[8]ITH5 - Emilia Ro.. |       571        479 |     1,050 
+    [9]ITI1 - Toscana |       536        399 |       935 
+----------------------+----------------------+----------
+                Total |     7,420      6,239 |    13,659 
+
+
+
+
+labels for Germany
+   [10]DEA - North Rhine-Westphalia
+   [11]DEB - Rhineland-Palatinate
+   [12]DEC - Saarland
+   [13]DED - Saxony
+   [14]DEE - Saxony-Anhalt
+   [15]DEF - Schleswig-Holstein
+   [16]DEG - Thuringia
+   [1]DE1 - Baden-Wuerttemberg
+   [2]DE2 - Bavaria
+   [3]DE3 - Berlin
+   [4]DE4 - Brandenburg
+   [5]DE5 - Bremen
+   [6]DE6 - Hamburg
+   [7]DE7 - Hesse
+   [8]DE8 - Mecklenburg-Western Pomerania
+   [9]DE9 - Lower Saxony
+
+labels for Italy
+   [10]ITI2 - Umbria
+   [11]ITI3 - Marche
+   [12]ITI4 - Lazio
+   [13]ITF1 - Abruzzo
+   [14]ITF2 - Molise
+   [15]ITF3 - Campania
+   [16]ITF4 - Puglia
+   [17]ITF5 - Basilicata
+   [18]ITF6 - Calabria
+   [19]ITG1 - Sicilia
+   [1]ITC1 - Piemonte
+   [20]ITG2 - Sardegna
+   [2]ITC2 - Valle d'Aosta
+   [3]ITC4 - Lombardia
+   [4]ITH1 and ITH2 - Trentino
+   [5]ITH3 - Veneto
+   [6]ITH4 - Friuli-Venezia-Giulia
+   [7]ITC3 - Liguria
+   [8]ITH5 - Emilia Romagna
+   [9]ITI1 - Toscana</code></pre>
 </div>
 </div>
 <p><br></p>
-<p>Running this loop produces separate, clean tabulations for Germany, Spain, and Italy, with region labels that correctly reflect each country’s classification. Attempting the same analysis on the merged dataset would produce unreliable results without any error from Stata.</p>
-<p><br></p>
-<hr>
-<section id="extra-tools-in-r" class="level3"><h3 class="anchored" data-anchor-id="extra-tools-in-r">Extra tools in R</h3>
-<p>An additional complication arises when working across multiple waves of the same country: classifications themselves may change from one year to the next, making longitudinal comparisons unreliable without prior investigation.</p>
-<p>For R users, the <code>lissyrtools</code> package provides a dedicated function, <code>variable_country_specific_categories()</code>, which helps assess the number of distinct categories a country-specific variable takes across waves of a given series. This allows you to identify classification breaks before attempting any trend analysis. For details, see the <a href="../r-users/dd_catg_vars.html#ct_spec_vars_R">corresponding R section</a>.</p>
+<p>Running this loop yields a single merged dataset in which each country’s regions keep their correct labels for each year. Because the numeric region code is decoded into a string before each append, there are no value labels left to clash, so tabulations by country and region are clean and reliable. Applying the same steps without decoding first would also produce a merged dataset, but with mislabeled regions and no error message from Stata.</p>
 
 
-</section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();

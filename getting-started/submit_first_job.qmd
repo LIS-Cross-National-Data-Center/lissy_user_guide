@@ -123,9 +123,7 @@ The snippets above already show some LISSY-specific features, such as dedicated 
 
 Apart from these LISSY-specific elements which will naturally be adressed later in in this guide, working in LISSY is very similar to using Stata or R in your usual workflow and working environment.
 
-## Export Output
-
-One especially important aspect of working in LISSY is learning how to structure and export your output properly, so that your results can be easily retrieved and reused afterward.
+## Acessing Job Output
 
 LISSY provides several ways to access and download your outputs:
 
@@ -135,9 +133,9 @@ LISSY provides several ways to access and download your outputs:
 
 - Results are additionally available in PDF format for convenient viewing and sharing.
 
-- If your output is intended for tabular analysis, it is strongly recommended to export it in **comma-separated values (CSV)** format. This makes it easy to open the results directly in spreadsheet software or copy them into other applications for further analysis.
+- If your output is intended for tabular analysis, it is strongly recommended to strucuture it in **comma-separated values (CSV)** format. This makes it convenient to copy aggregate figures into a spreadsheet software for further analysis.
 
-More detailed examples of exporting outputs in both [R](/r-users/tidy_exp_to_csv.html) and [Stata](/stata-users/tidy_exp_to_csv.html) will be provided throughout the remainder of this user guide.
+More detailed examples of structuring outputs in both [R](/r-users/tidy_exp_to_csv.html) and [Stata](/stata-users/tidy_exp_to_csv.html) will be provided throughout the remainder of this user guide.
 
 ## Using External files in LISSY
 

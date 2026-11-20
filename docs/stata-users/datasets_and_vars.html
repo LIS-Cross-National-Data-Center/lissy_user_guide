@@ -232,7 +232,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stata-users/dh_inc_prep.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preparing Income Variables</span></a>
+ <span class="menu-text">Preparing Monetary Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stata-users/dh_weights_stata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using Weights</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -337,7 +343,10 @@ Tip
 <section id="availability" class="level2"><h2 class="anchored" data-anchor-id="availability">Availability</h2>
 <p>Before starting an analysis, it is often useful to assess whether the necessary variables are sufficiently available across countries and time.</p>
 <p>One convenient way to do this is to go to <strong>METIS</strong> and select the variables and datasets of interest. After pressing <strong>RESULTS</strong>, you will see a tab named <strong>Crossed compare</strong>. There you will find all the availability information regarding the variables, countries and respective years.</p>
-<p>[<img src="..\images/availability_metis_stata.png" class="img-fluid quarto-figure quarto-figure-center">]</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="..\images/availability_metis_stata.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
 <p><br></p>
 </section><section id="notes" class="level2"><h2 class="anchored" data-anchor-id="notes">Notes</h2>
 <p>Some variables are accompanied by notes. These may reflect:</p>
@@ -650,31 +659,6 @@ pwgta:
   6.  [se18] Personal cross-sectional weight for selected respondent.</code></pre>
 </div>
 </div>
-<div style="height: 30px;">
-
-</div>
-<p>If inconsistencies appear in a variable over time, or if verification is needed, the <code>variable_has_note()</code> function can be used to determine whether the variable is accompanied by any notes.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lissyrtools</span><span class="fu">::</span><span class="fu"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/reference/variable_has_note.html">variable_has_note</a></span><span class="op">(</span>variable <span class="op">=</span> <span class="st">"basb"</span>, iso2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"fr"</span>, <span class="st">"de"</span>, <span class="st">"us"</span>, <span class="st">"uk"</span><span class="op">)</span>, database <span class="op">=</span> <span class="st">'lws'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$France
- 2009  2014  2017  2020 
- "No" "Yes" "Yes" "Yes" 
-
-$Germany
-2002 2007 2012 2017 
-"No" "No" "No" "No" 
-
-$`United States`
- 1995  1998  2001  2004  2007  2010  2013  2016  2019  2022 
-"Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes" 
-
-$`United Kingdom`
- 2007  2009  2011  2013  2015  2017  2019  2021 
-"Yes" "Yes" "Yes" "Yes" "Yes" "Yes" "Yes"  "No" </code></pre>
-</div>
-</div>
-<p>Care should be taken to specify the <code>database</code> argument correctly, in order to query the intended database (LIS/LWS/LCS).</p>
 
 
 </section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

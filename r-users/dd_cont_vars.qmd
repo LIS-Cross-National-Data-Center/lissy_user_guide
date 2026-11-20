@@ -88,7 +88,9 @@ run_weighted_mean(ex_data, var_name = 'dhi', wgt_name = NULL,  by = 'own')
 Like `run_weighted_count()` introduced in the previous section, `run_weighted_mean()` makes subgroup descriptives straightforward to produce in a reproducible and consistent way across multiple country-year datasets.
 
 <!-- Make sure this line here makes sense or if it was introduced repeatedly many time in the sections before -->
-For further processing, users may wish to transform these outputs into a tidy tabular format suitable for export or visualisation. Guidance on structuring and exporting results is available in the [dedicated export section](/r-users/tidy_exp_to_csv.html#export-csv).
+
+In [later sections](/r-users/tidy_structure_to_plot.html), we guide the user on how to restructure these outputs into a tidy tabular format, suitable for visualizations or to copy into a spreadsheet.
+
 
 
 <!-- add perhaps something here on `inum` and LWS !!!!!!!-->

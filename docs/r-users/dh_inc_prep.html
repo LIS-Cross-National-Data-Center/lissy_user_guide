@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../r-users/dh_ppp.html" rel="next">
+<link href="../r-users/dh_weights_r.html" rel="next">
 <link href="../r-users/dh_catg_vars.html" rel="prev">
 <link href="../images/main.jpg" rel="icon" type="image/jpeg">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
@@ -238,7 +238,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../r-users/dh_inc_prep.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Preparing Income Variables</span></a>
+ <span class="menu-text">Preparing Monetary Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../r-users/dh_weights_r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using Weights</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -286,18 +292,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li>
-<a href="#processing-income-variables" id="toc-processing-income-variables" class="nav-link active" data-scroll-target="#processing-income-variables">Processing Income Variables</a>
-  <ul class="collapse">
-<li><a href="#children-poverty-rates---single-mother-families" id="toc-children-poverty-rates---single-mother-families" class="nav-link" data-scroll-target="#children-poverty-rates---single-mother-families">Children Poverty Rates - Single-Mother Families</a></li>
-  <li><a href="#filtering-and-variable-construction" id="toc-filtering-and-variable-construction" class="nav-link" data-scroll-target="#filtering-and-variable-construction">Filtering and Variable Construction</a></li>
+<li><a href="#filtering-and-variable-construction" id="toc-filtering-and-variable-construction" class="nav-link active" data-scroll-target="#filtering-and-variable-construction">Filtering and Variable Construction</a></li>
   <li><a href="#bottom-and-top-coding" id="toc-bottom-and-top-coding" class="nav-link" data-scroll-target="#bottom-and-top-coding">Bottom and Top Coding</a></li>
   <li><a href="#equivalence-scales" id="toc-equivalence-scales" class="nav-link" data-scroll-target="#equivalence-scales">Equivalence Scales</a></li>
   <li><a href="#poverty-line" id="toc-poverty-line" class="nav-link" data-scroll-target="#poverty-line">Poverty Line</a></li>
   <li><a href="#conditional-variable-construction" id="toc-conditional-variable-construction" class="nav-link" data-scroll-target="#conditional-variable-construction">Conditional Variable Construction</a></li>
   <li><a href="#weighted-aggregation" id="toc-weighted-aggregation" class="nav-link" data-scroll-target="#weighted-aggregation">Weighted Aggregation</a></li>
-  </ul>
-</li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -316,14 +316,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><section id="processing-income-variables" class="level1"><h1>Processing Income Variables</h1>
-<p>Due to the wide range of research questions that can be explored using data from LIS, it is often necessary to perform multiple and distinct types of data preparation after the initial import. For this reason, this section is divided into two parts, each dedicated to a different analytical goal.</p>
-<p>In the first part, we demonstrate how to compute a Children Poverty Rate among Single-Mother Families. This particular indicator requires several steps, making it a comprehensive example of the types of functions users can rely on, as well as highlighting important considerations when working with LIS/LWS/LCS data.</p>
-<p>In the second part, we focus on how to apply the deflators provided by LIS, an essential step for cross-country and cross-time comparisons, and discuss the specific nuances involved in that process.</p>
-<p><br></p>
-<section id="children-poverty-rates---single-mother-families" class="level2"><h2 class="anchored" data-anchor-id="children-poverty-rates---single-mother-families">Children Poverty Rates - Single-Mother Families</h2>
-<p>The sections that follow illustrate a more comprehensive workflow, combining several preparation steps to construct a policy-relevant indicator from microdata.</p>
-<p>The aim will be to compute the poverty rate among children in single-mother households in several countries. Constructing this indicator requires combining information available at both the household level (<code>dhi</code>, <code>nhhmem17</code>, <code>hpartner</code>), and the individual level (<code>sex</code>).</p>
+</header><p>The wide range of research questions that can be explored with LIS data means that users often need to perform several distinct types of data preparation after the initial import of harmonized microdata.</p>
+<p>One way to learn these steps is through a hands-on example: replicating the computation of a policy-relevant indicator. Because such an indicator requires a workflow of several processing steps, it makes a comprehensive example of the functions and routines users can rely on. It also highlights important considerations when working with LIS, LWS, and LCS data.</p>
+<p>Our aim is to compute the poverty rate among children in single-mother households across several countries. Constructing this indicator requires combining information available at both the household level (<code>dhi</code>, <code>nhhmem17</code>, <code>hpartner</code>), and the individual level (<code>sex</code>).</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -408,7 +403,7 @@ Note
 </div>
 </div>
 <p><br></p>
-</section><section id="filtering-and-variable-construction" class="level2"><h2 class="anchored" data-anchor-id="filtering-and-variable-construction">Filtering and Variable Construction</h2>
+<section id="filtering-and-variable-construction" class="level2"><h2 class="anchored" data-anchor-id="filtering-and-variable-construction">Filtering and Variable Construction</h2>
 <p>At this stage, we prepare the dataset so that it is <strong>aligned with the unit of analysis required for our indicator</strong>: the household. Although we imported both household- and person-level variables, the poverty measure is computed at the household level and then attributed to individuals (in this case, children).</p>
 <p>We define a pipeline inside <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code> to apply the same sequence of transformations to each dataset. We begin by retaining only records corresponding to the household reference person (<code>relation == 1000</code>), ensuring that each household appears exactly once in the dataset and avoiding the duplication that would arise from keeping all person-level records. We then filter out observations with missing disposable household income (<code>dhi</code>), as these cannot contribute to the poverty calculation.</p>
 <div class="cell">
@@ -642,9 +637,10 @@ $`United States`
 46.48196 46.29157 45.09273 30.36950 41.61358 46.89847 44.60805 </code></pre>
 </div>
 </div>
+<p>In the following section, we look more closely at how weighting works in LIS: which weight variables are available at each level of the data, and which ones suit each type of analysis.</p>
 
 
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -1049,8 +1045,8 @@ $`United States`
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../r-users/dh_ppp.html" class="pagination-link" aria-label="Currency and Price Level Adjustments">
-        <span class="nav-page-text">Currency and Price Level Adjustments</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../r-users/dh_weights_r.html" class="pagination-link" aria-label="Using Weights">
+        <span class="nav-page-text">Using Weights</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

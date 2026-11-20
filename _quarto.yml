@@ -87,8 +87,10 @@ website:
           contents: 
             - text: "Recoding Categories"
               href: r-users/dh_catg_vars.qmd 
-            - text: "Preparing Income Variables"
+            - text: "Preparing Monetary Variables"
               href: r-users/dh_inc_prep.qmd  
+            - text: "Using Weights"
+              href: r-users/dh_weights_r.qmd  
             - text: "Currency and Price Level Adjustments"
               href: r-users/dh_ppp.qmd              
         - section: "Structuring Results for Analysis"
@@ -132,8 +134,10 @@ website:
           contents:
             - text: "Recoding Categories"
               href: stata-users/dh_catg_vars.qmd
-            - text: "Preparing Income Variables"
+            - text: "Preparing Monetary Variables"
               href: stata-users/dh_inc_prep.qmd
+            - text: "Using Weights"
+              href: stata-users/dh_weights_stata.qmd  
             - text: "Currency and Price Level Adjustments"
               href: stata-users/dh_ppp.qmd
 
