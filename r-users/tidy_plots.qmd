@@ -3,8 +3,11 @@ title: "Structuring Results for Analysis"
 ---
 
 
+
+
 # Plotting in R {#plots_in_R}
 
+![](/images/multi_R.png){width=100%}
 
 In this final section, we build on the tabular structure introduced in the last section to produce visualizations in LISSY using R. We highlight a few particularities that users should be aware of when working in the LISSY environment, things that wouldn't arise when coding locally. Our focus is exclusively on trends (line charts), organized around six templates that users can adapt to their own countries and variables of interest.
 

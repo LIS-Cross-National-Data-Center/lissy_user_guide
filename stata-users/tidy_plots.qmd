@@ -19,7 +19,11 @@ global myincl "../src"
 
 
 
+
+
 # Plotting in Stata {#plots_in_stata}
+
+![](/images/multi_stata.png){width=100%}
 
 This section of the user guide focuses on data visualization in LISSY using Stata. Beyond general plotting practices, we highlight a few particularities that users should be aware of when working in the LISSY environment, things that wouldn't arise when coding locally. Our focus is exclusively on trends (line charts), organized around six templates that users can adapt to their own countries and variables of interest.
 

@@ -73,7 +73,7 @@ For some LWS datasets, a third file is available, identified by the suffix **r**
 
 Replicate weights are used to estimate the **uncertainty** of your results (standard errors, confidence intervals), not the estimates themselves. The idea is simple: instead of one weight per household, the survey provider supplies many alternative versions of the weights, each one built by resampling or re-adjusting the sample. You then compute your statistic once with the main weight (your point estimate) and once with each replicate weight. The variability across those replicate results reflects the sampling variability that standard formulas would miss under a complex survey design.
 
-In practice, whenever an LWS user wants to include replicate weights in an analysis, they need to import the file with `read.LIS()` and merge it with the LWS microdata of the respective country and year, using the household identifier `hid`.
+In practice, whenever a LWS user wants to include replicate weights in an analysis, they need to import the file with `read.LIS()` and merge it with the LWS microdata of the respective country and year, using the household identifier `hid`.
 
 ```{r, eval=TRUE, echo=FALSE, include=FALSE}
 source("../src/read.LIS_for_lws.R") 
