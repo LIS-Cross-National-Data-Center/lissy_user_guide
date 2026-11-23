@@ -261,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stata-users/tidy_exp_to_csv.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Export to CSV</span></a>
+ <span class="menu-text">Spreadsheet-Ready Results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -280,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#stata_export_csv" id="toc-stata_export_csv" class="nav-link active" data-scroll-target="#stata_export_csv">Export to CSV</a></li>
+<li><a href="#stata_export_csv" id="toc-stata_export_csv" class="nav-link active" data-scroll-target="#stata_export_csv">Spreadsheet-Ready Results</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -299,9 +299,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><p>Throughout the previous chapters, we have highlighted the usefulness of <code>collapse</code> for transforming microdata into aggregated datasets by country-year and selected subpopulations. This is particularly valuable in an environment like LISSY, where direct inspection of the microdata is not possible, and users must rely on techniques that produce structured, exportable summaries.</p>
+</header><p>Throughout the previous chapters, we have highlighted the usefulness of <code>collapse</code> for transforming microdata into aggregated datasets by country-year and selected subpopulations. This is particularly valuable in an environment like LISSY, where direct inspection of the microdata is not possible, and users must rely on techniques that produce structured and concise summaries.</p>
 <p>With this in mind, this chapter closes the guidebook with two practical sections: the first walks through exporting aggregated results in a delimited format compatible with CSV, and the second introduces how to produce visualizations directly within the LISSY environment.</p>
-<section id="stata_export_csv" class="level1"><h1>Export to CSV</h1>
+<section id="stata_export_csv" class="level1"><h1>Spreadsheet-Ready Results</h1>
 <p>To illustrate this process step by step, we start by coding country-level inequality figures for Mexico and Peru, covering the workflow stages addressed in previous chapters: importing, processing, and aggregating microdata.</p>
 <p>Finally, we display the results using a comma-separated format, with columns for country name, year, and the inequality figure of interest.</p>
 <div class="cell">
@@ -435,7 +435,20 @@ Peru ,2019 ,Gini Coefficient,.43554569</code></pre>
 </div>
 <p>This approach provides a simple and effective way to export <em>aggregate</em> results from LISSY, where users are not allowed to directly download files to a local storage folder. Instead, LISSY allows the download of job-related outputs such as the submitted code, the corresponding listings, and any generated visualizations (typically in image format).</p>
 <p>Even in cases where personal storage is available, all outputs are subject to a disclosure control process: results must be reviewed and approved by LIS staff before they can be released to the user.</p>
-<p>Within this context, exporting data via the console offers a practical workaround. By formatting aggregate results as CSV and copying them into a spreadsheet, users can quickly transfer structured data into external tools for further analysis, formatting, or presentation, without bypassing the platform’s safeguards.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Only use this CSV technique for well-aggregated results with a limited number of rows. Long outputs, with a lot of disaggregation or with many datasets will trigger LISSY’s automated security checks.</p>
+</div>
+</div>
+<!--Within this context, exporting data via the console offers a practical workaround. By formatting aggregate results as CSV and copying them into a spreadsheet, users can quickly transfer structured data into external tools for further analysis, formatting, or presentation, without bypassing the platform’s safeguards.-->
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

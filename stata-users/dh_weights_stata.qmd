@@ -16,7 +16,7 @@ LIS provides two versions of the weights at each level of its data: the **inflat
 | **Scale** | Grossed up towards the population | Rescaled to a common scale across datasets |
 | **Use for** | Absolute totals (number of households or people) | Shares, means, medians, Gini, poverty rates, and comparisons across datasets |
 
-For ratios and distribution statistics, the scale of the weight cancels out, so the inflated and normalised weights give the same result within one dataset. The normalised weights matter when you compare or pool datasets, because no country counts for more just because it is larger. Use the inflated weights only when you need real totals, such as the number of poor people.
+For ratios and distribution statistics, the scale of the weight cancels out, so the inflated and normalised weights give the same result within one dataset. The **normalised weights** matter when you **compare or pool datasets, because no country counts for more just because it is larger.** Use the inflated weights only when you need real totals, such as the number of poor people.
 
 The level of the file also matters. The household file has one row per household, so the household weight counts households. Many indicators, such as the poverty rate or the Gini of equivalised income, describe **people**. All members of a household share the same equivalised income, so when you work on the household file, each household should count once for each of its members:
 

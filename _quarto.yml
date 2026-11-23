@@ -97,7 +97,7 @@ website:
           contents: 
             - text: "structure_to_plot()"
               href: r-users/tidy_structure_to_plot.qmd
-            - text: "Export to CSV"
+            - text: "Spreadsheet-Ready Results"
               href: r-users/tidy_exp_to_csv.qmd 
             - text: "Plotting in LISSY"
               href: r-users/tidy_plots.qmd                     
@@ -143,7 +143,7 @@ website:
 
         - section: "Structuring Results for Analysis"
           contents:
-          - text: "Export to CSV"
+          - text: "Spreadsheet-Ready Results"
             href: stata-users/tidy_exp_to_csv.qmd
           - text: "Plotting in Stata"
             href: stata-users/tidy_plots.qmd      

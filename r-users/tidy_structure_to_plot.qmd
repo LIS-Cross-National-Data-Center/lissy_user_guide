@@ -4,7 +4,7 @@ title: "Structuring Results for Analysis"
 
 
 
-So far, most of our outputs have been returned as lists. This is intentional, as **direct printing of data frames is not possible in LISSY** for security reasons.
+So far, most of our job outputs in this guide have been returned as lists. This is deliberate: for data-protection reasons, printing data frames can easily trigger LISSY's automated output checks which are designed to prevent the disclosure of individual-level data."
 
 Nevertheless, structuring results in a tabular format (rows × columns) ensures compatibility with standard data workflows, making it straightforward to integrate the results into downstream tasks such as visualization, or modelling.
 
@@ -100,9 +100,7 @@ datasets_final %>%
 ![](/images/stp_3.png){fig-align="center"}
 
 ::: callout-caution
-Reminder that these examples are run locally using sample datasets, which are a subset of datasets available in LIS, specifically from countries where access to the microdata is publicly accessible.
+Reminder that **these examples are run locally** using sample datasets, which are a subset of datasets available in LIS, specifically from countries where access to the microdata is publicly accessible.
 :::
 
-With the data properly restructured into a tabular format, next we will show how to export it directly from the LISSY console into a CSV file, as well as how to plot it within LISSY.
-
-
+With the data properly restructured into a tabular format, we will next show how to have LISSY return your results as comma-separated values (CSV), as well as how to plot them within your job.

@@ -30,7 +30,10 @@ To retrieve an aggregate figure for a given value of the column **dname** (datas
 - Using the `by` command ahead of other built-in commands like `tabulate` or `sum`.
 - Using the `collapse` command with the **by option** to produce an aggregated dataset that can be printed to the console.
 
-While the first approach is simpler to write, essentially a single line of code, its output can become lengthy and hard to read when many datasets are in use. The `collapse` approach, though more code-intensive, structures the data in a way that is well-suited for producing plots or exporting aggregate results to a spreadsheet in CSV format. Both uses are covered in the section on [Structuring Results for Analysis](/stata-users/tidy_exp_to_csv.html).
+While the first approach is simpler to write, essentially a single line of code, its output can become lengthy and hard to read when many datasets are in use. The `collapse` approach, though more code-intensive, organizes the output into a tabular format, which simplifies downstream analysis and visualization (see [Structuring Results for Analysis](/stata-users/tidy_exp_to_csv.html)). 
+
+
+structures the data in a way that is well-suited for producing plots or exporting aggregate results to a spreadsheet in CSV format. Both uses are covered in the section on [Structuring Results for Analysis](/stata-users/tidy_exp_to_csv.html).
 
 
 <br>
@@ -78,7 +81,7 @@ bysort dname: tabulate sex [aw = pwgt]
 The `collapse` command provides a more structured alternative for obtaining frequency distributions. Rather than displaying figures directly in the console, `collapse` restructures the data into an aggregated dataset. This transformation from microdata to aggregated data is well suited for producing visualizations, or for displaying the results in the console as a delimited string that you can copy and paste into a spreadsheet for further inspection.
 
 ::: {.callout-tip}
-See also the [chapter on CSV outputs](/stata-users/tidy_exp_to_csv.html), to learn how to export delimited aggregate results into excel spreadsheets like the one in the picture below.
+See also the [chapter on CSV outputs](/stata-users/tidy_exp_to_csv.html) to learn how to produce aggregate results in a format that can be copied into a spreadsheet, like the one in the picture below.
 :::
 
 

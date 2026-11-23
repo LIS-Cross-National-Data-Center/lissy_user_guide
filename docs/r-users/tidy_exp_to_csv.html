@@ -273,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../r-users/tidy_exp_to_csv.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Export to CSV</span></a>
+ <span class="menu-text">Spreadsheet-Ready Results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -292,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#export-csv" id="toc-export-csv" class="nav-link active" data-scroll-target="#export-csv">Export to CSV</a></li>
+<li><a href="#export-csv" id="toc-export-csv" class="nav-link active" data-scroll-target="#export-csv">Spreadsheet-Ready Results</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -311,9 +311,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><section id="export-csv" class="level1"><h1>Export to CSV</h1>
-<p>With the data now shaped into a clean tabular format, we can take the next step: exporting it for use outside LISSY. One convenient feature of the LISSY console is that it allows you to directly output your results in a format that can easily be transferred into spreadsheet software such as Excel.</p>
+</header><section id="export-csv" class="level1"><h1>Spreadsheet-Ready Results</h1>
+<p>With the data now shaped into a clean tabular format, we can present the results as comma-separated values, easy to copy into spreadsheet software</p>
 <p>We will now illustrate how to do this step by step. To do so, we construct a new example that goes through the full analytical workflow: importing the data, preparing the income variable, computing an aggregate measure, and finally restructuring the output into a tabular format.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Only use this for well-aggregated results with a limited number of rows. Long outputs, with a lot of disaggregation or with many datasets will trigger LISSY’s automated security checks.</p>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lis-cross-national-data-center.github.io/lissyrtools/">lissyrtools</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -362,9 +375,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figure class="figure"><p><img src="..\images/final_to_csv.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
-<p>This approach provides a simple and effective way to export <em>aggregate</em> results from LISSY, where users are not allowed to directly download files to a local storage folder. Instead, LISSY allows the download of job-related outputs such as the submitted code, the corresponding listings, and any generated visualizations (typically in image format).</p>
+<p>This approach provides a simple and effective way to <em>export</em> aggregate results from LISSY, where users are not allowed to directly download files to a local storage folder. Instead, LISSY allows the download of job-related outputs such as the submitted code, the corresponding listings, and any generated visualizations (typically in image format).</p>
 <p>Even in cases where personal storage is available, all outputs are subject to a disclosure control process: results must be reviewed and approved by LIS staff before they can be released to the user.</p>
-<p>Within this context, exporting data via the console offers a practical workaround. By formatting aggregate results as CSV and copying them into a spreadsheet, users can quickly transfer structured data into external tools for further analysis, formatting, or presentation, without bypassing the platform’s safeguards.</p>
+<!--Within this context, exporting data via the console offers a practical workaround. By formatting aggregate results as CSV and copying them into a spreadsheet, users can quickly transfer structured data into external tools for further analysis, formatting, or presentation, without bypassing the platform’s safeguards.-->
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

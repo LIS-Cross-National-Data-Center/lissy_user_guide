@@ -2,11 +2,16 @@
 title: "Structuring Results for Analysis"
 ---
 
-# Export to CSV {#export-csv}
+# Spreadsheet-Ready Results {#export-csv}
 
-With the data now shaped into a clean tabular format, we can take the next step: exporting it for use outside LISSY. One convenient feature of the LISSY console is that it allows you to directly output your results in a format that can easily be transferred into spreadsheet software such as Excel.
+With the data now shaped into a clean tabular format, we can present the results as comma-separated values, easy to copy into spreadsheet software
 
 We will now illustrate how to do this step by step. To do so, we construct a new example that goes through the full analytical workflow: importing the data, preparing the income variable, computing an aggregate measure, and finally restructuring the output into a tabular format.
+
+::: {.callout-important}
+Only use this for well-aggregated results with a limited number of rows. Long outputs, with a lot of disaggregation or with many datasets will trigger LISSY's automated security checks.
+:::
+
 
 ```{r, eval=FALSE, echo=TRUE, results = 'hold', message = FALSE, warning = FALSE}
 library(lissyrtools)
@@ -57,8 +62,8 @@ If the data does not automatically split into columns, use the “Text to Column
 
 ![](/images/final_to_csv.png){fig-align="center"}
 
-This approach provides a simple and effective way to export *aggregate* results from LISSY, where users are not allowed to directly download files to a local storage folder. Instead, LISSY allows the download of job-related outputs such as the submitted code, the corresponding listings, and any generated visualizations (typically in image format).
+This approach provides a simple and effective way to *export* aggregate results from LISSY, where users are not allowed to directly download files to a local storage folder. Instead, LISSY allows the download of job-related outputs such as the submitted code, the corresponding listings, and any generated visualizations (typically in image format).
 
 Even in cases where personal storage is available, all outputs are subject to a disclosure control process: results must be reviewed and approved by LIS staff before they can be released to the user.
 
-Within this context, exporting data via the console offers a practical workaround. By formatting aggregate results as CSV and copying them into a spreadsheet, users can quickly transfer structured data into external tools for further analysis, formatting, or presentation, without bypassing the platform’s safeguards.
+<!--Within this context, exporting data via the console offers a practical workaround. By formatting aggregate results as CSV and copying them into a spreadsheet, users can quickly transfer structured data into external tools for further analysis, formatting, or presentation, without bypassing the platform’s safeguards.-->

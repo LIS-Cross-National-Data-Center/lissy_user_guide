@@ -16,12 +16,13 @@ global myincl "../src"
 ```
 
 
-Throughout the previous chapters, we have highlighted the usefulness of `collapse` for transforming microdata into aggregated datasets by country-year and selected subpopulations. This is particularly valuable in an environment like LISSY, where direct inspection of the microdata is not possible, and users must rely on techniques that produce structured, exportable summaries. 
+Throughout the previous chapters, we have highlighted the usefulness of `collapse` for transforming microdata into aggregated datasets by country-year and selected subpopulations. This is particularly valuable in an environment like LISSY, where direct inspection of the microdata is not possible, and users must rely on techniques that produce structured and concise summaries. 
 
 With this in mind, this chapter closes the guidebook with two practical sections: the first walks through exporting aggregated results in a delimited format compatible with CSV, and the second introduces how to produce visualizations directly within the LISSY environment.
 
 
-# Export to CSV {#stata_export_csv}
+
+# Spreadsheet-Ready Results {#stata_export_csv}
 
 To illustrate this process step by step, we start by coding country-level inequality figures for Mexico and Peru, covering the workflow stages addressed in previous chapters: importing, processing, and aggregating microdata.
 
@@ -140,4 +141,9 @@ This approach provides a simple and effective way to export *aggregate* results 
 
 Even in cases where personal storage is available, all outputs are subject to a disclosure control process: results must be reviewed and approved by LIS staff before they can be released to the user.
 
-Within this context, exporting data via the console offers a practical workaround. By formatting aggregate results as CSV and copying them into a spreadsheet, users can quickly transfer structured data into external tools for further analysis, formatting, or presentation, without bypassing the platform’s safeguards.
+
+::: {.callout-important}
+Only use this CSV technique for well-aggregated results with a limited number of rows. Long outputs, with a lot of disaggregation or with many datasets will trigger LISSY's automated security checks.
+::: 
+
+<!--Within this context, exporting data via the console offers a practical workaround. By formatting aggregate results as CSV and copying them into a spreadsheet, users can quickly transfer structured data into external tools for further analysis, formatting, or presentation, without bypassing the platform’s safeguards.-->

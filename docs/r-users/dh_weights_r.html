@@ -284,7 +284,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../r-users/tidy_exp_to_csv.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Export to CSV</span></a>
+ <span class="menu-text">Spreadsheet-Ready Results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -370,7 +370,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>For ratios and distribution statistics, the scale of the weight cancels out, so the inflated and normalised weights give the same result within one dataset. The normalised weights matter when you compare or pool datasets, because no country counts for more just because it is larger. Use the inflated weights only when you need real totals, such as the number of poor people.</p>
+<p>For ratios and distribution statistics, the scale of the weight cancels out, so the inflated and normalised weights give the same result within one dataset. The <strong>normalised weights</strong> matter when you <strong>compare or pool datasets, because no country counts for more just because it is larger</strong>. Use the inflated weights only when you need real totals, such as the number of poor people.</p>
 <p>The level of the file also matters. The household file has one row per household, so the household weight counts households. Many indicators, such as the poverty rate or the Gini of equivalised income, describe <strong>people</strong>. All members of a household share the same equivalised income, so when you work on the household file, each household should count once for each of its members:</p>
 <p><span class="math display">\[
 \text{person weight} = \texttt{hwgt} \times \texttt{nhhmem}

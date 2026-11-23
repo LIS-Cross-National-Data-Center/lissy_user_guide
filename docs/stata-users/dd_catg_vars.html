@@ -261,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stata-users/tidy_exp_to_csv.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Export to CSV</span></a>
+ <span class="menu-text">Spreadsheet-Ready Results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -326,7 +326,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Using the <code>by</code> command ahead of other built-in commands like <code>tabulate</code> or <code>sum</code>.</li>
 <li>Using the <code>collapse</code> command with the <strong>by option</strong> to produce an aggregated dataset that can be printed to the console.</li>
 </ul>
-<p>While the first approach is simpler to write, essentially a single line of code, its output can become lengthy and hard to read when many datasets are in use. The <code>collapse</code> approach, though more code-intensive, structures the data in a way that is well-suited for producing plots or exporting aggregate results to a spreadsheet in CSV format. Both uses are covered in the section on <a href="..\stata-users/tidy_exp_to_csv.html">Structuring Results for Analysis</a>.</p>
+<p>While the first approach is simpler to write, essentially a single line of code, its output can become lengthy and hard to read when many datasets are in use. The <code>collapse</code> approach, though more code-intensive, organizes the output into a tabular format, which simplifies downstream analysis and visualization (see <a href="..\stata-users/tidy_exp_to_csv.html">Structuring Results for Analysis</a>).</p>
+<p>structures the data in a way that is well-suited for producing plots or exporting aggregate results to a spreadsheet in CSV format. Both uses are covered in the section on <a href="..\stata-users/tidy_exp_to_csv.html">Structuring Results for Analysis</a>.</p>
 <p><br></p>
 <section id="categorical-variables" class="level1"><h1>Categorical Variables</h1>
 <p>Categorical variables are composed of numeric codes, each uniquely associated with a label. LIS provides two types of categorical variables:</p>
@@ -482,7 +483,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>See also the <a href="..\stata-users/tidy_exp_to_csv.html">chapter on CSV outputs</a>, to learn how to export delimited aggregate results into excel spreadsheets like the one in the picture below.</p>
+<p>See also the <a href="..\stata-users/tidy_exp_to_csv.html">chapter on CSV outputs</a> to learn how to produce aggregate results in a format that can be copied into a spreadsheet, like the one in the picture below.</p>
 </div>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -758,10 +759,10 @@ Tip
                          Total |     38,676      100.00
 
 
-Contains data from C:\Users\marques\AppData\Local\Temp\ST_4e44_000004.tmp
+Contains data from C:\Users\marques\AppData\Local\Temp\ST_9bfc_000004.tmp
  Observations:        38,676                  es16: version created on 29 Nov
                                                 2024 15:49
-    Variables:             6                  20 Nov 2026 18:07
+    Variables:             6                  23 Nov 2026 15:37
 -------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
