@@ -278,7 +278,7 @@ Several features of this routine are worth noting.
 
 2.  **`preserve` and `restore`.** Because all waves and countries are held in memory simultaneously as a single pooled dataset, any modification made inside the loop — such as dropping observations or generating new variables — would otherwise permanently alter the data for all subsequent iterations. The `preserve` command saves a snapshot of the full dataset in memory at the start of each iteration, and `restore` reinstates it at the end, ensuring that each pass through the loop starts from the same complete pooled dataset.
 
-3.  **Comma-separated output.** The `display` statement at the end of each iteration prints the dataset identifier, the indicator label, and the estimated poverty rate as a comma-separated line. This format is deliberately chosen for its portability: the output can be copied directly into a spreadsheet or text file and parsed without any further reformatting.
+3.  **Comma-separated output.** The `display` statement at the end of each iteration prints the dataset identifier, the indicator label, and the estimated poverty rate as a comma-separated line. This format is deliberately chosen for its portability: aggregated results can be copied directly into a spreadsheet and parsed without any further reformatting.
 
 
 In the following section, we look more closely at how weighting works in LIS: which weight variables are available at each level of the data, and which ones suit each type of analysis.

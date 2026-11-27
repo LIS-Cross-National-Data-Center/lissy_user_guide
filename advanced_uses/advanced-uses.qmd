@@ -1,0 +1,102 @@
+---
+title: "Advanced Uses"
+---
+
+## Using External Files {#external_files}
+
+If you wish to use external files with the microdata, or to merge your own personal dataset together with the microdata in LISSY, send your request, along with the attached file, to [usersupport@lisdatacenter.org](mailto:usersupport@lisdatacenter.org). Your request will be reviewed and, if it meets security standards, you will receive an email with instructions on how to access your file.
+
+To save time, you can [open a pre-filled email](mailto:usersupport@lisdatacenter.org?subject=LISSY%20request%3A%20use%20of%20an%20external%20file&body=Dear%20LIS%20User%20Support%2C%0A%0AI%20would%20like%20to%20request%20the%20use%20of%20an%20external%20file%20in%20LISSY.%0A%0AName%3A%20%5Byour%20full%20name%5D%0AInstitution%3A%20%5Byour%20institution%5D%0ALISSY%20username%3A%20%5Byour%20username%5D%0AType%20of%20request%3A%20%5Buse%20alongside%20the%20microdata%20%2F%20merge%20with%20the%20microdata%5D%0ADatabase%28s%29%2C%20countries%20and%20years%3A%20%5Be.g.%20LIS%3B%20Germany%202018%2C%202019%5D%0AStatistical%20package%3A%20%5BR%20%2F%20SAS%20%2F%20SPSS%20%2F%20Stata%5D%0AFile%20name%20and%20format%3A%20%5Be.g.%20my_data.csv%5D%0AContent%20of%20the%20file%3A%20%5Bvariables%20and%20unit%20of%20observation%5D%0AMerge%20key%28s%29%2C%20if%20merging%3A%20%5Be.g.%20household%20ID%2C%20person%20ID%5D%0A%0AThe%20file%20is%20attached%20to%20this%20email.%0A%0AThank%20you%2C%0A%5Byour%20name%5D) and complete the fields in square brackets, or copy the template below. Remember to attach your file before sending.
+
+```text
+Subject: LISSY request: use of an external file
+
+Dear LIS User Support,
+
+I would like to request the use of an external file in LISSY.
+
+Name: [your full name]
+Institution: [your institution]
+LISSY username: [your username]
+Type of request: [use alongside the microdata / merge with the microdata]
+Database(s), countries and years: [e.g. LIS; Germany 2018, 2019]
+Statistical package: [R / SAS / SPSS / Stata]
+File name and format: [e.g. my_data.csv]
+Content of the file: [variables and unit of observation]
+Merge key(s), if merging: [e.g. household ID, person ID]
+
+The file is attached to this email.
+
+Thank you,
+[your name]
+```
+
+## Replications with Revised Data {#replications}
+
+*Applies only to datasets revised after May/June 2019, and for journal review purposes only.*
+
+Following the 2019 LIS Template release, LIS introduced a data archiving system to support replication of analyses on datasets that have since been revised. This tool is intended exclusively for peer review activities or researchers needing to replicate published results, and access is granted for a maximum of two weeks.
+
+**How to request access to an earlier version of a revised dataset**
+
+Write to LIS user support at [usersupport@lisdatacenter.org](mailto:usersupport@lisdatacenter.org) specifying:
+
+- The database (LIS or LWS)
+- The statistical package used (Stata, R, SAS, or SPSS)
+- The date on which you accessed the dataset(s) and ran your analysis
+
+You will then receive an email with instructions on how to access the pre-revised datasets.
+
+You can [open a pre-filled email](mailto:usersupport@lisdatacenter.org?subject=LISSY%20request%3A%20access%20to%20an%20earlier%20dataset%20version%20%28replication%29&body=Dear%20LIS%20User%20Support%2C%0A%0AI%20would%20like%20to%20request%20access%20to%20an%20earlier%20version%20of%20a%20revised%20dataset%20for%20replication%20purposes.%0A%0AName%3A%20%5Byour%20full%20name%5D%0AInstitution%3A%20%5Byour%20institution%5D%0APurpose%3A%20%5Bpeer%20review%20%2F%20replication%20of%20a%20published%20result%5D%0AReference%20of%20the%20paper%20or%20journal%3A%20%5Btitle%2C%20journal%20or%20manuscript%20number%5D%0ADatabase%3A%20%5BLIS%20%2F%20LWS%5D%0AStatistical%20package%20used%3A%20%5BR%20%2F%20SAS%20%2F%20SPSS%20%2F%20Stata%5D%0ADate%20on%20which%20I%20accessed%20the%20dataset%28s%29%20and%20ran%20the%20analysis%3A%20%5Bdd%2Fmm%2Fyyyy%5D%0ADatasets%20concerned%3A%20%5Be.g.%20Germany%202018%2C%20Italy%202016%5D%0A%0AThank%20you%2C%0A%5Byour%20name%5D) or copy the template below.
+
+```text
+Subject: LISSY request: access to an earlier dataset version (replication)
+
+Dear LIS User Support,
+
+I would like to request access to an earlier version of a revised dataset for replication purposes.
+
+Name: [your full name]
+Institution: [your institution]
+Purpose: [peer review / replication of a published result]
+Reference of the paper or journal: [title, journal or manuscript number]
+Database: [LIS / LWS]
+Statistical package used: [R / SAS / SPSS / Stata]
+Date on which I accessed the dataset(s) and ran the analysis: [dd/mm/yyyy]
+Datasets concerned: [e.g. Germany 2018, Italy 2016]
+
+Thank you,
+[your name]
+```
+
+**Datasets under the 2011 Template**
+
+For users needing access to databases following the **2011 Template** (i.e. the last version of datasets on LISSY prior to May 2019 for LIS and mid-June 2019 for LWS), select the project `LISPRE` from LISSY for the LIS Database, and `LWSPRE` for the LWS Database.
+
+## Additional R Packages or .ado Files {#additional_packages}
+
+**R packages and Stata ado files** can only be installed by the LIS staff into the LISSY system. Please contact [User Support](/faqs/index.qmd#contact-support) if you wish to do so.
+
+To make the request easier, [open a pre-filled email](mailto:usersupport@lisdatacenter.org?subject=LISSY%20request%3A%20installation%20of%20an%20R%20package%20%2F%20Stata%20ado%20file&body=Dear%20LIS%20User%20Support%2C%0A%0AI%20would%20like%20to%20request%20the%20installation%20of%20the%20following%20in%20LISSY.%0A%0AName%3A%20%5Byour%20full%20name%5D%0AInstitution%3A%20%5Byour%20institution%5D%0ALISSY%20username%3A%20%5Byour%20username%5D%0ASoftware%3A%20%5BR%20%2F%20Stata%5D%0APackage%20or%20ado%20name%28s%29%3A%20%5Be.g.%20package1%2C%20package2%5D%0AVersion%28s%29%3A%20%5Be.g.%201.2.3%5D%0ASource%3A%20%5BCRAN%20%2F%20SSC%20%2F%20GitHub%20%2F%20attached%20files%5D%0APurpose%3A%20%5Bwhat%20you%20need%20it%20for%20in%20your%20analysis%5D%0A%0AIf%20the%20package%20is%20not%20publicly%20available%2C%20the%20files%20are%20attached%20to%20this%20email.%0A%0AThank%20you%2C%0A%5Byour%20name%5D) and list the names of the packages you need, or copy the template below. If the package is not publicly available, attach the files to your email.
+
+```text
+Subject: LISSY request: installation of an R package / Stata ado file
+
+Dear LIS User Support,
+
+I would like to request the installation of the following in LISSY.
+
+Name: [your full name]
+Institution: [your institution]
+LISSY username: [your username]
+Software: [R / Stata]
+Package or ado name(s): [e.g. package1, package2]
+Version(s): [e.g. 1.2.3]
+Source: [CRAN / SSC / GitHub / attached files]
+Purpose: [what you need it for in your analysis]
+
+If the package is not publicly available, the files are attached to this email.
+
+Thank you,
+[your name]
+```

@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar floating nav-fixed quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -110,8 +110,23 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Other Resources</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../advanced_uses/advanced-uses.html"> 
+<span class="menu-text">Advanced Uses</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="../#" target="_blank"> <i class="bi bi-clipboard-check" role="img" aria-label="Beta feedback survey">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link active" href="../faqs/index.html" aria-current="page"> 
 <span class="menu-text">FAQs</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../citations/citations.html"> 
+<span class="menu-text">Citations</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -119,46 +134,27 @@ ul.task-list li input[type="checkbox"] {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-          <h1 class="quarto-secondary-nav-title">FAQs</h1>
-        </a>     
-    </div>
-  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../faqs/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">FAQs</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#managing-lissy-jobs" id="toc-managing-lissy-jobs" class="nav-link active" data-scroll-target="#managing-lissy-jobs">Managing LISSY Jobs</a></li>
-  <li><a href="#replications-with-revised-data" id="toc-replications-with-revised-data" class="nav-link" data-scroll-target="#replications-with-revised-data">Replications with Revised Data</a>
+  <li><a href="#contact-support" id="toc-contact-support" class="nav-link active" data-scroll-target="#contact-support">How to Contact User Support</a></li>
+  <li><a href="#software-files-data-access" id="toc-software-files-data-access" class="nav-link" data-scroll-target="#software-files-data-access">Software, Files &amp; Data Access</a>
   <ul class="collapse">
-  <li><a href="#data-archiving-system-in-lissy" id="toc-data-archiving-system-in-lissy" class="nav-link" data-scroll-target="#data-archiving-system-in-lissy">Data Archiving System in LISSY</a></li>
-  <li><a href="#how-to-request-access-to-an-earlier-version-of-a-revised-dataset" id="toc-how-to-request-access-to-an-earlier-version-of-a-revised-dataset" class="nav-link" data-scroll-target="#how-to-request-access-to-an-earlier-version-of-a-revised-dataset">How to request access to an earlier version of a revised dataset?</a></li>
+  <li><a href="#which-versions-of-the-statistical-packages-are-available-in-lissy" id="toc-which-versions-of-the-statistical-packages-are-available-in-lissy" class="nav-link" data-scroll-target="#which-versions-of-the-statistical-packages-are-available-in-lissy">Which versions of the statistical packages are available in LISSY?</a></li>
+  <li><a href="#may-i-use-external-files-within-lissy" id="toc-may-i-use-external-files-within-lissy" class="nav-link" data-scroll-target="#may-i-use-external-files-within-lissy">May I use external files within LISSY?</a></li>
+  <li><a href="#can-i-add-an-r-package-or-a-stata-.ado-file" id="toc-can-i-add-an-r-package-or-a-stata-.ado-file" class="nav-link" data-scroll-target="#can-i-add-an-r-package-or-a-stata-.ado-file">Can I add an R package or a Stata .ado file?</a></li>
+  <li><a href="#can-i-access-a-previous-version-of-a-dataset-for-replication-purposes" id="toc-can-i-access-a-previous-version-of-a-dataset-for-replication-purposes" class="nav-link" data-scroll-target="#can-i-access-a-previous-version-of-a-dataset-for-replication-purposes">Can I access a previous version of a dataset for replication purposes?</a></li>
+  <li><a href="#are-there-other-ways-to-access-lis-microdata" id="toc-are-there-other-ways-to-access-lis-microdata" class="nav-link" data-scroll-target="#are-there-other-ways-to-access-lis-microdata">Are there other ways to access LIS microdata?</a></li>
   </ul></li>
-  <li><a href="#contact-support" id="toc-contact-support" class="nav-link" data-scroll-target="#contact-support">How to Contact User Support?</a></li>
+  <li><a href="#forbidden-words" id="toc-forbidden-words" class="nav-link" data-scroll-target="#forbidden-words">Forbidden Words</a></li>
+  <li><a href="#messages-you-may-receive" id="toc-messages-you-may-receive" class="nav-link" data-scroll-target="#messages-you-may-receive">Messages You May Receive</a></li>
   </ul>
 </nav>
     </div>
@@ -167,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">FAQs</h1>
+<h1 class="title">FAQs</h1>
 </div>
 
 
@@ -184,77 +180,129 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="managing-lissy-jobs" class="level2">
-<h2 class="anchored" data-anchor-id="managing-lissy-jobs">Managing LISSY Jobs</h2>
-<ol type="1">
-<li><p><strong>Can I download the LIS/LWS data?</strong></p>
-<p>No.&nbsp;Due to data confidentiality measures, the LIS microdata cannot be downloaded.</p></li>
-<li><p><strong>What statistical packages can I use with LISSY?</strong></p>
-<p>R (4.4.2), SAS (9.4), SPSS (22), and Stata (19.0) all work with LISSY.</p></li>
-<li><p><strong>May I use external files with the LIS databases?</strong></p>
-<p>If you wish to use external files with the microdata, send your request along with the attached file to <a href="mailto:usersupport@lisdatacenter.org">usersupport@lisdatacenter.org</a>. Your request will be reviewed and, if it meets security standards, you will receive an email with instructions on how to access your file.</p></li>
-<li><p id="forbidden-words">
-</p><p><strong>What are the forbidden words?</strong></p>
-<p></p>
-<p>The forbidden words depend on the statistical package used. LISSY automatically applies pre- and post-processing checks to ensure data confidentiality is never breached. Some syntax and commands may trigger security alerts — for example, syntax that displays frequencies on continuous variables or that would allow users to print individual records.</p>
-<p>Do not include the following commands in your job:</p>
-<ul>
-<li><strong>SAS:</strong> <code>print</code>, <code>NOXWAIT</code>, <code>NOXSYNC</code></li>
-<li><strong>SPSS:</strong> <code>print</code></li>
-<li><strong>Stata:</strong> <code>list</code>, <code>erase</code>, <code>rm</code>, <code>pwd</code>, <code>cd</code>, <code>rmdir</code>, <code>type</code>, <code>dir</code>, <code>ls</code></li>
-</ul></li>
-<li><p><strong>What does “set for review” mean, and how can I avoid this?</strong></p>
-<p>When LISSY detects a potentially suspicious job, it moves it to a security area for manual review and returns the error message <em>set for review</em>. To avoid this, adjust your code to avoid any syntax that could allow printing variables, regardless of programming language. Note that manually reviewed jobs may take some time to process — avoid resubmitting the same job until it has been handled.</p></li>
-<li><p><strong>What does “handling listing” or “job has been automatically killed” mean, and how can I avoid this?</strong></p>
-<p>The most common cause is an excessively long listing. To avoid this:</p>
-<ul>
-<li>Split your program code into smaller parts and send several shorter job submissions.</li>
-<li>Limit the number of datasets combined in a single run as much as possible.</li>
-<li>Include commands in your code to shorten outputs, such as:
-<ul>
-<li><strong>SAS:</strong> <code>OPTIONS nosource nonotes</code></li>
-<li><strong>Stata:</strong> <code>nolog</code>, <code>quietly</code>, or <code>noisily</code></li>
-</ul></li>
-</ul></li>
-<li><p><strong>I get an error message in my output. Is there a way to debug my program?</strong></p>
-<p>Debugging can be helped by testing your code on your own computer using the LIS or LWS downloadable sample files before submitting to LISSY. Note that no conclusions should be drawn from these artificial samples — they are created for instructional and debugging purposes only.</p></li>
-<li><p><strong>Can I receive non-ASCII output from LISSY (e.g.&nbsp;worksheets, HTML pages)?</strong></p>
-<p>Not currently. LISSY only returns plain ASCII output/listings from SAS, SPSS, R, and Stata.</p></li>
-<li><p><strong>Why do I receive the error “Could not connect to the server”?</strong></p>
-<p>This occurs when LISSY is temporarily down. Feel free to contact <a href="mailto:usersupport@lisdatacenter.org">usersupport@lisdatacenter.org</a> if you encounter this problem.</p></li>
-</ol>
-</section>
-<section id="replications-with-revised-data" class="level2">
-<h2 class="anchored" data-anchor-id="replications-with-revised-data">Replications with Revised Data</h2>
-<section id="data-archiving-system-in-lissy" class="level3">
-<h3 class="anchored" data-anchor-id="data-archiving-system-in-lissy">Data Archiving System in LISSY</h3>
-<p><em>Applies only to datasets revised after May/June 2019, and for journal review purposes only.</em></p>
-<p>Following the 2019 LIS Template release, LIS introduced a data archiving system to support replication of analyses on datasets that have since been revised. This tool is intended exclusively for peer review activities or researchers needing to replicate published results, and access is granted for a maximum of two weeks.</p>
-</section>
-<section id="how-to-request-access-to-an-earlier-version-of-a-revised-dataset" class="level3">
-<h3 class="anchored" data-anchor-id="how-to-request-access-to-an-earlier-version-of-a-revised-dataset">How to request access to an earlier version of a revised dataset?</h3>
-<p>Write to LIS user support at <a href="mailto:usersupport@lisdatacenter.org">usersupport@lisdatacenter.org</a> specifying:</p>
-<ul>
-<li>The database (LIS or LWS)</li>
-<li>The statistical package used (Stata, R, SAS, or SPSS)</li>
-<li>The date on which you accessed the dataset(s) and ran your analysis</li>
-</ul>
-<p>You will then receive an email with instructions on how to access the pre-revised datasets.</p>
-<p>For users needing access to databases following the <strong>2011 Template</strong> (i.e.&nbsp;the last version of datasets on LISSY prior to May 2019 for LIS and mid-June 2019 for LWS), select the project <code>LISPRE</code> from LISSY for the LIS Database, and <code>LWSPRE</code> for the LWS Database.</p>
-</section>
-</section>
 <section id="contact-support" class="level2">
-<h2 class="anchored" data-anchor-id="contact-support">How to Contact User Support?</h2>
-<p>For any specific issue not addressed above, please contact <a href="mailto:usersupport@lisdatacenter.org">usersupport@lisdatacenter.org</a>.</p>
+<h2 class="anchored" data-anchor-id="contact-support">How to Contact User Support</h2>
+<p>For any specific issue not addressed on this page, please contact <a href="mailto:usersupport@lisdatacenter.org">usersupport@lisdatacenter.org</a>.</p>
 <p>When the issue is related to LISSY, please provide the following information wherever possible:</p>
 <ol type="1">
 <li>The type of access used (web-based Job Submission Interface vs.&nbsp;email)</li>
 <li>The network and operating system from which you attempted to access LISSY (e.g.&nbsp;Princeton University on Windows 7 64-bit)</li>
-<li>A description of the exact stage at which the issue occurs — screenshots are welcome</li>
+<li>A description of the exact stage at which the issue occurs (screenshots are welcome)</li>
 <li>The error message received, if any</li>
 <li>The date and time when the problem occurred</li>
 <li>If the problem is related to a specific job, the job number</li>
 </ol>
+</section>
+<section id="software-files-data-access" class="level2">
+<h2 class="anchored" data-anchor-id="software-files-data-access">Software, Files &amp; Data Access</h2>
+<section id="which-versions-of-the-statistical-packages-are-available-in-lissy" class="level3">
+<h3 class="anchored" data-anchor-id="which-versions-of-the-statistical-packages-are-available-in-lissy">Which versions of the statistical packages are available in LISSY?</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Package</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R</td>
+<td>4.4.2</td>
+</tr>
+<tr class="even">
+<td>SAS</td>
+<td>9.4</td>
+</tr>
+<tr class="odd">
+<td>SPSS</td>
+<td>22</td>
+</tr>
+<tr class="even">
+<td>Stata</td>
+<td>19.0</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="may-i-use-external-files-within-lissy" class="level3">
+<h3 class="anchored" data-anchor-id="may-i-use-external-files-within-lissy">May I use external files within LISSY?</h3>
+<p>Yes, but only after review. See <a href="#external_files">here</a> for more instructions.</p>
+</section>
+<section id="can-i-add-an-r-package-or-a-stata-.ado-file" class="level3">
+<h3 class="anchored" data-anchor-id="can-i-add-an-r-package-or-a-stata-.ado-file">Can I add an R package or a Stata .ado file?</h3>
+<p>Yes, but not directly. See <a href="#additional_packages">here</a> how to request them.</p>
+</section>
+<section id="can-i-access-a-previous-version-of-a-dataset-for-replication-purposes" class="level3">
+<h3 class="anchored" data-anchor-id="can-i-access-a-previous-version-of-a-dataset-for-replication-purposes">Can I access a previous version of a dataset for replication purposes?</h3>
+<p>Yes, but for journal review purposes only. See <a href="#additional_packages">here</a> for more instructions.</p>
+</section>
+<section id="are-there-other-ways-to-access-lis-microdata" class="level3">
+<h3 class="anchored" data-anchor-id="are-there-other-ways-to-access-lis-microdata">Are there other ways to access LIS microdata?</h3>
+<p>LISSY is the standard route, and the microdata cannot be downloaded. Two alternatives exist for researchers who meet the eligibility conditions:</p>
+<ul>
+<li><strong>SafePod Network (UK).</strong> Eligible UK-based researchers can access LIS data from secure SafePods hosted at participating universities. Approval is based on a short project description. See <a href="https://www.lisdatacenter.org/news-and-events/lis-joins-the-uk-safepod-network-spn/">LIS joins the UK SafePod Network</a>.</li>
+<li><strong>Visiting programmes (Luxembourg).</strong> Visitors are hosted on site and work with the microdata on a secure computer without internet access. See the <a href="https://www.lisdatacenter.org/?p=171">Visiting Scholars Program</a>, and the calls for the LIS(2)ER research stays run jointly with LISER.</li>
+</ul>
+</section>
+</section>
+<section id="forbidden-words" class="level2">
+<h2 class="anchored" data-anchor-id="forbidden-words">Forbidden Words</h2>
+<p>LISSY automatically applies pre- and post-processing checks to make sure data confidentiality is never breached. Some commands trigger security alerts, for example syntax that displays frequencies on continuous variables or that would print individual records. Do not include the following commands in your job:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Package</th>
+<th>Forbidden commands</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SAS</td>
+<td><code>print</code>, <code>NOXWAIT</code>, <code>NOXSYNC</code></td>
+</tr>
+<tr class="even">
+<td>SPSS</td>
+<td><code>print</code></td>
+</tr>
+<tr class="odd">
+<td>Stata</td>
+<td><code>list</code>, <code>erase</code>, <code>rm</code>, <code>pwd</code>, <code>cd</code>, <code>rmdir</code>, <code>type</code>, <code>dir</code>, <code>ls</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="messages-you-may-receive" class="level2">
+<h2 class="anchored" data-anchor-id="messages-you-may-receive">Messages You May Receive</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Message</th>
+<th>What it means</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>set for review</em></td>
+<td>LISSY detected a potentially suspicious job and moved it to a security area for manual review.</td>
+<td>Remove any syntax that could print variables, in any language. Reviewed jobs take time, so do not resubmit the same job until it has been handled.</td>
+</tr>
+<tr class="even">
+<td><em>handling listing</em> or <em>job has been automatically killed</em></td>
+<td>The output was too long, which is the most common cause.</td>
+<td>Split your code into several shorter jobs, combine fewer datasets per run, and shorten outputs (SAS: <code>OPTIONS nosource nonotes</code>; Stata: <code>nolog</code>, <code>quietly</code> or <code>noisily</code>).</td>
+</tr>
+<tr class="odd">
+<td><em>Could not connect to the server</em></td>
+<td>LISSY is temporarily down.</td>
+<td>Try again later. If the problem persists, contact <a href="#contact-support">User Support</a>.</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>

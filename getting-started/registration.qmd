@@ -39,14 +39,6 @@ Eligibility depends on user status:
 ```
 
 
-<!-- ### Fee Coverage Notes -->
-
-<!-- - **2018–2025:** Individual fees for eligible researchers from non-contributing middle- and low-income countries may be covered by third-party funding raised by LIS. -->
-
-For payment arrangements, contact: [admin@lisdatacenter.org](mailto:admin@lisdatacenter.org)
-
-
-
 ## Registration & Renewal
 
 Eligible users must complete the **online LIS Microdata User Registration** before accessing LISSY. Approved applicants receive a user ID and password by email.
@@ -56,11 +48,31 @@ Eligible users must complete the **online LIS Microdata User Registration** befo
 
 Access is granted for **one calendar year** and must be renewed from 1 January each year.
 
-
-## Important Warnings
-
+::: {.callout-important}
 - **Do not register twice.** If you move to a new institution, wait until renewal to update your information.
 - To change your registered email address, contact [admin@lisdatacenter.org](mailto:admin@lisdatacenter.org).
+:::
+
+
+## Fees
+
+Students (any country), LIS/LWS data providers, and researchers from financially contributing countries or institutions are not charged. Other eligible researchers may be subject to an individual user fee, based on the [World Bank Country Income Classification](http://data.worldbank.org/about/country-classifications/country-and-lending-groups).
+
+Individual user fees by income category:
+
+| Income category             | Quarterly rate | Annual rate |
+|-----------------------------|---------------:|------------:|
+| Low-income                  |        €187.50 |        €750 |
+| Middle-income               |           €375 |      €1,500 |
+| High-income / supranational |           €750 |      €3,000 |
+
+<!-- ### Fee Coverage Notes -->
+
+<!-- - **2018–2025:** Individual fees for eligible researchers from non-contributing middle- and low-income countries may be covered by third-party funding raised by LIS. -->
+
+For payment arrangements, contact: [admin@lisdatacenter.org](mailto:admin@lisdatacenter.org)
+
+
 
 ```{=html}
 <style>

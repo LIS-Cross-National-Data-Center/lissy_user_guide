@@ -2,85 +2,63 @@
 title: "FAQs"
 ---
 
-## Managing LISSY Jobs
+## How to Contact User Support {#contact-support}
 
-1. **Can I download the LIS/LWS data?**
-
-   No. Due to data confidentiality measures, the LIS microdata cannot be downloaded.
-
-2. **What statistical packages can I use with LISSY?**
-
-   R (4.4.2), SAS (9.4), SPSS (22), and Stata (19.0) all work with LISSY.
-
-3. **May I use external files with the LIS databases?**
-
-   If you wish to use external files with the microdata, send your request along with the attached file to [usersupport@lisdatacenter.org](mailto:usersupport@lisdatacenter.org). Your request will be reviewed and, if it meets security standards, you will receive an email with instructions on how to access your file.
-
-4. <p id="forbidden-words">**What are the forbidden words?**</p>
-   The forbidden words depend on the statistical package used. LISSY automatically applies pre- and post-processing checks to ensure data confidentiality is never breached. Some syntax and commands may trigger security alerts — for example, syntax that displays frequencies on continuous variables or that would allow users to print individual records.
-
-   Do not include the following commands in your job:
-
-   - **SAS:** `print`, `NOXWAIT`, `NOXSYNC`
-   - **SPSS:** `print`
-   - **Stata:** `list`, `erase`, `rm`, `pwd`, `cd`, `rmdir`, `type`, `dir`, `ls`
-
-5. **What does "set for review" mean, and how can I avoid this?**
-
-   When LISSY detects a potentially suspicious job, it moves it to a security area for manual review and returns the error message *set for review*. To avoid this, adjust your code to avoid any syntax that could allow printing variables, regardless of programming language. Note that manually reviewed jobs may take some time to process — avoid resubmitting the same job until it has been handled.
-
-6. **What does "handling listing" or "job has been automatically killed" mean, and how can I avoid this?**
-
-   The most common cause is an excessively long listing. To avoid this:
-
-   - Split your program code into smaller parts and send several shorter job submissions.
-   - Limit the number of datasets combined in a single run as much as possible.
-   - Include commands in your code to shorten outputs, such as:
-     - **SAS:** `OPTIONS nosource nonotes`
-     - **Stata:** `nolog`, `quietly`, or `noisily`
-
-7. **I get an error message in my output. Is there a way to debug my program?**
-
-   Debugging can be helped by testing your code on your own computer using the LIS or LWS downloadable sample files before submitting to LISSY. Note that no conclusions should be drawn from these artificial samples — they are created for instructional and debugging purposes only.
-
-8. **Can I receive non-ASCII output from LISSY (e.g. worksheets, HTML pages)?**
-
-   Not currently. LISSY only returns plain ASCII output/listings from SAS, SPSS, R, and Stata.
-
-9. **Why do I receive the error "Could not connect to the server"?**
-
-   This occurs when LISSY is temporarily down. Feel free to contact [usersupport@lisdatacenter.org](mailto:usersupport@lisdatacenter.org) if you encounter this problem.
-
-
-## Replications with Revised Data
-
-### Data Archiving System in LISSY
-
-*Applies only to datasets revised after May/June 2019, and for journal review purposes only.*
-
-Following the 2019 LIS Template release, LIS introduced a data archiving system to support replication of analyses on datasets that have since been revised. This tool is intended exclusively for peer review activities or researchers needing to replicate published results, and access is granted for a maximum of two weeks.
-
-### How to request access to an earlier version of a revised dataset?
-
-Write to LIS user support at [usersupport\@lisdatacenter.org](mailto:usersupport@lisdatacenter.org) specifying:
-
-- The database (LIS or LWS)
-- The statistical package used (Stata, R, SAS, or SPSS)
-- The date on which you accessed the dataset(s) and ran your analysis
-
-You will then receive an email with instructions on how to access the pre-revised datasets.
-
-For users needing access to databases following the **2011 Template** (i.e. the last version of datasets on LISSY prior to May 2019 for LIS and mid-June 2019 for LWS), select the project `LISPRE` from LISSY for the LIS Database, and `LWSPRE` for the LWS Database.
-
-## How to Contact User Support? {#contact-support}
-
-For any specific issue not addressed above, please contact [usersupport\@lisdatacenter.org](mailto:usersupport@lisdatacenter.org).
+For any specific issue not addressed on this page, please contact [usersupport@lisdatacenter.org](mailto:usersupport@lisdatacenter.org).
 
 When the issue is related to LISSY, please provide the following information wherever possible:
 
-1.  The type of access used (web-based Job Submission Interface vs. email)
-2.  The network and operating system from which you attempted to access LISSY (e.g. Princeton University on Windows 7 64-bit)
-3.  A description of the exact stage at which the issue occurs — screenshots are welcome
-4.  The error message received, if any
-5.  The date and time when the problem occurred
-6.  If the problem is related to a specific job, the job number
+1. The type of access used (web-based Job Submission Interface vs. email)
+2. The network and operating system from which you attempted to access LISSY (e.g. Princeton University on Windows 7 64-bit)
+3. A description of the exact stage at which the issue occurs (screenshots are welcome)
+4. The error message received, if any
+5. The date and time when the problem occurred
+6. If the problem is related to a specific job, the job number
+
+## Software, Files & Data Access
+
+### Which versions of the statistical packages are available in LISSY?
+
+| Package | Version |
+|---------|---------|
+| R       | 4.4.2   |
+| SAS     | 9.4     |
+| SPSS    | 22      |
+| Stata   | 19.0    |
+
+### May I use external files within LISSY?
+
+Yes, but only after review. See [here](#external_files) for more instructions. 
+
+### Can I add an R package or a Stata .ado file?
+
+Yes, but not directly. See [here](#additional_packages) how to request them. 
+
+### Can I access a previous version of a dataset for replication purposes?
+
+Yes, but for journal review purposes only. See [here](#additional_packages) for more instructions. 
+
+### Are there other ways to access LIS microdata?
+
+LISSY is the standard route, and the microdata cannot be downloaded. Two alternatives exist for researchers who meet the eligibility conditions:
+
+- **SafePod Network (UK).** Eligible UK-based researchers can access LIS data from secure SafePods hosted at participating universities. Approval is based on a short project description. See [LIS joins the UK SafePod Network](https://www.lisdatacenter.org/news-and-events/lis-joins-the-uk-safepod-network-spn/).
+- **Visiting programmes (Luxembourg).** Visitors are hosted on site and work with the microdata on a secure computer without internet access. See the [Visiting Scholars Program](https://www.lisdatacenter.org/?p=171), and the calls for the LIS(2)ER research stays run jointly with LISER.
+
+## Forbidden Words {#forbidden-words}
+
+LISSY automatically applies pre- and post-processing checks to make sure data confidentiality is never breached. Some commands trigger security alerts, for example syntax that displays frequencies on continuous variables or that would print individual records. Do not include the following commands in your job:
+
+| Package | Forbidden commands |
+|---------|--------------------|
+| SAS     | `print`, `NOXWAIT`, `NOXSYNC` |
+| SPSS    | `print` |
+| Stata   | `list`, `erase`, `rm`, `pwd`, `cd`, `rmdir`, `type`, `dir`, `ls` |
+
+## Messages You May Receive
+
+| Message | What it means | What to do |
+|---------|---------------|------------|
+| *set for review* | LISSY detected a potentially suspicious job and moved it to a security area for manual review. | Remove any syntax that could print variables, in any language. Reviewed jobs take time, so do not resubmit the same job until it has been handled. |
+| *handling listing* or *job has been automatically killed* | The output was too long, which is the most common cause. | Split your code into several shorter jobs, combine fewer datasets per run, and shorten outputs (SAS: `OPTIONS nosource nonotes`; Stata: `nolog`, `quietly` or `noisily`). |
+| *Could not connect to the server* | LISSY is temporarily down. | Try again later. If the problem persists, contact [User Support](#contact-support). |

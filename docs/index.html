@@ -110,8 +110,23 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Other Resources</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./advanced_uses/advanced-uses.html"> 
+<span class="menu-text">Advanced Uses</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="./#" target="_blank"> <i class="bi bi-clipboard-check" role="img" aria-label="Beta feedback survey">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./faqs/index.html"> 
 <span class="menu-text">FAQs</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./citations/citations.html"> 
+<span class="menu-text">Citations</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -137,6 +152,12 @@ ul.task-list li input[type="checkbox"] {
   
   <p class="hero-sub">A secure remote-execution system for accessing LIS, LWS and LCS microdata from anywhere, in <strong>Stata</strong>, <strong>R</strong>, <strong>SAS</strong>, or <strong>SPSS</strong>.</p>
   <a href="https://webui.lisdatacenter.org/userinterface/" class="hero-btn">Login to LISSY →</a>
+
+<div class="feature-strip">
+  <div class="feature"><i class="bi bi-lightning-charge"></i><span><strong>Real-time</strong> execution 24/7</span></div>
+  <div class="feature"><i class="bi bi-shield-lock"></i><span><strong>Secure</strong> by design</span></div>
+  <div class="feature"><i class="bi bi-life-preserver"></i><span><strong>Dedicated</strong> user support</span></div>
+</div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -244,6 +265,45 @@ ul.task-list li input[type="checkbox"] {
 .hero-btn:hover {
   background-color: #254870;
 }
+
+/* Hero feature strip */
+.feature-strip {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: center;
+  column-gap: 2.5rem;
+  row-gap: 0.75rem;
+  max-width: 680px;
+  margin: 1.75rem auto 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid #e2e8f0;
+}
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: #4a5568;
+  white-space: nowrap;
+}
+.feature i {
+  flex: 0 0 1.25rem;
+  width: 1.25rem;
+  text-align: center;
+  font-size: 1.15rem;
+  line-height: 1;
+  color: #325d88;
+}
+.feature strong { font-weight: 600; color: #1a2e42; }
+
+@media (max-width: 640px) {
+  .feature-strip {
+    grid-template-columns: auto;
+    justify-items: start;
+  }
+}
+
+
 
 /* Side-by-side cards */
 .paths-row {

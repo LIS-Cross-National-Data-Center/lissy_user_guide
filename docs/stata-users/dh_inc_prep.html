@@ -136,8 +136,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Other Resources</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../advanced_uses/advanced-uses.html"> 
+<span class="menu-text">Advanced Uses</span></a>
+  </li>  
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item compact">
+    <a class="nav-link" href="../#" target="_blank"> <i class="bi bi-clipboard-check" role="img" aria-label="Beta feedback survey">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../faqs/index.html"> 
 <span class="menu-text">FAQs</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../citations/citations.html"> 
+<span class="menu-text">Citations</span></a>
   </li>  
 </ul>
 </div> <!-- /navcollapse -->
@@ -264,10 +279,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Spreadsheet-Ready Results</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Plotting</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stata-users/tidy_plots.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Plotting in Stata</span></a>
+ <span class="menu-text">Plotting in LISSY</span></a>
   </div>
 </li>
       </ul>
@@ -598,7 +624,7 @@ us24,Children Poverty Rates - Single-Mother Families (50%),46.48196</code></pre>
 <ol type="1">
 <li><p><strong><code>levelsof</code> and the loop.</strong> After loading the pooled dataset, <code>levelsof dname</code> extracts the full list of unique dataset identifiers — one per country-wave combination (e.g., <code>us19</code>, <code>de20</code>) — and stores them in the local macro <code>levels</code>. The <code>foreach</code> loop then iterates over this list, processing each dataset in turn. This avoids hardcoding country-year combinations and makes the routine straightforward to extend to additional countries or time periods simply by adjusting the arguments passed to <code>lissyuse</code>.</p></li>
 <li><p><strong><code>preserve</code> and <code>restore</code>.</strong> Because all waves and countries are held in memory simultaneously as a single pooled dataset, any modification made inside the loop — such as dropping observations or generating new variables — would otherwise permanently alter the data for all subsequent iterations. The <code>preserve</code> command saves a snapshot of the full dataset in memory at the start of each iteration, and <code>restore</code> reinstates it at the end, ensuring that each pass through the loop starts from the same complete pooled dataset.</p></li>
-<li><p><strong>Comma-separated output.</strong> The <code>display</code> statement at the end of each iteration prints the dataset identifier, the indicator label, and the estimated poverty rate as a comma-separated line. This format is deliberately chosen for its portability: the output can be copied directly into a spreadsheet or text file and parsed without any further reformatting.</p></li>
+<li><p><strong>Comma-separated output.</strong> The <code>display</code> statement at the end of each iteration prints the dataset identifier, the indicator label, and the estimated poverty rate as a comma-separated line. This format is deliberately chosen for its portability: aggregated results can be copied directly into a spreadsheet and parsed without any further reformatting.</p></li>
 </ol>
 <p>In the following section, we look more closely at how weighting works in LIS: which weight variables are available at each level of the data, and which ones suit each type of analysis.</p>
 

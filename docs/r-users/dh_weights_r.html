@@ -141,8 +141,23 @@ window.Quarto = {
 <span class="menu-text">Other Resources</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../advanced_uses/advanced-uses.html"> 
+<span class="menu-text">Advanced Uses</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="../#" target="_blank"> <i class="bi bi-clipboard-check" role="img" aria-label="Beta feedback survey">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../faqs/index.html"> 
 <span class="menu-text">FAQs</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../citations/citations.html"> 
+<span class="menu-text">Citations</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -278,7 +293,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../r-users/tidy_structure_to_plot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">structure_to_plot()</span></a>
+ <span class="menu-text">From lists to tidy data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -287,6 +302,17 @@ window.Quarto = {
  <span class="menu-text">Spreadsheet-Ready Results</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Plotting</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../r-users/tidy_plots.html" class="sidebar-item-text sidebar-link">
@@ -454,7 +480,7 @@ window.Quarto = {
 <li><strong>Multiplying a person weight by <code>nhhmem</code>.</strong> <code>pwgt</code> and <code>ppopwgt</code> already count people, so do not multiply them by anything.</li>
 <li><strong>Using <code>hwgt * nhhmem</code> after merging household variables onto the person file.</strong> The person file has one row per person, so each household would be counted <code>nhhmem</code> times too often. Use <code>pwgt</code> there.</li>
 <li><strong>Using a normalised weight for an absolute total.</strong> The normalised weights are not scaled to the population, so a sum gives a number that does not match real counts. Use <code>hpopwgt</code> or <code>ppopwgt</code> instead.</li>
-<li><strong>Equivalising income but weighting by households.</strong> If you divide income by the square root of <code>nhhmem</code> but weight only with <code>hwgt</code>, you describe households with equivalised incomes, not the distribution of people.</li>
+<li><strong>Equalizing income but weighting by households.</strong> Equivalization is done for person-level analyses, so weighting only with <code>hwgt</code> is wrong. To analyze the distribution of people when working with the household-level file only, use <code>hwgt * nhhmem</code> as the weight.</li>
 </ul>
 </div>
 </div>

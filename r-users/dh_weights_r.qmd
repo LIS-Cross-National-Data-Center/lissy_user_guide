@@ -49,5 +49,5 @@ Use the **normalised** weights for rates, shares, distributions and comparisons,
 - **Multiplying a person weight by `nhhmem`.** `pwgt` and `ppopwgt` already count people, so do not multiply them by anything.
 - **Using `hwgt * nhhmem` after merging household variables onto the person file.** The person file has one row per person, so each household would be counted `nhhmem` times too often. Use `pwgt` there.
 - **Using a normalised weight for an absolute total.** The normalised weights are not scaled to the population, so a sum gives a number that does not match real counts. Use `hpopwgt` or `ppopwgt` instead.
-- **Equivalising income but weighting by households.** If you divide income by the square root of `nhhmem` but weight only with `hwgt`, you describe households with equivalised incomes, not the distribution of people.
+- **Equalizing income but weighting by households.** Equivalization is done for person-level analyses, so weighting only with `hwgt` is wrong. To analyze the distribution of people when working with the household-level file only, use `hwgt * nhhmem` as the weight.
 :::

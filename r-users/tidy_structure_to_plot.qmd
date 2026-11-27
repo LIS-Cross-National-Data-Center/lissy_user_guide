@@ -13,7 +13,7 @@ In addition, a tabular structure makes the data easier to export, allowing users
 
 <br>
 
-## `structure_to_plot()`
+## From lists to tidy data: the `structure_to_plot()` function
 
 The function `structure_to_plot()` was designed to convert complex outputs into a format suitable for analysis and visualization. Specifically, it transforms the results produced by the `lissyrtools::run_weighted_*()` family of functions, from nested lists, **into tidy tabular data frames in long format**.
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Best Practises – LISSY User Guide</title>
+<title>Best Practices – LISSY User Guide</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -112,8 +112,23 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Other Resources</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../advanced_uses/advanced-uses.html"> 
+<span class="menu-text">Advanced Uses</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="../#" target="_blank"> <i class="bi bi-clipboard-check" role="img" aria-label="Beta feedback survey">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../faqs/index.html"> 
 <span class="menu-text">FAQs</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../citations/citations.html"> 
+<span class="menu-text">Citations</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -127,7 +142,7 @@ ul.task-list li input[type="checkbox"] {
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-          <h1 class="quarto-secondary-nav-title">Best Practises</h1>
+          <h1 class="quarto-secondary-nav-title">Best Practices</h1>
         </a>     
     </div>
   </nav>
@@ -181,7 +196,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Best Practises</h1>
+<h1 class="title d-none d-lg-block">Best Practices</h1>
 </div>
 
 
@@ -198,16 +213,65 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="stage">
+<p><span class="stage-label">1 · Prototyping and debugging</span></p>
 <ul>
-<li><p><strong>Before submitting a job to&nbsp;LISSY</strong>, we recommend using the <strong>sample files</strong> to prototype and debug in advance the jobs locally.</p></li>
-<li><p><strong>Send each job only once.</strong>&nbsp;If it is not returned, do not send it again. Moreover, <strong>wait for each job to be returned</strong> before submitting your next one.</p></li>
-<li><p>Try <strong>breaking statistical queries into several smaller jobs</strong> since queries that generate very large outputs can cause system congestion. Always select only the variables needed for the analysis, and when working with many country-year datasets, split the workload into multiple jobs whenever possible.</p></li>
-<li><p><strong>Do not attempt to view, examine, or print individual records at either the person or household level.</strong> In addition, certain program syntax and commands will trigger system security alerts and may interrupt traffic.</p></li>
-<li><p><strong>Do not use commands that violate our security measures</strong>. More on this in the <a href="..\faqs/index.html#forbidden-words">FAQs</a>.</p></li>
-<li><p><strong>Do not request frequencies on continuous variables</strong>, as this tends to violate our security measures.</p></li>
-<li><p>To create <strong>multiple charts</strong> in a single job run, the user needs to name them differently. More on this topic in the following links for <a href="..\stata-users/tidy_plots.html">Stata</a> and <a href="..\r-users/tidy_plots.html">R</a>.</p></li>
-<li><p><strong>R packages and Stata ado files</strong> can only be installed by the LIS Staff into the LISSY system. Please contact <a href="faqs/index.html#contact-support">User Support</a> if you wish to do so.</p></li>
+<li><p><strong>Before submitting a job to LISSY</strong>, use the <strong>sample files</strong> to prototype your code and debug it locally in advance.</p></li>
+<li><p><strong>If your prototype does not run as expected</strong>, fix it locally first. Do not draw conclusions from the sample files: they are artificial and exist for instructional and debugging purposes only.</p></li>
 </ul>
+</div>
+<div class="stage">
+<p><span class="stage-label">2 · Importing the data</span></p>
+<ul>
+<li><p><strong>Select only the variables needed</strong> for your analysis.</p></li>
+<li><p><strong>Import conservatively.</strong> When working with many country-year datasets, split the workload into several jobs and import a group of countries in each one, rather than combining as many datasets as possible in a single run.</p></li>
+</ul>
+</div>
+<div class="stage">
+<p><span class="stage-label">3 · Writing the queries</span></p>
+<ul>
+<li><p><strong>Break statistical queries into several smaller jobs.</strong> Queries that generate very large outputs can cause system congestion.</p></li>
+<li><p><strong>Do not attempt to view, examine, or print individual records at either the person or household level.</strong> Certain program syntax and commands will trigger system security alerts and may interrupt traffic.</p></li>
+<li><p><strong>Do not use commands that violate our security measures.</strong> More on this in the <a href="..\faqs/index.html#forbidden-words">FAQs</a>.</p></li>
+<li><p><strong>Do not request frequencies on continuous variables</strong>, as this tends to violate our security measures.</p></li>
+</ul>
+</div>
+<div class="stage">
+<p><span class="stage-label">4 · Waiting for the output</span></p>
+<ul>
+<li><p><strong>Send each job only once.</strong> If it is not returned, do not send it again.</p></li>
+<li><p><strong>Wait for each job to be returned</strong> before submitting your next one.</p></li>
+</ul>
+</div>
+<div class="stage">
+<p><span class="stage-label">5 · Plotting</span></p>
+<ul>
+<li>To create <strong>multiple charts</strong> in a single job run, name them differently. More on this topic in the following links for <a href="..\stata-users/tidy_plots.html">Stata</a> and <a href="..\r-users/tidy_plots.html">R</a>.</li>
+</ul>
+</div>
+<style>
+/* Workflow stages */
+.stage {
+  border-left: 3px solid #D5490C;
+  padding: 0.1rem 0 0.1rem 1.25rem;
+  margin: 2rem 0;
+}
+.stage-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #D5490C;
+  margin-bottom: 0.6rem;
+}
+.stage ul {
+  margin-bottom: 0;
+}
+.stage li + li {
+  margin-top: 0.5rem;
+}
+</style>
 
 
 

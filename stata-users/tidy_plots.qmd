@@ -1,5 +1,5 @@
 ---
-title: "Structuring Results for Analysis"
+title: "Plotting in LISSY"
 ---
 
 
@@ -21,7 +21,7 @@ global myincl "../src"
 
 
 
-# Plotting in Stata {#plots_in_stata}
+[]{#plots_in_stata}
 
 ![](/images/multi_stata.png){width=100%}
 

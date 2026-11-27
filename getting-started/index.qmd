@@ -5,7 +5,7 @@ title: ""
 ```{=html}
 <div class="gs-hero">
   <h1 class="gs-hero__title">Your first steps with LISSY</h1>
-  <p class="gs-hero__sub">LISSY lets you load, analyse and visualize harmonized microdata from over 50 countries remotely, just as you would on your own machine.</p>
+  <p class="gs-hero__sub">LISSY is a secure remote-execution system that lets users load, analyse and visualize harmonized LIS/LWS/LCS microdata from over 50 countries, while respecting the privacy restrictions set by the countries providing the data.</p>
 </div>
 ```
 

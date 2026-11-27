@@ -1,0 +1,17 @@
+---
+title: "LIS' Rules for Citation"
+---
+
+Users of the LIS/LWS/LCS microdata are required to cite the data source in their list of references. As suggested by the Chicago Manual of Style (15th edition, 2007) pp 753-754 (17.358), LIS requests that authors use the following format.
+
+## LIS microdata
+
+Luxembourg Income Study (LIS) Database, (multiple countries; {include the dates of the interval during which microdata runs completed}). Luxembourg: LIS.
+
+## LWS microdata
+
+Luxembourg Wealth Study (LWS) Database, (multiple countries; {include the dates of the interval during which microdata runs completed}). Luxembourg: LIS.
+
+## LCS microdata
+
+Luxembourg Consumption Study (LCS) Database, (multiple countries; {include the dates of the interval during which microdata runs completed}). Luxembourg: LIS.
